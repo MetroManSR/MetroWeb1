@@ -1,4 +1,5 @@
 [<kbd> <br> Back <br> </kbd>][Back]
+
 [Back]: https://metroman.me/en/balkeon/docs
 
 For starters, sentences in Balkeon have the SVO configuration for affirmative sentences and VSO for question sentences, let's get to the raw stuff.
