@@ -17,6 +17,6 @@
 
 [Affx]: https://metroman.me/en/balkeon/docs/instructions/affixes
 
-[<kbd> <br> Word Construction <br> </kbd>][Back]
+[<kbd> <br> Word Construction <br> </kbd>][WoCo]
 
-[Back]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
+[WoCo]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
