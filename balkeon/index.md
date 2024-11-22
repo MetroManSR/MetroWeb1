@@ -2,6 +2,10 @@
 
 [Home]: https://metroman.me/
 
+[<kbd> <br> Documentación <br> </kbd>][Docs]
+
+[Docs]: https://metroman.me/balkeon/docs
+
 # The Balkeon Project
 
 ### 🌐 Plakateon, diferasnateon, fluigateon. 
