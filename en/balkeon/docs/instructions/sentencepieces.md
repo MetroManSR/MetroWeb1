@@ -57,3 +57,34 @@ Remember that this is not completely necessary, go [here](https://www.metroman.m
 | Since when? | … tarkrion?  | How much?       | Yuan?        |
 | Until when? | … tilkrion?  | How often?      | … yuanoften? |
 | How?        | Kaum?        | How many times? | … yuanfos?   |
+
+## Relative Pronouns
+
+| English | Balkeon |
+|-------|-----------|
+| Who   | Konem     |
+| Which | Kual      |
+| That  | Kua       |
+| Whose | Emos      |
+| Whom  | Kanemstan |
+
+## Demonstrative Pronouns
+| English     | Balkeon |
+| ----------- | ----- |
+| That, those | Atsel |
+| This, these | Astel |
+
+## Indefinite Pronouns
+
+| /        | Thing / Person                 | Place
+
+Where | Time               | Way
+
+How | Reason    |
+| -------- | ------------------------------ | ------------ | ------------------ | -------- | --------- |
+| Some     | Emeon / Emaon / Em             | Platsem      | Fosem / Kronem     | Faumem   | Soparem   |
+| Any      | Keanem / Keanemeon / Keanemaon | Keanplats    | Keanfos / Keankron | Keanfaum | Keansopar |
+| Every    | Tutem / Tutemeon / Tutemaon    | Tutiplats    | Tutikron / Tutifos | Tutifaum | Tutsopar  |
+| No
+
+None | Nem / Nemeon / Nemaon          | Platsnem     | Kronunem / Fosnem  | Faumnem  | Soparnem  |
