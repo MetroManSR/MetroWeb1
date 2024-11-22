@@ -1,3 +1,7 @@
+[<kbd> <br> Back <br> </kbd>][Back]
+
+[Back]: https://metroman.me/en/balkeon/docs
+
 # Word Construction
 
 `[Root](id)(ado)(s)[gender or tense]`
