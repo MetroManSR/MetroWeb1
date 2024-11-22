@@ -3,15 +3,14 @@
 
 @import 'jekyll-theme-slate';
 body {
-	font-family: 'Courier New', monospace;
+	font-family: 'Helvetica', monospace;
 	line-height: 120%;
 	background-color: blue;
 	background-image: url("bg.gif");
 	background-attachment: fixed;
 	background-size: cover;
-}
-
-h1 {
-  color: red;
-  margin-left: 40px;
+	overflow: scroll;
+	border: 1px double #6D6D6D;
+        padding: 5px;
+        margin: 7px;
 }
