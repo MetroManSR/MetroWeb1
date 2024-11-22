@@ -11,4 +11,4 @@
 
 [<kbd> <br> Formality Guide <br> </kbd>][FmGi]
 
-[FmGi]: https://metroman.me/en/balkeon/docs/imstructions/formalityregister
+[FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
