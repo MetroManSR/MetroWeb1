@@ -1,5 +1,10 @@
 
 [<kbd> <br> English <br> </kbd>][Link]
+[<kbd> <br> Balkeon <br> </kbd>][Balk]
+
+[Link]: https://metroman.me/en
+[Balk]: https://metroman.me/Balkeon
+
 
 [Link]: https://metroman.me/en
 
