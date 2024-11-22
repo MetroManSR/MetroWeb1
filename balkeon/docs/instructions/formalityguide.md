@@ -1,6 +1,15 @@
-[<kbd> <br> Atrás <br> </kbd>][Back]
+[<kbd> <br>Atrás<br></kbd>][Back]
 
-[Back]: https://metroman.me/balkeon/docs
+[Back]:https://metroman.me/balkeon/docs
+
+### Atajos Relevantes
+
+[<kbd> <br>Piezas de las Oraciones <br></kbd>][StPs][<kbd> <br>Construcción de Oraciones<br> </kbd>][SnCo][<kbd> <br>Construcción de Palabras<br> </kbd>][WdCo]
+
+[StPs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
+[SnCo]: https://metroman.me/balkeon/docs/instructions/sentences
+[WdCo]: https://metroman.me/balkeon/docs/instructions/wordconstruction
+
 
 # Guía de la formalidad
 
