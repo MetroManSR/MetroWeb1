@@ -66,9 +66,10 @@ Remember that this is not completely necessary, go [here](https://www.metroman.m
 | Which | Kual      |
 | That  | Kua       |
 | Whose | Emos      |
-| Whom  | Kanemstan |
+| Whom  | Konemstan |
 
 ## Demonstrative Pronouns
+
 | English     | Balkeon |
 | ----------- | ------  |
 | That, those |  Atsel  |
