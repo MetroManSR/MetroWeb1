@@ -2,6 +2,13 @@
 
 [Back]: https://metroman.me/en/balkeon/docs
 
+### Important Shortcuts
+
+[<kbd> <br> Sentence Pieces <br> </kbd>][StPs][<kbd> <br> Formality Guide <br> </kbd>][FmGi] 
+
+[StPs]: https://metroman.me/en/balkeon/docs/sentencepieces
+[FmGi]: https://metroman.me/en/balkeon/docs/formalityregister
+
 # Sentence Construction
 
 For starters, sentences in Balkeon have the SVO configuration for affirmative sentences and VSO for question sentences, let's get to the raw stuff.
