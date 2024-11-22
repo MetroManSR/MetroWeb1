@@ -1,6 +1,6 @@
-remote_theme: pages-themes/slate@v0.2.0
-plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
+# remote_theme: pages-themes/slate@v0.2.0
+# plugins:
+# jekyll-remote-theme # add this line to the plugins list if you already have one
 
 ###########################################################
 ### Welcome to Beautiful Jekyll!
@@ -290,12 +290,7 @@ defaults:
 exclude:
   - CHANGELOG.md
   - CNAME
-  - Gemfile
-  - Gemfile.lock
-  - LICENSE
-  - README.md
-  - screenshot.png
-  - docs/
+
 
 plugins:
   - jekyll-paginate
