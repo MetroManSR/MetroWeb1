@@ -8,3 +8,7 @@
 [<kbd> <br> Sentence Construction <br> </kbd>][SnCs]
 
 [SnCs]: https://metroman.me/en/balkeon/docs/sentences
+
+[<kbd> <br> Formality Guide <br> </kbd>][FmGi]
+
+[FmGi]: https://metroman.me/en/balkeon/docs/formalityregister
