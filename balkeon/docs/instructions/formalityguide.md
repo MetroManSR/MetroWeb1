@@ -6,7 +6,7 @@
 
 👉 En Balkeon hay tonos de formalidad y contracciones, todos ellos con razonamiento sensato.
 
--# Notas previas: el uso de verbos modales cortos es universal. 
+*Notas previas: el uso de verbos modales cortos es universal.*
 
 ## Muy Formal
 
