@@ -1,4 +1,6 @@
-
+---
+layout:home
+---
 
 [<kbd> <br> English <br> </kbd>][Link]
 [<kbd> <br> Balkeon <br> </kbd>][Balk]
