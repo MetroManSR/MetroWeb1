@@ -1,13 +1,9 @@
 
 
-# Balkeon Home
-
-Welcome to my Conlang Balkeon
-
 # The Balkeon Project
 
 ### 🌐 Plakateon, diferasnateon, fluigateon. 
 
-🎉 Come and join this Conlang project with words from all over the world that aims to be Flexible, Versatile, Simple and Firm.
+🎉 Ven y únete a este proyecto Conlang con palabras de todo el mundo que pretende ser Flexible, Versátil, Sencillo y Firme.
 
-👌 It has more than 5000 words and counting, it is so Flexible that you can put together more words yourself. Join us and we will all collaborate to continue growing this pretentious Language
+👌 Lleva más de 5000 palabras y contando, es tan Flexible que puedes armar más palabras tú mismo. Entra y todos colaboraremos en seguir creciendo este pretencioso Idioma.
