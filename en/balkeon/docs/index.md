@@ -9,6 +9,10 @@
 
 [SnCs]: https://metroman.me/en/balkeon/docs/instructions/sentences
 
+[<kbd> <br> Sentence Pieces <br> </kbd>][SnPs]
+
+[SnPs]: https://metroman.me/en/balkeon/docs/instructions/sentencepieces 
+
 [<kbd> <br> Formality Guide <br> </kbd>][FmGi]
 
 [FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
