@@ -67,7 +67,7 @@ social-network-links:
 #  xing: yourname
 #  stackoverflow: "3943160/daattali"
 #  snapchat: deanat78
-#  instagram: deanat78
+  instagram: metroman.rrss
 #  spotify: yourname
 #  telephone: +14159998888
 #  steam: deanat78
@@ -79,7 +79,7 @@ social-network-links:
 #  bluesky: yourname
 #  ORCID: your ORCID ID
 #  google-scholar: your google scholar
-#  discord: "invite_code" or "users/userid" or "invite/invite_code"
+  discord: 8npsyq7rp7
 #  kaggle: yourname
 #  hackerrank: yourname
 #  gitlab: yourname
@@ -129,7 +129,7 @@ edit_page_button: true
 navbar-var-length: false
 
 # The keywords to associate with your website, for SEO purposes
-#keywords: "my,list,of,keywords"
+keywords: "conlang, balkeon, auxlang"
 
 ######################################
 # --- Colours / background image --- #
