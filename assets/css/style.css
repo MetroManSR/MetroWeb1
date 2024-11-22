@@ -5,7 +5,7 @@
 body {
 	font-family: 'Courier New', monospace;
 	line-height: 120%;
-	background-color: black;
+	background-color: blue;
 	background-image: url("bg.gif");
 	background-attachment: fixed;
 	background-size: cover;
