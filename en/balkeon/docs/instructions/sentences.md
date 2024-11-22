@@ -7,11 +7,17 @@
 For starters, sentences in Balkeon have the SVO configuration for affirmative sentences and VSO for question sentences, let's get to the raw stuff.
 
 ✨ I need to willingly give my school new chairs
+
 👀 S AV AD CV AO MO 
+
 🌟 Aye bolin nesir aenian os ensenatseonstan neobidu silseon
- 🚀 S AD AV DV AO MO ~~MP~~
+
+🚀 S AD AV DV AO MO ~~MP~~
+
 🌟 Aye bolin aenir os ensenatseonstan. neobidu silseon nes
+
 🚀 S AD CV DO MO AV ~~MP~~
+
 - S = Subject, maybe a Pronoun, always present except for Aye, which can be omitted
 - AD = Adverb, always behind the verb
 * Adverbs take `-in` suffix when modifying an explicit verb, otherwise the suffix `-un` gets used. 
@@ -55,9 +61,15 @@ This particle can be `Nek`, can be `Ah`, can be `Ar`.
 **LIMITATIONS**
 
 🌟 We can't go up the mountain
+
 🚀 Sayao kadir gonian yameon ah nek
+
 OR
+
 🚀 Sayao ahgonir yameon ka nek
+
 NEVER
+
 🙄 Sayao gonir yameon ka ah nek
+
 *Actually you COULD say that, but it is highly informal and ambiguous*
