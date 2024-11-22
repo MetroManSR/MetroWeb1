@@ -2,6 +2,37 @@
 
 [Back]: https://metroman.me/en/balkeon/docs
 
+# Sentence Pieces
+
+## Copulatives
+- And = Ara
+- Or = Oro
+- Neither nor = Nek [word] ara nek [word]...
+
+## I saw and they told me
+- I saw it = Bi
+- They told me = Sei
+
+## Personal Pronouns
+
+👉 In the image a chart of all Pronoun Conjugations, usage cases detailed in the Formality Guide.
+
+### Direct correlation
+
+- I = Aye
+- You = Yu
+- He = O
+- She = A
+- It = Eo
+- He and she = Oara
+- We = Saye
+- You = Siyu (Plural)
+- They = Se
+
+### Chart
+
+Remember that this is not completely necessary, go [here](https://www.metroman.me/en/balkeon/docs/instructions/formalityregister) to know when it is needed.
+
 | Who?        | Kaen?        | With what?      | … peken?     |
 | ----------- | ------------ | --------------- | ------------ |
 | Whom?       | … kaenstan?  | Why?            | Prok?        |
