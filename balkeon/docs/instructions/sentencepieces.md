@@ -1,6 +1,6 @@
 [<kbd> <br> Atrás <br> </kbd>][Back]
 
-[Back]: https://metroman.me/en/balkeon/docs
+[Back]: https://metroman.me/balkeon/docs
 
 # Piezas de oraciones
 
