@@ -57,7 +57,7 @@ To emphasize an action like what “do” does in “I did do that” add yek at
 
 Faumtuti is a stronger emphasizer and yekin like nekin is the colloquial emphasizer
 
-
+### Related Suffixes
 
 - Am I doing? - inge aye?
 - Why weren't you doing? - ingipe yu nek?
