@@ -63,9 +63,14 @@ Estas partículas pueden ser `Nek`, `Ah`, `Ar`.
 **LIMITACIONES**
 
 🌟 No podemos subir la montaña
+
 🚀 Sayao kadir gonian yameon ah nek
+
 O
+
 🚀 Sayao ahgonir yameon ka nek
+
 NUNCA
+
 🙄 Sayao gonir yameon ka ah nek
 *De hecho realmente se PODRÍA usar la tercera forma Pero es demasiado informal y ambiguo*
