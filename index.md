@@ -3,7 +3,7 @@
 [<kbd> <br> Balkeon <br> </kbd>][Balk]
 
 [Link]: https://metroman.me/en
-[Balk]: https://metroman.me/Balkeon
+[Balk]: https://metroman.me/balkeon
 
 
 [Link]: https://metroman.me/en
