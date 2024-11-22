@@ -5,7 +5,7 @@
 
 # Affix Chart
 
-| Definition                              | Afijo   | Definición                     | Afijo    |
+| Definition                              | Affix   | Definición                     | Affix    |
 | --------------------------------------- | ------- | ------------------------------ | -------- |
 | Opposite                                | Nek-    | Nationality / Origin           | \-iop-   |
 | Ex                                      | Eks-    | Language                       | \-iom-   |
@@ -23,7 +23,7 @@
 | Augmentative                            | \-ag-   | Vert                           | \-um-    |
 | Diminutive                              | \-alk-  | To punch with                  | \-uch-   |
 | Son of, descendant                      | \-it-   | Worth of                       | \-erb-   |
-| Who/what does, what/who is in charge of | \-em-   | Doctrina or believe system     | \-og-    |
+| Who/what does, what/who is in charge of | \-em-   | Doctrine or believe system     | \-og-    |
 | Boss of                                 | \-and-  | Container, recipient           | \-ont-   |
 | Member                                  | \-ambr- | More                           | \-upr-   |
 | Less                                    | \-en-   | The most                       | \-unt-   |
