@@ -1,4 +1,4 @@
-[<kbd> <br> Atrás <br> </kbd>][Back]
+[<kbd> <br> Back <br> </kbd>][Back]
 
 [Back]: https://metroman.me/en/balkeon/docs
 
