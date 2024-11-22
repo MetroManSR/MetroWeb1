@@ -24,7 +24,7 @@
 ## Grammatical tense suffixes
 
 👉 Check the image for verb conjugation.
-👉 Infinitive of verbs is `irian` and `ian`. First case used at Very Formal Speech (More Info [here]([https://metroman.me/en/balkeon/docs/instructions/formalityregister)) and when the verb doesn't link to any other verb, second one for the rest of the cases, specially when going together with a modal or auxiliary verb.
+👉 Infinitive of verbs is `irian` and `ian`. First case used at Very Formal Speech (More Info [here](https://metroman.me/en/balkeon/docs/instructions/formalityregister)) and when the verb doesn't link to any other verb, second one for the rest of the cases, specially when going together with a modal or auxiliary verb.
 
 - Am I doing? - inge aye?
 - Why weren't you doing? - ingipe yu nek?
