@@ -1,5 +1,7 @@
 
-[Atrás]: https://metroman.me/balkeon/docs
+[<kbd> <br>Atrás<br></kbd>][Back]
+
+[Back]:https://metroman.me/balkeon/docs
 
 ### Atajos Relevantes
 
