@@ -13,9 +13,9 @@
 
 [FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
 
-[<kbd> <br> Affixes <br> </kbd>][FmGi]
+[<kbd> <br> Affixes <br> </kbd>][Affx]
 
-[FmGi]: https://metroman.me/en/balkeon/docs/instructions/affixes
+[Affx]: https://metroman.me/en/balkeon/docs/instructions/affixes
 
 [<kbd> <br> Word Construction <br> </kbd>][Back]
 
