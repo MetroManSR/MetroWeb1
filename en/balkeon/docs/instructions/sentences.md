@@ -52,7 +52,7 @@ This particle can be `Nek`, can be `Ah`, can be `Ar`.
 
 - This is similar to `O gonir ah yameon` and practically the same but here's the difference.
 
-***Using the modification particle is Formal, Using the prefix of the verb as a Preposition is kinda informal***
+***Using the modification particle is Formal, Using the prefix of the verb as a Preposition is kinda informal, more details [here](https://www.metroman.me/en/balkeon/docs/instructions/formalityregister)***
 
 *Particles Sei and Bir*
 
