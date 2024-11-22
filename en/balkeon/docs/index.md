@@ -16,3 +16,7 @@
 [<kbd> <br> Affixes <br> </kbd>][FmGi]
 
 [FmGi]: https://metroman.me/en/balkeon/docs/instructions/affixes
+
+[<kbd> <br> Word Construction <br> </kbd>][Back]
+
+[Back]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
