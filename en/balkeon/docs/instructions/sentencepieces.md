@@ -76,15 +76,9 @@ Remember that this is not completely necessary, go [here](https://www.metroman.m
 
 ## Indefinite Pronouns
 
-| /        | Thing / Person                 | Place
-
-Where | Time               | Way
-
-How | Reason    |
+| /        | Thing / Person                 | Place / Where | Time     | Way / How | Reason    |
 | -------- | ------------------------------ | ------------ | ------------------ | -------- | --------- |
 | Some     | Emeon / Emaon / Em             | Platsem      | Fosem / Kronem     | Faumem   | Soparem   |
 | Any      | Keanem / Keanemeon / Keanemaon | Keanplats    | Keanfos / Keankron | Keanfaum | Keansopar |
 | Every    | Tutem / Tutemeon / Tutemaon    | Tutiplats    | Tutikron / Tutifos | Tutifaum | Tutsopar  |
-| No
-
-None | Nem / Nemeon / Nemaon          | Platsnem     | Kronunem / Fosnem  | Faumnem  | Soparnem  |
+| No / None | Nem / Nemeon / Nemaon          | Platsnem     | Kronunem / Fosnem  | Faumnem  | Soparnem  |
