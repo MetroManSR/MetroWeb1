@@ -20,3 +20,7 @@
 ### 🕴[<kbd> <br> Guía de Formalidad <br> </kbd>][FmGu]
 
 [FmGu]: https://metroman.me/balkeon/docs/instructions/formalityguide
+
+### 🌼 [<kbd> <br> Construcción de Palabras <br> </kbd>][FmGu]
+
+[FmGu]: https://metroman.me/balkeon/docs/instructions/wordconstruction
