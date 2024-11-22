@@ -5,8 +5,13 @@
 body {
 	font-family: 'Courier New', monospace;
 	line-height: 120%;
-	background-color: RED;
+	background-color: blue;
 	background-image: url("bg.gif");
 	background-attachment: fixed;
 	background-size: cover;
+}
+
+h1 {
+  color: red;
+  margin-left: 40px;
 }
