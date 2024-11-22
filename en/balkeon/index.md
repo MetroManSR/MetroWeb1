@@ -1,6 +1,9 @@
-[<kbd> <br> Home <br> </kbd>][Home]
+[<kbd> <br> Home <br> </kbd>][Home] [<kbd> <br> Discord <br> </kbd>][Dcr]
 
+[Dcr]: https://discord.gg/8NPsyq7rp7
 [Home]: https://metroman.me/en
+
+
 
 [<kbd> <br> Documentation <br> </kbd>][Docs]
 
