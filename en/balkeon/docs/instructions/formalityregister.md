@@ -2,6 +2,13 @@
 
 [Back]: https://metroman.me/en/balkeon/docs
 
+### Important Shortcuts
+
+[<kbd> <br> Sentence Pieces <br> </kbd>][StPs][<kbd> <br> Word Construction <br> </kbd>][WdCn][<kbd> <br> Sentence Construction <br> </kbd>][SnCo]
+
+[StPs]: https://metroman.me/en/balkeon/docs/instructions/sentencepieces
+[WdCn]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
+[SnCo]: https://metroman.me/en/balkeon/docs/instructions/sentences
 
 # Formality Registers Guide
 
