@@ -31,8 +31,33 @@
 
 ## Grammatical tense suffixes
 
-👉 Check the image for verb conjugation.
 👉 Infinitive of verbs is `irian` and `ian`. First case used at Very Formal Speech (More Info [here](https://metroman.me/en/balkeon/docs/instructions/formalityregister)) and when the verb doesn't link to any other verb, second one for the rest of the cases, specially when going together with a modal or auxiliary verb.
+
+|         | Simple | Continuous | Perfect | Perfect Continuous |
+| ------- | ------ | ---------- | ------- | ------------------ |
+| Past    | ipe    | ingipe     | ipo     | inkipe             |
+| Present | ir     | inge       | iro     | inke               |
+| Future  | ibe    | ingibe     | ibo     | inkibe             |
+
+| More Verb Forms       | Imperative | Conditional | Passive and Temporal State | To be in Long Lasting State |
+| --------------------- | ---------- | ----------- | -------------------------- | --------------------------- |
+| \- Suffix\- - Infix | \-aor      | \-a-        | \-ados-      | \-es-                       |
+
+### No
+
+To say don't or not just add nek at the very end of the sentence.
+
+One way to emphasize the negation is through not using nek at all, instead faumnem as an adverb.
+
+A more colloquial way is by using nekin.
+
+### Yes
+
+To emphasize an action like what “do” does in “I did do that” add yek at the end of the sentence.
+
+Faumtuti is a stronger emphasizer and yekin like nekin is the colloquial emphasizer
+
+
 
 - Am I doing? - inge aye?
 - Why weren't you doing? - ingipe yu nek?
