@@ -15,7 +15,7 @@
 
 ## Pronombres personales
 
-👉 En la imagen una tabla con todas las Conjugaciones de Pronombres, casos de uso detallados en la Guía de Formalidad.
+👉 En la imagen una tabla con todas las Conjugaciones de Pronombres, casos de uso detallados en la [Guía de Formalidad](https://metroman.me/en/balkeon/docs/instructions/formalityguide).
 
 ### Correlación directa
 
@@ -31,6 +31,8 @@
 - Vosotras = Siyu
 - Ellos = Se / So
 - Ellas = Sa
+
+## Pronombres Interrogativos
 
 | ¿Quién?        | Kaen?        | ¿Con qué?       | … peken?     |
 | -------------- | ------------ | --------------- | ------------ |
