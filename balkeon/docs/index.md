@@ -8,3 +8,7 @@
 [<kbd> <br> Construcción de Oraciones <br> </kbd>][SnCs]
 
 [SnCs]: https://metroman.me/balkeon/docs/instructions/sentences
+
+[<kbd> <br> Sufijos, prefijos, infijos <br> </kbd>][FmGi]
+
+[FmGi]: https://metroman.me/balkeon/docs/instructions/affixes
