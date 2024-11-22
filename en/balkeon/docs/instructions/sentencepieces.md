@@ -43,9 +43,7 @@ Remember that this is not completely necessary, go [here](https://www.metroman.m
 
 ## Interrogative Pronouns
 
-
 | Who?        | Kaen?        | With what?      | … peken?     |
-| ----------- | ------------ | --------------- | ------------ |
 | Whom?       | … kaenstan?  | Why?            | Prok?        |
 | With who?   | … kelkaen?   | For what?       | … froken?    |
 | For who?    | … fronkaen?  | Where?          | Deon?        |
