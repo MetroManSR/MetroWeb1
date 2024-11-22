@@ -1,3 +1,4 @@
+
 [<kbd> <br> Back <br> </kbd>][Back]
 
 [Back]: https://metroman.me/en/balkeon/docs
@@ -14,8 +15,6 @@
 - They told me = Sei
 
 ## Personal Pronouns
-
-👉 In the image a chart of all Pronoun Conjugations, usage cases detailed in the Formality Guide.
 
 ### Direct correlation
 
