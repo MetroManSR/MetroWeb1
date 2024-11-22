@@ -4,12 +4,11 @@
 
 ### Important Shortcuts
 
-[<kbd> <br> Sentence Pieces <br> </kbd>][StPs][<kbd> <br> Formality Guide <br> </kbd>][FmGi][<kbd> <br> Word Construction <br> </kbd>][WdCn][<kbd> <br> Sentence Construction <br> </kbd>][SnCo]
+[<kbd> <br> Sentence Pieces <br> </kbd>][StPs][<kbd> <br> Formality Guide <br> </kbd>][FmGi][<kbd> <br> Word Construction <br> </kbd>][WdCn]
 
 [StPs]: https://metroman.me/en/balkeon/docs/instructions/sentencepieces
 [FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
 [WdCn]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
-[SnCo]: https://metroman.me/en/balkeon/docs/instructions/sentences
 
 
 # Sentence Construction
