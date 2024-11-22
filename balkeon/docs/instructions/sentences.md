@@ -1,13 +1,24 @@
+[<kbd> <br> Atrás <br> </kbd>][Back]
+
+[Back]: https://metroman.me/en/balkeon/docs
+
+
 # Construcción de Oraciones
 
 Lo básico de las frases en Balkeon es que estas están configuradas en SVO (frases afirmativas) y VSO (frases interrogativas). Ahora inicio lo más puro y duro
 
 ✨Tengo que pronto darle sillas nuevas a mi colegio
+
 👀 S VA AD VP OD OI
+
 🌟 Aye fruin dabir aenian os ensenatseonstan neobidu silseon
- 🚀 S AD VA VP OI OD ~~PM~~
-🌟 Aye fruin aenir os ensenatseonstan neobidu silseon da
+
 🚀 S AD VA VP OI OD ~~PM~~
+
+🌟 Aye fruin aenir os ensenatseonstan neobidu silseon da
+
+🚀 S AD VA VP OI OD ~~PM~~
+
 - S = Sujeto, puede ser un Pronombre, siempre debe especificarse a menos que sea Aye, el cual puede omitirse 
 - AD = Adverbio, siempre detrás del verbo
 * Los AD siempre llevan el sufijo `-in` cuando modifican un verbo explícito, de otro modo se usa el sufijo `-un`. 
@@ -36,6 +47,7 @@ Lo básico de las frases en Balkeon es que estas están configuradas en SVO (fra
 Estas partículas pueden ser `Nek`, `Ah`, `Ar`. 
 
 💫 Sube las montañas
+
 🪐 O gonir yameon ah
 
 - `Ahgonirian` significa `Subir`, pero en este caso le sacamos el prefijo al verbo y lo movemos al final de la oración para cambiar su sentido entero.
