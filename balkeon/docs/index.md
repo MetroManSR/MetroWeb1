@@ -9,9 +9,9 @@
 
 [SnCs]: https://metroman.me/balkeon/docs/instructions/sentences
 
-### 🛠 [<kbd> <br> Piezas de las Oraciones <br> </kbd>][SnCs]
+### 🛠 [<kbd> <br> Piezas de las Oraciones <br> </kbd>][SnPs]
 
-[SnCs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
+[SnPs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
 
 ### 🧩 [<kbd> <br> Sufijos, prefijos, infijos <br> </kbd>][FmGi]
 
