@@ -12,3 +12,7 @@
 [<kbd> <br> Formality Guide <br> </kbd>][FmGi]
 
 [FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
+
+[<kbd> <br> Affixes <br> </kbd>][FmGi]
+
+[FmGi]: https://metroman.me/en/balkeon/docs/instructions/affixes
