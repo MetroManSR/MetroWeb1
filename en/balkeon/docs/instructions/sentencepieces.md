@@ -70,9 +70,9 @@ Remember that this is not completely necessary, go [here](https://www.metroman.m
 
 ## Demonstrative Pronouns
 | English     | Balkeon |
-| ----------- | ----- |
-| That, those | Atsel |
-| This, these | Astel |
+| ----------- | ------  |
+| That, those |  Atsel  |
+| This, these |  Astel  |
 
 ## Indefinite Pronouns
 
