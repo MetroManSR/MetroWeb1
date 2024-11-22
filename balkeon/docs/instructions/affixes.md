@@ -8,7 +8,7 @@
 [StPs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
 [FmGi]: https://metroman.me/balkeon/docs/instructions/formalityguide
 [SnCo]: https://metroman.me/balkeon/docs/instructions/sentences
-[SnCo]: https://metroman.me/balkeon/docs/instructions/wordconstruction
+[WdCo]: https://metroman.me/balkeon/docs/instructions/wordconstruction
 
 
 # Tabla de Afijos
