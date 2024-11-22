@@ -2,6 +2,8 @@
 
 [Back]: https://metroman.me/en/balkeon/docs
 
+# Sentence Construction
+
 For starters, sentences in Balkeon have the SVO configuration for affirmative sentences and VSO for question sentences, let's get to the raw stuff.
 
 ✨ I need to willingly give my school new chairs
