@@ -5,7 +5,7 @@
 
 # Affix Chart
 
-| Definition                              | Affix   | Definición                     | Affix    |
+| Definition                              | Affix   | Definition                    | Affix    |
 | --------------------------------------- | ------- | ------------------------------ | -------- |
 | Opposite                                | Nek-    | Nationality / Origin           | \-iop-   |
 | Ex                                      | Eks-    | Language                       | \-iom-   |
