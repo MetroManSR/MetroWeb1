@@ -3,6 +3,14 @@
 
 [Back]: https://metroman.me/en/balkeon/docs
 
+### Important Shortcuts
+
+[<kbd> <br> Formality Guide <br> </kbd>][FmGi][<kbd> <br> Word Construction <br> </kbd>][WdCn][<kbd> <br> Sentence Construction <br> </kbd>][SnCo]
+
+[FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
+[WdCn]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
+[SnCo]: https://metroman.me/en/balkeon/docs/instructions/sentences
+
 # Sentence Pieces
 
 ## Copulatives
