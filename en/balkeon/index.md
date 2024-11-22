@@ -2,6 +2,10 @@
 
 [Home]: https://metroman.me/en
 
+[<kbd> <br> Documentation <br> </kbd>][Docs]
+
+[Docs]: https://metroman.me/en/balkeon/docs
+
 # Balkeon Home
 
 Welcome to my Conlang Balkeon
