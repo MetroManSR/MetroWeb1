@@ -91,23 +91,27 @@
   
 - Menos = Menideon
 
+- Grande = Gragideon
+
 ## Verbos
 
 - Tener = Habirian
-  
-- Querer = Bolirian
 
 - Hacer = Agdirian (mat) / Sakirian (inmat)
   
-- Poder = Kadirian
-  
 - Comer = Namnirian
   
-- Tener que = Dabirian (deber) / Nesirian (Necesitar)
-
 - Ir = Gonirian
   
 - Escribir = Ekririan
+
+- Disfrutar = Tanoshmirian
+
+- Dormir = Durmirian
+
+- Trabajar = Laboririan
+
+- Funcionar = Funsirian
 
 ## Tiempo
 
@@ -166,3 +170,13 @@
 - Tan = Yaen
   
 - También - Dumor/Matren
+
+## Verbos Auxiliares
+ 
+- Poder = Kadirian (Ka)
+
+- Tener que = Dabirian (deber) (Da) / Nesirian (Necesitar) (Nes)
+
+- Querer = Bolirian (Bol)
+
+- Intentar = Testirian (Tes)
