@@ -8,12 +8,12 @@
 
 # Índice 
 
-- [Conversación](##Conversación)
-- [Discord](##Discord)
-- [Adjetivos](##Adjetivos)
-- [Verbos](##Verbos)
-- [Tiempo](##Tiempo)
-- [Direcciones](##Direcciones)
+- [Conversación](##conversación)
+- [Discord](##discord)
+- [Adjetivos](##adjetivos)
+- [Verbos](##verbos)
+- [Tiempo](##tiempo)
+- [Direcciones](##direcciones)
   
 
 ## Conversación
