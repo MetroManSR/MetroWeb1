@@ -2,11 +2,8 @@
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
   <span class="button-82-front text">
-    [text]
+    Oa
   </span> </button>
-
-[directory]: ../index
-[text]: TOUCH ME
 
 [<kbd>Español</kbd>][Link]
 [<kbd>Learn Balkeon!</kbd>][Balk]
