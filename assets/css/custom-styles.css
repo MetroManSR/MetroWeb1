@@ -26,7 +26,7 @@ body {
 
 #nav {
 
-    background-color: --nav-color; /*Whatever color you want goes here, but in Hexadecimal form*/
+    background-color: var(--nav-color); /*Whatever color you want goes here, but in Hexadecimal form*/
     color: #000000; /*The color of your font also goes here, but in hexadecimal form*/
 }
 
