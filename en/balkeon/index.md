@@ -1,4 +1,3 @@
-/* Buttton */
 
 <button class="button-82-pushable" role="button" onclick="location.href='./index'">
   <span class="button-82-shadow"></span>
@@ -11,7 +10,6 @@
   <span class="button-82-front text">
   Español
   </span> </button>
-/* Buttton */
 
 <button class="button-82-pushable" role="button" onclick="location.href='./docs/index'">
   <span class="button-82-shadow"></span>
