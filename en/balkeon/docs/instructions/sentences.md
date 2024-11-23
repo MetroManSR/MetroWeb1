@@ -1,15 +1,14 @@
-[<kbd> <br> Back <br> </kbd>][Back]
+[<kbd>Back</kbd>][Back]
 
 [Back]: https://metroman.me/en/balkeon/docs
 
 ### Important Shortcuts
 
-[<kbd> <br> Sentence Pieces <br> </kbd>][StPs][<kbd> <br> Formality Guide <br> </kbd>][FmGi][<kbd> <br> Word Construction <br> </kbd>][WdCn]
+[<kbd>Sentence Pieces</kbd>][StPs][<kbd>Formality Guide</kbd>][FmGi][<kbd>Word Construction</kbd>][WdCn]
 
 [StPs]: https://metroman.me/en/balkeon/docs/instructions/sentencepieces
 [FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
 [WdCn]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
-
 
 # Sentence Construction
 
