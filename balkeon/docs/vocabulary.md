@@ -6,6 +6,15 @@
 
 - *Los Antónimos se crean con prefijo Nek*
 
+# Índice 
+
+- [Conversación](##Conversación)
+- [Discord](##Discord)
+- [Adjetivos](##Adjetivos)
+- [Verbos](##Verbos)
+- [Tiempo](##Tiempo)
+- [Direcciones](##Direcciones)
+  
 
 ## Conversación
 
