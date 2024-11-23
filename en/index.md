@@ -3,10 +3,12 @@
   <span class="button-82-edge"></span>
   <span class="button-82-front text">
     Español
+  </span> </button> <button class="button-82-pushable" role="button" onclick="location.href='./balkeon'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+    Learn Balkeon
   </span> </button>
-
-[<kbd>Español</kbd>][Link]
-[<kbd>Learn Balkeon!</kbd>][Balk]
 
 [Link]: https://metroman.me
 [Balk]: https://metroman.me/en/balkeon
