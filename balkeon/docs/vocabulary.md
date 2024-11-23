@@ -1,4 +1,6 @@
+[<kbd>Atrás</kbd>][Back]
 
+[Back]: https://www.metroman.me/en/balkeon/docs
 
 # Vocabulario Palabras Recurrentes
 
