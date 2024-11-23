@@ -67,3 +67,9 @@
   display: inline-block;
   font-size: 16px;
 }
+
+/* Tablesolution */
+
+.table-wrapper {
+  overflow-x: scroll;
+}
