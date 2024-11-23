@@ -1,6 +1,6 @@
 
-<button name="MetroEn" onclick="https://metroman.me/en">English</button>
-<button name="BalkEs" onclick="https://metroman.me/balkeon">Aprende Balkeon</button>
+<button name="MetroEn" onclick=https://metroman.me/en>English</button>
+<button name="BalkEs" onclick=https://metroman.me/balkeon>Aprende Balkeon</button>
 
 # Quien soy
 Hola! Soy Metroman, empecé en 2020 con esta tal identidad en Internet, todo inició con la iniciativa de construir el Metro en BTE Chile cuando portaba uno de mis miles nombres "FGY Games", gracias a un compañero (actualmente inactivo) de ese servidor de Discord terminé adoptando mi nombre definitivo: MetroMan. No me pregunten si existirán problemas de CopyRight, ni yo sé, pero actualmente me estoy dedicando a ordenar mi vida preparándome para lo que quizás sea mi futuro: Redes Sociales y Traducción. Por eso aquí tienen una versión mejorada de mi antigua página web, con dominio personalizado y todo.
