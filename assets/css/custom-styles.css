@@ -1,8 +1,8 @@
 :root {
  --body-bg: #FFFFFF;
  --body-color: #000000;
- --body-link-color: #FFCCBB;
- --nav-color: #FFCCBB;
+ --body-link-color: #E10600;
+ --nav-color: #E10600;
  --text-color: #000000;
 }
 
@@ -11,8 +11,8 @@
  :root {
  --body-bg: #000000;
  --body-color: #FFFFFF;
- --body-link-color: #FFCCBB;
- --nav-color: #FFCCBB;
+ --body-link-color: #A10500;
+ --nav-color: #A10500;
  --text-color: #FFFFFF
   }
 }
