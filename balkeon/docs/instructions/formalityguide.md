@@ -4,7 +4,7 @@
 
 ### Atajos Relevantes
 
-[<kbd> <br>Piezas de las Oraciones <br></kbd>][StPs][<kbd> <br>Construcción de Oraciones<br> </kbd>][SnCo][<kbd> <br>Construcción de Palabras<br> </kbd>][WdCo]
+[<kbd>Piezas de las Oraciones</kbd>][StPs][<kbd>Construcción de Oraciones</kbd>][SnCo][<kbd>Construcción de Palabras</kbd>][WdCo]
 
 [StPs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
 [SnCo]: https://metroman.me/balkeon/docs/instructions/sentences
