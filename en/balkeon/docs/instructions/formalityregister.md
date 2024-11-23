@@ -1,10 +1,10 @@
-[<kbd> <br> Back <br> </kbd>][Back]
+[<kbd>Back</kbd>][Back]
 
 [Back]: https://metroman.me/en/balkeon/docs
 
 ### Important Shortcuts
 
-[<kbd> <br> Sentence Pieces <br> </kbd>][StPs][<kbd> <br> Word Construction <br> </kbd>][WdCn][<kbd> <br> Sentence Construction <br> </kbd>][SnCo]
+[<kbd>Sentence Pieces</kbd>][StPs][<kbd>Word Construction</kbd>][WdCn][<kbd>Sentence Construction </kbd>][SnCo]
 
 [StPs]: https://metroman.me/en/balkeon/docs/instructions/sentencepieces
 [WdCn]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
