@@ -1,5 +1,24 @@
-[<kbd>Home</kbd>][Home] [<kbd>Discord</kbd>][Dcr] [<kbd>Español</kbd>][Span]
+/* Buttton */
 
+<button class="button-82-pushable" role="button" onclick="location.href='./index'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Home
+  </span> </button> <button class="button-82-pushable" role="button" onclick="location.href='.../balkeon/index'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Español
+  </span> </button>
+/* Buttton */
+
+<button class="button-82-pushable" role="button" onclick="location.href='./docs/index'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Documentation
+  </span> </button>
 [Dcr]: https://discord.gg/8NPsyq7rp7
 [Home]: https://metroman.me/en
 [Span]: https://metroman.me/balkeon
