@@ -1,5 +1,4 @@
- <button class="button" role="button" onclick="https://www.metroman.me/balkeon/">Button 67</button>
-
+<a href="main/balkeon/index.md" class="button">Click Me</a>
  
 <button name="MetroEn" onclick="main/en/index">English</button>
 <button name="BalkEs" onclick="main/balkeon">Aprende Balkeon</button>
