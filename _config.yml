@@ -137,31 +137,11 @@ keywords: "conlang, balkeon, auxlang"
 
 # Personalize the colours in your website. Colour values can be any valid CSS colour
 
-
-/* User-defined colors */
-:root {
- --body-color: #EEE2DC;
- --text-color: #AC3B61;
- --body-link-color: #AC3B61;
- --nav-bar-color: #8b0000";
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
- :root {
- --body-color: #303C6C;
- --text-color: #E2E8E4;
- --body-link-color: #FFCCBB;
-  --nav-bar-color: #00000";
-  }
-}
-
-page-col: var(--body-color)
-text-col: var(--text-color)
+text-col: "00000"
 link-col: "#008AFF"
 hover-col: "#0085A1"
-navbar-col: var(--nav-bar-color)
-navbar-text-col: var(--text-color)
+navbar-col: "000000"
+navbar-text-col: "FFFFFF" 
 navbar-border-col: "#DDDDDD"
 footer-col: "#EAEAEA"
 footer-text-col: "#777777"
