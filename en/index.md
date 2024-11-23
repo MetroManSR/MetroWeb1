@@ -1,4 +1,4 @@
-<button class="button-82-pushable" role="button" onclick="location.href='[directory]'">
+<button class="button-82-pushable" role="button" onclick="location.href='./index'">
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
   <span class="button-82-front text">
