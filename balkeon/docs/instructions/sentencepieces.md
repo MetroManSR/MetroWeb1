@@ -10,6 +10,21 @@
 [SnCo]: https://metroman.me/balkeon/docs/instructions/sentences
 [WdCo]: https://metroman.me/balkeon/docs/instructions/wordconstruction
 
+# Índice 
+
+- [Piezas de Oraciones](#piezas-de-oraciones)
+  - [Copulativos](#copulativos)
+  - [Vi y Me dijeron](#vi-y-me-dijeron)
+- [Pronombres](#pronombres)
+  - [Personales](#pronombres-personales)
+    - [Correlación Directa](#correlación-directa)
+    - [Tabla](#tabla)
+  - [Interrogativos](#pronombres-interrogativos)
+  - [Relativos](#pronombres-relativos)
+  - [Demostrativos](#pronombres-demostrativos)
+  - [Indefinidos](#pronombres-indefinidos)
+  - [Recíprocos](#elf-pronombre-recíproco)
+
 # Piezas de oraciones
 
 ## Copulativos
@@ -20,6 +35,8 @@
 ## Vi y me dijeron
 - Lo vi = Bi
 - Me lo dijeron = Sei
+
+# Pronombres
 
 ## Pronombres personales
 
