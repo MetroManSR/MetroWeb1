@@ -87,11 +87,9 @@
 
 |            | Persona/Cosa                   | Lugar     | Tiempo             | Forma/Modo | Razón     |
 | ---------- | ------------------------------ | --------- | ------------------ | ----------- | --------- |
-| Algún      | Emeon / Emaon / Em             | Platsem   | Fosem / Kronem     | Faumem      | Soparem   |
+| Algún      | Emeon / Emaon / Em           | Platsem   | Fosem / Kronem     | Faumem      | Soparem   |
 | Cualquier  | Keanem / Keanemeon / Keanemaon | Keanplats | Keanfos / Keankron | Keanfaum    | Keansopar |
-| Cada
-
-Todo | Tutem / Tutemeon / Tutemaon    | Tutiplats | Tutikron / Tutifos | Tutifaum    | Tutsopar  |
+| Cada / Todo | Tutem / Tutemeon / Tutemaon    | Tutiplats | Tutikron / Tutifos | Tutifaum    | Tutsopar  |
 | Ningún     | Nem / Nemeon / Nemaon          | Platsnem  | Kronunem / Fosnem  | Faumnem     | Soparnem  |
 
 ### Elf, Pronombre Recíproco
