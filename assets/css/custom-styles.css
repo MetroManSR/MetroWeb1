@@ -3,6 +3,7 @@
  --body-color: #AC3B61;
  --body-link-color: #AC3B61;
  --card-bg: #EDC7B7;
+ --text-color: #000000;
 }
 
 /* Dark mode */
@@ -12,6 +13,7 @@
  --body-color: #E2E8E4;
  --body-link-color: #FFCCBB;
  --card-bg: #212529;
+ --text-color: #FFFFFF
   }
 }
 
