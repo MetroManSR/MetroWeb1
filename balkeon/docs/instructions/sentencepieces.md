@@ -80,6 +80,8 @@
 
 ## Pronombres Interrogativos
 
+<div class="table-wrapper" markdown="block">
+
 | ¿Quién?        | Kaen?        | ¿Con qué?       | … peken?     |
 | -------------- | ------------ | --------------- | ------------ |
 | ¿A quién?      | … kaenstan?  | ¿Por qué?       | Prok?        |
@@ -92,6 +94,8 @@
 | ¿Desde cuándo? | … tarkrion?  | ¿Cuánto?        | Yuan?        |
 | ¿Hasta cuándo? | … tilkrion?  | ¿Cada cuánto?   | … yuanoften? |
 | ¿Cómo?         | Kaum?        | ¿Cuántas veces? | … yuanfos?   |
+
+</div>
 
 ### Pronombres Relativos
 
