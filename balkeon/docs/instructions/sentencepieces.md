@@ -65,6 +65,8 @@
 
 👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](https://metroman.me/balkeon/docs/instructions/formalityguide).
 
+<div class="table-wrapper" markdown="block">
+  
 | **Número**    | **General** | **Masculino** | **Femenino** | **Masculino y/o Femenino** | **Inanimado / Animal Macho** | **Animal Hembra** |
 | ------------- | ----------- | ------------- | ------------ | -------------------------- | ---------------------------- | ----------------- |
 | **1°**        | Aye         | Ayo           | Aya          | Ayao                       | Ayeo                         | Ayea              |
@@ -73,6 +75,7 @@
 | **1° Plural** | Saye        | Sayo          | Saya         | Sayao                      | Sayeo                        | Sayea             |
 | **2° Plural** | Siyu        |
 | **3° Plural** | \-          | So            | Sa           | Sao                        | Seo                          | Sea               |
+</div>
 
 ## Pronombres Interrogativos
 
@@ -108,12 +111,15 @@
 
 ### Pronombres Indefinidos
 
+<div class="table-wrapper" markdown="block">
+  
 |            | Persona/Cosa                   | Lugar     | Tiempo             | Forma/Modo | Razón     |
 | ---------- | ------------------------------ | --------- | ------------------ | ----------- | --------- |
 | Algún      | Emeon / Emaon / Em           | Platsem   | Fosem / Kronem     | Faumem      | Soparem   |
 | Cualquier  | Keanem / Keanemeon / Keanemaon | Keanplats | Keanfos / Keankron | Keanfaum    | Keansopar |
 | Cada / Todo | Tutem / Tutemeon / Tutemaon    | Tutiplats | Tutikron / Tutifos | Tutifaum    | Tutsopar  |
 | Ningún     | Nem / Nemeon / Nemaon          | Platsnem  | Kronunem / Fosnem  | Faumnem     | Soparnem  |
+</div>
 
 ### Elf, Pronombre Recíproco
 
