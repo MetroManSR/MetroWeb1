@@ -42,9 +42,7 @@
 
 | Más formas verbales   | Imperativo | Condicional | Estar y modo Pasivo | Ser   |
 | --------------------- | ---------- | ----------- | ------------------- | ----- |
-| \- Suffix
-
-\- - Infix | \-aor      | \-a-        | \-ados-             | \-es- |
+| \- Suffix \- \- Infix | \-aor      | \-a-        | \-ados-             | \-es- |
 
 ### No
 
