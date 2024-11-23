@@ -61,7 +61,7 @@
 
 ### Tabla
 
-👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](https://metroman.me/en/balkeon/docs/instructions/formalityguide).
+👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](https://metroman.me/balkeon/docs/instructions/formalityguide).
 
 | **Número**    | **General** | **Masculino** | **Femenino** | **Masculino y/o Femenino** | **Inanimado / Animal Macho** | **Animal Hembra** |
 | ------------- | ----------- | ------------- | ------------ | -------------------------- | ---------------------------- | ----------------- |
