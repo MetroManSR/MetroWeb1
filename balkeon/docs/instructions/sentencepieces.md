@@ -14,6 +14,8 @@
 
 # Índice 
 
+<a class="TOC"></a>
+
 <a name="top"></a>
 
 - [Piezas de Oraciones](#piezas-de-oraciones)
