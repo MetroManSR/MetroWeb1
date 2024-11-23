@@ -75,6 +75,7 @@
 | **1° Plural** | Saye        | Sayo          | Saya         | Sayao                      | Sayeo                        | Sayea             |
 | **2° Plural** | Siyu        |
 | **3° Plural** | \-          | So            | Sa           | Sao                        | Seo                          | Sea               |
+
 </div>
 
 ## Pronombres Interrogativos
@@ -119,6 +120,7 @@
 | Cualquier  | Keanem / Keanemeon / Keanemaon | Keanplats | Keanfos / Keankron | Keanfaum    | Keansopar |
 | Cada / Todo | Tutem / Tutemeon / Tutemaon    | Tutiplats | Tutikron / Tutifos | Tutifaum    | Tutsopar  |
 | Ningún     | Nem / Nemeon / Nemaon          | Platsnem  | Kronunem / Fosnem  | Faumnem     | Soparnem  |
+
 </div>
 
 ### Elf, Pronombre Recíproco
