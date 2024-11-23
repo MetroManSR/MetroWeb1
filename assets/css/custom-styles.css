@@ -24,12 +24,9 @@ body {
  color: var(--body-color) !important;
 }
 
-#nav {
-
-    background-color: var(--nav-color); /*Whatever color you want goes here, but in Hexadecimal form*/
-    color: #000000; /*The color of your font also goes here, but in hexadecimal form*/
+.navbar-custom {
+  background-color: var(--nav-color);
 }
-
 /* Enable smooth scrolling */
 @media screen and (prefers-reduced-motion: no-preference) {
   html {
