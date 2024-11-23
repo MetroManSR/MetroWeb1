@@ -5,7 +5,7 @@
 # Welcome to the Balkeon Docs Menu
 ### Do you want to check Balkeon Grammar?
 
-[<kbd> <br> Sentence Construction <br> </kbd>][SnCs]
+[<kbd>Sentence Construction</kbd>][SnCs]
 
 [SnCs]: https://metroman.me/en/balkeon/docs/instructions/sentences
 
