@@ -25,11 +25,9 @@ author: MetroMan
 
 navbar-links:
   Home: "https://www.metroman.me"
-  Balkeon Menus:
-    Sentences: 
-       - Sentence Building: "https://www.metroman.me/en/balkeon" 
-    - Balkeon English: "https://www.metroman.me/en/balkeon"
-    - Balkeon Spanish: "https://www.metroman.me/balkeon'
+  Balkeon Menu: 
+    - English: "https://www.metroman.me/en/balkeon"
+    - Español: "https://www.metroman.me/balkeon'
 
 ################
 # --- Logo --- #
