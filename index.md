@@ -1,4 +1,4 @@
- <button class="button" role="button" onclick="main/en/index">Button 67</button>
+ <button class="button" role="button" onclick="https://www.metroman.me/balkeon/">Button 67</button>
 
  
 <button name="MetroEn" onclick="main/en/index">English</button>
