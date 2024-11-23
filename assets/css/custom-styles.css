@@ -1,3 +1,25 @@
+:root {
+ --body-bg: #EEE2DC;
+ --body-color: #AC3B61;
+ --body-link-color: #AC3B61;
+ --card-bg: #EDC7B7;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+ :root {
+ --body-bg: #303C6C;
+ --body-color: #E2E8E4;
+ --body-link-color: #FFCCBB;
+ --card-bg: #212529;
+  }
+}
+
+body {
+ background-color: var(--body-bg);
+ color: var(--body-color) !important;
+}
+
 /* Enable smooth scrolling */
 @media screen and (prefers-reduced-motion: no-preference) {
   html {
