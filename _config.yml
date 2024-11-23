@@ -26,6 +26,7 @@ author: MetroMan
 navbar-links:
   Home: "https://www.metroman.me"
   Balkeon Menu: 
+    - Lexicon: "https://lexiconga.com/100250694"
     - English: "https://www.metroman.me/en/balkeon"
     - Español: "https://www.metroman.me/balkeon"
 
@@ -140,7 +141,7 @@ page-col: "#FFFFFF"
 text-col: "#404040"
 link-col: "#008AFF"
 hover-col: "#0085A1"
-navbar-col: "#EAEAEA"
+navbar-col: "#8b0000"
 navbar-text-col: "#404040"
 navbar-border-col: "#DDDDDD"
 footer-col: "#EAEAEA"
@@ -159,8 +160,8 @@ footer-hover-col: "#0085A1"
 mobile-theme-col: "#0085A1"
 
 # For any extra visual customization, you can include additional CSS files in every page on your site. List any custom CSS files here
-#site-css:
-#  - "/assets/css/custom-styles.css"
+site-css:
+  - "/assets/css/custom-styles.css"
 
 # If you have common JavaScript files that should be included in every page, list them here
 #site-js:
