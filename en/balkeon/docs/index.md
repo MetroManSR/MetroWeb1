@@ -1,4 +1,4 @@
-[<kbd> <br> Back <br> </kbd>][Back]
+[<kbd>Back</kbd>][Back]
 
 [Back]: https://metroman.me/en/balkeon
 
@@ -9,15 +9,15 @@
 
 [SnCs]: https://metroman.me/en/balkeon/docs/instructions/sentences
 
-[<kbd> <br> Sentence Pieces <br> </kbd>][SnPs]
+[<kbd>Sentence Pieces</kbd>][SnPs]
 
 [SnPs]: https://metroman.me/en/balkeon/docs/instructions/sentencepieces 
 
-[<kbd> <br> Formality Guide <br> </kbd>][FmGi]
+[<kbd>Formality Guide</kbd>][FmGi]
 
 [FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
 
-[<kbd> <br> Affixes <br> </kbd>][Affx]
+[<kbd>Affixes</kbd>][Affx]
 
 [Affx]: https://metroman.me/en/balkeon/docs/instructions/affixes
 
