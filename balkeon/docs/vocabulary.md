@@ -1,3 +1,6 @@
+<a class="top-link hide" href="#top">↑</a>
+<a name="top"></a>
+
 [<kbd>Atrás</kbd>][Back]
 
 [Back]: https://www.metroman.me/en/balkeon/docs
