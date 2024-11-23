@@ -1,6 +1,6 @@
 :root {
  --body-bg: #FFFFFF;
- --body-color: #AC3B61;
+ --body-color: #000000;
  --nav-color: #ffcccb;
  --body-link-color: #AC3B61;
  /* --card-bg: #EDC7B7; */
@@ -11,7 +11,7 @@
 @media (prefers-color-scheme: dark) {
  :root {
  --body-bg: #000000;
- --body-color: #E2E8E4;
+ --body-color: #FFFFFF;
  --body-link-color: #FFCCBB;
  --nav-color: #ffcccb;
  /* --card-bg: #212529; */
