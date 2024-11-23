@@ -1,7 +1,7 @@
 :root {
  --body-bg: #FFFFFF;
  --body-color: #000000;
- --nav-color: #ffcccb;
+ --nav-color: #FFCCBB;
  --body-link-color: #AC3B61;
  --text-color: #000000;
 }
@@ -12,7 +12,7 @@
  --body-bg: #000000;
  --body-color: #FFFFFF;
  --body-link-color: #FFCCBB;
- --nav-color: #ffcccb;
+ --nav-color: #FFCCBB;
  --text-color: #FFFFFF
   }
 }
