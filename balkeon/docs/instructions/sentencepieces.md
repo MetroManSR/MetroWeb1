@@ -23,8 +23,6 @@
 
 ## Pronombres personales
 
-👉 En la imagen una tabla con todas las Conjugaciones de Pronombres, casos de uso detallados en la [Guía de Formalidad](https://metroman.me/en/balkeon/docs/instructions/formalityguide).
-
 ### Correlación directa
 
 - Yo = Aye
@@ -39,6 +37,19 @@
 - Vosotras = Siyu
 - Ellos = Se / So
 - Ellas = Sa
+
+### Tabla
+
+👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](https://metroman.me/en/balkeon/docs/instructions/formalityguide).
+
+| **Número**    | **General** | **Masculino** | **Femenino** | **Masculino y/o Femenino** | **Inanimado / Animal Macho** | **Animal Hembra** |
+| ------------- | ----------- | ------------- | ------------ | -------------------------- | ---------------------------- | ----------------- |
+| **1°**        | Aye         | Ayo           | Aya          | Ayao                       | Ayeo                         | Ayea              |
+| **2°**        | Yu          |
+| **3°**        | \-          | O             | A            | Ao                         | Eo                           | Ea                |
+| **1° Plural** | Saye        | Sayo          | Saya         | Sayao                      | Sayeo                        | Sayea             |
+| **2° Plural** | Siyu        |
+| **3° Plural** | \-          | So            | Sa           | Sao                        | Seo                          | Sea               |
 
 ## Pronombres Interrogativos
 
