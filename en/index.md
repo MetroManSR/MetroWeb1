@@ -1,3 +1,14 @@
+[directory]: ../index
+[text]: TOUCH ME
+
+<button class="button-82-pushable" role="button" onclick="location.href='[directory]'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+    [text]
+  </span> </button>
+
+
 
 [<kbd>Español</kbd>][Link]
 [<kbd>Learn Balkeon!</kbd>][Balk]
@@ -5,7 +16,7 @@
 [Link]: https://metroman.me
 [Balk]: https://metroman.me/en/balkeon
 
-# ¿Who am I?
+# Who am I?
 
 Hello! I'm Metroman, I started in 2020 with this identity on the Internet, it all started with the initiative to build the Metro in BTE Chile when I carried one of my thousands of names "FGY Games", thanks to a partner (currently inactive) from that Discord server I ended up adopting my final name: MetroMan. Don't ask me if there will be CopyRight problems, I don't even know, but I'm currently dedicating myself to organizing my life preparing for what may be my future: Social Networks and Translation. That's why here you have an improved version of my old website, with a custom domain and everything.
 
