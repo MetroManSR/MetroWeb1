@@ -1,6 +1,7 @@
 :root {
  --body-bg: #FFFFFF;
  --body-color: #AC3B61;
+ --nav-color: ##ffcccb;
  --body-link-color: #AC3B61;
  --card-bg: #EDC7B7;
  --text-color: #000000;
@@ -12,6 +13,7 @@
  --body-bg: #000000;
  --body-color: #E2E8E4;
  --body-link-color: #FFCCBB;
+ --nav-color: ##ffcccb;
  --card-bg: #212529;
  --text-color: #FFFFFF
   }
@@ -20,6 +22,12 @@
 body {
  background-color: var(--body-bg);
  color: var(--body-color) !important;
+}
+
+#nav {
+
+    background-color: --nav-color; /*Whatever color you want goes here, but in Hexadecimal form*/
+    color: #000000; /*The color of your font also goes here, but in hexadecimal form*/
 }
 
 /* Enable smooth scrolling */
