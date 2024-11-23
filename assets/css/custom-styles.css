@@ -1,7 +1,7 @@
 :root {
  --body-bg: #FFFFFF;
  --body-color: #AC3B61;
- --nav-color: ##ffcccb;
+ --nav-color: #ffcccb;
  --body-link-color: #AC3B61;
  --card-bg: #EDC7B7;
  --text-color: #000000;
@@ -13,7 +13,7 @@
  --body-bg: #000000;
  --body-color: #E2E8E4;
  --body-link-color: #FFCCBB;
- --nav-color: ##ffcccb;
+ --nav-color: #ffcccb;
  --card-bg: #212529;
  --text-color: #FFFFFF
   }
