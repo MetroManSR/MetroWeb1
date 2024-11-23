@@ -1,26 +1,26 @@
-[<kbd> <br> Back <br> </kbd>][Back]
+[<kbd>Back</kbd>][Back]
 
 [Back]: https://metroman.me/en/balkeon
 
 # Bienvenido al Menú de los Documentos
 ### ¿Quieres ver cómo es la gramática de Balkeon?
 
-### 🗣 [<kbd> <br> Construcción de Oraciones <br> </kbd>][SnCs]
+### 🗣 [<kbd>Construcción de Oraciones</kbd>][SnCs]
 
 [SnCs]: https://metroman.me/balkeon/docs/instructions/sentences
 
-### 🛠 [<kbd> <br> Piezas de las Oraciones <br> </kbd>][SnPs]
+### 🛠 [<kbd>Piezas de las Oraciones</kbd>][SnPs]
 
 [SnPs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
 
-### 🧩 [<kbd> <br> Sufijos, prefijos, infijos <br> </kbd>][FmGi]
+### 🧩 [<kbd>Sufijos, prefijos, infijos</kbd>][FmGi]
 
 [FmGi]: https://metroman.me/balkeon/docs/instructions/affixes
 
-### 🕴[<kbd> <br> Guía de Formalidad <br> </kbd>][FmGu]
+### 🕴[<kbd>Guía de Formalidad</kbd>][FmGu]
 
 [FmGu]: https://metroman.me/balkeon/docs/instructions/formalityguide
 
-### 🌼 [<kbd> <br> Construcción de Palabras <br> </kbd>][FmGu]
+### 🌼 [<kbd>Construcción de Palabras</kbd>][FmGu]
 
 [FmGu]: https://metroman.me/balkeon/docs/instructions/wordconstruction
