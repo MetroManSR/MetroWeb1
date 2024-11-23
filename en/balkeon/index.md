@@ -1,9 +1,8 @@
-
-![Alt text](https://i.ibb.co/fS3P55r/Balkeon.png "Balkeon Flag")
-[<kbd>Home</kbd>][Home] [<kbd>Discord</kbd>][Dcr]
+[<kbd>Home</kbd>][Home] [<kbd>Discord</kbd>][Dcr] [<kbd>Español</kbd>][Span]
 
 [Dcr]: https://discord.gg/8NPsyq7rp7
 [Home]: https://metroman.me/en
+[Span]: https://metroman.me/balkeon
 
 [<kbd>Documentation</kbd>][Docs]
 
