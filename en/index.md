@@ -1,11 +1,9 @@
 
-[<kbd> <br> Español <br> </kbd>][Link]
-[<kbd> <br> Balkeon <br> </kbd>][Balk]
-
-[Link]: https://metroman.me/en
-[Balk]: https://metroman.me/en/balkeon
+[<kbd>Español</kbd>][Link]
+[<kbd>Learn Balkeon!</kbd>][Balk]
 
 [Link]: https://metroman.me
+[Balk]: https://metroman.me/en/balkeon
 
 # ¿Who am I?
 
