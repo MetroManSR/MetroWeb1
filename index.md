@@ -1,4 +1,4 @@
-# [<kbd>English</kbd>][Link] [<kbd>Balkeon</kbd>][Balk]
+[<kbd>English</kbd>][Link] [<kbd>Balkeon</kbd>][Balk]
 
 [Link]: https://metroman.me/en
 [Balk]: https://metroman.me/balkeon
