@@ -1,10 +1,10 @@
-[<kbd> <br>Atrás<br></kbd>][Back]
+[<kbd>Atrás</kbd>][Back]
 
 [Back]:https://metroman.me/balkeon/docs
 
 ### Atajos Relevantes
 
-[<kbd> <br>Guía de Formalidad<br> </kbd>][FmGi][<kbd> <br>Construcción de Oraciones<br> </kbd>][SnCo][<kbd> <br>Construcción de Palabras<br> </kbd>][WdCo]
+[<kbd>Guía de Formalidad</kbd>][FmGi][<kbd>Construcción de Oraciones</kbd>][SnCo][<kbd>Construcción de Palabras</kbd>][WdCo]
 
 [FmGi]: https://metroman.me/balkeon/docs/instructions/formalityguide
 [SnCo]: https://metroman.me/balkeon/docs/instructions/sentences
