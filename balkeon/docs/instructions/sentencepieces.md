@@ -65,3 +65,37 @@
 | ¿Desde cuándo? | … tarkrion?  | ¿Cuánto?        | Yuan?        |
 | ¿Hasta cuándo? | … tilkrion?  | ¿Cada cuánto?   | … yuanoften? |
 | ¿Cómo?         | Kaum?        | ¿Cuántas veces? | … yuanfos?   |
+
+### Pronombres Relativos
+
+| Español         | Balkeon   |
+| --------------- | --------- |
+| Quien           | Konem     |
+| El que, el cual | Kual      |
+| Que             | Kua       |
+| Cuyo            | Emos      |
+| Quien           | Konemstan |
+
+### Pronombres Demostrativos
+
+| Español               | Balkeon     |
+| --------------------- | ----------- |
+| Ese, eso, esas, esos… | That, those |
+| Este, estos, estas…   | This, these |
+
+### Pronombres Indefinidos
+
+|            | Persona/Cosa                   | Lugar     | Tiempo             | Forma/Modo | Razón     |
+| ---------- | ------------------------------ | --------- | ------------------ | ----------- | --------- |
+| Algún      | Emeon / Emaon / Em             | Platsem   | Fosem / Kronem     | Faumem      | Soparem   |
+| Cualquier  | Keanem / Keanemeon / Keanemaon | Keanplats | Keanfos / Keankron | Keanfaum    | Keansopar |
+| Cada
+
+Todo | Tutem / Tutemeon / Tutemaon    | Tutiplats | Tutikron / Tutifos | Tutifaum    | Tutsopar  |
+| Ningún     | Nem / Nemeon / Nemaon          | Platsnem  | Kronunem / Fosnem  | Faumnem     | Soparnem  |
+
+### Elf, Pronombre Recíproco
+
+- Para hacer mención al Pronombre o Sujeto de la Oración se utiliza `Elf` en todos los casos.
+
+- Recuerda que los Pronombres Recíprocos en Español son: a uno mismo, se (se dieron abrazos) a él mismo, a mí  mismo, etc.
