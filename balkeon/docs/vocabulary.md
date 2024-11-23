@@ -1,4 +1,3 @@
-<a class="top-link hide" href="#top">↑</a>
 <a name="top"></a>
 
 [<kbd>Atrás</kbd>][Back]
@@ -45,6 +44,8 @@
 
 - Bienvenido (a) = Gabaribataor (un)
 
+<a class="top-link hide" href="#top">Volver Arriba</a>
+
 ## Discord
 
 - Discord = Diskordubefeligeon
@@ -76,6 +77,8 @@
 
 - Ban = Nekoenkamadasneon / Baneon
 
+<a class="top-link hide" href="#top">Volver Arriba</a>
+
 ## Adjetivos
 
 - Correcto = Tadashideon
@@ -96,6 +99,8 @@
 
 - Grande = Gragideon
 
+<a class="top-link hide" href="#top">Volver Arriba</a>
+
 ## Verbos
 
 - Tener = Habirian
@@ -115,6 +120,8 @@
 - Trabajar = Laboririan
 
 - Funcionar = Funsirian
+
+<a class="top-link hide" href="#top">Volver Arriba</a>
 
 ## Tiempo
 
@@ -138,6 +145,8 @@
   
 - Tarde = Nekfruin 
 
+<a class="top-link hide" href="#top">Volver Arriba</a>
+
 ## Direcciones
  
 - Arriba = Ah
@@ -160,6 +169,8 @@
   
 - Derecha = Niotsin
 
+<a class="top-link hide" href="#top">Volver Arriba</a>
+
 ## Adverbios
  
 - Muy = Yum
@@ -174,6 +185,8 @@
   
 - También - Dumor/Matren
 
+<a class="top-link hide" href="#top">Volver Arriba</a>
+
 ## Verbos Auxiliares
  
 - Poder = Kadirian (Ka)
@@ -183,3 +196,5 @@
 - Querer = Bolirian (Bol)
 
 - Intentar = Testirian (Tes)
+
+<a class="top-link hide" href="#top">Volver Arriba</a>
