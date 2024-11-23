@@ -18,7 +18,7 @@
   Documentation
   </span> </button>
 
-  <button class="button-82-pushable" role="button" onclick="location.href=[Dcr]">
+  <button class="button-82-pushable" role="button" onclick="location.href='https://discord.gg/8NPsyq7rp7'">
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
   <span class="button-82-front text">
