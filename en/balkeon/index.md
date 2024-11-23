@@ -17,13 +17,14 @@
   <span class="button-82-front text">
   Documentation
   </span> </button>
+
+  <button class="button-82-pushable" role="button" onclick="location.href=[Dcr]>
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Join the Discord Server
+  </span> </button>
 [Dcr]: https://discord.gg/8NPsyq7rp7
-[Home]: https://metroman.me/en
-[Span]: https://metroman.me/balkeon
-
-[<kbd>Documentation</kbd>][Docs]
-
-[Docs]: https://metroman.me/en/balkeon/docs
 
 # Balkeon Home
 
