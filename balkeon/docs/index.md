@@ -3,6 +3,13 @@
 [Back]: https://metroman.me/en/balkeon
 
 # Bienvenido al Menú de los Documentos
+
+### Vocabulario Frecuente
+
+### 😶‍🌫️ [<kbd>Vocabulario</kbd>][Vcb]
+
+[Vcb]: https://metroman.me/balkeon/docs/vocabulary
+
 ### ¿Quieres ver cómo es la gramática de Balkeon?
 
 ### 🗣 [<kbd>Construcción de Oraciones</kbd>][SnCs]
