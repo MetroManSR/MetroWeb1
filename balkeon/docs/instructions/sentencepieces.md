@@ -1,3 +1,5 @@
+<a class="top-link hide" href="#top">↑</a>
+
 [<kbd>Atrás</kbd>][Back]
 
 [Back]:https://metroman.me/balkeon/docs
@@ -57,8 +59,6 @@
 - Ellos = Se / So
 - Ellas = Sa
 
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
 ### Tabla
 
 👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](https://metroman.me/balkeon/docs/instructions/formalityguide).
@@ -71,8 +71,6 @@
 | **1° Plural** | Saye        | Sayo          | Saya         | Sayao                      | Sayeo                        | Sayea             |
 | **2° Plural** | Siyu        |
 | **3° Plural** | \-          | So            | Sa           | Sao                        | Seo                          | Sea               |
-
-<a class="top-link hide" href="#top">Volver Arriba</a>
 
 ## Pronombres Interrogativos
 
@@ -89,8 +87,6 @@
 | ¿Hasta cuándo? | … tilkrion?  | ¿Cada cuánto?   | … yuanoften? |
 | ¿Cómo?         | Kaum?        | ¿Cuántas veces? | … yuanfos?   |
 
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
 ### Pronombres Relativos
 
 | Español         | Balkeon   |
@@ -101,16 +97,12 @@
 | Cuyo            | Emos      |
 | Quien           | Konemstan |
 
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
 ### Pronombres Demostrativos
 
 | Español               | Balkeon     |
 | --------------------- | ----------- |
 | Ese, eso, esas, esos… | That, those |
 | Este, estos, estas…   | This, these |
-
-<a class="top-link hide" href="#top">Volver Arriba</a>
 
 ### Pronombres Indefinidos
 
@@ -121,12 +113,8 @@
 | Cada / Todo | Tutem / Tutemeon / Tutemaon    | Tutiplats | Tutikron / Tutifos | Tutifaum    | Tutsopar  |
 | Ningún     | Nem / Nemeon / Nemaon          | Platsnem  | Kronunem / Fosnem  | Faumnem     | Soparnem  |
 
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
 ### Elf, Pronombre Recíproco
 
 - Para hacer mención al Pronombre o Sujeto de la Oración se utiliza `Elf` en todos los casos.
 
 - Recuerda que los Pronombres Recíprocos en Español son: a uno mismo, se (se dieron abrazos) a él mismo, a mí  mismo, etc.
-
-<a class="top-link hide" href="#top">Volver Arriba</a>
