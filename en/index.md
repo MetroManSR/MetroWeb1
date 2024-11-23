@@ -1,6 +1,3 @@
-[directory]: ../index
-[text]: TOUCH ME
-
 <button class="button-82-pushable" role="button" onclick="location.href='[directory]'">
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
@@ -8,7 +5,8 @@
     [text]
   </span> </button>
 
-
+[directory]: ../index
+[text]: TOUCH ME
 
 [<kbd>Español</kbd>][Link]
 [<kbd>Learn Balkeon!</kbd>][Balk]
