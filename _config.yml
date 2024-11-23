@@ -24,11 +24,10 @@ author: MetroMan
 ###############################################
 
 navbar-links:
-  About Me: "aboutme"
-  Resources:
-    - Balkeon English: "https://www.metroman.me/en/balkeon"
-    - Balkeon Spanish: "https://www.metroman.me/balkeon"
   Home: "https://www.metroman.me"
+  Balkeon Menus:
+    - Balkeon English: "https://www.metroman.me/en/balkeon"
+    - Balkeon Spanish: "https://www.metroman.me/balkeon'
 
 ################
 # --- Logo --- #
