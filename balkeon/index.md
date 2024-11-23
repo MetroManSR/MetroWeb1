@@ -1,8 +1,8 @@
-[<kbd>Home</kbd>][Home] [<kbd>Servidor de Discord</kbd>][Dcr] [<kbd>Español</kbd>][Span]
+[<kbd>Home</kbd>][Home] [<kbd>Servidor de Discord</kbd>][Dcr] [<kbd>English</kbd>][Span]
 
 [Dcr]: https://discord.gg/8NPsyq7rp7
 [Home]: https://metroman.me/
-[Span]: https://metroman.me/balkeon
+[Span]: https://metroman.me/en/balkeon
 
 [<kbd>Documentación</kbd>][Docs]
 
