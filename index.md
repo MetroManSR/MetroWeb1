@@ -1,6 +1,6 @@
-[<kbd> <br> English <br> </kbd>][Link]
+[<kbd>English</kbd>][Link]
 
-[<kbd> <br> Balkeon <br> </kbd>][Balk]
+[<kbd>Balkeon</kbd>][Balk]
 
 [Link]: https://metroman.me/en
 [Balk]: https://metroman.me/balkeon
