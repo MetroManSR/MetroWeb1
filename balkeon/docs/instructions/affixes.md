@@ -4,7 +4,7 @@
 
 ### Atajos Relevantes
 
-[<kbd> <br>Piezas de las Oraciones <br></kbd>][StPs][<kbd> <br>Guía de Formalidad<br> </kbd>][FmGi][<kbd> <br>Construcción de Oraciones<br> </kbd>][SnCo][<kbd> <br>Construcción de Palabras<br> </kbd>][WdCo]
+[<kbd>Piezas de las Oraciones</kbd>][StPs][<kbd>Guía de Formalidad</kbd>][FmGi][<kbd>Construcción de Oraciones</kbd>][SnCo][<kbd>Construcción de Palabras</kbd>][WdCo]
 
 [StPs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
 [FmGi]: https://metroman.me/balkeon/docs/instructions/formalityguide
