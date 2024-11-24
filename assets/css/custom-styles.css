@@ -223,10 +223,10 @@ body {
 
 /* Botón 2*/
 .button-16 {
-  background-color: #f8f9fa;
+  background-color: #cc0000;
   border: 1px solid #f8f9fa;
   border-radius: 4px;
-  color: #3c4043;
+  color: #FFFFFF;
   cursor: pointer;
   font-family: arial,sans-serif;
   font-size: 14px;
@@ -242,12 +242,12 @@ body {
 }
 
 .button-16:hover {
-  border-color: #dadce0;
+  border-color: #ff3333;
   box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
   color: #202124;
 }
 
 .button-16:focus {
-  border-color: #4285f4;
+  border-color: #ff4d4d;
   outline: none;
 }
