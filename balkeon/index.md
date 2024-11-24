@@ -31,9 +31,7 @@
   Volver
  </span> </button>
 
-### <button class="button-16" role="button" onclick="location.href='./docs/index'">Documentación</button> <button class="button-16" role="button" onclick="location.href='./grammar/index'">Gramática</button>
-
-
+### <button class="button-16" role="button" onclick="location.href='./docs/index'">Documentación</button> <button class="button-16" role="button" onclick="location.href='./grammar/index'">Gramática</button> <button class="button-16" role="button" onclick="location.href='./news/index'">Noticias</button>
 
 # The Balkeon Project
 
