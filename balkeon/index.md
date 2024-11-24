@@ -24,13 +24,6 @@
   Únete al Discord!
  </span> </button>
 
-<button class="button-82-pushable" role="button" onclick="location.href='history.back()'">
-  <span class="button-82-shadow"></span>
-  <span class="button-82-edge"></span>
-  <span class="button-82-front text">
-  Volver
- </span> </button>
-
 ### <button class="button-16" role="button" onclick="location.href='./docs/index'">Documentación</button> <button class="button-16" role="button" onclick="location.href='./grammar/index'">Gramática</button> <button class="button-16" role="button" onclick="location.href='./news/index'">Noticias</button>
 
 # The Balkeon Project
