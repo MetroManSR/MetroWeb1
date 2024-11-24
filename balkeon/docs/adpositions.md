@@ -10,3 +10,17 @@
 # Lista completa de Adposiciones
 
 En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende prefiero llamarlo Adposición
+
+<table style="width:100%">
+  <tr>
+    <th>Español</th>
+    <th>Balkeon</th>
+  </tr>
+  <tr>
+    <th>Debajo</th>
+    <th>Ah</th>
+  </tr>
+  <tr>
+    <th>Arriba</th>
+    <th>Ar</th>
+  </tr>
