@@ -17,6 +17,12 @@
   }
 }
 
+/*table style */
+th {
+background-color: #04AA6D;
+color: white;
+}
+
 body {
  background-color: var(--body-bg);
  color: var(--body-color) !important;
