@@ -21,7 +21,10 @@
 th {
 background-color: #04AA6D;
 color: #808080;
-}
+ 
+td {
+color: #000000;
+} 
 
 body {
  background-color: var(--body-bg);
