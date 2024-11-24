@@ -1,16 +1,11 @@
-<a class="top-link hide" href="#top">↑</a>
+<a class="top-link hide" <button class="button-82-pushable" role="button" onclick="history.back()">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Volver
+ </span> </button>
 
-[<kbd>Atrás</kbd>][Back]
 
-[Back]:https://metroman.me/balkeon/docs
-
-### Atajos Relevantes
-
-[<kbd>Guía de Formalidad</kbd>][FmGi][<kbd>Construcción de Oraciones</kbd>][SnCo][<kbd>Construcción de Palabras</kbd>][WdCo]
-
-[FmGi]: https://metroman.me/balkeon/docs/instructions/formalityguide
-[SnCo]: https://metroman.me/balkeon/docs/instructions/sentences
-[WdCo]: https://metroman.me/balkeon/docs/instructions/wordconstruction
 
 # Índice 
 
