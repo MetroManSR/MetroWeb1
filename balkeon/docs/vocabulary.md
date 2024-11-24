@@ -24,7 +24,7 @@
 
 - ¿Cómo estás? = Kaum genkir yu?
   
-- Estoy bien/mal = Aye gabugenkir (nek)
+- Estoy bien/mal = Aye gabgenkir (nek)
   
 - Buenos días = Gabu matineon
 
@@ -48,7 +48,7 @@
 
 ## Discord
 
-- Discord = Diskordubefeligeon
+- Discord = Diskordbefeligeon
 - Servidor = Manupigeon / Serbereon
 
 - Charlar = Talkirian
@@ -63,11 +63,11 @@
   
 - Videollamada = Bidrufneon
   
-- Chat = Chateon / Netutalkatseon / Talkatseon
+- Chat = Chateon / Nettalkatseon / Talkatseon
 
-- VC = Rufnukaneleon (RK)
+- VC = Rufnkaneleon (RK)
 
-- Spam = Espameon / Enerbumesayeon
+- Spam = Espameon / Enerbmesayeon
 
 - Warn = Rimarkasnirian / Uarneon
 
@@ -137,7 +137,7 @@
   
 - Mañana = Matineon
   
-- Tarde = Ifneon / Aftuhalfudiyeon (parte del día)
+- Tarde = Ifneon / Afthalfdiyeon (parte del día)
   
 - Noche = Nokteon
   
