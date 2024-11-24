@@ -9,8 +9,6 @@
 
 # Índice 
 
-<a class="TOC"></a>
-
 <a name="top"></a>
 
 - [Piezas de Oraciones](#piezas-de-oraciones)
@@ -58,7 +56,7 @@
 
 ### Tabla
 
-👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](https://metroman.me/balkeon/docs/instructions/formalityguide).
+👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](../grammar/formalityguide).
 
 <div class="table-wrapper" markdown="block">
   
@@ -106,8 +104,8 @@
 
 | Español               | Balkeon     |
 | --------------------- | ----------- |
-| Ese, eso, esas, esos… | That, those |
-| Este, estos, estas…   | This, these |
+| Ese, eso, esas, esos… | Atsel |
+| Este, estos, estas…   | Astel |
 
 ### Pronombres Indefinidos
 
@@ -117,7 +115,7 @@
 | ---------- | ------------------------------ | --------- | ------------------ | ----------- | --------- |
 | Algún      | Emeon / Emaon / Em           | Platsem   | Fosem / Kronem     | Faumem      | Soparem   |
 | Cualquier  | Keanem / Keanemeon / Keanemaon | Keanplats | Keanfos / Keankron | Keanfaum    | Keansopar |
-| Cada / Todo | Tutem / Tutemeon / Tutemaon    | Tutiplats | Tutikron / Tutifos | Tutifaum    | Tutsopar  |
+| Cada / Todo | Tutem / Tutemeon / Tutemaon    | Tutplats | Tutkron / Tutfos | Tutfaum    | Tutsopar  |
 | Ningún     | Nem / Nemeon / Nemaon          | Platsnem  | Kronunem / Fosnem  | Faumnem     | Soparnem  |
 
 </div>
