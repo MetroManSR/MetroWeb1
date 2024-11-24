@@ -9,7 +9,7 @@
 
 # Lista completa de Adposiciones
 
-En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende prefiero llamarlo Adposición
+En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende prefiero llamarlo Adposición.
 
 <table style="width:100%">
   <tr>
@@ -23,4 +23,32 @@ En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende
   <tr>
     <th>Arriba</th>
     <th>Ar</th>
+  </tr>
+  <tr>
+    <th>Alrededor</th>
+    <th>Astas</th>
+  </tr>
+  <tr>
+    <th>En, encima</th>
+    <th>On</th>
+  </tr>
+  <tr>
+    <th>En, dentro</th>
+    <th>In</th>
+  </tr>
+  <tr>
+    <th>En</th>
+    <th>Un</th>
+  </tr>
+  <tr>
+    <th>Arriba</th>
+    <th>Ar</th>
+  </tr>
+  <tr>
+    <th>Hacia, A</th>
+    <th>Tal</th>
+  </tr>
+  <tr>
+    <th>Hasta</th>
+    <th>Til</th>
   </tr>
