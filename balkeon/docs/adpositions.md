@@ -16,13 +16,70 @@ En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende
     <th>Español</th>
     <th>Balkeon</th>
   </tr>
+  
+  <tr>
+    <th>Acerca de</th>
+    <th>Bau</th>
+  </tr>
+  <tr>
+    <th>A través</th>
+    <th>Ruan</th>
+  </tr>
+  <tr>
+    <th>Después de</th>
+    <th>Aft</th>
+  </tr>
+  <tr>
+    <th>Contra</th>
+    <th>Ank</th>
+  </tr>
+  <tr>
+    <th>A lo largo de</th>
+    <th>Seollong</th>
+  </tr>
+  <tr>
+    <th>Entre dos cosas</th>
+    <th>But</th>
+  </tr>
+  <tr>
+    <th>Entre más de dos cosas</th>
+    <th>Den</th>
+  </tr>  
+  <tr>
+    <th>Tan como</th>
+    <th>Yaen lak</th>
+  </tr>
+  <tr>
+    <th>Antes de</th>
+    <th>Sen</th>
+  </tr>
+  <tr>
+    <th>Atrás, detrás</th>
+    <th>Dak</th>
+  </tr>
+  <tr>
+    <th>Al lado de, junto a</th>
+    <th>Sail</th>
+  </tr>
+  <tr>
+    <th>A pesar de</th>
+    <th>Onke</th>
+  </tr>
+  <tr>
+    <th>Durante</th>
+    <th>Dum</th>
+  </tr>
   <tr>
     <th>Debajo</th>
     <th>Ah</th>
   </tr>
   <tr>
-    <th>Arriba</th>
-    <th>Ar</th>
+    <th>Debajo</th>
+    <th>Ah</th>
+  </tr>
+  <tr>
+    <th>Tan</th>
+    <th>Yaen</th>
   </tr>
   <tr>
     <th>Alrededor</th>
