@@ -56,7 +56,7 @@
 
 ### Tabla
 
-👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](.././grammar/formalityguide).
+👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](../../grammar/formalityguide).
 
 <div class="table-wrapper" markdown="block">
   
