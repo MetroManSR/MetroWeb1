@@ -24,7 +24,7 @@
 
 - ¿Cómo estás? = Kaum genkir yu?
   
-- Estoy bien/mal = Aye gabugenkir (nek)
+- Estoy bien/mal = Aye gabgenkir (nek)
   
 - Buenos días = Gabu matineon
 
@@ -67,7 +67,7 @@
 
 - VC = Rufnkaneleon (RK)
 
-- Spam = Espameon / Enerbumesayeon
+- Spam = Espameon / Enerbmesayeon
 
 - Warn = Rimarkasnirian / Uarneon
 
