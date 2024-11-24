@@ -7,6 +7,8 @@
 
 ## <button class="button-16" role="button" onclick="location.href='../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='./index'">Docs</button>
 
+<a class="top-link hide" href="#top">⏫️</a>
+
 # Vocabulario Palabras Recurrentes
 
 - *Los Antónimos se crean con prefijo Nek*
@@ -47,8 +49,6 @@
 
 - Bienvenido (a) = Gabaribataor (un)
 
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
 ## Discord
 
 - Discord = Diskordbefeligeon
@@ -80,8 +80,6 @@
 
 - Ban = Nekoenkamadasneon / Baneon
 
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
 ## Adjetivos
 
 - Correcto = Tadashideon
@@ -102,8 +100,6 @@
 
 - Grande = Gragideon
 
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
 ## Verbos
 
 - Tener = Habirian
@@ -123,8 +119,6 @@
 - Trabajar = Laboririan
 
 - Funcionar = Funsirian
-
-<a class="top-link hide" href="#top">Volver Arriba</a>
 
 ## Tiempo
 
@@ -148,8 +142,6 @@
   
 - Tarde = Nekfruin 
 
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
 ## Direcciones
  
 - Arriba = Ah
@@ -171,9 +163,7 @@
 - Izquierda = Chaelsin
   
 - Derecha = Niotsin
-
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
+  
 ## Adverbios
  
 - Muy = Yum
@@ -188,8 +178,6 @@
   
 - También - Dumor/Matren
 
-<a class="top-link hide" href="#top">Volver Arriba</a>
-
 ## Verbos Auxiliares
  
 - Poder = Kadirian (Ka)
@@ -199,5 +187,3 @@
 - Querer = Bolirian (Bol)
 
 - Intentar = Testirian (Tes)
-
-<a class="top-link hide" href="#top">Volver Arriba</a>
