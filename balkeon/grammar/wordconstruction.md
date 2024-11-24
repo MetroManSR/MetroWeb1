@@ -1,4 +1,3 @@
-[<kbd> <br>Atrás<br></kbd>][Back]
 <button class="button-82-pushable" role="button" onclick="location.href='history.back()'">
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
