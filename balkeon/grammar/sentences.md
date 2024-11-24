@@ -44,11 +44,9 @@ Lo básico de las frases en Balkeon es que estas están configuradas en SVO (fra
 
 ***La segunda forma del Verbo Auxiliar es Formal, la forma original***
 
-
-
 ## PARTÍCULAS MODIFICACIONALES
 
-Estas partículas pueden ser `Nek`, `Ah`, `Ar`. 
+Estas partículas pueden ser `Nek`, `Ah`, `Ar`. (Revisar más partículas en Partículas Modificacionales)
 
 💫 Sube las montañas
 
