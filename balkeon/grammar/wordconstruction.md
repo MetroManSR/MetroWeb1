@@ -1,14 +1,12 @@
-[<kbd> <br>Atrás<br></kbd>][Back]
+<button class="button-82-pushable" role="button" onclick="location.href='history.back()'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Volver
+ </span> </button>
 
-[Back]:https://metroman.me/balkeon/docs
+## <button class="button-16" role="button" onclick="location.href='../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='./index'">Gramática</button>
 
-### Atajos Relevantes
-
-[<kbd>Piezas de las Oraciones</kbd>][StPs][<kbd>Guía de Formalidad</kbd>][FmGi][<kbd>Construcción de Oraciones</kbd>][SnCo]
-
-[StPs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
-[FmGi]: https://metroman.me/balkeon/docs/instructions/formalityguide
-[SnCo]: https://metroman.me/balkeon/docs/instructions/sentences
 
 # Construcción de palabras
 
@@ -36,13 +34,13 @@
 
 |          | Simple | Continuo | Perfecto | Perfecto Continuo |
 | -------- | ------ | -------- | -------- | ----------------- |
-| Pasado   | ipe    | ingipe   | ipo      | inkipe            |
-| Presente | ir     | inge     | iro      | inke              |
-| Futuro   | ibe    | ingibe   | ibo      | inkibe            |
+| Pasado   | ip    | ingip   | ipo      | inkip            |
+| Presente | ir     | ingir     | iro      | inkir              |
+| Futuro   | ib    | ingib   | ibo      | inkib            |
 
 | Más formas verbales   | Imperativo | Condicional | Estar y modo Pasivo | Ser   |
 | --------------------- | ---------- | ----------- | ------------------- | ----- |
-| \- Suffix \- \- Infix | \-aor      | \-a-        | \-ados-             | \-es- |
+| \- Suffix \- \- Infix | \-aor      | \-a-        | \-ados-/\-est\-            | \-es- |
 
 ### No
 
@@ -64,12 +62,14 @@ Faumtuti es un enfatizador más fuerte e igual que antes se puede usar yekin par
 - ¿Por qué no estabas haciendo? - ingipe yu nek?
 
 - Futuro hacedor - irbeon
-- Futuro receptor - inbeon
-- Presente hacedor - emeon
-- Receptor presente - ireon
+- Futuro receptor - achbeon
+- Presente hacedor - ireon
+- Receptor presente - achreon
 
 ## Acentuación
 
 - Para acentuar la vocal correcta, debes acentuar siempre la penúltima sílaba de la primera vocal. Eso es todo.
 
 - Para acentuar como imperativo, puede acentuar la última sílaba de la primera vocal
+
+(Información Actualizada luego de Reformas del 23 Nov propuestas por Bjorndottis y MetroMan)

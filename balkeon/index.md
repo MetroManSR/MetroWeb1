@@ -1,12 +1,39 @@
-[<kbd>Home</kbd>][Home] [<kbd>Servidor de Discord</kbd>][Dcr] [<kbd>English</kbd>][Span]
+<button class="button-82-pushable" role="button" onclick="location.href='history.back()'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Volver
+ </span> </button>
 
-[Dcr]: https://discord.gg/8NPsyq7rp7
-[Home]: https://metroman.me/
-[Span]: https://metroman.me/en/balkeon
+<button class="button-82-pushable" role="button" onclick="location.href='../index'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Página Principal
+ </span> </button> <button class="button-82-pushable" role="button" onclick="location.href='../en/balkeon'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  English
+ </span> </button>
 
-[<kbd>Documentación</kbd>][Docs]
+<button class="button-82-pushable" role="button" onclick="location.href='https://discord.gg/8NPsyq7rp7'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Únete al Discord!
+ </span> </button>
 
-[Docs]: https://metroman.me/balkeon/docs
+<button class="button-82-pushable" role="button" onclick="location.href='history.back()'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Volver
+ </span> </button>
+
+### <button class="button-16" role="button" onclick="location.href='./docs/index'">Documentación</button> <button class="button-16" role="button" onclick="location.href='./grammar/index'">Gramática</button>
+
+
 
 # The Balkeon Project
 

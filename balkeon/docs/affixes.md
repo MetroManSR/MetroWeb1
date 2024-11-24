@@ -1,16 +1,12 @@
-[<kbd> <br>Atrás<br></kbd>][Back]
 
-[Back]:https://metroman.me/balkeon/docs
+<button class="button-82-pushable" role="button" onclick="location.href='history.back()'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Volver
+ </span> </button>
 
-### Atajos Relevantes
-
-[<kbd>Piezas de las Oraciones</kbd>][StPs][<kbd>Guía de Formalidad</kbd>][FmGi][<kbd>Construcción de Oraciones</kbd>][SnCo][<kbd>Construcción de Palabras</kbd>][WdCo]
-
-[StPs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
-[FmGi]: https://metroman.me/balkeon/docs/instructions/formalityguide
-[SnCo]: https://metroman.me/balkeon/docs/instructions/sentences
-[WdCo]: https://metroman.me/balkeon/docs/instructions/wordconstruction
-
+## <button class="button-16" role="button" onclick="location.href='../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='./index'">Docs</button>
 
 # Tabla de Afijos
 

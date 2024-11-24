@@ -1,14 +1,11 @@
-[<kbd>Atrás</kbd>][Back]
+<button class="button-82-pushable" role="button" onclick="location.href='history.back()'">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Volver
+ </span> </button>
 
-[Back]:https://metroman.me/balkeon/docs
-
-### Atajos Relevantes
-
-[<kbd>Piezas de las Oraciones</kbd>][StPs][<kbd>Construcción de Oraciones</kbd>][SnCo][<kbd>Construcción de Palabras</kbd>][WdCo]
-
-[StPs]: https://metroman.me/balkeon/docs/instructions/sentencepieces
-[SnCo]: https://metroman.me/balkeon/docs/instructions/sentences
-[WdCo]: https://metroman.me/balkeon/docs/instructions/wordconstruction
+## <button class="button-16" role="button" onclick="location.href='../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='./index'">Gramática</button>
 
 
 # Guía de la formalidad
