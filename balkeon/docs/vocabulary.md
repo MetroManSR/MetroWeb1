@@ -1,8 +1,11 @@
-<a name="top"></a>
+<button class="button-82-pushable" role="button" onclick="history.back()">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Volver
+ </span> </button>
 
-[<kbd>Atrás</kbd>][Back]
-
-[Back]: https://www.metroman.me/en/balkeon/docs
+## <button class="button-16" role="button" onclick="location.href='../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='./index'">Docs</button>
 
 # Vocabulario Palabras Recurrentes
 
