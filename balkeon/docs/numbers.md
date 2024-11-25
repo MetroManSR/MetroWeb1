@@ -133,7 +133,7 @@
 
 ## Sufijos de Números 
 
-La formación de Números Ordinales (Primero, tercero) es mediante la declinación de Adjetivo o usando `Yem`/`esim` (lo que más te acomode). Primer Juego (Uanidu Ludeon, Uanyem Ludeon, Uaniesim Ludeon).
+La formación de Números Ordinales (Primero, tercero) es mediante la declinación de Adjetivo o usando `Yem`/`esim` (lo que más te acomode). Primer Juego (Uanidu Ludeon, Uanyem Ludeon, Uanesim Ludeon).
 
 Para los Múltiplos se usa `-ult-`.
 
