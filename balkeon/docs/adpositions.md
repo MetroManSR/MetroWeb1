@@ -72,7 +72,19 @@ En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende
   <tr>
     <th>Excepto, exceptuando</th>
     <th>Nekdumor</th>
-  </tr> 
+  </tr>
+  <tr>
+    <th>Para</th>
+    <th>Fron</th>
+  </tr>
+  <tr>
+  <th>Desde</th>
+    <th>Frok</th>
+  </tr>
+  <tr>
+    <th>Como</th>
+    <th>Lak</th>
+  </tr>
   <tr>
     <th>Debajo</th>
     <th>Ah</th>
