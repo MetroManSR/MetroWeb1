@@ -5,8 +5,7 @@
   Volver
  </span> </button>
 
-📂 <button class="button-16" role="button" onclick="location.href='.././index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Docs</button>
-
+📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Docs</button>
 
 # Guía de la formalidad
 
