@@ -22,7 +22,7 @@ Incluyendo la manera escrita y la manera hablada hay 5 vocales: `a, e, i, o, u`,
 - Tutfosin, tutfaum
 - Siempre, de todas formas
 
-En estos ejemplos tenemos la letra `T` y la letra `F`, las que cuando van juntas usualmente provocan problemas al hablar, con la vocal muda *schwa* (la representaremos como `ə`) quedaría así:
+En estos ejemplos tenemos la letra `T` y la letra `F`, las que cuando van juntas usualmente provocan problemas al hablar, con la vocal muda *schwa* (la representaremos como **ə**) quedaría así:
 
 - Tutəfosin, tutəfaum
 
@@ -34,7 +34,7 @@ Las consonantes son 15, aquí les dejo la lista:
 
 - B, C, D, F, G, H, K, L, M, N, P, R, S, T, Y.
 
-Con las consonantes el único tema sería la `C` que nunca aparece sola, sino acompañada de la `H`, los mismos sonidos que en Español solo que en menor cantidad.
+Con las consonantes el único tema sería la `C` que nunca aparece sola, sino acompañada de la `H`. En conclusión son casi los mismos sonidos que en Español solo que en menor cantidad.
 
 Por si necesitan saber el IPA de la Y es: [ʝ](https://es.m.wikipedia.org/wiki/%EA%9E%B2). *O sea tu ll/y promedio*
 
