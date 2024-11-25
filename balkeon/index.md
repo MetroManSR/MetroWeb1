@@ -25,7 +25,7 @@
  </span> </button>
 
 
-<button onclick="redirect()">Go to English Version</button>
+<button class="button-16" role="button" onclick="redirect()">English</button> 
 
 <!-- Link to the external JavaScript file -->
     
