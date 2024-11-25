@@ -26,7 +26,7 @@ En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende
     <th>Ruan</th>
   </tr>
   <tr>
-    <th>Después de</th>
+    <th>Después de, pasado</th>
     <th>Aft</th>
   </tr>
   <tr>
@@ -96,6 +96,54 @@ En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende
   <tr>
     <th>Opuesto a</th>
     <th>Oposes</th>
+  </tr>
+  <tr>
+    <th>Fuera</th>
+    <th>Fen</th>
+  </tr>
+  <tr>
+    <th>A diferencia de</th>
+    <th>Neklak</th>
+  </tr>
+  <tr>
+    <th>Que, comparación</th>
+    <th>Dan</th>
+  </tr>
+  <tr>
+    <th>Por, con, mediante, por medio de </th>
+    <th>Prek</th>
+  </tr>
+  <tr>
+    <th>Sin</th>
+    <th>Nel</th>
+  </tr>
+  <tr>
+    <th>Con</th>
+    <th>Kel</th>
+  </tr>
+  <tr>
+    <th>Aparte de, además de</th>
+    <th>Supraten</th>
+  </tr>
+  <tr>
+    <th>Así como</th>
+    <th>Asfaum lak, atsfaum lak</th>
+  </tr>
+  <tr>
+    <th>A causa de, con motivo de, debido a, por</th>
+    <th>Pofrok</th>
+  </tr>
+  <tr>
+    <th>En adición a</th>
+    <th>Suprat</th>
+  </tr>
+  <tr>
+    <th>En frente de</th>
+    <th>Taulk</th>
+  </tr>
+  <tr>
+    <th>En lugar de</th>
+    <th>Railden</th>
   </tr>
   <tr>
     <th>Debajo</th>
