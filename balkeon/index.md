@@ -11,12 +11,7 @@
   <span class="button-82-edge"></span>
   <span class="button-82-front text">
   Página Principal
- </span> </button> <button class="button-82-pushable" role="button" onclick="location.href='../en/balkeon'">
-  <span class="button-82-shadow"></span>
-  <span class="button-82-edge"></span>
-  <span class="button-82-front text">
-  English
- </span> </button>
+ </span> 
 
 <button class="button-82-pushable" role="button" onclick="location.href='https://discord.gg/8NPsyq7rp7'">
   <span class="button-82-shadow"></span>
