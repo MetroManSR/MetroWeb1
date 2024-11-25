@@ -24,6 +24,13 @@
   Únete al Discord!
  </span> </button>
 
+
+<button onclick="redirect()">Go to English Version</button>
+
+<!-- Link to the external JavaScript file -->
+    
+<!--<script src="redirect.js"></script>-->
+
 ### <button class="button-16" role="button" onclick="location.href='./docs/index'">Documentación</button> <button class="button-16" role="button" onclick="location.href='./grammar/index'">Gramática</button> <button class="button-16" role="button" onclick="location.href='./news/index'">Noticias</button>
 
 # The Balkeon Project
