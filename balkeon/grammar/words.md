@@ -57,8 +57,8 @@ Faumtuti es un enfatizador más fuerte e igual que antes se puede usar yekin par
 
 ## Relacionado
 
-- ¿Estoy haciendo? - inge aye?
-- ¿Por qué no estabas haciendo? - ingipe yu nek?
+- ¿Estoy haciendo? - ingir aye?
+- ¿Por qué no estabas haciendo? - ingip yu nek?
 
 - Futuro hacedor - irbeon
 - Futuro receptor - achbeon
