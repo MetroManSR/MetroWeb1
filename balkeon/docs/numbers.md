@@ -127,7 +127,8 @@
 👀 Los números se leen de derecha a izquierda.
 
 `2024` `Kuar chostek chosmiri`
-`1987``Seti oichtek nuefdien uanmiri`
+
+`1987` `Seti oichtek nuefdien uanmiri`
 
 
 ## Sufijos de Números 
@@ -143,6 +144,21 @@ Chosulteon: El doble.
 
 Para Fracciones se usa `-ake`.
 
-Chosakideon
-Chosakib
-Chosakeon
+- Chosake - ½ Treake - 1/3
+- Tekake- 1/10
+- Miriake- 1/1000
+- Miliarake- 1/1000000
+- Sink Oichakse - 5/8
+
+Usando el Sufijo Colectivo se consigue lo siguiente:
+
+- Tekupaon - un grupo de diez, una decena
+(sustantivo)
+- Tekupidaon - de diez miembros (adjetivo)
+- Tekupin - en grupos de a diez (adverbio), de diez en diez
+
+Para crear Distributivos uno debe usar el sufijo -is-:
+
+- Uanisideon = Uno a cada uno
+- Chosisideon = Dos a cada uno
+- Treisideon = Tres a cada uno
