@@ -317,7 +317,7 @@ body {
   touch-action: manipulation;
   width: auto;
   will-change: transform,opacity;
-  z-index: 0;
+  z-index: 99999;
 }
 
 .button-17:hover {
