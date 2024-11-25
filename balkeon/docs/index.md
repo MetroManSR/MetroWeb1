@@ -16,6 +16,9 @@
 
 ### 🏗 <button class="button-16" role="button" onclick="location.href='./affixes'">Afijos</button>
 
+### 🔢 <button class="button-16" role="button" onclick="location.href='./numbers'">Números</button>
+
+
 ### 😶‍🌫️ <button class="button-16" role="button" onclick="location.href='./vocabulary'">Vocabulario Frecuente</button>
 
 ### 🧩 <button class="button-16" role="button" onclick="location.href='./sentencewords'">Piezas de la Oración</button>
