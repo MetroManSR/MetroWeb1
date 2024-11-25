@@ -3,7 +3,7 @@
   <span class="button-82-edge"></span>
   <span class="button-82-front text">
   Volver
- </span> </button> <button class="button-17" role="button" onclick="langRedirect('es')">🇺🇸🇬🇧</button> 
+ </span> </button> <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=100&id=95094&format=png&color=000000"/></button> 
  
 
 <button class="button-82-pushable" role="button" onclick="location.href='../index'">
