@@ -88,4 +88,61 @@
 
   </tr>
   </tbody>
+  </table>
+
+<table style="width:100%">
+
+  <theader>
+
+  <tr>
+
+    <th>10</th>
+
+    <th>100</th>
+
+    <th>1000</th>
+
+    <th>1000000</th>
+
+  </tr>
+
   </theader>
+
+  <tbody>
+
+  <tr>
+
+    <td>Tek</td>
+
+    <td>Dien</td>
+
+    <td>Miri</td>
+
+    <td>Miliar</td>
+
+  </tr>
+  </tbody>
+  </table>
+
+👀 Los números se leen de derecha a izquierda.
+
+`2024` `Kuar chostek chosmiri`
+`1987``Seti oichtek nuefdien uanmiri`
+
+
+## Sufijos de Números 
+
+La formación de Números Ordinales (Primero, tercero) es mediante la declinación de Adjetivo o usando `Yem`. Primer Juego (Uanidu Ludeon, Uanyem Ludeon).
+
+Para los Múltiplos se usa `-ult-`.
+
+Chosultideon: Doble, multiplicado por dos.
+Chosultin: Dos veces una cantidad
+cantidad.
+Chosulteon: El doble.
+
+Para Fracciones se usa `-ake`.
+
+Chosakideon
+Chosakib
+Chosakeon
