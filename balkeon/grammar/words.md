@@ -1,73 +1,74 @@
 <button class="button-82-pushable" role="button" onclick="history.back()">
- <span class="button-82-shadow"></span>
- <span class="button-82-edge"></span>
- <span class="button-82-front text">
- Return
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Volver
  </span> </button>
 
-📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role= "button" onclick="location.href='../index'">Grammar</button>
+📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Gramática</button>
 
-# Word construction
+# Construcción de palabras
 
-`[Root](id)(ado)(s)[gender or time]`
-- id = adjective
-- ado/est = inconstancy, short-term state
-- s= be, long-term state
-- tense = conjugable verb
+`[Raíz](id)(ado)(s)[género o tiempo]`
+- id = adjetivo
+- ado = inconstancia, estado a corto plazo
+- s = ser, estado a largo plazo
+- tense = verbo conjugable
 
-## Gender suffixes
-- on - Man
-- an - Woman
-- en - Neuter (rarely used)
-- aon - Man or Woman
-- eon - Inanimate
-- u - Deductive
-- s - Plural (comes after gender suffixes)
+## Sufijos de género
+- on - Hombre
+- an - Mujer
+- en - Neutro (Poco usado)
+- aon - Hombre o Mujer
+- eon - Inanimado
+- u - Deductivo
+- s - Plural (va detrás de los sufijos de género)
 
-## Dative suffix
-- stan (I want it, aye bolir eostan)
+## Sufijo de dativo
+- stan (lo quiero, aye bolir eostan)
 
-## Time suffixes
+## Sufijos de tiempo gramatical
 
-👉 The infinitives of verbs are `irian` and `ian`. The first case is used In Very Formal Speech and when the verb is not linked to any other verb, the second verb is used for the rest of the cases, especially when it is linked to a modal or auxiliary verb.
+👉 El infinitivo de los verbos es `irian` y `ian`. El primer caso se usa en el Discurso Muy Formal y cuando el verbo no enlaza con ningún otro verbo, el segundo para el resto de los casos, especialmente cuando va junto a un verbo modal o auxiliar.
 
-| | Simple | Continuous | Perfect | Perfect Continuous |
-| -- ------ | ------ | -------- | -------- | ----------------- | | Past | ip | ingip | ipo | inkip |
-| Present | to go | to ingir | to go | inkir |
-| Future | ib | ingib | ibo | inkib |
+|          | Simple | Continuo | Perfecto | Perfecto Continuo |
+| -------- | ------ | -------- | -------- | ----------------- |
+| Pasado   | ip    | ingip   | ipo      | inkip            |
+| Presente | ir     | ingir     | iro      | inkir              |
+| Futuro   | ib    | ingib   | ibo      | inkib            |
 
-| More verb forms | Imperative | Conditional | To be and Passive mood | To be |
-| --------- ------------ | ---------- | ----------- | -------------- ----- | ----- |
-| \- Suffix \- \- Infix | \-aor | \-a- | \-ados-/\-est\- | \-es- |
+| Más formas verbales   | Imperativo | Condicional | Estar y modo Pasivo | Ser   |
+| --------------------- | ---------- | ----------- | ------------------- | ----- |
+| \- Sufijo \- \- Infijo | \-aor      | \-a-        | \-ados-/\-est\-            | \-es- |
 
 ### No
 
-To say no to not doing something, use nek at the end of the sentence.
+Para decir no de no hacer algo se usa nek al final de la oración.
 
-One way to emphasize negation is through the adverb faumnem, without using nek
+Una forma de enfatizar la negación es mediante el adverbio faumnem, sin usar nek
 
-A more colloquial way is through the adverb nekin.
+Una forma mas coloquial es mediante el adverbio nekin.
 
-### Yes
+### Sí
 
-To emphasize an action Saying “Yes I did” uses yek at the end of the sentence.
+Para enfatizar una acción diciendo “Sí lo hice” se usa yek al final de la oración.
 
-Faumtut is a stronger emphasizer and just like before you can use yekin for emphasis colloquially.
+Faumtuti es un enfatizador más fuerte e igual que antes se puede usar yekin para enfatizar coloquialmente.
 
-## Related
+## Relacionado
 
-- Am I doing? - ingir aye?
-- Why weren't you doing? - ingip yu nek?
+- ¿Estoy haciendo? - ingir aye?
+- ¿Por qué no estabas haciendo? - ingip yu nek?
 
-- Future doer - irbeon
-- Future receiver - achbeon
-- Present doer - ireon
-- Present receiver - achreon
+- Futuro hacedor - irbeon
+- Futuro receptor - achbeon
+- Presente hacedor - ireon
+- Receptor presente - achreon
 
-## Stressing
+## Acentuación
 
-- To stress the correct vowel, you must always accentuate the penultimate syllable of the first vowel. That's all.
+- Para acentuar la vocal correcta, debes acentuar siempre la penúltima sílaba de la primera vocal. Eso es todo.
 
-- To stress in an imperative, you can accentuate the last syllable of the first vowel
+- Para acentuar como imperativo, puede acentuar la última sílaba de la primera vocal
 
-(Updated information after the 23 Nov reforms proposed by Bjorndottis and MetroMan)
+(Información Actualizada luego de Reformas del 23 Nov propuestas por Bjorndottis y MetroMan)
