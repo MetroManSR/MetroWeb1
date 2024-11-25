@@ -45,7 +45,7 @@
 
     <td>1</td>
 
-    <td>Naul</td>
+    <td>Uan</td>
 
     <td>6</td>
 
@@ -100,9 +100,9 @@
 
     <th>100</th>
 
-    <th>1000</th>
+    <th>1.000</th>
 
-    <th>1000000</th>
+    <th>1.000.000</th>
 
   </tr>
 
@@ -133,7 +133,7 @@
 
 ## Sufijos de Números 
 
-La formación de Números Ordinales (Primero, tercero) es mediante la declinación de Adjetivo o usando `Yem`. Primer Juego (Uanidu Ludeon, Uanyem Ludeon).
+La formación de Números Ordinales (Primero, tercero) es mediante la declinación de Adjetivo o usando `Yem`/`Iem` (lo que más te acomode). Primer Juego (Uanidu Ludeon, Uanyem Ludeon).
 
 Para los Múltiplos se usa `-ult-`.
 
