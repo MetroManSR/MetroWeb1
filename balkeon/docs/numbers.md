@@ -133,7 +133,7 @@
 
 ## Sufijos de Números 
 
-La formación de Números Ordinales (Primero, tercero) es mediante la declinación de Adjetivo o usando `Yem`/`Iem` (lo que más te acomode). Primer Juego (Uanidu Ludeon, Uanyem Ludeon).
+La formación de Números Ordinales (Primero, tercero) es mediante la declinación de Adjetivo o usando `Yem`/`esim` (lo que más te acomode). Primer Juego (Uanidu Ludeon, Uanyem Ludeon, Uaniesim Ludeon).
 
 Para los Múltiplos se usa `-ult-`.
 
@@ -148,7 +148,7 @@ Para Fracciones se usa `-ake`.
 - Tekake- 1/10
 - Miriake- 1/1000
 - Miliarake- 1/1000000
-- Sink Oichakse - 5/8
+- Sink Oichake - 5/8
 
 Usando el Sufijo Colectivo se consigue lo siguiente:
 
