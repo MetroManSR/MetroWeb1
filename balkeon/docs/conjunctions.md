@@ -48,7 +48,7 @@
 
   <tr>
 
-    <td>Pero</td>
+    <td>Pero, mas, sino</td>
 
     <td>Ba</td>
 
@@ -187,6 +187,13 @@
     <td>A causa de, con motivo de, debido a, por</td>
 
     <td>Pofrok</td>
+
+  </tr>
+  <tr>
+
+    <td>Tanto... como</td>
+
+    <td>Ara... ara</td>
 
   </tr>
 
