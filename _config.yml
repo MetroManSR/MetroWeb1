@@ -36,7 +36,7 @@ navbar-links:
 
 # Image to show in the navigation bar - works best with a square image
 # Remove this parameter if you don't want an image in the navbar
-avatar: "https://cdn.discordapp.com/attachments/1304811037614149662/1309588649997897728/MetroManTransp.png.jpg?ex=674220f9&is=6740cf79&hm=879859d62402905bba6287f50f44c59daf9e0f0b9aeab8bf2d10e4b7e0a473ee&"
+avatar: "https://ibb.co/xfjwQ9f"
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
 round-avatar: true
