@@ -86,6 +86,18 @@ En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende
     <th>Lak</th>
   </tr>
   <tr>
+    <th>Cerca de</th>
+    <th>Rast</th>
+  </tr>
+  <tr>
+    <th>De, genitivo</th>
+    <th>Os</th>
+  </tr>
+  <tr>
+    <th>Opuesto a</th>
+    <th>Oposes</th>
+  </tr>
+  <tr>
     <th>Debajo</th>
     <th>Ah</th>
   </tr>
