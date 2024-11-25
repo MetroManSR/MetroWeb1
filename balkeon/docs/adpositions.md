@@ -63,16 +63,16 @@ En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende
   </tr>
   <tr>
     <th>A pesar de</th>
-    <th>Onke</th>
+    <th>Onke, trots</th>
   </tr>
   <tr>
     <th>Durante</th>
     <th>Dum</th>
   </tr>
   <tr>
-    <th>Debajo</th>
-    <th>Ah</th>
-  </tr>
+    <th>Excepto, exceptuando</th>
+    <th>Nekdumor</th>
+  </tr> 
   <tr>
     <th>Debajo</th>
     <th>Ah</th>
