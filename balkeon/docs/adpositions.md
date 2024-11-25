@@ -11,174 +11,350 @@
 
 En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende prefiero llamarlo Adposición.
 
-<table style="width:100%">
-  <tr>
-    <th>Español</th>
-    <th>Balkeon</th>
-  </tr>
   
+  <table style="width:100%">
+
+  <theader>
+
   <tr>
-    <th>Acerca de</th>
-    <th>Bau</th>
+
+    <th>Español</th>
+
+    <th>Balkeon</th>
+
   </tr>
+
+  </theader>
+
+  <tbody>
+
   <tr>
-    <th>A través</th>
-    <th>Ruan</th>
+
+    <td>Acerca de</td>
+
+    <td>Bau</td>
+
   </tr>
+
   <tr>
-    <th>Después de, pasado</th>
-    <th>Aft</th>
+
+    <td>A través</td>
+
+    <td>Ruan</td>
+
   </tr>
+
   <tr>
-    <th>Contra</th>
-    <th>Ank</th>
+
+    <td>Después de, pasado</td>
+
+    <td>Aft</td>
+
   </tr>
+
   <tr>
-    <th>A lo largo de</th>
-    <th>Seollong</th>
+
+    <td>Contra</td>
+
+    <td>Ank</td>
+
   </tr>
+
   <tr>
-    <th>Entre dos cosas</th>
-    <th>But</th>
+
+    <td>A lo largo de</td>
+
+    <td>Seollong</td>
+
   </tr>
+
   <tr>
-    <th>Entre más de dos cosas</th>
-    <th>Den</th>
+
+    <td>Entre dos cosas</td>
+
+    <td>But</td>
+
+  </tr>
+
+  <tr>
+
+    <td>Entre más de dos cosas</td>
+
+    <td>Den</td>
+
   </tr>  
+
   <tr>
-    <th>Tan como</th>
-    <th>Yaen lak</th>
+
+    <td>Tan como</td>
+
+    <td>Yaen lak</td>
+
   </tr>
+
   <tr>
-    <th>Antes de</th>
-    <th>Sen</th>
+
+    <td>Antes de</td>
+
+    <td>Sen</td>
+
   </tr>
+
   <tr>
-    <th>Atrás, detrás</th>
-    <th>Dak</th>
+
+    <td>Atrás, detrás</td>
+
+    <td>Dak</td>
+
   </tr>
+
   <tr>
-    <th>Al lado de, junto a</th>
-    <th>Sail</th>
+
+    <td>Al lado de, junto a</td>
+
+    <td>Sail</td>
+
   </tr>
+
   <tr>
-    <th>A pesar de</th>
-    <th>Onke, trots</th>
+
+    <td>A pesar de</td>
+
+    <td>Onke, trots</td>
+
   </tr>
+
   <tr>
-    <th>Durante</th>
-    <th>Dum</th>
+
+    <td>Durante</td>
+
+    <td>Dum</td>
+
   </tr>
+
   <tr>
-    <th>Excepto, exceptuando</th>
-    <th>Nekdumor</th>
+
+    <td>Excepto, exceptuando</td>
+
+    <td>Nekdumor</td>
+
   </tr>
+
   <tr>
-    <th>Para</th>
-    <th>Fron</th>
+
+    <td>Para</td>
+
+    <td>Fron</td>
+
   </tr>
+
   <tr>
-  <th>Desde</th>
-    <th>Frok</th>
+
+  <td>Desde</td>
+
+    <td>Frok</td>
+
   </tr>
+
   <tr>
-    <th>Como</th>
-    <th>Lak</th>
+
+    <td>Como</td>
+
+    <td>Lak</td>
+
   </tr>
+
   <tr>
-    <th>Cerca de</th>
-    <th>Rast</th>
+
+    <td>Cerca de</td>
+
+    <td>Rast</td>
+
   </tr>
+
   <tr>
-    <th>De, genitivo</th>
-    <th>Os</th>
+
+    <td>De, genitivo</td>
+
+    <td>Os</td>
+
   </tr>
+
   <tr>
-    <th>Opuesto a</th>
-    <th>Oposes</th>
+
+    <td>Opuesto a</td>
+
+    <td>Oposes</td>
+
   </tr>
+
   <tr>
-    <th>Fuera</th>
-    <th>Fen</th>
+
+    <td>Fuera</td>
+
+    <td>Fen</td>
+
   </tr>
+
   <tr>
-    <th>A diferencia de</th>
-    <th>Neklak</th>
+
+    <td>A diferencia de</td>
+
+    <td>Neklak</td>
+
   </tr>
+
   <tr>
-    <th>Que, comparación</th>
-    <th>Dan</th>
+
+    <td>Que, comparación</td>
+
+    <td>Dan</td>
+
   </tr>
+
   <tr>
-    <th>Por, con, mediante, por medio de </th>
-    <th>Prek</th>
+
+    <td>Por, con, mediante, por medio de </td>
+
+    <td>Prek</td>
+
   </tr>
+
   <tr>
-    <th>Sin</th>
-    <th>Nel</th>
+
+    <td>Sin</td>
+
+    <td>Nel</td>
+
   </tr>
+
   <tr>
-    <th>Con</th>
-    <th>Kel</th>
+
+    <td>Con</td>
+
+    <td>Kel</td>
+
   </tr>
+
   <tr>
-    <th>Aparte de, además de</th>
-    <th>Supraten</th>
+
+    <td>Aparte de, además de</td>
+
+    <td>Supraten</td>
+
   </tr>
+
   <tr>
-    <th>Así como</th>
-    <th>Asfaum lak, atsfaum lak</th>
+
+    <td>Así como</td>
+
+    <td>Asfaum lak, atsfaum lak</td>
+
   </tr>
+
   <tr>
-    <th>A causa de, con motivo de, debido a, por</th>
-    <th>Pofrok</th>
+
+    <td>A causa de, con motivo de, debido a, por</td>
+
+    <td>Pofrok</td>
+
   </tr>
+
   <tr>
-    <th>En adición a</th>
-    <th>Suprat</th>
+
+    <td>En adición a</td>
+
+    <td>Suprat</td>
+
   </tr>
+
   <tr>
-    <th>En frente de</th>
-    <th>Taulk</th>
+
+    <td>En frente de</td>
+
+    <td>Taulk</td>
+
   </tr>
+
   <tr>
-    <th>En lugar de</th>
-    <th>Railden</th>
+
+    <td>En lugar de</td>
+
+    <td>Railden</td>
+
   </tr>
+
   <tr>
-    <th>Debajo</th>
-    <th>Ah</th>
+
+    <td>Debajo</td>
+
+    <td>Ah</td>
+
   </tr>
+
   <tr>
-    <th>Tan</th>
-    <th>Yaen</th>
+
+    <td>Tan</td>
+
+    <td>Yaen</td>
+
   </tr>
+
   <tr>
-    <th>Alrededor</th>
-    <th>Astas</th>
+
+    <td>Alrededor</td>
+
+    <td>Astas</td>
+
   </tr>
+
   <tr>
-    <th>En, encima</th>
-    <th>On</th>
+
+    <td>En, encima</td>
+
+    <td>On</td>
+
   </tr>
+
   <tr>
-    <th>En, dentro</th>
-    <th>In</th>
+
+    <td>En, dentro</td>
+
+    <td>In</td>
+
   </tr>
+
   <tr>
-    <th>En</th>
-    <th>Un</th>
+
+    <td>En</td>
+
+    <td>Un</td>
+
   </tr>
+
   <tr>
-    <th>Arriba</th>
-    <th>Ar</th>
+
+    <td>Arriba</td>
+
+    <td>Ar</td>
+
   </tr>
+
   <tr>
-    <th>Hacia, A</th>
-    <th>Tal</th>
+
+    <td>Hacia, A</td>
+
+    <td>Tal</td>
+
   </tr>
+
   <tr>
-    <th>Hasta</th>
-    <th>Til</th>
+
+    <td>Hasta</td>
+
+    <td>Til</td>
+
   </tr>
+</tbody>
 </table>
+
