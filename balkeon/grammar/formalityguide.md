@@ -72,5 +72,3 @@
 👉 Colocar prefijos detrás de la posición del verbo modal en cualquier momento con precaución
 
 👉 Uso de nekin y yekin.
-
-Traducción realizada con la versión gratuita del traductor DeepL.com
