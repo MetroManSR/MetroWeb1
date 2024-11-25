@@ -25,7 +25,7 @@
  </span> </button>
 
 
-<button class="button-16" role="button" onclick="redirect('es')">English</button> 
+<button class="button-16" role="button" onclick="langRedirect('es')">English</button> 
 
 <!-- Link to the external JavaScript file -->
     
