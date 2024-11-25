@@ -18,3 +18,6 @@
 
 ### 🧩 <button class="button-16" role="button" onclick="location.href='./sentencewords'">Piezas de la Oración</button>
 
+### 🔊 <button class="button-16" role="button" onclick="location.href='./phonology'">Fonología</button>
+
+
