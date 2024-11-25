@@ -9,8 +9,9 @@
 
 # Lista de Conjunciones Usuales
 
-`Me gusta cuando callas, porque estás como ausente
-Plachir erok yu kasir, pok yu sir lak nosidu`
+`Me gusta cuando callas, porque estás como ausente`
+
+`Plachir erok yu kasir, pok yu sir lak nosirian`
 
  
   <table style="width:100%">
@@ -130,8 +131,6 @@ Plachir erok yu kasir, pok yu sir lak nosidu`
     <td>Excepto que</td>
 
     <td>Nekdumor</td>
-
-  </tr>
 
   </tr>
 
