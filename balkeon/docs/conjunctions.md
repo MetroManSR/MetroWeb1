@@ -80,7 +80,7 @@
 
   <tr>
 
-    <td><Porque</td>
+    <td>Porque</td>
 
     <td>Pok</td>
 
