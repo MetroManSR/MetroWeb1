@@ -181,3 +181,4 @@ En Balkeon todas las preposiciones pueden convertirse a Postposiciones, por ende
     <th>Hasta</th>
     <th>Til</th>
   </tr>
+</table>
