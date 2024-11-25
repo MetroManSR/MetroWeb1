@@ -157,7 +157,7 @@ Usando el Sufijo Colectivo se consigue lo siguiente:
 - Tekupidaon - de diez miembros (adjetivo)
 - Tekupin - en grupos de a diez (adverbio), de diez en diez
 
-Para crear Distributivos uno debe usar el sufijo -is-:
+Para crear Distributivos uno debe usar el sufijo `-is-`:
 
 - Uanisideon = Uno a cada uno
 - Chosisideon = Dos a cada uno
