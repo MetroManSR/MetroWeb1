@@ -10,6 +10,7 @@
 # Índice 
 
 <a name="top"></a>
+<a class="top-link hide" href="#top">⏫️</a>
 
 - [Piezas de Oraciones](#piezas-de-oraciones)
   - [Copulativos](#copulativos)
