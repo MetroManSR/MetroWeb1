@@ -13,6 +13,8 @@
 
 `Plachir erok yu kasir, pok yu sir lak nosirian`
 
+<a name="top"></a>
+<a class="top-link hide" href="#top">⏫️</a>
  
   <table style="width:100%">
 
