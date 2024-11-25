@@ -1,3 +1,5 @@
+<button class="button-17" role="button" onclick="langRedirect('es')">🇺🇸🇬🇧</button> 
+
 <button class="button-82-pushable" role="button" onclick="history.back()">
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
@@ -23,9 +25,6 @@
   <span class="button-82-front text">
   Únete al Discord!
  </span> </button>
-
-
-<button class="button-16" role="button" onclick="langRedirect('es')">English</button> 
 
 <!-- Link to the external JavaScript file -->
     
