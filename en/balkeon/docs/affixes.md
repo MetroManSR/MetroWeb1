@@ -1,16 +1,11 @@
-[<kbd>Back</kbd>][Back]
+<button class="button-82-pushable" role="button" onclick="history.back()">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text">
+  Volver
+ </span> </button>
 
-[Back]: https://metroman.me/en/balkeon/docs
-
-### Important Shortcuts
-
-[<kbd>Sentence Pieces</kbd>][StPs][<kbd>Formality Guide</kbd>][FmGi][<kbd>Word Construction</kbd>][WdCn][<kbd>Sentence Construction </kbd>][SnCo]
-
-[StPs]: https://metroman.me/en/balkeon/docs/instructions/sentencepieces
-[FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
-[WdCn]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
-[SnCo]: https://metroman.me/en/balkeon/docs/instructions/sentences
-
+📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Docs</button>
 
 # Affix Chart
 
@@ -29,7 +24,7 @@
 | Without                                 | Nel-    | After                          | Aft-     |
 | Before                                  | Sen-    | To give                        | \-aen-   |
 | Collective                              | \-up-   | To lean on                     | \-len-   |
-| Augmentative                            | \-ag-   | Vert                           | \-um-    |
+| Augmentative                            | \-agr-   | Very                           | \-um-    |
 | Diminutive                              | \-alk-  | To punch with                  | \-uch-   |
 | Son of, descendant                      | \-it-   | Worth of                       | \-erb-   |
 | Who/what does, what/who is in charge of | \-em-   | Doctrine or believe system     | \-og-    |
