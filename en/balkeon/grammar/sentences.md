@@ -74,3 +74,5 @@ NEVER
 🙄 Sayao gonir yameon kad ah nek
 
 *Actually you COULD use the third form But it's too informal and ambiguous*
+
+<button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
