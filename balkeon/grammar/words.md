@@ -73,7 +73,7 @@ Considerar que dentro de `[]` se encontrarán Partículas Necesarias y `()` para
 
 | Más formas verbales   | Imperativo | Condicional | Estar y modo Pasivo | Ser   |
 | --------------------- | ---------- | ----------- | ------------------- | ----- |
-| \- Sufijo \-Infijo\-| \-aor      | \-a-        | \-ados-/\-est\-            | \-es- |
+| \-Sufijo<br />\-Infijo\-| \-aor      | \-a-        | \-ados-/\-est\-            | \-es- |
 
 </div>
 
