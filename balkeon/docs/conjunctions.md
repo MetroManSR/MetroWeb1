@@ -19,9 +19,8 @@
 
 
 <a name="top"></a>
-<a class="top-link hide" href="#top">⏫️</a>
-<div id="content-table"> 
-  <table style="width:100%">
+<a class="top-link hide" href="#top">⏫️</a> 
+<table id="content-table" style="width:100%">
 
   <theader>
 
@@ -206,6 +205,6 @@
 
 </tbody>
 </table>
-</div>
+
 
 <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
