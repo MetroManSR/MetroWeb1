@@ -13,6 +13,7 @@ function searchAndHighlightTable() {
     currentMatchIndex = -1;
     for (let cell of cells) {
         cell.style.backgroundColor = '';
+        cell.style.border = '';
     }
 
     // Find matches and highlight them
@@ -27,7 +28,7 @@ function searchAndHighlightTable() {
     // Check for matches and scroll to the first one
     if (matches.length > 0) {
         currentMatchIndex = 0;
-        matches[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        highlightCurrentMatch();
         nextButton.style.display = 'inline';  // Show the "Next" button
     } else {
         nextButton.style.display = 'none';  // Hide the "Next" button if no matches found
@@ -41,6 +42,17 @@ function nextMatch() {
         return;
     }
 
+    // Remove highlight from the current match
+    matches[currentMatchIndex].style.backgroundColor = 'yellow';
+    matches[currentMatchIndex].style.border = '';
+
     currentMatchIndex = (currentMatchIndex + 1) % matches.length;
-    matches[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    highlightCurrentMatch();
+}
+
+function highlightCurrentMatch() {
+    const currentMatch = matches[currentMatchIndex];
+    currentMatch.style.backgroundColor = 'orange';
+    currentMatch.style.border = '2px solid red';
+    currentMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
