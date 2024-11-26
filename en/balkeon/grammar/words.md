@@ -68,6 +68,8 @@ Faumtuti is a stronger emphasizer and just like before you can use yekin for emp
 - Future receiver - achbeon
 - Present doer - ireon
 - Present receiver - achreon
+- Past doer - irpeon
+- Past receiver - achpeon
 
 ## Vowel Stress
 
