@@ -32,7 +32,7 @@ Consider that inside `[]` you will find Necessary Particles and `()` for Optiona
 `[Root or Roots](Adjective) (Statifier) ​​(Time or Grammatical Mood)`
 
 - The Adjective Particle in a Verb is optional at the point which you can choose to use to reconfirm that you are mentioning or giving quality to the subject or object.
-- Stative Suffixes can be `-ados-`,.`-est-`, `-es-`, more information [here](#grammatical-tense-sufixes).
+- Stative Suffixes can be `-ados-`,.`-est-`, `-es-`, more information [here](#grammatical-tense-suffixes).
 - The last element would be the Verbal Tense or Mode, more information [here](#grammatical-tense-suffixes), it is optional since the Auxiliary Verbs have an alternative mode explained [here](../sentences/#auxiliary-verbs) in its homonymous section.
 
 ## Adverbs
