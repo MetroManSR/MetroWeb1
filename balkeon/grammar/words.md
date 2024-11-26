@@ -30,8 +30,8 @@ Considerar que dentro de `[]` se encontrarán Partículas Necesarias y `()` para
 `[Raíz o Raíces](Adjetivador)(Estatificador)(Tiempo o Modo Gramatical)`
 
 - El Adjetivador en un Verbo es opcional al punto que puedes escoger usarlo para re confirmar que estás mencionando o dando cualidad al sujeto u objeto.
-- Estatificador puede ser `-ados-`,.`-est-`, `-es-`, más información en esta [Página](../words).
-- El último elemento sería el Tiempo o Modo Verbal, más información en esta [Página](../words), es opcional ya que los Verbos Auxiliares tienen un modo alternativo explicado [acá](../sentences) en su sección homónima.
+- Estatificador puede ser `-ados-`,.`-est-`, `-es-`, más información [acá](#sufijos-de-tiempo-gramatical).
+- El último elemento sería el Tiempo o Modo Verbal, más información [acá](#sufijos-de-tiempo-gramatical, es opcional ya que los Verbos Auxiliares tienen un modo alternativo explicado [acá](../sentences) en su sección homónima.
 
 ## Adverbios
 
