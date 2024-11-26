@@ -106,7 +106,7 @@ Para armar los Pretéritos se deben seguir las siguientes reglas:
 
 - Si es Pasivo, se quita la `i` del infijo y se pone ach (quedando por ejemplo `achpeon`), el resto es lo mismo de siempre.
 
-- En Balkeon los Pretéritos son útiles para las [Oraciones Complejas](./complexsentences) y una que otra palabra distinta.
+- En Balkeon los Pretéritos son útiles para las [Oraciones Complejas](../complexsentences) y una que otra palabra distinta.
 
 
 ## Acentuación
