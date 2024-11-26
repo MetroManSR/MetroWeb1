@@ -37,3 +37,5 @@ Welcome to my Conlang Balkeon
 🎉 Come and join this Conlang project with words from all over the world that aims to be Flexible, Versatile, Simple and Firm.
 
 👌 It has more than 5000 words and counting, it is so Flexible that you can put together more words yourself. Join us and we will all collaborate to continue growing this pretentious Language
+
+<button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
