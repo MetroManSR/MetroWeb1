@@ -68,6 +68,8 @@ Faumtuti es un enfatizador más fuerte e igual que antes se puede usar yekin par
 - Futuro receptor - achbeon
 - Presente hacedor - ireon
 - Receptor presente - achreon
+- Pasado hacedor- irpeon
+- Pasado receptor - achpeon
 
 ## Acentuación
 
