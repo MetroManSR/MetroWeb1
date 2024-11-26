@@ -78,8 +78,8 @@
 
 | ¿Quién?        | Kaen?        | ¿Con qué?       | … peken?     |
 | -------------- | ------------ | --------------- | ------------ |
-| ¿A quién?      | … kaenstan?  | ¿Por qué?       | Prok?        |
-| ¿Con quién?    | … kelkaen?   | ¿Para qué?      | … froken?    |
+| ¿A quién?      | … kaenstan?  | ¿Por qué?       | Prok? / Proken?        |
+| ¿Con quién?    | … kelkaen?   | ¿Para qué?      | … froken? / Frok?    |
 | ¿Para quién?   | … fronkaen?  | ¿Dónde?         | Deon?        |
 | ¿Qué?          | Ken?         | ¿Adónde?        | … taldeon?   |
 | ¿Sobre qué?    | … bauken?    | ¿De dónde?      | … frokdeon?  |
