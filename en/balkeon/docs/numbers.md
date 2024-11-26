@@ -161,3 +161,5 @@ To create Distributives one must use the suffix `-is-`:
 - Uanisideon = One to each
 - Chosisideon = Two each
 - Treisideon = Three each
+
+</span> </button> <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
