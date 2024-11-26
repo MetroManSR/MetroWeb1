@@ -2,7 +2,7 @@
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
   <span class="button-82-front text">
-  Volver
+  Return
  </span> </button>
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Grammar</button>
