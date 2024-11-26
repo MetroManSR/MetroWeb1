@@ -24,7 +24,7 @@
 
 <!--<script src="redirect.js"></script>-->
 
-### <button class="button-16" role="button" onclick="location.href='./docs/index'">Documentation</button> <button class="button-16" role=" button" onclick="location.href='./grammar/index'">Grammar</button> <button class="button-16" role="button" onclick="location.href='./news/index'">News</button>
+### <button class="button-16" role="button" onclick="location.href='./docs/index'">Documentation</button> <button class="button-16" role=" button" onclick="location.href='./grammar/index'">Grammar</button> <button class="button-16" role="button" onclick="location.href='../balkeon/news/index'">News</button>
 
 # The Balkeon Project
 
