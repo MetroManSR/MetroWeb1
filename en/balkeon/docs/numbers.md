@@ -118,7 +118,7 @@
 
  <td>Miri</td>
 
-<td>Miliary</td>
+<td>Miliar</td>
 
 </tr>
 </tbody>
