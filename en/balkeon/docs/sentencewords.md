@@ -123,4 +123,4 @@
 
 - Remember that the Reciprocal Pronouns in English are: oneself, himself, herself, etc.
 
-</span> </button> <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
+ <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
