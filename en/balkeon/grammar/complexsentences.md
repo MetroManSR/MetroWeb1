@@ -14,22 +14,27 @@ A complex sentence is made up of two phrases, in Balkeon the conjunction `Kua` i
 'I can consider that you have not done anything because of what you have told me'
 
 **Kua**
+
 `Kadir inmabian, pofrok emseon yu seyip ayestan, kua yu agdiro nemeon`
+
 `Inmabir, pofrok emseon yu seyip ayestan, kad, kua yu agdiro nemeon`
 
-**No Kua Conjunction**
+**Without Kua Conjunction**
 
 `Kadir inmabian, pofrok emseon yu seyip ayestan, yu agdiro nemeon`
+
 `Inmabir, pofrok emseon yu seyip ayestan, kad, yu agdiro nemeon`
 
 **Substantification of the second sentence**
 
 `Kadir inmabian yuos nemagdiroyeon, pofrok emseon yu seyip ayestan`
+
 `Kadir inmabian yuos nemagdiroreon, pofrok emseon yu seyip ayestan`
 
 **Past Infinitive of the Second Phrase**
 
 `Kadir inmabian yu nemagdipian, pofrok emseon (kua) yu seyip ayestan`
+
 `Pofrok emseon (kua) yu seyip ayestan, inmabir yu nemagdipian kad`
 
 - The choice is yours to put together this prayer in the style you prefer.
