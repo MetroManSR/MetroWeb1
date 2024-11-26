@@ -1,3 +1,5 @@
+> ⚠️ I made a small mistake in [preterites](#related), it was not irp irb but ip ib
+
 <button class="button-82-pushable" role="button" onclick="history.back()">
  <span class="button-82-shadow"></span>
  <span class="button-82-edge"></span>
@@ -64,11 +66,11 @@ Faumtuti is a stronger emphasizer and just like before you can use yekin for emp
 - Am I doing? - ingir aye?
 - Why weren't you doing? - ingip yu nek?
 
-- Future doer - irbeon
+- Future doer - ibeon
 - Future receiver - achbeon
 - Present doer - ireon
 - Present receiver - achreon
-- Past doer - irpeon
+- Past doer - ipeon
 - Past receiver - achpeon
 
 ## Vowel Stress
