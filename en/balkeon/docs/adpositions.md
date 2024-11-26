@@ -132,3 +132,4 @@ In Balkeon all Prepositions can be converted to Postpositions, so I prefer to ca
 
   </tbody>
   </table>
+</span> </button> <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
