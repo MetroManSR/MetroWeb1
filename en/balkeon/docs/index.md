@@ -1,26 +1,27 @@
-[<kbd>Back</kbd>][Back]
+<button class="button-82-pushable" role="button" onclick="history.back()">
+ <span class="button-82-shadow"></span>
+ <span class="button-82-edge"></span>
+ <span class="button-82-front text">
+ Return
+ </span> </button>
 
-[Back]: https://metroman.me/en/balkeon
+## /<button class="button-16" role="button" onclick="location.href='../index'">Balkeon</button>
 
-# Welcome to the Balkeon Docs Menu
-### Do you want to check Balkeon Grammar?
+# Welcome to the Documents Menu
 
-[<kbd>Sentence Construction</kbd>][SnCs]
+### 📥 <button class="button-16" role="button" onclick="location.href='./adpositions'">Prepositions / Postpositions</button>
 
-[SnCs]: https://metroman.me/en/balkeon/docs/instructions/sentences
+### 🤝 <button class="button-16" role="button" onclick="location.href='./conjunctions'">Conjunctions</button>
 
-[<kbd>Sentence Pieces</kbd>][SnPs]
+### 🏗 <button class="button-16" role="button" onclick="location.href='./affixes'">Affixes</button>
 
-[SnPs]: https://metroman.me/en/balkeon/docs/instructions/sentencepieces 
+### 🔢 <button class="button-16" role="button" onclick="location.href='./numbers'">Numbers</button>
 
-[<kbd>Formality Guide</kbd>][FmGi]
 
-[FmGi]: https://metroman.me/en/balkeon/docs/instructions/formalityregister
+### 😶‍🌫️ <button class="button-16" role="button" onclick="location.href='./vocabulary'">Frequent Vocabulary</button>
 
-[<kbd>Affixes</kbd>][Affx]
+### 🧩 <button class="button-16" role="button" onclick="location.href='./sentencewords'">Pieces of Sentences</button>
 
-[Affx]: https://metroman.me/en/balkeon/docs/instructions/affixes
+### 🔊 <button class="button-16" role="button" onclick="location.href='./phonology'">Phonology</button>
 
-[<kbd> <br> Word Construction <br> </kbd>][WoCo]
-
-[WoCo]: https://metroman.me/en/balkeon/docs/instructions/wordconstruction
+</span> </button> <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 

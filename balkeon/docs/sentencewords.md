@@ -126,3 +126,5 @@
 - Para hacer mención al Pronombre o Sujeto de la Oración se utiliza `Elf` en todos los casos.
 
 - Recuerda que los Pronombres Recíprocos en Español son: a uno mismo, se (se dieron abrazos) a él mismo, a mí  mismo, etc.
+
+<button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
