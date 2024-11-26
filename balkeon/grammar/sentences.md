@@ -32,7 +32,7 @@ Lo básico de las frases en Balkeon es que estas están configuradas en SVO (fra
 - OD = Objeto Directo, en una oración con el OI es el objeto que recibe la acción, siendo de lo que se trata la oración.
 - PM = Algo que no salió en el ejemplo pero que debe ser explicado más adelante, son Partículas Modificacionales cuyo propósito es alterar el sentido del verbo desde casi al final de la oración, justo detrás de Nek.
 
-***Verbos Auxiliares***
+## ***Verbos Auxiliares***
 
 - Verbos que existen para enchufarse a otros Verbos, tienen dos formas de ser implementados: detrás del Verbo al que se conectan y detrás de donde van las Partículas de Modificación.
 
