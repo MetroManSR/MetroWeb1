@@ -31,7 +31,7 @@ The basic thing about sentences in Balkeon is that they are configured in SVO (a
 - DO = Direct Object, in a sentence with the OI it is the object that receives the action, being what is deals with the sentence.
 - MP = Something that did not come out in the example but that should be explained later, are Modification Particles whose purpose is to alter the meaning of the verb from almost the end of the sentence, right after Nek.
 
-***Auxiliary Verbs***
+## ***Auxiliary Verbs***
 
 - Verbs that exist to be connected to other Verbs, have two ways of being implemented: behind the Verb to which they are connected and behind where the Modification Particles go.
 
