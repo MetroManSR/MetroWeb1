@@ -45,4 +45,4 @@ In Balkeon there are only 2: `ch, sh`
 
 In case you need to know, the IPA for these is: [t͡ʃ](https://es.m.wikipedia.org/wiki/Africada_postalveolar_sorda) and ʃ
 
-</span> </button> <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
+<button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
