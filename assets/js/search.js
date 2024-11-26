@@ -5,8 +5,8 @@ function searchAndHighlightTable() {
     const searchInput = document.getElementById('search-input');
     const contentTable = document.getElementById('content-table');
     const searchText = searchInput.value.toLowerCase();
-    const cells = contentTable.getElementsByTagName('td');
     const nextButton = document.getElementById('next-button');
+    const previousButton = document.getElementById('previous-button');
 
     // Clear previous highlights and matches
     matches = [];
@@ -30,8 +30,10 @@ function searchAndHighlightTable() {
         currentMatchIndex = 0;
         highlightCurrentMatch();
         nextButton.style.display = 'inline';  // Show the "Next" button
+        previousButton.style.display = 'inline';  // Show the "Previous" button
     } else {
         nextButton.style.display = 'none';  // Hide the "Next" button if no matches found
+        previousButton.style.display = 'none';  // Hide the "Previous" button if no matches found
         alert('No matches found');
     }
 }
@@ -47,6 +49,24 @@ function nextMatch() {
     matches[currentMatchIndex].style.border = '';
 
     currentMatchIndex = (currentMatchIndex + 1) % matches.length;
+
+    // Highlight the new current match
+    highlightCurrentMatch();
+}
+
+function previousMatch() {
+    if (matches.length === 0) {
+        alert('No matches found');
+        return;
+    }
+
+    // Remove highlight from the current match
+    matches[currentMatchIndex].style.backgroundColor = 'yellow';
+    matches[currentMatchIndex].style.border = '';
+
+    currentMatchIndex = (currentMatchIndex - 1 + matches.length) % matches.length;
+
+    // Highlight the new current match
     highlightCurrentMatch();
 }
 
