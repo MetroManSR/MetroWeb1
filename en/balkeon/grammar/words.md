@@ -31,14 +31,19 @@
 
 👉 The infinitive of verbs is `irian` and `ian`. The first case is used in Very Formal Speech and when the verb is not linked to any other verb, the second verb is used for the rest of the cases, especially when it is linked to a modal or auxiliary verb.
 
+<div class="table-wrapper" markdown="block">
+
 | | Simple | Continuous | Perfect | Perfect Continuous |
-| -- ------ | ------ | -------- | -------- | ----------------- | | Past | ip | ingip | ipo | inkip |
-| Present | to go | to ingir | to go | inkir |
+| -------- | ------ | -------- | -------- | ----------------- |
+| Past | ip | ingip | ipo | inkip |
+| Present | ir | ingir | iro | inkir |
 | Future | ib | ingib | ibo | inkib |
 
-| More verb forms | Imperative | Conditional | To be and Passive mood | To be |
-| --------- ------------ | ---------- | ----------- | -------------- ----- | ----- |
+| More verb forms | Imperative | Conditional | To be Temporary State and Passive mood | To be |
+| --------------------- | ---------- | ----------- | ------------------- | ----- |
 | \- Suffix \- \- Infix | \-aor | \-a- | \-ados-/\-est\- | \-es- |
+
+</div>
 
 ### No
 
