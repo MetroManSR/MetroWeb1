@@ -36,3 +36,5 @@
 | Studies                                 | \-ern-  | \-itis inflamation             | \-infl-  |
 | Tool that measures                      | \-otr-  | Adverb                         | \-in/-un |
 | To be                                   | \-es-   | To be in temporal or new state | \-ados-  |
+
+</span> </button> <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
