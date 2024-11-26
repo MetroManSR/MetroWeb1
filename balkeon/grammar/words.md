@@ -31,6 +31,8 @@
 
 👉 El infinitivo de los verbos es `irian` y `ian`. El primer caso se usa en el Discurso Muy Formal y cuando el verbo no enlaza con ningún otro verbo, el segundo para el resto de los casos, especialmente cuando va junto a un verbo modal o auxiliar.
 
+<div class="table-wrapper" markdown="block">
+
 |          | Simple | Continuo | Perfecto | Perfecto Continuo |
 | -------- | ------ | -------- | -------- | ----------------- |
 | Pasado   | ip    | ingip   | ipo      | inkip            |
@@ -40,6 +42,8 @@
 | Más formas verbales   | Imperativo | Condicional | Estar y modo Pasivo | Ser   |
 | --------------------- | ---------- | ----------- | ------------------- | ----- |
 | \- Sufijo \- \- Infijo | \-aor      | \-a-        | \-ados-/\-est\-            | \-es- |
+
+</div>
 
 ### No
 
