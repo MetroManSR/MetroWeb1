@@ -105,7 +105,7 @@ The following rules must be followed to create the Preterite Tenses:
 
 - If it is Passive, the `i` is removed from the infix and ach is added (for example, leaving `achpeon`), the rest is the same as always.
 
-- In Balkeon the Preterites They are useful for [Complex Sentences](./complexsentences) and the occasional different word.
+- In Balkeon the Preterites They are useful for [Complex Sentences](../complexsentences) and the occasional different word.
 
 ## Stress
 
