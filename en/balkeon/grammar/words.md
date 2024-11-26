@@ -94,7 +94,7 @@ Faumtuti is a stronger emphasizer and just like before you can use yekin for emp
 
 ## Related
 
-- Am I doing? - ingir aye?
+- Am I doing? - Agdingir aye?
 - Why weren't you doing it? - Prok agdingip yu nek?
 
 ## Preterite Tenses
