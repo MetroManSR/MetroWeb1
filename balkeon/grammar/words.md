@@ -95,8 +95,8 @@ Faumtuti es un enfatizador más fuerte e igual que antes se puede usar yekin par
 
 ## Relacionado
 
-- ¿Estoy haciendo? - ingir aye?
-- ¿Por qué no estabas haciendo? - ingip yu nek?
+- ¿Estoy haciendo? - Agdingir aye?
+- ¿Por qué no estabas haciendo? - Prok agdingip yu nek?
 
 ## Pretéritos
 
