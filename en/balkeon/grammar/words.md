@@ -41,7 +41,7 @@
 
 | More verb forms | Imperative | Conditional | To be Temporary State and Passive mood | To be |
 | --------------------- | ---------- | ----------- | ------------------- | ----- |
-| \- Suffix \- \- Infix | \-aor | \-a- | \-ados-/\-est\- | \-es- |
+| \- Suffix \- Infix \- | \-aor | \-a- | \-ados-/\-est\- | \-es- |
 
 </div>
 
