@@ -98,12 +98,16 @@ Faumtuti es un enfatizador más fuerte e igual que antes se puede usar yekin par
 - ¿Estoy haciendo? - ingir aye?
 - ¿Por qué no estabas haciendo? - ingip yu nek?
 
-- Futuro hacedor - ibeon
-- Futuro receptor - achbeon
-- Presente hacedor - ireon
-- Receptor presente - achreon
-- Pasado hacedor- ipeon
-- Pasado receptor - achpeon
+## Pretéritos
+
+Para armar los Pretéritos se deben seguir las siguientes reglas:
+
+- Si el Pretérito es Activo, es decir indica algo que está haciendo algo, se usa el [Sufijo de tiempo gramatical](#sufijos-de-tiempo-gramatical) correcto más los grupos de Sufijos que necesites en el momento.
+
+- Si es Pasivo, se quita la `i` del infijo y se pone ach (quedando por ejemplo `achpeon`), el resto es lo mismo de siempre.
+
+- En Balkeon los Pretéritos son útiles para las [Oraciones Complejas](./complexsentences) y una que otra palabra distinta.
+
 
 ## Acentuación
 
@@ -111,9 +115,7 @@ Faumtuti es un enfatizador más fuerte e igual que antes se puede usar yekin par
 
 - Para acentuar como imperativo, puede acentuar la última sílaba de la primera vocal
 
-(Información Actualizada luego de Reformas del 23 Nov propuestas por Bjorndottis y MetroMan)
-
 <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
 
-> Actualizado con Información post propuestas de Bjorndottis 25 Nov 2024
+> Actualizado con Información post propuestas de Bjorndottis 25 Nov 2024 y propuestas de Bjorndottis y MetroMan del 23 Nov 2024
 
