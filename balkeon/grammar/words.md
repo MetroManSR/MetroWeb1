@@ -1,4 +1,4 @@
-> ⚠️ Tuve un mínimo error con los [pretéritos](#relacionados) no era irb irp era ib ip, disculpa
+> ⚠️ Tuve un mínimo error con los [pretéritos](#relacionado) no era irb irp era ib ip, disculpa
 
 <button class="button-82-pushable" role="button" onclick="history.back()">
   <span class="button-82-shadow"></span>
@@ -33,7 +33,7 @@ Considerar que dentro de `[]` se encontrarán Partículas Necesarias y `()` para
 
 - El Adjetivador en un Verbo es opcional al punto que puedes escoger usarlo para re confirmar que estás mencionando o dando cualidad al sujeto u objeto.
 - Estatificador puede ser `-ados-`,.`-est-`, `-es-`, más información [acá](#sufijos-de-tiempo-gramatical).
-- El último elemento sería el Tiempo o Modo Verbal, más información [acá](#sufijos-de-tiempo-gramatical, es opcional ya que los Verbos Auxiliares tienen un modo alternativo explicado [acá](../sentences) en su sección homónima.
+- El último elemento sería el Tiempo o Modo Verbal, más información [acá](#sufijos-de-tiempo-gramatical, es opcional ya que los Verbos Auxiliares tienen un modo alternativo explicado [acá](../sentences/#verbos-auxiliares) en su sección homónima.
 
 ## Adverbios
 
