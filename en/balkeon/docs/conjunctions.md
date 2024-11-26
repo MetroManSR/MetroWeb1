@@ -13,6 +13,9 @@
 
 `Plachir erok yu kasir, pok yu sir lak nosirian`
 
+> Where is [Kua](.././grammar/complexsentences) used (Complex Sentences)
+
+
 <a name="top"></a>
 <a class="top-link hide" href="#top">⏫️</a>
 
