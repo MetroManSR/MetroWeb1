@@ -12,7 +12,7 @@
 `[Root](id)(ado)(s)[gender or time]`
 - id = adjective
 - ado = inconstancy, short-term state
-- s= be, long-term state
+- s = be, long-term state
 - tense = conjugable verb
 
 ## Gender suffixes
