@@ -46,3 +46,5 @@ Por si necesitan saber el IPA de la Y es: [ʝ](https://es.m.wikipedia.org/wiki/%
 En Balkeon solo hay 2: `ch, sh`
 
 Por si necesitan saber, el IPA de estas es: [t͡ʃ](https://es.m.wikipedia.org/wiki/Africada_postalveolar_sorda) y ʃ
+
+<button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
