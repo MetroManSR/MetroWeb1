@@ -1,7 +1,7 @@
 let currentMatchIndex = -1;
 let matches = [];
 
-function searchAndScrollTable() {
+function searchAndHighlightTable() {
     const searchInput = document.getElementById('search-input');
     const contentTable = document.getElementById('content-table');
     const searchText = searchInput.value.toLowerCase();
@@ -24,7 +24,7 @@ function searchAndScrollTable() {
         }
     }
 
-    // Scroll to the first match
+    // Check for matches and scroll to the first one
     if (matches.length > 0) {
         currentMatchIndex = 0;
         matches[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
