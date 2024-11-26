@@ -13,7 +13,7 @@
 
 `Plachir erok yu kasir, pok yu sir lak nosirian`
 
-> Donde se usa [Kua](../grammar/complexsentences) (Oraciones Complejas)
+> Donde se usa [Kua](../../grammar/complexsentences) (Oraciones Complejas)
 
 <a name="top"></a>
 <a class="top-link hide" href="#top">⏫️</a>
