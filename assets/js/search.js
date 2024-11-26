@@ -1,19 +1,19 @@
-function searchAndScroll() {
+function searchAndScrollTable() {
     const searchInput = document.getElementById('search-input');
-    const content = document.getElementById('content');
+    const contentTable = document.getElementById('content-table');
     const searchText = searchInput.value.toLowerCase();
-    const paragraphs = content.getElementsByTagName('p');
+    const cells = contentTable.getElementsByTagName('td');
     let firstMatch = null;
 
-    for (let p of paragraphs) {
-        const text = p.textContent.toLowerCase();
+    for (let cell of cells) {
+        const text = cell.textContent.toLowerCase();
         if (text.includes(searchText)) {
-            p.style.backgroundColor = 'yellow';
+            cell.style.backgroundColor = 'yellow';
             if (!firstMatch) {
-                firstMatch = p;
+                firstMatch = cell;
             }
         } else {
-            p.style.backgroundColor = '';
+            cell.style.backgroundColor = '';
         }
     }
 
