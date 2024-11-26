@@ -15,7 +15,7 @@
 
 > Donde se usa [Kua](../../grammar/complexsentences) (Oraciones Complejas)
 
-<input type="text" id="search-input" placeholder="Enter word to search">  <button id="search-button" onclick="searchAndHighlightTable()">Search</button> <button id="next-button" onclick="nextMatch()">Next</button>
+<input type="text" id="search-input" placeholder="Enter word to search">  <button id="search-button" onclick="searchAndHighlightTable()">Search</button> <button id="next-button" onclick="nextMatch()">Next</button> <button id="previous-button" onclick="previousMatch()">Previous</button>
 
 <a name="top"></a>
 <a class="top-link hide" href="#top">⏫️</a> 
