@@ -71,3 +71,5 @@ Faumtuti is a stronger emphasizer and just like before you can use yekin for emp
 - To stress in an imperative, you can accentuate the last syllable of the first vowel
 
 (Updated information after the 23 Nov reforms proposed by Bjorndottis and MetroMan)
+
+<button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
