@@ -7,6 +7,9 @@
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Gramática</button>
 
+<a name="top"></a>
+<a class="top-link hide" href="#top">⏫️</a>
+
 # Construcción de palabras
 
 En Balkeon las palabras se construyen con lo que el usuario requiera, la información a detalle se encontrará en las páginas correspondientes.
