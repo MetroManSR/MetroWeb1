@@ -5,6 +5,7 @@ function searchAndHighlightTable() {
     const searchInput = document.getElementById('search-input');
     const contentTable = document.getElementById('content-table');
     const searchText = searchInput.value.toLowerCase();
+    const cells = contentTable.getElementsByTagName('td');
     const nextButton = document.getElementById('next-button');
     const previousButton = document.getElementById('previous-button');
 
