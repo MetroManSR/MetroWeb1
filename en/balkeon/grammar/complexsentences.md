@@ -37,7 +37,7 @@ A complex sentence is made up of two phrases, in Balkeon the conjunction `Kua` i
 
 `Pofrok emseon (kua) yu seyip ayestan, inmabir yu nemagdipian kad`
 
-- The choice is yours to put together this prayer in the style you prefer.
+- The choice is yours to put together this sentence in the style you prefer.
 
 
 <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000 "/></button>  
