@@ -1,3 +1,5 @@
+> ⚠️ Tuve un mínimo error con los [pretéritos](#relacionados) no era irb irp era ib ip, disculpa
+
 <button class="button-82-pushable" role="button" onclick="history.back()">
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
@@ -96,11 +98,11 @@ Faumtuti es un enfatizador más fuerte e igual que antes se puede usar yekin par
 - ¿Estoy haciendo? - ingir aye?
 - ¿Por qué no estabas haciendo? - ingip yu nek?
 
-- Futuro hacedor - irbeon
+- Futuro hacedor - ibeon
 - Futuro receptor - achbeon
 - Presente hacedor - ireon
 - Receptor presente - achreon
-- Pasado hacedor- irpeon
+- Pasado hacedor- ipeon
 - Pasado receptor - achpeon
 
 ## Acentuación
