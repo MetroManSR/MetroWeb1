@@ -15,7 +15,7 @@
 
 > Donde se usa [Kua](../../grammar/complexsentences) (Oraciones Complejas)
 
-<input type="text" id="search-input" placeholder="Enter word to search"> <button id="search-button" onclick="searchAndScroll()">Search</button>
+<input type="text" id="search-input" placeholder="Enter word to search"> <button id="search-button" onclick="searchAndScrollTable()">Search</button>
 
 
 <a name="top"></a>
