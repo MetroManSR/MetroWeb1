@@ -9,20 +9,49 @@
 
 # Construcción de palabras
 
-`[Raíz](id)(ado)(s)[género o tiempo]`
-- id = adjetivo
-- ado = inconstancia, estado a corto plazo
-- s = ser, estado a largo plazo
-- tense = verbo conjugable
+En Balkeon las palabras se construyen con lo que el usuario requiera, la información a detalle se encontrará en las páginas correspondientes.
+
+Considerar que dentro de `[]` se encontrarán Partículas Necesarias y `()` para Partículas Opcionales sujetas a Condiciones.
+
+## Sustantivos y Adjetivos
+
+`[Raíz o raíces](Adjetivador)(Plural)[Género](Caso Gramátical)`
+
+- El Adjetivador es `-id-`, cumple la función de determinar que la palabra es un Adjetivo.
+- Plural puede ser `s, us, r` dependiendo de las [Condiciones](#plurales) que más adelante se detallan.
+- Género son los [Sufijos](#sufijos-de-género) que definen al objeto o persona del Sustantivo o Adjetivo, en [Guía de Formalidad](./formalityguide) se detalla.
+- El Caso Gramatical define la función que cumple la Palabra, siempre va con el Sustantivo, pronto página web que habla más a detalle.
+
+## Verbos
+
+`[Raíz o Raíces](Adjetivador)(Estatificador)(Tiempo o Modo Gramatical)`
+
+- El Adjetivador en un Verbo es opcional al punto que puedes escoger usarlo para re confirmar que estás mencionando o dando cualidad al sujeto u objeto.
+- Estatificador puede ser `-ados-`,.`-est-`, `-es-`, más información en esta [Página](./words).
+- El último elemento sería el Tiempo o Modo Verbal, más información en esta [Página](./words), es opcional ya que los Verbos Auxiliares tienen un modo alternativo explicado [acá](./sentences) en su sección homónima.
+
+## Adverbios
+
+`[Raíz o raíces](Adverbiador)`
+
+- El Adverbiador es "-in" o "-un", al estar el Adverbio independiente sin Verbo directo al que modificar el hablante puede optar por darle el sufijo `-un`. Algunos adverbios no toman este sufijo y todos pueden llevar Sufijo Deductivo al ir en una lista.
 
 ## Sufijos de género
 - on - Hombre
 - an - Mujer
-- en - Neutro (Poco usado)
+- en - Neutro o Animal (Poco usado, proveniente de Balkeon Moderno)
 - aon - Hombre o Mujer
-- eon - Inanimado
+- eon - Inanimado o Animal Macho
+- ean - Animal Hembra
 - u - Deductivo
-- s - Plural (va detrás de los sufijos de género)
+
+## Plurales
+
+- Los plurales van en la posición que arriba se detalla, se usa en su mayor parte el infijo `-s-` pero acá detallo cuándo se usan alternativas.
+
+- Con las consonantes `B, D, G, P, S, Y` el Plural es con `R`.
+- Luego de las africadas `CH y SH` además de combinaciones de dos consonantes que incluyan `R, L y S` (`KL, SK, TL, GR, RG etc`) se usa `-us-`.
+
 
 ## Sufijo de dativo
 - stan (lo quiero, aye bolir eostan)
@@ -80,3 +109,6 @@ Faumtuti es un enfatizador más fuerte e igual que antes se puede usar yekin par
 (Información Actualizada luego de Reformas del 23 Nov propuestas por Bjorndottis y MetroMan)
 
 <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
+
+> Actualizado con Información post propuestas de Bjorndottis 25 Nov 2024
+
