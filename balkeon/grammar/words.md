@@ -19,7 +19,7 @@ Considerar que dentro de `[]` se encontrarán Partículas Necesarias y `()` para
 
 - El Adjetivador es `-id-`, cumple la función de determinar que la palabra es un Adjetivo.
 - Plural puede ser `s, us, r` dependiendo de las [Condiciones](#plurales) que más adelante se detallan.
-- Género son los [Sufijos](#sufijos-de-género) que definen al objeto o persona del Sustantivo o Adjetivo, en [Guía de Formalidad](./formalityguide) se detalla.
+- Género son los [Sufijos](#sufijos-de-género) que definen al objeto o persona del Sustantivo o Adjetivo, en [Guía de Formalidad](../formalityguide) se detalla.
 - El Caso Gramatical define la función que cumple la Palabra, siempre va con el Sustantivo, pronto página web que habla más a detalle.
 
 ## Verbos
@@ -27,8 +27,8 @@ Considerar que dentro de `[]` se encontrarán Partículas Necesarias y `()` para
 `[Raíz o Raíces](Adjetivador)(Estatificador)(Tiempo o Modo Gramatical)`
 
 - El Adjetivador en un Verbo es opcional al punto que puedes escoger usarlo para re confirmar que estás mencionando o dando cualidad al sujeto u objeto.
-- Estatificador puede ser `-ados-`,.`-est-`, `-es-`, más información en esta [Página](./words).
-- El último elemento sería el Tiempo o Modo Verbal, más información en esta [Página](./words), es opcional ya que los Verbos Auxiliares tienen un modo alternativo explicado [acá](./sentences) en su sección homónima.
+- Estatificador puede ser `-ados-`,.`-est-`, `-es-`, más información en esta [Página](../words).
+- El último elemento sería el Tiempo o Modo Verbal, más información en esta [Página](../words), es opcional ya que los Verbos Auxiliares tienen un modo alternativo explicado [acá](../sentences) en su sección homónima.
 
 ## Adverbios
 
