@@ -114,10 +114,10 @@
   
 |            | Persona/Cosa                   | Lugar     | Tiempo             | Forma/Modo | Razón     |
 | ---------- | ------------------------------ | --------- | ------------------ | ----------- | --------- |
-| Algún      | Emeon / Emaon / Em           | Platsem   | Fosem / Kronem     | Faumem      | Soparem   |
-| Cualquier  | Keanem / Keanemeon / Keanemaon | Keanplats | Keanfos / Keankron | Keanfaum    | Keansopar |
-| Cada / Todo | Tutem / Tutemeon / Tutemaon    | Tutplats | Tutkron / Tutfos | Tutfaum    | Tutsopar  |
-| Ningún     | Nem / Nemeon / Nemaon          | Platsnem  | Kronunem / Fosnem  | Faumnem     | Soparnem  |
+| Algún      | Emeon / Emaon / Em           | Platsem   | Fosem / Kronem     | Faumem      | Soparem / Proem   |
+| Cualquier  | Keanem / Keanemeon / Keanemaon | Keanplats | Keanfos / Keankron | Keanfaum    | Keansopar / Prokean |
+| Cada / Todo | Tutem / Tutemeon / Tutemaon    | Tutplats | Tutkron / Tutfos | Tutfaum    | Tutsopar / Protut  |
+| Ningún     | Nem / Nemeon / Nemaon          | Platsnem  | Kronunem / Fosnem  | Faumnem     | Soparnem / Pronem |
 
 </div>
 
