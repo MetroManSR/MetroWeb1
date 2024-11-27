@@ -28,6 +28,6 @@ En Balkeon hay 3 Casos Gramaticales, [acá](../sentences) puedes revisar el orde
 
 - `del gato` `kateonos`
 
-- A diferencia del Español, el orden se invierte, `Comida del Gato` `Kateonos Namneon`
+- A diferencia del Español, el orden se invierte, dejando el sufijo pegado a la última palabra del que posee `Comida del Gato` `Kateonos Namneon`
 
-- <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button>
+<button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button>
