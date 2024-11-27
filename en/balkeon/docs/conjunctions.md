@@ -19,8 +19,10 @@
 <a name="top"></a>
 <a class="top-link hide" href="#top">⏫️</a>
 
- <table style="width:100%">
+ <input type="text" id="search-input" placeholder="What do you want to search?"> <button id="search-button" onclick="searchAndHighlightTable()">Search</button> <button id="next-button" onclick="nextMatch()">Next</button> <button id="previous-button" onclick="previousMatch()">Previous</button>
 
+<div class="table-wrapper" markdown="block">
+<table id="content-table" style="width:100%">
  <theader>
 
  <tr>
