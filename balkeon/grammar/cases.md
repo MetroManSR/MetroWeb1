@@ -20,7 +20,7 @@ En Balkeon hay 3 Casos Gramaticales, [acá](../sentences) puedes revisar el orde
 
 ## Dativo
 
-- El Dativo es siempre el que recibe, sufre o padece de la acción, en este caso es `Kateon`, por lo tanto se le debe poner el [Sufijo de Dativo](../words/#sufijo-de-dativo)
+- El Dativo es siempre el que recibe, sufre o padece de la acción, en este caso es `Kateon`, por lo tanto se le debe poner el [Sufijo de Dativo](../words/#sufijo-de-dativo) siempre y cuando también haya un Caso Acusativo en la Oración.
 
 ## Genitivo
 
