@@ -20,7 +20,7 @@ In Balkeon there are 3 Grammatical Cases, [here](../sentences) you can check the
 
 ## Dative
 
-- The Dative is always the one to receive, suffer or endure the action, in this case it is `Kateon`, therefore it should be given the [Dative Suffix](../words/#dative-suffix)
+- The Dative is always the one to receive, suffer or endure the action, in this case it is `Kateon`, therefore it should be given the [Dative Suffix](../words/#dative-suffix) always whenever there is also an Accusative Case in the Sentence.
 
 ## Genitive
 
