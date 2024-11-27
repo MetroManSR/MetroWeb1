@@ -17,6 +17,8 @@
 
 ### 🔢 <button class="button-16" role="button" onclick="location.href='./numbers'">Numbers</button>
 
+### 🎨 <button class="button-16" role="button" onclick="location.href='./colors'">Colors</button>
+
 
 ### 😶‍🌫️ <button class="button-16" role="button" onclick="location.href='./vocabulary'">Frequent Vocabulary</button>
 
