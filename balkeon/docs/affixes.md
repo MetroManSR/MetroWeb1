@@ -11,7 +11,7 @@
 # Tabla de Afijos
 <input type="text" id="search-input" placeholder="Enter word to search"> <button id="search-button" onclick="searchAndHighlightTable()">Search</button> <button id="next-button" onclick="nextMatch()">Next</button> <button id="previous-button" onclick="previousMatch()">Previous</button>
 
-<table id:"content-table" style="width:100%">
+<table id="content-table" style="width:100%">
     <thead>
         <tr>
             <th>Definición</th>
