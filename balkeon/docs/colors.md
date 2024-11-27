@@ -82,7 +82,7 @@
 
     <td>Azul</td>
 
-    <td>Aoyeob</td>
+    <td>Aoyeon</td>
 
     <td>Celeste</td>
 
