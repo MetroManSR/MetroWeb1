@@ -65,6 +65,54 @@
 
   </tr>
 
+  <tr>
+
+    <td>Verde</td>
+
+    <td>Grabeon</td>
+
+    <td>Fucsia</td>
+
+    <td>Nekblastroseon</td>  
+
+  </tr>
+
+  <tr>
+
+    <td>Azul</td>
+
+    <td>Aoyeob</td>
+
+    <td>Celeste</td>
+
+    <td>Himelaoyeon</td>  
+
+  </tr>
+
+  <tr>
+
+    <td>Negro</td>
+
+    <td>Negeon</td>
+
+    <td>Blanco</td>
+
+    <td>Blankeon</td>  
+
+  </tr>
+
+  <tr>
+
+    <td>Gris</td>
+
+    <td>Negblankeon/Grayeon</td>
+
+    <td>Café</td>
+
+    <td>Kafeon</td>  
+
+  </tr>
+
   </tbody>
 
   </table>
