@@ -9,6 +9,8 @@
 
 # Colors 
 
+> Light: Blastideon, Dark: Nekblastideon
+
 <div class="table-wrapper" markdown="block">
   <table style="width:100%">
 
