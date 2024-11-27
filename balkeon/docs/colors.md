@@ -105,7 +105,8 @@
 
     <td>Gris</td>
 
-    <td>Negblankeon/Grayeon</td>
+    <td>Negblankeon/
+    Grayeon</td>
 
     <td>Café</td>
 
