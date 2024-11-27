@@ -10,7 +10,8 @@
 
 # Tabla de Afijos
 
-<input type="text" id="search-input" placeholder="¿Qué deseas buscar?"> <button id="search-button" onclick="searchAndHighlightTable()">Buscar</button> <button id="next-button" onclick="nextMatch()">Siguiente</button> <button id="previous-button" Anterior
+<input type="text" id="search-input" placeholder="¿Qué deseas buscar?"> <button id="search-button" onclick="searchAndHighlightTable()">Buscar</button> <button id="next-button" onclick="nextMatch()">Siguiente</button> <button id="previous-button" onclick="previousMatch()">Anterior</button>
+
 <div class="table-wrapper" markdown="block">
 <table id="content-table" style="width:100%">
     <thead>
