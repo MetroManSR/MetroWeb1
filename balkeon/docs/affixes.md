@@ -10,7 +10,7 @@
 
 # Tabla de Afijos
 <input type="text" id="search-input" placeholder="Enter word to search"> <button id="search-button" onclick="searchAndHighlightTable()">Search</button> <button id="next-button" onclick="nextMatch()">Next</button> <button id="previous-button" onclick="previousMatch()">Previous</button>
-
+<div class="table-wrapper" markdown="block">
 <table id="content-table" style="width:100%">
     <thead>
         <tr>
@@ -173,5 +173,5 @@
         </tr>
     </tbody>
 </table>
-
+</div>
 <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
