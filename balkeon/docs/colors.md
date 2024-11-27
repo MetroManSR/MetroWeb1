@@ -9,6 +9,8 @@
 
 # Colores 
 
+> Claro: Blastideon, Oscuro: Nekblastideon
+
 <div class="table-wrapper" markdown="block">
   <table style="width:100%">
 
