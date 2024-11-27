@@ -30,4 +30,4 @@ In Balkeon there are 3 Grammatical Cases, [here](../sentences) you can check the
 
 - Like English, the order is like this, `Cat's Food` `Kateonos Namneon`
 
-- <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color= 000000"/></button> 
+<button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color= 000000"/></button> 
