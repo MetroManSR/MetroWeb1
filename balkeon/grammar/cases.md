@@ -2,10 +2,10 @@
 <span class="button-82-shadow"></span>
 <span class="button-82-edge"></span>
 <span class="button-82-front text">
-Back
+Volver
 </span> </button>
 
-📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Grammar</button>
+📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Gramática</button>
 
 # Casos Gramaticales
 
@@ -16,7 +16,7 @@ En Balkeon hay 3 Casos Gramaticales, [acá](../sentences) puedes revisar el orde
 
 ## Acusativo Nominativo
 
-- El acusativo es `namnemeon` lo que le dí al `kateon`, en Balkeon no reciben trato especial. 
+- El acusativo es `namnemeon` lo que `kateon` recibe, en Balkeon no hay trato especial. 
 
 ## Dativo
 
