@@ -1,4 +1,4 @@
-# Diccionario v1.1.13
+# Diccionario v1.1.14
 
 <form id="dictionaryForm" onsubmit ="fetchDefinition(event)">
         <label for="word">Enter a word:</label>
