@@ -1,4 +1,5 @@
 function fetchDefinition(event) {
+            const definitionDiv = document.getElementById('definition'); 
             event.preventDefault();
             const searchTerm = document.getElementById('word').value.toLowerCase();
             fetch('../dictionary.csv')
@@ -25,8 +26,8 @@ function fetchDefinition(event) {
         }
 
 function displayMatches(dictionary, searchTerm) {
+           const definitionDiv = document.getElementById('definition');
             definitionDiv.textContent = Object.entries(dictionary)
-            const definitionDiv = document.getElementById('definition');
             definitionDiv.innerHTML = ''; // Clear previous results
             const matches = [];
             for (const [word, definition] of Object.entries(dictionary)) {
