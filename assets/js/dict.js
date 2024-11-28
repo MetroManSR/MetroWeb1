@@ -28,6 +28,7 @@ function displayMatches(dictionary, searchTerm) {
             definitionDiv.innerHTML = ''; // Clear previous results
             const matches = [];
             for (const [word, definition] of Object.entries(dictionary)) {
+                definitionDiv.textContent = `${word}: ${definition}`
                 if (word.includes(searchTerm) || definition.includes(searchTerm)) {
                     matches.push(`${word}: ${definition}`);
                 }
