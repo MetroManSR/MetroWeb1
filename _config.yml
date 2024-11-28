@@ -164,6 +164,7 @@ site-css:
 site-js:
  - "/assets/js/langRedirect.js"
  - "/assets/js/search.js"
+ - "/assets/js/dict.js" 
 
 #################################
 # --- Web Analytics Section --- #
