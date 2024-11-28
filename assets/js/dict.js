@@ -40,6 +40,6 @@ function displayMatches(dictionary, searchTerm) {
             if (matches.length > 0) {
                 definitionDiv.innerHTML = matches.join('<br>');
             } else {
-                definitionDiv.textContent = 'No matches found';
+                definitionDiv.textContent = `No matches found for ${searchTerm} in ${Object.entries(dictionary)}`;
             }
         }
