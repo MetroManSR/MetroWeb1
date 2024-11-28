@@ -1,4 +1,5 @@
 function fetchDefinition(event) {
+    definitionDiv.textContent = "Cargando..."
     event.preventDefault();
     const definitionDiv = document.getElementById('definition');
     const word = document.getElementById('word').value.toLowerCase();
