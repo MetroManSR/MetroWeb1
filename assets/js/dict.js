@@ -23,7 +23,7 @@ function fetchDefinition(event) {
                 });
         }
 
-        function displayMatches(dictionary, searchTerm) {
+function displayMatches(dictionary, searchTerm) {
             const definitionDiv = document.getElementById('definition');
             definitionDiv.innerHTML = ''; // Clear previous results
             const matches = [];
