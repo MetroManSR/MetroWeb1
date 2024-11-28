@@ -1,4 +1,4 @@
-document.getElementById('dictionaryForm').addEventListener('submit', function(event) {
+function fetchDefinition(event) {
     event.preventDefault();
     const word = document.getElementById('word').value.toLowerCase();
     fetch('dictionary.csv')
@@ -20,7 +20,7 @@ document.getElementById('dictionaryForm').addEventListener('submit', function(ev
         .catch(error => {
             console.error('Error fetching definition:', error);
         });
-});
+}
 
 function displayDefinition(dictionary, word) {
     const definitionDiv = document.getElementById('definition');
