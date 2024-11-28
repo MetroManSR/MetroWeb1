@@ -8,14 +8,15 @@ function fetchDefinition(event) {
         .then(response => response.text())
         .then(data => {
             Papa.parse(data, {
-                header: true,
-                dynamicTyping: true,
+                delimiter: '=',
                 complete: function(results) {
-                    const dictionary = {};
-                    results.data.forEach(row => {
-                        const [word, definition] = Object.values(row);
-                        dictionary[word.trim().toLowerCase()] = definition.trim();
-                    });
+                            const dictionary = {};
+                            results.data.forEach(row => {
+                                const [word, definition] = row;
+                                if (word && definition) {
+                                    dictionary[word.trim().toLowerCase()] = definition.trim();
+                                }
+                            });
                     displayDefinition(dictionary, word);
                 }
             });
