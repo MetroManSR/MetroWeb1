@@ -1,6 +1,8 @@
 function fetchDefinition(event) {
     event.preventDefault();
+    const definitionDiv = document.getElementById('definition');
     const word = document.getElementById('word').value.toLowerCase();
+    definitionDiv.textContent = "Cargando Diccionario..."
     fetch('../dictionary.csv')
         .then(response => response.text())
         .then(data => {
@@ -19,6 +21,7 @@ function fetchDefinition(event) {
         })
         .catch(error => {
             console.error('Error fetching definition:', error);
+            definitionDiv.textContent = `Error... ${error}`
         });
 }
 
