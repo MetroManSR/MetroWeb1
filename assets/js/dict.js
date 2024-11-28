@@ -1,7 +1,7 @@
 function fetchDefinition(event) {
+    const definitionDiv = document.getElementById('definition')
     definitionDiv.textContent = "Cargando..."
     event.preventDefault();
-    const definitionDiv = document.getElementById('definition');
     const word = document.getElementById('word').value.toLowerCase();
     definitionDiv.textContent = "Cargando Diccionario..."
     fetch('../dictionary.csv')
