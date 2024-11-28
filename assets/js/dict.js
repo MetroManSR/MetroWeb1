@@ -13,6 +13,7 @@ function fetchDefinition(event) {
                             const dictionary = {};
                             results.data.forEach(row => {
                                 const [word, definition] = row;
+                                definitionDiv.textContent = `Data ${row}`
                                 if (word && definition) {
                                     dictionary[word.trim().toLowerCase()] = definition.trim();
                                 }
