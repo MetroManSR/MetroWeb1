@@ -1,4 +1,4 @@
-<form id="dictionaryForm" action ="fetchDefinition(event)">
+<form id="dictionaryForm" onsubmit =fetchDefinition(event)>
         <label for="word">Enter a word:</label>
         <input type="text" id="word" name="word" required>
         <button type="submit">Search</button>
