@@ -17,6 +17,7 @@ function fetchDefinition(event) {
                                     dictionary[word.trim().toLowerCase()] = definition.trim();
                                 }
                             });
+                    
                     displayDefinition(dictionary, word);
                 }
             });
