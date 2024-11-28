@@ -1,7 +1,7 @@
 function fetchDefinition(event) {
     event.preventDefault();
     const word = document.getElementById('word').value.toLowerCase();
-    fetch('dictionary.csv')
+    fetch('../dictionary.csv')
         .then(response => response.text())
         .then(data => {
             Papa.parse(data, {
