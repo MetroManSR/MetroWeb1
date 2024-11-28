@@ -22,6 +22,7 @@ function fetchDefinition(event) {
                 })
                 .catch(error => {
                     console.error('Error fetching definition:', error);
+                    definitionDiv.textContent = `Ups ${error}`
                 });
         }
 
