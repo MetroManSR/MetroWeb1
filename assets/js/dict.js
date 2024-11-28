@@ -5,11 +5,11 @@ function fetchDefinition(event) {
                 .then(response => response.text())
                 .then(data => {
                     Papa.parse(data, {
-                        delimiter: '=',
+                        delimiter: ' = ',
                         complete: function(results) {
                             const dictionary = {};
                             results.data.forEach(row => {
-                                definitionDiv.textContent = `j ${word}: ${definition}`        
+                                definitionDiv.textContent = `j ${row}`        
                                 const [word, definition] = row;
                                 if (word && definition) {
                                     dictionary[word.trim().toLowerCase()] = definition.trim();
