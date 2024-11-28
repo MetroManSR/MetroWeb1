@@ -34,6 +34,6 @@ function displayDefinition(dictionary, word) {
     if (definition) {
         definitionDiv.textContent = `${word}: ${definition}`;
     } else {
-        definitionDiv.textContent = `Word not found, Dictionary ${dictionary}`;
+        definitionDiv.textContent = `Word ${word} not found, Dictionary ${dictionary}`;
     }
 }
