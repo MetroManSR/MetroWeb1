@@ -24,6 +24,7 @@ function fetchDefinition(event) {
         }
 
 function displayMatches(dictionary, searchTerm) {
+            definitionDiv.textContent = Object.entries(dictionary)
             const definitionDiv = document.getElementById('definition');
             definitionDiv.innerHTML = ''; // Clear previous results
             const matches = [];
