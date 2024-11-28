@@ -360,3 +360,7 @@ body {
     display: none;
 }
 
+#definition {
+    margin-top: 20px;
+    font-weight: bold;
+}
