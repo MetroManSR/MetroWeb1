@@ -61,6 +61,6 @@ In case you need to know, the IPA for these is: [t͡ʃ](https://es.m.wikipedia.o
 
 - Two similar sounding consonants cannot go together, e.g. `kh`, `bp` when born of etymology, one of the two is cancelled.
 
-- Plurals](.././grammar/words/#plurals) have their own rules detailed in that section.
+- [Plurals](.././grammar/words/#plurals) have their own rules detailed in that section.
 
 <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
