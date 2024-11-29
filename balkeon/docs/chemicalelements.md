@@ -11,6 +11,8 @@
 
 <a name="top"></a>
 <a class="top-link hide" href="#top">⏫️</a> 
+
+<div class="table-wrapper" markdown="block">
 <table id="content-table" style="width:100%">
 
 <input type="text" id="search-input" placeholder="¿Qué deseas buscar?"> <button id="search-button" onclick="searchAndHighlightTable()">Buscar</button> <button id="next-button" onclick="previousMatch()">Anterior</button> <button id="previous-button" onclick="nextMatch()">Siguiente</button>
@@ -852,3 +854,7 @@
     <td>Oganesemikeon</td>
   </tr>
 </tbody></table>
+</div>
+
+
+<button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
