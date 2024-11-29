@@ -59,7 +59,7 @@ Consider that inside `[]` you will find Necessary Particles and `()` for Optiona
 
 ## Dative Suffix
 - stan (I want it, aye bolir eostan)
-
+- More info about Dative Case [here](../cases).
 ## Grammatical Tense Suffixes
 
 👉 The infinitives of verbs are `irian` and `ian`. The first case is used in Very Formal Speech and when the verb is not linked to any other verb, the second for the rest of the cases, especially when it is linked to a modal or auxiliary verb.
@@ -112,6 +112,28 @@ The following rules must be followed to create the Preterite Tenses:
 - To stress the correct vowel, you must always accentuate the second to last syllable of the first vowel. That's all.
 
 - To stress as an imperative, you can accentuate the last syllable of the first vowel
+
+## Compound Words
+
+- In Balkeon any word can be mixed to another.
+
+- Blending must be done by reading from right to left.
+
+- The only exception to this rule is the word `em`. Em never goes at the beginning, unless you want to indicate `some`.
+
+- When making a compound word take into account the [affixes](.././affixes).
+
+- Balkeon rejects triptongs when compounding roots.
+
+## Rules for affixes 
+
+- [Affixes](.././affixes) can be 99% flexible, but have limitations.
+
+- Any affix can become a complete word unless:
+
+- If it ends in a vowel, the bridging wildcard `r` is added. 
+
+- If there is already a root occupying the same sequence of letters (`-ut-` derogatory, `ut` customary) a `ch` is added at the beginning if it starts with a vowel or an `e` if it starts with a consonant (`chutideon` to be ugly/horrible).
 
 <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button>
 
