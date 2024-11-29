@@ -45,4 +45,22 @@ In Balkeon there are only 2: `ch, sh`
 
 In case you need to know, the IPA for these is: [t͡ʃ](https://es.m.wikipedia.org/wiki/Africada_postalveolar_sorda) and ʃ
 
+# Phonotactics
+
+- Balkeon is quite free with its rules, however it still has its restrictions.
+
+- Tryptongs can never appear, if a tryptone is formed by combining two roots they must be separated using the wildcard `r`.
+
+- In 99% of the cases no word can begin with `s` or `l` if its successor consonant is the same, a consonant, this includes consonants such as `b, d, h, k, p, t, y` plus any combination that can be made between them (`bd`, `hk`, `kh`). There are less than 10 roots with these exceptions.
+
+- Adding to this it is common practice that any word borrowed from another language beginning in one of these combinations should either be simplified to a single consonant or have `e` added if appropriate) e.g. `espokeon`.
+
+- When converting a loanword to Balkeon and it ends in a vowel, `r` can be added to place the appropriate suffix.
+
+- This is useful for converting Proper Names to Balkeon. 
+
+- Two similar sounding consonants cannot go together, e.g. `kh`, `bp` when born of etymology, one of the two is cancelled.
+
+- Plurals](.././grammar/words/#plurals) have their own rules detailed in that section.
+
 <button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
