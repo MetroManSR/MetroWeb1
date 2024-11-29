@@ -117,7 +117,7 @@
  </tr>
  <tr>
  <td>14</td>
- <td>Yes</td>
+ <td>Si</td>
  <td>Silicon</td>
  <td>Sileksemikeon</td>
  <td>Sileksemikeon</td>
