@@ -47,4 +47,22 @@ En Balkeon solo hay 2: `ch, sh`
 
 Por si necesitan saber, el IPA de estas es: [t͡ʃ](https://es.m.wikipedia.org/wiki/Africada_postalveolar_sorda) y ʃ
 
+# Fonotácticas 
+
+- Balkeon es bastante libre con sus reglas, sin embargo igual tiene sus restricciones.
+
+- Los triptongos jamás pueden aparecer, si se forma un triptongo al combinar dos raíces se deben separar usando el comodín `r`.
+
+- En el 99% de los casos ninguna palabra puede empezar con `s` o `l` si su consonante sucesora es igual una consonante, esto incluye consonantes como `b, d, h, k, p, t, y` sumando cualquier combinación que pueda hacerse entre estas (`bd`, `hk`, `kh`). Hay menos de 10 raíces con estas excepciones.
+
+- Añadiendo a esto es práctica común que cualquier palabra prestada de otro idioma empezada en una de estas combinaciones debe o simplificarse a una sola consonante o añadirle `e` si corresponde) por ejemplo: `espokeon`.
+
+- Al convertir una palabra prestada a Balkeon y esta termina en vocal se puede colocar `r` para poder ubicar el sufijo que corresponda.
+
+-    Esto es útil para convertir Nombres Propios a Balkeon. 
+
+- Dos consonantes de sonido similar no pueden ir juntas, ejemplo `kh`, `bp` al nacer de etimología, una de las dos se anula.
+
+- Los [plurales](.././grammar/words/#plurales) tienen sus propias normas detalladas en ese apartado.
+
 <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
