@@ -74,7 +74,7 @@ Consider that inside `[]` you will find Necessary Particles and `()` for Optiona
 
 | More verb forms | Imperative | Conditional | Estar and Passive mode | Ser |
 | --------------------- | -------- -- | ----------- | ------------------- | ----- |
-| \-Suffix<br />\ -Infix\-| \-aor | \-a- | \-ados-/\-est\- | \-es- |
+| \-Suffix<br /> -Infix\-| \-aor | \-a- | \-ados-/\-est\- | \-es- |
 
 </div>
 
@@ -86,7 +86,7 @@ One way to emphasize negation is through the adverb faumnem, without using nek.
 
 A more colloquial way is through the adverb nekin.
 
-# ## Yes
+### Yes
 
 To emphasize an action by saying “Yes I did” you use yek at the end of the sentence.
 
