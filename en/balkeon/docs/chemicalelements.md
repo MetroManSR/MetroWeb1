@@ -29,7 +29,7 @@
  <td>H</td>
  <td>Hydrogen</td>
  <td>Akbagemikeon</td>
- <td>Hydrogenemikeon</td>
+ <td>Hidrogenemikeon</td>
  </tr>
  <tr>
  <td>2</td>
@@ -127,7 +127,7 @@
  <td>P</td>
  <td>Phosphorus</td>
  <td>Lumportemikeon</td>
- <td>Phosforemikeon</td>
+ <td>Fosforemikeon</td>
  </tr>
  <tr>
  <td>16</td>
@@ -274,7 +274,7 @@
  <td>Kr</td>
  <td>Krypton</td>
  <td>Hensemikeon</td>
- <td>Kryptonemikeon</td>
+ <td>Kriptonemikeon</td>
  </tr>
  <tr>
  <td>37</td>
