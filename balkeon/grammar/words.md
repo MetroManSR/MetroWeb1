@@ -60,7 +60,7 @@ Considerar que dentro de `[]` se encontrarán Partículas Necesarias y `()` para
 
 ## Sufijo de dativo
 - stan (lo quiero, aye bolir eostan)
-
+- Mas información de Dativo [acá](../cases)
 ## Sufijos de tiempo gramatical
 
 👉 El infinitivo de los verbos es `irian` y `ian`. El primer caso se usa en el Discurso Muy Formal y cuando el verbo no enlaza con ningún otro verbo, el segundo para el resto de los casos, especialmente cuando va junto a un verbo modal o auxiliar.
@@ -114,6 +114,28 @@ Para armar los Pretéritos se deben seguir las siguientes reglas:
 - Para acentuar la vocal correcta, debes acentuar siempre la penúltima sílaba de la primera vocal. Eso es todo.
 
 - Para acentuar como imperativo, puede acentuar la última sílaba de la primera vocal
+
+## Palabras Compuestas 
+
+- En Balkeon cualquier palabra puede mezclarse a otra.
+
+- La mezcla debe hacerse leyendo de derecha a izquierda.
+
+- La única excepción a esta regla es la palabra `em`. Em nunca va al inicio, a menos que quieras indicar "algún".
+
+- Al hacer una palabra compuesta ten en cuenta los [afijos](.././affixes).
+
+- Balkeon rechaza los triptongos al mezclarse raíces. 
+
+## Normas de los afijos 
+
+- Los [afijos](.././affixes) puedem ser 99% flexibles, pero tienen limitaciones.
+
+- Todo afijo puede volverse una palabra completa a menos que:
+
+- Si termina en vocal se le añade el comodín puente `r`. 
+
+- Si ya hay una raíz ocupando la misma secuencia de letras (`-ut-` despectivo, `ut` costumbre) se le añade una `ch` al principio si inicia en vocal o una `e` si inicia en consonante (`chutideon` ser feo/horrible)
 
 <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
 
