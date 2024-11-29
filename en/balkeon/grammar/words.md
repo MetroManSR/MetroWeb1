@@ -90,7 +90,7 @@ A more colloquial way is through the adverb nekin.
 
 To emphasize an action by saying “Yes I did” you use yek at the end of the sentence.
 
-Faumtuti is a stronger emphasizer and just like before you can use yekin for emphasis colloquially.
+Faumtut is a stronger emphasizer and just like before you can use yekin for emphasis colloquially.
 
 ## Related
 
@@ -105,7 +105,7 @@ The following rules must be followed to create the Preterite Tenses:
 
 - If it is Passive, the `i` is removed from the infix and ach is added (for example, leaving `achpeon`), the rest is the same as always.
 
-- In Balkeon the Preterites They are useful for [Complex Sentences](../complexsentences) and the occasional different word.
+- In Balkeon the Preterites are useful for [Complex Sentences](../complexsentences) and other special words.
 
 ## Stress
 
