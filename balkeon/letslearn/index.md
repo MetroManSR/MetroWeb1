@@ -1,6 +1,7 @@
 ---
-layout: lessons
-title: "Lessons Menu"
+layout: default
+title: "My Page Title"
+class: "transition-page"
 ---
      
 <button class="button-82-pushable" role="button" onclick="history.back()">
