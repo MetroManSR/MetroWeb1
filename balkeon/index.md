@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Balkeon Menu"
+title: Balkeon Menu
 language: es
 ---
  
