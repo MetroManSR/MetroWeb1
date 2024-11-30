@@ -1,4 +1,4 @@
----
+3---
 layout: base
 ---
 
@@ -7,7 +7,32 @@ layout: base
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Language Detection Example</title>
   <script>
+
     var language = "en"
+
+    function langRedirect(sourceLang) {
+    // Get the current path
+    let path = window.location.pathname;
+
+    let newPath = "" 
+    
+    // Add "en/" at the beginning of the path
+    if (sourceLang == "es") {
+    
+    newPath = '/en' + path;
+   
+    } else {
+
+    newPath = path.replace("en/", "") 
+     
+    } 
+    
+    // Construct the new URL
+    let newUrl = window.location.origin + newPath;
+
+    // Redirect to the new URL
+    window.location.href = newUrl;
+}
     // Function to set default strings
     function setDefaultStrings(language) {
      
@@ -64,3 +89,4 @@ layout: base
   </main>
 </body>
 </html>
+
