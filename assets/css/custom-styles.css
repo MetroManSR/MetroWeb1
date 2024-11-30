@@ -1,22 +1,4 @@
 /* CSS */
-.page-1 {
-  opacity: 0;
-  transition: opacity 1s slide-in;
-}
-
-.page-1.loaded {
-  opacity: 1;
-}
-
-.page-2 {
-  opacity: 0;
-  transition: opacity 1s slide-in;
-}
-
-.page-2.loaded {
-  opacity: 1;
-}
-
 :root {
  --body-bg: #FFFFFF;
  --body-color: #000000;
