@@ -1,9 +1,8 @@
-<button class="button-82-pushable" onclick="history.back()">
-<span class="button-82-shadow"></span>
-<span class="button-82-edge"></span>
-<span class="button-82-front text">
-Back
-</span> </button>
+---
+layout: default
+title: "Balkeon Phonology"
+language: en
+---
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Docs</button>
 
@@ -62,5 +61,3 @@ In case you need to know, the IPA for these is: [t͡ʃ](https://es.m.wikipedia.o
 - Two similar sounding consonants cannot go together, e.g. `kh`, `bp` when born of etymology, one of the two is cancelled.
 
 - [Plurals](../../grammar/words/#plurals) have their own rules detailed in that section.
-
-<button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
