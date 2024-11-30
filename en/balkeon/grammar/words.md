@@ -1,11 +1,10 @@
-> ⚠️ I had a slight mistake with the [preterite](#related) it was not irb irp it was ib ip, sorry
+---
+layout: default
+title: "Balkeon Word Construction"
+language: en
+---
 
-<button class="button-82-pushable" role="button" onclick="history.back()">
- <span class="button-82-shadow"></span>
- <span class="button-82-edge"></span>
- <span class="button-82-front text">
- Return
- </span> </button>
+> ⚠️ I had a slight mistake with the [preterite](#related) it was not irb irp it was ib ip, sorry
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role= "button" onclick="location.href='../index'">Grammar</button>
 
@@ -134,7 +133,5 @@ The following rules must be followed to create the Preterite Tenses:
 - If it ends in a vowel, the bridging wildcard `r` is added. 
 
 - If there is already a root occupying the same sequence of letters (`-ut-` derogatory, `ut` customary) a `ch` is added at the beginning if it starts with a vowel or an `e` if it starts with a consonant (`chutideon` to be ugly/horrible).
-
-<button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button>
-
+- 
 > Updated with Information post proposals by Bjorndottis 25 Nov 2024 and proposals by Bjorndottis and MetroMan from 23 Nov 2024
