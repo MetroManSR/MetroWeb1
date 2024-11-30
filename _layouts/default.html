@@ -53,7 +53,7 @@ layout: base
     <div id="backbutton"></div>
     </span> </button>
     {{ content }}
-    </span> </button> <button class="button-17" role="button" onclick="langRedirect(${language})"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
+    </span> </button> <button class="button-17" role="button" onclick="langRedirect({{language}})"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
     {% if page.after-content %}
       <div class="after-content">
         {% for file in page.after-content %}
