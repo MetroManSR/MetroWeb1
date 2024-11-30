@@ -1,7 +1,8 @@
 ---
 layout: lessons
 title: "Balkeon Lessons Menu"
-class: "transition-page"
+class: "transition-page" 
+language: "es" 
 ---
      
 <button class="button-82-pushable" role="button" onclick="history.back()">
