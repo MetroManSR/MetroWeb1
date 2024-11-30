@@ -1,25 +1,55 @@
----
-layout: base
----
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Language Detection Example</title>
+  <script>
+    // Function to set default strings
+    function setDefaultStrings(language) {
+      const defaultStrings = {
+        en: {
+          greeting: "Welcome!",
+          farewell: "Goodbye!"
+        },
+        es: {
+          greeting: "¡Bienvenido!",
+          farewell: "¡Adiós!"
+        }
+      };
+      return defaultStrings[language];
+    }
 
-<div class="intro-header"></div>
+    document.addEventListener('DOMContentLoaded', function() {
+      // This variable should be injected by your static site generator
+      var language = '{{ page.language }}'; // Assuming the static site generator will replace this
+      const defaultStrings = setDefaultStrings(language);
+      document.getElementById("dynamic-text").innerText = defaultStrings.greeting;
+    });
+  </script>
+</head>
+<body>
+  <div class="intro-header"></div>
 
-<main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
-  {% if page.before-content %}
-    <div class="before-content">
-      {% for file in page.before-content %}
-        {% include {{ file }} %}
-      {% endfor %}
-    </div>
-  {% endif %}
+  <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
+    {% if page.before-content %}
+      <div class="before-content">
+        {% for file in page.before-content %}
+          {% include {{ file }} %}
+        {% endfor %}
+      </div>
+    {% endif %}
 
-  {{ content }}
+    <!-- Add a dynamic text string here -->
+    <div id="dynamic-text"></div>
+    
+    {{ content }}
 
-  {% if page.after-content %}
-    <div class="after-content">
-      {% for file in page.after-content %}
-        {% include {{ file }} %}
-      {% endfor %}
-    </div>
-  {% endif %}
-</main>
+    {% if page.after-content %}
+      <div class="after-content">
+        {% for file in page.after-content %}
+          {% include {{ file }} %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </main>
+</body>
+</html>
