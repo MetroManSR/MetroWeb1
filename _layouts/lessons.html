@@ -1,13 +1,7 @@
 ---
 layout: base
 ---
-<!DOCTYPE html>
-<html>
-     <head>
-     
-</html>
 
-<div class="intro-header"></div>
 
 <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
   {% if page.before-content %}
@@ -18,27 +12,8 @@ layout: base
     </div>
   {% endif %}
 
-    <head>
-     <title>{{ page.title }}</title>
-       <style>
-         body.page-1 {
-           opacity: 0;
-           transition: opacity 1s ease-in;
-         }
-
-         body.page-1.loaded {
-           opacity: 1;
-         }
-       </style>
-     </head>
-     <body class="page-1">
-       <script>
-            {{content}
-         window.addEventListener('load', function() {
-           document.body.classList.add('loaded');
-         });
-       </script>
-     </body>
+  <!-- Content goes here -->
+  {{ content }}
 
   {% if page.after-content %}
     <div class="after-content">
@@ -48,3 +23,28 @@ layout: base
     </div>
   {% endif %}
 </main>
+
+<style>
+  body.transition-page {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+  }
+
+  body.transition-page.loaded {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  window.addEventListener('load', function() {
+    if (document.body.classList.contains('transition-page')) {
+      document.body.classList.add('loaded');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (document.body.classList.contains('transition-page')) {
+      document.body.style.opacity = '0';
+    }
+  });
+</script>
