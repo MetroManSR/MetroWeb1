@@ -2,61 +2,94 @@
 layout: base
 ---
 
+<html lang="{{ page.language }}">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="custom-styles">
-</head>
+  <style>
+    body.transition-page {
+      opacity: 0;
+      transform: translateX(-100%);
+      transition: transform 1s ease-in, opacity 1s ease-in;
+    }
 
-<div class="intro-header"></div>
+    body.transition-page.loaded {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  </style>
+  <script>
+    const lang = "{{ page.language }}";
 
-<main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
-  {% if page.before-content %}
-    <div class="before-content">
-      {% for file in page.before-content %}
-        {% include {{ file }} %}
-      {% endfor %}
-    </div>
-  {% endif %}
+    function knlangRedirect() {
+      let path = window.location.pathname;
+      let newPath = "";
 
-  <!-- Content goes here -->
-  <button class="button-82-pushable" role="button" onclick="history.back()">
-  <span class="button-82-shadow"></span>
-  <span class="button-82-edge"></span>
-  <span class="button-82-front text">
-  Volver
- </span> </button> <button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
-  {{ content }}
+      if (lang === "es") {
+        newPath = '/en' + path;
+      } else {
+        newPath = path.replace("/en", "");
+      }
 
-  {% if page.after-content %}
-    <div class="after-content">
-      {% for file in page.after-content %}
-        {% include {{ file }} %}
-      {% endfor %}
-    </div>
-  {% endif %}
-</main>
+      let newUrl = window.location.origin + newPath;
+      window.location.href = newUrl;
+    }
 
-<style>
-  /* Only apply this to specific pages by adding a specific class to the body tag */
-  body.transition-page {
-    transform: translateX(-100%);
-    transition: transform 1s ease-in;
-  }
+    function setDefaultStrings(language) {
+      const defaultStrings = {
+        en: {
+          back: "Return",
+        },
+        es: {
+          back: "Volver",
+        }
+      };
+      return defaultStrings[language];
+    }
 
-  body.transition-page.loaded {
-    transform: translateX(0);
-  }
-</style>
-
-<script>
-  window.addEventListener('load', function() {
-    if (document.body.classList.contains('transition-page')) {
+    window.addEventListener('load', function() {
       document.body.classList.add('loaded');
-    }
-  });
+    });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    if (document.body.classList.contains('transition-page')) {
-      document.body.style.opacity = '0';
-    }
-  });
-</script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('transition-page');
+      const defaultStrings = setDefaultStrings(lang);
+      document.getElementById("backbutton").innerText = defaultStrings.back;
+    });
+  </script>
+</head>
+<body class="transition-page">
+  <div class="intro-header"></div>
+
+  <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
+    {% if page.before-content %}
+      <div class="before-content">
+        {% for file in page.before-content %}
+          {% include {{ file }} %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <button class="button-82-pushable" onclick="history.back()">
+      <span class="button-82-shadow"></span>
+      <span class="button-82-edge"></span>
+      <span class="button-82-front text">
+        <div id="backbutton"></div>
+      </span> 
+    </button>
+    <div id="lesson-id">Lesson ID: {{ page.lessonid }}</div>
+    {{ content }}
+    <button class="button-17" role="button" onclick="knlangRedirect()">
+      <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
+    </button> 
+    {% if page.after-content %}
+      <div class="after-content">
+        {% for file in page.after-content %}
+          {% include {{ file }} %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </main>
+</body>
+</html>
