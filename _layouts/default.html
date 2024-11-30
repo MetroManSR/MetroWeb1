@@ -11,13 +11,13 @@ layout: base
     // Definir la variable de lenguaje en el contexto de JavaScript
     var language = '{{ page.language }}'; // Esto debería ser reemplazado por tu generador de sitios estáticos
 
-    function knlangRedirect(sourceLang) {
+    function knlangRedirect{
       // Obtener la ruta actual
       let path = window.location.pathname;
       let newPath = "";
 
       // Agregar "en/" al principio de la ruta
-      if (sourceLang == "es") {
+      if (lang == "es") {
         newPath = '/en' + path;
       } else {
         newPath = path.replace("en/", "");
@@ -47,7 +47,7 @@ layout: base
       // Esto debería ser inyectado por tu generador de sitios estáticos
       const defaultStrings = setDefaultStrings(language);
       document.getElementById("backbutton").innerText = defaultStrings.back;
-      document.getElementById("lang").innerText = language;
+    
     });
   </script>
 </head>
@@ -73,7 +73,7 @@ layout: base
       </span> 
     </button>
     {{ content }}
-    <button class="button-17" role="button" onclick="knlangRedirect(lang)">
+    <button class="button-17" role="button" onclick="knlangRedirect()">
       <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
     </button> 
     {% if page.after-content %}
