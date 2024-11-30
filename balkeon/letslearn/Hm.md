@@ -5,6 +5,7 @@ date: 2024-11-30 20:00:00 -0500
 categories: lesson
 full-width: true
 lessonid: "AD123"
+language: "es"
 ---
 
 ## Welcome to Lesson 1
