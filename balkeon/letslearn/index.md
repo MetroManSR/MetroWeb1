@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: lessons
 title: "My Page Title"
 class: "transition-page"
 ---
