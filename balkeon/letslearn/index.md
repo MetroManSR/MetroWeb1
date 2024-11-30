@@ -1,4 +1,5 @@
 <body class="page-1">
+</body>
   
 <button class="button-82-pushable" role="button" onclick="history.back()">
   <span class="button-82-shadow"></span>
@@ -13,8 +14,6 @@
 
 🏗 Pronto lecciones de Balkeon
 
-
-</body>
 <!-- HTML -->
 <script>
   window.addEventListener('load', function() {
