@@ -3,6 +3,8 @@ layout: base
 ---
 
 
+<div class="intro-header"></div>
+
 <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
   {% if page.before-content %}
     <div class="before-content">
@@ -25,6 +27,7 @@ layout: base
 </main>
 
 <style>
+  /* Only apply this to specific pages by adding a specific class to the body tag */
   body.transition-page {
     opacity: 0;
     transition: opacity 1s ease-in;
