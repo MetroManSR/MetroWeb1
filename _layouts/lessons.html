@@ -18,6 +18,37 @@ layout: base
       opacity: 1;
       transform: translateX(0);
     }
+
+    .floating-dropdown {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 10px;
+      z-index: 1000;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .nav-buttons button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #555;
+    }
   </style>
   <script>
     const lang = "{{ page.language }}";
@@ -40,23 +71,89 @@ layout: base
       const defaultStrings = {
         en: {
           back: "Return",
+          next: "Next",
+          previous: "Previous",
+          selectLesson: "Select Lesson"
         },
         es: {
           back: "Volver",
+          next: "Siguiente",
+          previous: "Anterior",
+          selectLesson: "Seleccionar Lección"
         }
       };
       return defaultStrings[language];
     }
 
+    function getQueryParams() {
+      let params = {};
+      let queryString = window.location.search.slice(1);
+      let pairs = queryString.split("&");
+
+      for (let pair of pairs) {
+        let [key, value] = pair.split("=");
+        params[key] = decodeURIComponent(value || "");
+      }
+      return params;
+    }
+
+    function populateDropdown() {
+      const lessons = [
+        {id: 'AD123', title: 'Lesson 1: Introduction'},
+        {id: 'BD456', title: 'Lesson 2: Intermediate'},
+        {id: 'CD789', title: 'Lesson 3: Advanced'}
+      ];
+
+      const dropdown = document.getElementById('lesson-dropdown');
+      lessons.forEach(lesson => {
+        const option = document.createElement('option');
+        option.value = lesson.id;
+        option.text = lesson.title;
+        dropdown.appendChild(option);
+      });
+
+      dropdown.addEventListener('change', function() {
+        const selectedLesson = dropdown.value;
+        if (selectedLesson) {
+          window.location.href = `./lessons?lessonid=${selectedLesson}`;
+        }
+      });
+    }
+
     window.addEventListener('load', function() {
       document.body.classList.add('loaded');
+      const params = getQueryParams();
+      if (params['lessonid']) {
+        document.getElementById("lesson-id").innerText = "Lesson ID: " + params['lessonid'];
+      }
+      populateDropdown();
     });
 
     document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.add('transition-page');
       const defaultStrings = setDefaultStrings(lang);
       document.getElementById("backbutton").innerText = defaultStrings.back;
+      document.getElementById("nextbutton").innerText = defaultStrings.next;
+      document.getElementById("previousbutton").innerText = defaultStrings.previous;
+      document.getElementById("selectLesson").innerText = defaultStrings.selectLesson;
     });
+
+    function navigateToLesson(direction) {
+      const lessons = ['AD123', 'BD456', 'CD789'];
+      const params = getQueryParams();
+      const currentLessonId = params['lessonid'];
+      const currentIndex = lessons.indexOf(currentLessonId);
+      let newIndex;
+
+      if (direction === 'next') {
+        newIndex = currentIndex + 1 < lessons.length ? currentIndex + 1 : 0;
+      } else if (direction === 'previous') {
+        newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lessons.length - 1;
+      }
+
+      const newLessonId = lessons[newIndex];
+      window.location.href = `./lessons?lessonid=${newLessonId}`;
+    }
   </script>
 </head>
 <body class="transition-page">
@@ -80,9 +177,23 @@ layout: base
     </button>
     <div id="lesson-id">Lesson ID: {{ page.lessonid }}</div>
     {{ content }}
+
+    <div class="nav-buttons">
+      <button id="previousbutton" onclick="navigateToLesson('previous')"></button>
+      <button id="nextbutton" onclick="navigateToLesson('next')"></button>
+    </div>
+
+    <div class="floating-dropdown">
+      <label for="lesson-dropdown" id="selectLesson"></label>
+      <select id="lesson-dropdown">
+        <option value="" disabled selected>Select a lesson</option>
+      </select>
+    </div>
+
     <button class="button-17" role="button" onclick="knlangRedirect()">
       <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
     </button> 
+
     {% if page.after-content %}
       <div class="after-content">
         {% for file in page.after-content %}
