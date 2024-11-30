@@ -2,58 +2,52 @@
 layout: base
 ---
 
+<html lang="{{ page.language }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Language Detection Example</title>
   <script>
-
-    var language = "en"
+    // Definir la variable de lenguaje en el contexto de JavaScript
+    var language = '{{ page.language }}'; // Esto debería ser reemplazado por tu generador de sitios estáticos
 
     function knlangRedirect(sourceLang) {
-    // Get the current path
-    let path = window.location.pathname;
+      // Obtener la ruta actual
+      let path = window.location.pathname;
+      let newPath = "";
 
-    let newPath = "" 
-    
-    // Add "en/" at the beginning of the path
-    if (sourceLang == "es") {
-    
-    newPath = '/en' + path;
-   
-    } else {
+      // Agregar "en/" al principio de la ruta
+      if (sourceLang == "es") {
+        newPath = '/en' + path;
+      } else {
+        newPath = path.replace("en/", "");
+      }
 
-    newPath = path.replace("en/", "") 
-     
-    } 
-    
-    // Construct the new URL
-    let newUrl = window.location.origin + newPath;
+      // Construir la nueva URL
+      let newUrl = window.location.origin + newPath;
 
-    // Redirect to the new URL
-    window.location.href = newUrl;
-}
-    // Function to set default strings
+      // Redirigir a la nueva URL
+      window.location.href = newUrl;
+    }
+
+    // Función para establecer los textos por defecto
     function setDefaultStrings(language) {
-     
       const defaultStrings = {
         en: {
           back: "Return",
-          
         },
         es: {
           back: "Volver",
-          
         }
       };
       return defaultStrings[language];
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      // This variable should be injected by your static site generator
-      let language = '{{ page.language }}'; // Assuming the static site generator will replace this
+      // Esto debería ser inyectado por tu generador de sitios estáticos
       const defaultStrings = setDefaultStrings(language);
       document.getElementById("backbutton").innerText = defaultStrings.back;
+      document.getElementById("lang").innerText = language;
     });
   </script>
 </head>
@@ -72,13 +66,16 @@ layout: base
     <!-- Add a dynamic text string here -->
 
     <button class="button-82-pushable" onclick="history.back()">
-    <span class="button-82-shadow"></span>
-    <span class="button-82-edge"></span>
-    <span class="button-82-front text">
-    <div id="backbutton"></div>
-    </span> </button>
+      <span class="button-82-shadow"></span>
+      <span class="button-82-edge"></span>
+      <span class="button-82-front text">
+        <div id="backbutton"></div>
+      </span> 
+    </button>
     {{ content }}
-    </span> </button> <button class="button-17" role="button" onclick="knlangRedirect('${language}')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
+    <button class="button-17" role="button" onclick="knlangRedirect(lang)">
+      <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
+    </button> 
     {% if page.after-content %}
       <div class="after-content">
         {% for file in page.after-content %}
@@ -89,4 +86,3 @@ layout: base
   </main>
 </body>
 </html>
-
