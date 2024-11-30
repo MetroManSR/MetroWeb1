@@ -1,9 +1,8 @@
-<button class="button-82-pushable" role="button" onclick="history.back()">
- <span class="button-82-shadow"></span>
- <span class="button-82-edge"></span>
- <span class="button-82-front text">
- Return
- </span> </button>
+---
+layout: default
+title: "Balkeon Sentence Construction"
+language: en
+---
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role= "button" onclick="location.href='../index'">Grammar</button>
 
@@ -74,5 +73,3 @@ NEVER
 🙄 Sayao gonir yameon kad ah nek
 
 *Actually you COULD use the third form But it's too informal and ambiguous*
-
-<button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
