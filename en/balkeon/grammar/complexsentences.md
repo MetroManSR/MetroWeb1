@@ -1,10 +1,8 @@
-
-<button class="button-82-pushable" role="button" onclick="history.back()">
-<span class="button-82-shadow"></span>
-<span class="button-82-edge"></span>
-<span class="button-82-front text">
-Back
-</span> </button>
+---
+layout: default
+title: "Balkeon Complex Sentences"
+language: en
+---
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Grammar</button>
 
@@ -62,5 +60,3 @@ In Balkeon it is known that any word can be mixed with any word, Sentences are n
 - `Nothing` is translated as `Nemeon`.
 
 - The outcome is as follows: Yuos nemagdiroreon. `Nemeon` and `agdiroreon` merge to create a meaningful, though not very translatable, word.
-
-<button class="button-17" role="button" onclick="langRedirect('en')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button>
