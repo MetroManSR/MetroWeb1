@@ -1,25 +1,8 @@
-<style>
-   body.page-1 {
-     opacity: 0;
-     transition: opacity 1s ease-in;
-   }
-
-   body.page-1.loaded {
-     opacity: 1;
-   }
-</script>
-
-<script>
-     window.addEventListener('load', function() {
-       document.body.classList.add('loaded');
-     });
-
-     document.addEventListener('DOMContentLoaded', function() {
-       document.body.classList.add('page-1');
-     });
-</script>
-
-  
+---
+layout: lessons
+title: "Lessons Menu"
+---
+     
 <button class="button-82-pushable" role="button" onclick="history.back()">
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
