@@ -1,11 +1,10 @@
-> ⚠️ Tuve un mínimo error con los [pretéritos](#relacionado) no era irb irp era ib ip, disculpa
+---
+layout: default
+title: "Balkeon Construcción de Palabras"
+language: es
+---
 
-<button class="button-82-pushable" role="button" onclick="history.back()">
-  <span class="button-82-shadow"></span>
-  <span class="button-82-edge"></span>
-  <span class="button-82-front text">
-  Volver
- </span> </button>
+> ⚠️ Tuve un mínimo error con los [pretéritos](#relacionado) no era irb irp era ib ip, disculpa
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Gramática</button>
 
@@ -136,8 +135,6 @@ Para armar los Pretéritos se deben seguir las siguientes reglas:
 - Si termina en vocal se le añade el comodín puente `r`. 
 
 - Si ya hay una raíz ocupando la misma secuencia de letras (`-ut-` despectivo, `ut` costumbre) se le añade una `ch` al principio si inicia en vocal o una `e` si inicia en consonante (`chutideon` ser feo/horrible)
-
-<button class="button-17" role="button" onclick="langRedirect('es')"><img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/></button> 
 
 > Actualizado con Información post propuestas de Bjorndottis 25 Nov 2024 y propuestas de Bjorndottis y MetroMan del 23 Nov 2024
 
