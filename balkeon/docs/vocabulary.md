@@ -176,7 +176,9 @@
 
 - Tan = Yaen
   
-- También - Dumor/Matren
+- También = Dumor/Matren
+
+- Todavía = Noh
 
 ## Verbos Auxiliares
  
