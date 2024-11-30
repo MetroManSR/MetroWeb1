@@ -1,9 +1,10 @@
-<button class="button-82-pushable" role="button" onclick="location.href='en/index'">
-  <span class="button-82-shadow"></span>
-  <span class="button-82-edge"></span>
-  <span class="button-82-front text">
-    English
-  </span> </button> <button class="button-82-pushable" role="button" onclick="location.href='balkeon'">
+---
+layout: default
+title: "Página Principal"
+language: es
+---
+ 
+<button class="button-82-pushable" role="button" onclick="location.href='balkeon'">
   <span class="button-82-shadow"></span>
   <span class="button-82-edge"></span>
   <span class="button-82-front text">
