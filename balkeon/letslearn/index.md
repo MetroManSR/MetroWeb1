@@ -10,3 +10,10 @@
 # ¿Deseas Aprender?
 
 🏗 Pronto lecciones de Balkeon
+
+<!-- HTML -->
+<script>
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
