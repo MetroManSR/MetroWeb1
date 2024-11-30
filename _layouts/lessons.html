@@ -1,0 +1,49 @@
+---
+layout: base
+---
+<!DOCTYPE html>
+<html>
+     <head>
+       <title>{{ page.title }}</title>
+       <style>
+         body.page-1 {
+           opacity: 0;
+           transition: opacity 1s ease-in;
+         }
+
+         body.page-1.loaded {
+           opacity: 1;
+         }
+       </style>
+     </head>
+     <body class="page-1">
+       {{ content }}
+       <script>
+         window.addEventListener('load', function() {
+           document.body.classList.add('loaded');
+         });
+       </script>
+     </body>
+     </html>
+
+<div class="intro-header"></div>
+
+<main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
+  {% if page.before-content %}
+    <div class="before-content">
+      {% for file in page.before-content %}
+        {% include {{ file }} %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {{ content }}
+
+  {% if page.after-content %}
+    <div class="after-content">
+      {% for file in page.after-content %}
+        {% include {{ file }} %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</main>
