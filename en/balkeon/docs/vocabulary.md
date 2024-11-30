@@ -175,7 +175,9 @@
 
 - So much = Yaen
 
-- Also = Dumor/Matren
+- Also = Dumor/Matr
+
+- Yet = Noh
 
 ## Auxiliary Verbs
 
