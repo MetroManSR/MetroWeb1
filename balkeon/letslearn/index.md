@@ -1,6 +1,6 @@
 ---
 layout: lessons
-title: "My Page Title"
+title: "Balkeon Lessons Menu"
 class: "transition-page"
 ---
      
