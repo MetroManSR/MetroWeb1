@@ -1,4 +1,4 @@
-function langRedirect(sourceLang) {
+function hmlangRedirect(sourceLang) {
     // Get the current path
     let path = window.location.pathname;
 
