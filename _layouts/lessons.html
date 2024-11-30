@@ -4,25 +4,7 @@ layout: base
 <!DOCTYPE html>
 <html>
      <head>
-       <title>{{ page.title }}</title>
-       <style>
-         body.page-1 {
-           opacity: 0;
-           transition: opacity 1s ease-in;
-         }
-
-         body.page-1.loaded {
-           opacity: 1;
-         }
-       </style>
-     </head>
-     <body class="page-1">
-       <script>
-         window.addEventListener('load', function() {
-           document.body.classList.add('loaded');
-         });
-       </script>
-     </body>
+     
 </html>
 
 <div class="intro-header"></div>
@@ -36,7 +18,27 @@ layout: base
     </div>
   {% endif %}
 
-  {{ content }}
+    <head>
+     <title>{{ page.title }}</title>
+       <style>
+         body.page-1 {
+           opacity: 0;
+           transition: opacity 1s ease-in;
+         }
+
+         body.page-1.loaded {
+           opacity: 1;
+         }
+       </style>
+     </head>
+     <body class="page-1">
+       <script>
+            {{content}
+         window.addEventListener('load', function() {
+           document.body.classList.add('loaded');
+         });
+       </script>
+     </body>
 
   {% if page.after-content %}
     <div class="after-content">
