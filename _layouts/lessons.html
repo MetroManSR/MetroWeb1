@@ -1,7 +1,6 @@
 ---
 layout: base
-
-
+title: Unit
 ---
 
 <!DOCTYPE html>
@@ -9,41 +8,35 @@ layout: base
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="custom-styles">
+    <link rel="stylesheet" href="{{ "/assets/css/styles.css" | relative_url }}">
     <style>
-        body.transition-page {
-            opacity: 0;
-            transform: translateX(-100%);
-            transition: transform 1s ease-in, opacity 1s ease-in;
+        /* Add your custom styles here */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
-
-        body.transition-page.loaded {
-            opacity: 1;
-            transform: translateX(0);
+        .lesson-list {
+            list-style-type: none;
+            padding: 0;
         }
-
-        .floating-dropdown {
-            position: fixed;
-            top: 60px; /* Adjust this value to position the dropdown below the navbar */
-            right: 10px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            z-index: 1000; /* Ensure the dropdown is above other content */
+        .lesson-list li {
+            margin: 10px 0;
         }
-
-        .navbar {
-            z-index: 2000; /* Ensure the navbar is above other content */
+        .lesson-link {
+            text-decoration: none;
+            color: #333;
         }
-
+        .lesson-link:hover {
+            text-decoration: underline;
+        }
+        .lesson-content {
+            margin-top: 20px;
+        }
         .nav-buttons {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
-
         .nav-buttons button {
             background-color: #333;
             color: #fff;
@@ -52,184 +45,70 @@ layout: base
             cursor: pointer;
             border-radius: 5px;
         }
-
         .nav-buttons button:hover {
             background-color: #555;
         }
-
-        .lesson-content {
-            margin-top: 20px;
-        }
     </style>
     <script>
-        const lang = "{{ page.language }}";
-
-        function knlangRedirect() {
-            let path = window.location.pathname;
-            let newPath = "";
-
-            if (lang === "es") {
-                newPath = '/en' + path;
-            } else {
-                newPath = path.replace("/en", "");
+        const lessons = {
+            "es": {
+                unit01: ['balkeon/letslearn/unit01/lessonBS01.md', 'balkeon/letslearn/unit01/lessonBS02.md'],
+                unit02: ['balkeon/letslearn/unit02/lessonBS03.md', 'balkeon/letslearn/unit02/lessonBS04.md']
+            },
+            "en": {
+                unit01: ['en/balkeon/letslearn/unit01/lessonBS01.md', 'en/balkeon/letslearn/unit01/lessonBS02.md'],
+                unit02: ['en/balkeon/letslearn/unit02/lessonBS03.md', 'en/balkeon/letslearn/unit02/lessonBS04.md']
             }
+        };
 
-            let newUrl = window.location.origin + newPath;
-            window.location.href = newUrl;
-        }
-
-        function setDefaultStrings(language) {
-            const defaultStrings = {
-                en: {
-                    back: "Return",
-                    next: "Next",
-                    previous: "Previous",
-                    selectLesson: "Select Lesson"
-                },
-                es: {
-                    back: "Volver",
-                    next: "Siguiente",
-                    previous: "Anterior",
-                    selectLesson: "Seleccionar Lección"
-                }
-            };
-            return defaultStrings[language];
-        }
-
-        function getQueryParams() {
-            let params = {};
-            let queryString = window.location.search.slice(1);
-            let pairs = queryString.split("&");
-
-            for (let pair of pairs) {
-                let [key, value] = pair.split("=");
-                params[key] = decodeURIComponent(value || "");
-            }
-            return params;
-        }
-
-        function populateDropdown() {
-            const units = [
-                {id: 'unit01', title: 'Unit 01'},
-                {id: 'unit02', title: 'Unit 02'}
-            ];
-
-            const dropdown = document.getElementById('lesson-dropdown');
-            units.forEach(unit => {
-                const option = document.createElement('option');
-                option.value = unit.id;
-                option.text = unit.title;
-                dropdown.appendChild(option);
-            });
-
-            dropdown.addEventListener('change', function() {
-                const selectedUnit = dropdown.value;
-                if (selectedUnit) {
-                    loadLesson(selectedUnit + '/Unit 01.html');
-                }
-            });
-        }
-
-        window.addEventListener('load', function() {
-            document.body.classList.add('loaded');
-            const params = getQueryParams();
-            if (params['lessonid']) {
-                document.getElementById("lesson-id").innerText = "Lesson ID: " + params['lessonid'];
-            }
-            populateDropdown();
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.classList.add('transition-page');
-            const defaultStrings = setDefaultStrings(lang);
-            document.getElementById("backbutton").innerText = defaultStrings.back;
-            document.getElementById("nextbutton").innerText = defaultStrings.next;
-            document.getElementById("previousbutton").innerText = defaultStrings.previous;
-            document.getElementById("selectLesson").innerText = defaultStrings.selectLesson;
-        });
-
-        function loadLesson(lessonUrl) {
-            fetch(lessonUrl)
+        function loadLesson(lessonId) {
+            fetch(lessonId)
                 .then(response => response.text())
-                .then(html => {
-                    document.getElementById('lesson-content').innerHTML = html;
+                .then(md => {
+                    document.getElementById('lesson-content').innerHTML = marked(md);
+                    document.querySelector('.lesson-content').setAttribute('data-lesson-id', lessonId);
                 })
                 .catch(error => console.error('Error loading lesson:', error));
         }
 
         function navigateToLesson(direction) {
-            const lessons = ['lessonBS01.md', 'lessonBS02.md', 'lessonBS03.md'];
-            const params = getQueryParams();
-            const currentLessonId = params['lessonid'];
-            const currentIndex = lessons.indexOf(currentLessonId);
+            const lang = "{{ page.language }}";
+            const unit = "{{ page.unit }}";
+            const lessonList = lessons[lang][unit];
+            const currentLesson = document.querySelector('.lesson-content').getAttribute('data-lesson-id');
+            const currentIndex = lessonList.indexOf(currentLesson);
             let newIndex;
 
             if (direction === 'next') {
-                newIndex = currentIndex + 1 < lessons.length ? currentIndex + 1 : 0;
+                newIndex = currentIndex + 1 < lessonList.length ? currentIndex + 1 : 0;
             } else if (direction === 'previous') {
-                newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lessons.length - 1;
+                newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lessonList.length - 1;
             }
 
-            const newLessonId = lessons[newIndex];
-            loadLesson(newLessonId);
-            params.set('lessonid', newLessonId);
-            history.pushState({}, '', '?' + params.toString());
+            loadLesson(lessonList[newIndex]);
         }
 
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const params = getQueryParams();
-            const initialLesson = params.get('lessonid') || 'unit01/lessonBS01.md';
+        window.addEventListener('DOMContentLoaded', () => {
+            const initialLesson = lessons["{{ page.language }}"]["{{ page.unit }}"][0];
             loadLesson(initialLesson);
         });
     </script>
 </head>
-<body class="transition-page">
-    <div class="intro-header"></div>
+<body>
+    <h1>{{ page.title }}</h1>
+    <ul class="lesson-list">
+        {% assign lang = page.language %}
+        {% assign unit = page.unit %}
+        {% for lesson in site.data[lang].lessons[unit] %}
+            <li><a href="#" class="lesson-link" onclick="loadLesson('{{ lesson.url }}')">{{ lesson.title }}</a></li>
+        {% endfor %}
+    </ul>
 
-    <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
-        {% if page.before-content %}
-            <div class="before-content">
-                {% for file in page.before-content %}
-                    {% include {{ file }} %}
-                {% endfor %}
-            </div>
-        {% endif %}
+    <div class="lesson-content" id="lesson-content" data-lesson-id=""></div>
 
-        <button class="button-82-pushable" onclick="history.back()">
-            <span class="button-82-shadow"></span>
-            <span class="button-82-edge"></span>
-            <span class="button-82-front text">
-                <div id="backbutton"></div>
-            </span> 
-        </button>
-
-        <div id="lesson-id">Lesson ID: {{ page.lessonid }}</div>
-
-        <div class="main-content" id="lesson-content" data-lesson-id="unit01/lessonBS01.md"></div>
-
-        <div class="nav-buttons">
-            <button id="previousbutton" onclick="navigateToLesson('previous')">Previous</button>
-            <button id="nextbutton" onclick="navigateToLesson('next')">Next</button>
-        </div>
-
-        <div class="floating-dropdown">
-            <label for="lesson-dropdown" id="selectLesson"></label>
-            <select id="lesson-dropdown">
-                <option value="" disabled selected>Select a unit</option>
-            </select>
-        </div>
-
-        <button class="button-17" role="button" onclick="knlangRedirect()">
-            <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
-        </button> 
-
-        {% if page.after-content %}
-            <div class="after-content">
-                {% for file in page.after-content %}
-                    {% include {{ file }} %}
-                {% endfor %}
-            </div>
-        {% endif %}
-    </main>
+    <div class="nav-buttons">
+        <button onclick="navigateToLesson('previous')">Previous</button>
+        <button onclick="navigateToLesson('next')">Next</button>
+    </div>
 </body>
 </html>
