@@ -47,9 +47,6 @@ layout: base
             <button onclick="navigateToLesson('next')">Next</button>
         </div>
     </main>
-    <footer>
-        <p>&copy; 2024 Let's Learn</p>
-    </footer>
     <script>
         const lessons = {
             "es": {
@@ -75,24 +72,34 @@ layout: base
         function navigateToLesson(direction) {
             const lang = "{{ page.language }}";
             const unit = "{{ page.unit }}";
-            const lessonList = lessons[lang][unit];
-            const currentLesson = document.querySelector('.lesson-content').getAttribute('data-lesson-id') || lessonList[0];
-            const currentIndex = lessonList.indexOf(currentLesson);
-            let newIndex;
+            if (lessons[lang] && lessons[lang][unit]) {
+                const lessonList = lessons[lang][unit];
+                const currentLesson = document.querySelector('.lesson-content').getAttribute('data-lesson-id') || lessonList[0];
+                const currentIndex = lessonList.indexOf(currentLesson);
+                let newIndex;
 
-            if (direction === 'next') {
-                newIndex = (currentIndex + 1) % lessonList.length;
-            } else if (direction === 'previous') {
-                newIndex = (currentIndex - 1 + lessonList.length) % lessonList.length;
+                if (direction === 'next') {
+                    newIndex = (currentIndex + 1) % lessonList.length;
+                } else if (direction === 'previous') {
+                    newIndex = (currentIndex - 1 + lessonList.length) % lessonList.length;
+                }
+
+                const newLesson = lessonList[newIndex];
+                loadLesson(newLesson);
+            } else {
+                console.error('Lesson list not found for language:', lang, 'unit:', unit);
             }
-
-            const newLesson = lessonList[newIndex];
-            loadLesson(newLesson);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            const initialLesson = lessons["{{ page.language }}"]["{{ page.unit }}"][0];
-            loadLesson(initialLesson);
+            const lang = "{{ page.language }}";
+            const unit = "{{ page.unit }}";
+            if (lessons[lang] && lessons[lang][unit]) {
+                const initialLesson = lessons[lang][unit][0];
+                loadLesson(initialLesson);
+            } else {
+                console.error('Lesson list not found for language:', lang, 'unit:', unit);
+            }
         });
     </script>
 </body>
