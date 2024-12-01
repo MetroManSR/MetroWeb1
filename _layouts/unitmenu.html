@@ -1,3 +1,6 @@
+---
+layout: base
+---
 
 <!DOCTYPE html>
 <html lang="{{ page.language }}">
@@ -5,18 +8,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px 20px 20px 20px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>{{ page.title }}</h1>
     </header>
     <main>
-        <ul class="unit-list">
+        <ul class="lesson-list">
             {% assign lang = page.language %}
-            {% for unit in site.data[lang].units %}
-                <li><a href="{{ unit.url }}">{{ unit.title }}</a></li>
+            {% assign unit = page.unit %}
+            {% for lesson in site.data[lang].lessons[unit] %}
+                <li><a href="{{ lesson.url }}">{{ lesson.title }}</a></li>
             {% endfor %}
         </ul>
+        {{ content }}
     </main>
     <footer>
         <p>&copy; 2024 Let's Learn</p>
