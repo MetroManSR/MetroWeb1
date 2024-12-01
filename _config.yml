@@ -277,10 +277,7 @@ lessons:
 # _config.yml
 
 # Configuración básica
-title: "Let's Learn"
-baseurl: ""
-url: "http://www.metroman.me"
-language: "es"
+
 
 # Directorios
 source: "./main"
@@ -312,15 +309,6 @@ highlighter: rouge
 sass:
   sass_dir: _sass
   style: compressed
-
-# Enlaces de navegación
-navigation:
-  - text: "Inicio"
-    url: "/"
-  - text: "Unidades"
-    url: "/units/"
-  - text: "Contacto"
-    url: "/contact/"
 
 
 # Enlaces de navegación
