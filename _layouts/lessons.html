@@ -1,5 +1,7 @@
 ---
-layout:base
+layout: base
+
+
 ---
 
 <!DOCTYPE html>
@@ -60,6 +62,8 @@ layout:base
         }
     </style>
     <script>
+        const lang = "{{ page.language }}";
+
         function knlangRedirect() {
             let path = window.location.pathname;
             let newPath = "";
@@ -168,12 +172,13 @@ layout:base
 
             const newLessonId = lessons[newIndex];
             loadLesson(newLessonId);
-            window.history.pushState({}, '', `?lessonid=${newLessonId}`);
+            params.set('lessonid', newLessonId);
+            history.pushState({}, '', '?' + params.toString());
         }
 
         window.addEventListener('DOMContentLoaded', (event) => {
             const params = getQueryParams();
-            const initialLesson = params['lessonid'] || 'unit01/lessonBS01.md';
+            const initialLesson = params.get('lessonid') || 'unit01/lessonBS01.md';
             loadLesson(initialLesson);
         });
     </script>
