@@ -1,13 +1,14 @@
 ---
-layout: lessons
-title: "Balkeon Lessons Menu"
-class: "transition-page" 
-language: "es" 
+layout: learnmenu
+title: "Menú de Lecciones"
+date: YYYY-MM-DD
+unit: "unit01"
+language: "es"
 ---
 
-## <button class="button-16" role="button" onclick="location.href='../index'">Balkeon</button>
+# Menú de Lecciones
 
-# ¿Deseas Aprender?
+## Unidad 01
 
-🏗 Pronto lecciones de Balkeon
-
+- [Introducción a los Básicos](lessonBS01.md)
+- [Conceptos Avanzados](lessonBS02.md)
