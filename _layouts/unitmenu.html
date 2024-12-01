@@ -23,8 +23,10 @@ layout: base
         <ul class="lesson-list">
             {% assign lang = page.language %}
             {% assign unit = page.unit %}
-            {% for lesson in site.data[lang].lessons[unit] %}
-                <li><a href="{{ lesson.url }}">{{ lesson.title }}</a></li>
+            {% for lesson in site.pages %}
+                {% if lesson.unit == unit and lesson.language == lang %}
+                    <li><a href="{{ lesson.url }}">{{ lesson.title }}</a></li>
+                {% endif %}
             {% endfor %}
         </ul>
         {{ content }}
