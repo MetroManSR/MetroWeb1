@@ -10,5 +10,5 @@ language: "es"
 
 ## Lecciones
 
-- [Introducción a los Básicos](lessonBS01.md)
-- [Conceptos Avanzados](lessonBS02.md)
+- [Introducción a los Básicos](lessonBS01)
+- [Conceptos Avanzados](lessonBS02)
