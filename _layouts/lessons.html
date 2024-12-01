@@ -2,206 +2,225 @@
 layout: base
 ---
 
+<!DOCTYPE html>
 <html lang="{{ page.language }}">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="custom-styles">
-  <style>
-    body.transition-page {
-      opacity: 0;
-      transform: translateX(-100%);
-      transition: transform 1s ease-in, opacity 1s ease-in;
-    }
-
-    body.transition-page.loaded {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .floating-dropdown {
-      position: fixed;
-      top: 100px;
-      right: 10px;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      padding: 10px;
-      z-index: 1000;
-    }
-
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-
-    .nav-buttons button {
-      background-color: #333;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .nav-buttons button:hover {
-      background-color: #555;
-    }
-  </style>
-  <script>
-    const lang = "{{ page.language }}";
-
-    function knlangRedirect() {
-      let path = window.location.pathname;
-      let newPath = "";
-
-      if (lang === "es") {
-        newPath = '/en' + path;
-      } else {
-        newPath = path.replace("/en", "");
-      }
-
-      let newUrl = window.location.origin + newPath;
-      window.location.href = newUrl;
-    }
-
-    function setDefaultStrings(language) {
-      const defaultStrings = {
-        en: {
-          back: "Return",
-          next: "Next",
-          previous: "Previous",
-          selectLesson: "Select Lesson"
-        },
-        es: {
-          back: "Volver",
-          next: "Siguiente",
-          previous: "Anterior",
-          selectLesson: "Seleccionar Lección"
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="custom-styles">
+    <style>
+        body.transition-page {
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: transform 1s ease-in, opacity 1s ease-in;
         }
-      };
-      return defaultStrings[language];
-    }
 
-    function getQueryParams() {
-      let params = {};
-      let queryString = window.location.search.slice(1);
-      let pairs = queryString.split("&");
-
-      for (let pair of pairs) {
-        let [key, value] = pair.split("=");
-        params[key] = decodeURIComponent(value || "");
-      }
-      return params;
-    }
-
-    function populateDropdown() {
-      const units = [
-        {id: 'unit01', title: 'Unit 01'},
-        {id: 'unit02', title: 'Unit 02'}
-      ];
-
-      const dropdown = document.getElementById('lesson-dropdown');
-      units.forEach(unit => {
-        const option = document.createElement('option');
-        option.value = unit.id;
-        option.text = unit.title;
-        dropdown.appendChild(option);
-      });
-
-      dropdown.addEventListener('change', function() {
-        const selectedUnit = dropdown.value;
-        if (selectedUnit) {
-          window.location.href = `./${selectedUnit}/Unit 01.html`;
+        body.transition-page.loaded {
+            opacity: 1;
+            transform: translateX(0);
         }
-      });
-    }
 
-    window.addEventListener('load', function() {
-      document.body.classList.add('loaded');
-      const params = getQueryParams();
-      if (params['lessonid']) {
-        // Logic to load specific lesson content can go here.
-        // For now, just display the lesson ID
-        document.getElementById("lesson-id").innerText = "Lesson ID: " + params['lessonid'];
-      }
-      populateDropdown();
-    });
+        .floating-dropdown {
+            position: fixed;
+            top: 60px; /* Adjust this value to position the dropdown below the navbar */
+            right: 10px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            z-index: 1000; /* Ensure the dropdown is above other content */
+        }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      document.body.classList.add('transition-page');
-      const defaultStrings = setDefaultStrings(lang);
-      document.getElementById("backbutton").innerText = defaultStrings.back;
-      document.getElementById("nextbutton").innerText = defaultStrings.next;
-      document.getElementById("previousbutton").innerText = defaultStrings.previous;
-      document.getElementById("selectLesson").innerText = defaultStrings.selectLesson;
-    });
+        .navbar {
+            z-index: 2000; /* Ensure the navbar is above other content */
+        }
 
-    function navigateToLesson(direction) {
-      const lessons = ['BS01', 'BS02', 'BS03', 'BS04'];
-      const params = getQueryParams();
-      const currentLessonId = params['lessonid'];
-      const currentIndex = lessons.indexOf(currentLessonId);
-      let newIndex;
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
 
-      if (direction === 'next') {
-        newIndex = currentIndex + 1 < lessons.length ? currentIndex + 1 : 0;
-      } else if (direction === 'previous') {
-        newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lessons.length - 1;
-      }
+        .nav-buttons button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-      const newLessonId = lessons[newIndex];
-      window.location.href = `./lesson?lessonid=${newLessonId}`;
-    }
-  </script>
+        .nav-buttons button:hover {
+            background-color: #555;
+        }
+    </style>
+    <script>
+        const lang = "{{ page.language }}";
+
+        function knlangRedirect() {
+            let path = window.location.pathname;
+            let newPath = "";
+
+            if (lang === "es") {
+                newPath = '/en' + path;
+            } else {
+                newPath = path.replace("/en", "");
+            }
+
+            let newUrl = window.location.origin + newPath;
+            window.location.href = newUrl;
+        }
+
+        function setDefaultStrings(language) {
+            const defaultStrings = {
+                en: {
+                    back: "Return",
+                    next: "Next",
+                    previous: "Previous",
+                    selectLesson: "Select Lesson"
+                },
+                es: {
+                    back: "Volver",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                    selectLesson: "Seleccionar Lección"
+                }
+            };
+            return defaultStrings[language];
+        }
+
+        function getQueryParams() {
+            let params = {};
+            let queryString = window.location.search.slice(1);
+            let pairs = queryString.split("&");
+
+            for (let pair of pairs) {
+                let [key, value] = pair.split("=");
+                params[key] = decodeURIComponent(value || "");
+            }
+            return params;
+        }
+
+        function populateDropdown() {
+            const units = [
+                {id: 'unit01', title: 'Unit 01'},
+                {id: 'unit02', title: 'Unit 02'}
+            ];
+
+            const dropdown = document.getElementById('lesson-dropdown');
+            units.forEach(unit => {
+                const option = document.createElement('option');
+                option.value = unit.id;
+                option.text = unit.title;
+                dropdown.appendChild(option);
+            });
+
+            dropdown.addEventListener('change', function() {
+                const selectedUnit = dropdown.value;
+                if (selectedUnit) {
+                    window.location.href = `./${selectedUnit}/Unit 01.html`;
+                }
+            });
+        }
+
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+            const params = getQueryParams();
+            if (params['lessonid']) {
+                document.getElementById("lesson-id").innerText = "Lesson ID: " + params['lessonid'];
+            }
+            populateDropdown();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('transition-page');
+            const defaultStrings = setDefaultStrings(lang);
+            document.getElementById("backbutton").innerText = defaultStrings.back;
+            document.getElementById("nextbutton").innerText = defaultStrings.next;
+            document.getElementById("previousbutton").innerText = defaultStrings.previous;
+            document.getElementById("selectLesson").innerText = defaultStrings.selectLesson;
+        });
+
+        const lessons = {
+            lesson01: "<h2>Lesson 01</h2><p>This is the content for Lesson 01...</p>",
+            lesson02: "<h2>Lesson 02</h2><p>This is the content for Lesson 02...</p>",
+            lesson03: "<h2>Lesson 03</h2><p>This is the content for Lesson 03...</p>"
+        };
+
+        function loadLesson(lessonId) {
+            document.getElementById('lesson-content').innerHTML = lessons[lessonId];
+        }
+
+        function navigateToLesson(direction) {
+            const lessonIds = Object.keys(lessons);
+            const currentLessonId = document.querySelector('.main-content').getAttribute('data-lesson-id');
+            const currentIndex = lessonIds.indexOf(currentLessonId);
+            let newIndex;
+
+            if (direction === 'next') {
+                newIndex = currentIndex + 1 < lessonIds.length ? currentIndex + 1 : 0;
+            } else if (direction === 'previous') {
+                newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lessonIds.length - 1;
+            }
+
+            loadLesson(lessonIds[newIndex]);
+            document.querySelector('.main-content').setAttribute('data-lesson-id', lessonIds[newIndex]);
+        }
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            loadLesson('lesson01'); // Load the initial lesson
+            document.querySelector('.main-content').setAttribute('data-lesson-id', 'lesson01');
+        });
+    </script>
 </head>
 <body class="transition-page">
-  <div class="intro-header"></div>
+    <div class="intro-header"></div>
 
-  <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
-    {% if page.before-content %}
-      <div class="before-content">
-        {% for file in page.before-content %}
-          {% include {{ file }} %}
-        {% endfor %}
-      </div>
-    {% endif %}
+    <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
+        {% if page.before-content %}
+            <div class="before-content">
+                {% for file in page.before-content %}
+                    {% include {{ file }} %}
+                {% endfor %}
+            </div>
+        {% endif %}
 
-    <button class="button-82-pushable" onclick="history.back()">
-      <span class="button-82-shadow"></span>
-      <span class="button-82-edge"></span>
-      <span class="button-82-front text">
-        <div id="backbutton"></div>
-      </span> 
-    </button>
-    <div id="lesson-id">Lesson ID: {{ page.lessonid }}</div>
-    {{ content }}
+        <button class="button-82-pushable" onclick="history.back()">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text">
+                <div id="backbutton"></div>
+            </span> 
+        </button>
 
-    <div class="nav-buttons">
-      <button id="previousbutton" onclick="navigateToLesson('previous')"></button>
-      <button id="nextbutton" onclick="navigateToLesson('next')"></button>
-    </div>
+        <div id="lesson-id">Lesson ID: {{ page.lessonid }}</div>
 
-    <div class="floating-dropdown">
-      <label for="lesson-dropdown" id="selectLesson"></label>
-      <select id="lesson-dropdown">
-        <option value="" disabled selected>Select a unit</option>
-      </select>
-    </div>
+        <div class="main-content" id="lesson-content" data-lesson-id="lesson01"></div>
 
-    <button class="button-17" role="button" onclick="knlangRedirect()">
-      <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
-    </button> 
+        <div class="nav-buttons">
+            <button id="previousbutton" onclick="navigateToLesson('previous')">Previous</button>
+            <button id="nextbutton" onclick="navigateToLesson('next')">Next</button>
+        </div>
 
-    {% if page.after-content %}
-      <div class="after-content">
-        {% for file in page.after-content %}
-          {% include {{ file }} %}
-        {% endfor %}
-      </div>
-    {% endif %}
-  </main>
+        <div class="floating-dropdown">
+            <label for="lesson-dropdown" id="selectLesson"></label>
+            <select id="lesson-dropdown">
+                <option value="" disabled selected>Select a unit</option>
+            </select>
+        </div>
+
+        <button class="button-17" role="button" onclick="knlangRedirect()">
+            <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
+        </button> 
+
+        {% if page.after-content %}
+            <div class="after-content">
+                {% for file in page.after-content %}
+                    {% include {{ file }} %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </main>
 </body>
 </html>
