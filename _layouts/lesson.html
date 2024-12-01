@@ -50,7 +50,7 @@ layout: base
     <footer>
         <p>&copy; 2024 Let's Learn</p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
     <script>
         const lessons = {
             "es": {
@@ -79,7 +79,9 @@ layout: base
             fetch(lessonUrl)
                 .then(response => response.text())
                 .then(md => {
-                    document.getElementById('lesson-content').innerHTML = marked.parse(md);
+                    const converter = new showdown.Converter();
+                    const html = converter.makeHtml(md);
+                    document.getElementById('lesson-content').innerHTML = html;
                     document.querySelector('.lesson-content').setAttribute('data-lesson-id', lessonUrl);
                 })
                 .catch(error => console.error('Error loading lesson:', error));
