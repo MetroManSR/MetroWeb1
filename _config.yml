@@ -277,7 +277,7 @@ lessons:
 # Configuración básica
 title: "Let's Learn"
 baseurl: ""
-url: "http://yourwebsite.com"
+url: "http://www.metroman.me"
 language: "es"
 
 # Directorios
@@ -314,7 +314,7 @@ sass:
 # Enlaces de navegación
 navigation:
   - text: "Inicio"
-    url: "/"
+    url: "./balkeon/letslearn/index.md"
   - text: "Unidades"
     url: "/units/"
   - text: "Contacto"
