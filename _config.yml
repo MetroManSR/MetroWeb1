@@ -269,6 +269,35 @@ paginate: 5
 kramdown:
   input: GFM
 
+# _config.yml
+lessons:
+# _config.yml
+en:
+  lessons:
+    unit01:
+      - title: "Lesson 01"
+        url: "/en/balkeon/letslearn/unit01/lessonBS01.md"
+      - title: "Lesson 02"
+        url: "/en/balkeon/letslearn/unit01/lessonBS02.md"
+    unit02:
+      - title: "Lesson 03"
+        url: "/en/balkeon/letslearn/unit02/lessonBS03.md"
+      - title: "Lesson 04"
+        url: "/en/balkeon/letslearn/unit02/lessonBS04.md"
+
+es:
+  lessons:
+    unit01:
+      - title: "Lección 01"
+        url: "/balkeon/letslearn/unit01/lessonBS01.md"
+      - title: "Lección 02"
+        url: "/balkeon/letslearn/unit01/lessonBS02.md"
+    unit02:
+      - title: "Lección 03"
+        url: "/balkeon/letslearn/unit02/lessonBS03.md"
+      - title: "Lección 04"
+        url: "/balkeon/letslearn/unit02/lessonBS04.md"
+
 # Default YAML values (more information on Jekyll's site)
 defaults:
   -
