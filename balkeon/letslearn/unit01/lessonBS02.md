@@ -1,5 +1,5 @@
 ---
-layout: lessons
+layout: base
 title: Lessons
 language: "es"
 ---
