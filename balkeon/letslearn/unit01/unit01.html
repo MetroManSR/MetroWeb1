@@ -1,36 +1,40 @@
-<html lang="en">
+---
+layout: base
+title: Unit 01
+---
+
+<!DOCTYPE html>
+<html lang="{{ page.language }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Index</title>
+    <link rel="stylesheet" href="custom-styles">
     <style>
+        /* Add any specific styles needed for this unit */
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
         }
-        .unit-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .unit-list li {
-            margin: 10px 0;
-        }
-        .unit-link {
-            text-decoration: none;
-            color: #333;
-        }
-        .unit-link:hover {
-            text-decoration: underline;
+        .lesson-content {
+            margin-top: 20px;
         }
     </style>
-</head>
-<body>
-    <h1>Unit Index</h1>
-    <ul class="lessons-list">
-        <li><a href="BS01.md" class="unit-link">Lesson 01</a></li>
-        <li><a href="BS02.md" class="unit-link">Lesson 02</a></li>
-        <!-- Add more units as needed -->
-    </ul>
-</body>
-</html>
+    <script>
+        function loadLesson(lessonUrl) {
+            fetch(lessonUrl)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('lesson-content').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading lesson:', error));
+        }
 
+        function navigateToLesson(direction) {
+            const lessons = ['lessonBS01.md', 'lessonBS02.md'];
+            const currentLesson = document.querySelector('.lesson-content').getAttribute('data-lesson-id');
+            const currentIndex = lessons.indexOf(currentLesson);
+            let newIndex;
+
+            if (direction === 'next') {
+                newIndex = currentIndex + 1 < lessons.length ? currentIndex + 1 : 0;
+            } else if (direction === 'previous') {
