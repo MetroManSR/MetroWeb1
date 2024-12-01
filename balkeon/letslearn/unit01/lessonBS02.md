@@ -1,7 +1,21 @@
 ---
 layout: lesson
-title: Lesson 02
+title: "Introducción a los Básicos"
+date: YYYY-MM-DD
+unit: "unit01"
+language: "es"
 ---
 
-# Lesson 02
-Welcome to Lesson 02. This is where your lesson content will go.
+# Introducción a los Básicos
+
+## Introducción
+
+Esta lección cubre los conceptos básicos.
+
+## Contenido Principal
+
+Detalles y explicaciones de los conceptos básicos.
+
+## Conclusión
+
+Resumen de la lección.
