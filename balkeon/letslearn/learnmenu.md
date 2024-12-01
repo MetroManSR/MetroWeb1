@@ -7,5 +7,5 @@ language: "es"
 
 # Menú de Unidades
 
-- [Unidad 01](unit01.md)
-- [Unidad 02](unit02.md)
+- [Unidad 01](../unit01)
+- [Unidad 02](../unit02)
