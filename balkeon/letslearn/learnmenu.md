@@ -1,14 +1,11 @@
 ---
 layout: learnmenu
-title: "Menú de Lecciones"
+title: "Menú de Unidades"
 date: YYYY-MM-DD
-unit: "unit01"
 language: "es"
 ---
 
-# Menú de Lecciones
+# Menú de Unidades
 
-## Unidad 01
-
-- [Introducción a los Básicos](lessonBS01.md)
-- [Conceptos Avanzados](lessonBS02.md)
+- [Unidad 01](unit01.md)
+- [Unidad 02](unit02.md)
