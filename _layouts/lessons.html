@@ -6,12 +6,10 @@ title: Unit
 <!DOCTYPE html>
 <html lang="{{ page.language }}">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ "/assets/css/styles.css" | relative_url }}">
     <style>
-        /* Add your custom styles here */
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
@@ -53,21 +51,21 @@ title: Unit
     <script>
         const lessons = {
             "es": {
-                unit01: ['../balkeon/letslearn/unit01/lessonBS01.md', '../balkeon/letslearn/unit01/lessonBS02.md'],
-                unit02: ['.././balkeon/letslearn/unit02/lessonBS03.md', '../balkeon/letslearn/unit02/lessonBS04.md']
+                unit01: ['.././balkeon/letslearn/unit01/lessonBS01.md', '.././balkeon/letslearn/unit01/lessonBS02.md'],
+                unit02: ['.././balkeon/letslearn/unit02/lessonBS03.md', '.././balkeon/letslearn/unit02/lessonBS04.md']
             },
             "en": {
-                unit01: ['../en/balkeon/letslearn/unit01/lessonBS01.md', '../en/balkeon/letslearn/unit01/lessonBS02.md'],
-                unit02: ['../en/balkeon/letslearn/unit02/lessonBS03.md', '../en/balkeon/letslearn/unit02/lessonBS04.md']
+                unit01: ['.././en/balkeon/letslearn/unit01/lessonBS01.md', '.././en/balkeon/letslearn/unit01/lessonBS02.md'],
+                unit02: ['.././en/balkeon/letslearn/unit02/lessonBS03.md', '.././en/balkeon/letslearn/unit02/lessonBS04.md']
             }
         };
 
-        function loadLesson(lessonId) {
-            fetch(lessonId)
+        function loadLesson(lessonUrl) {
+            fetch(lessonUrl)
                 .then(response => response.text())
                 .then(md => {
                     document.getElementById('lesson-content').innerHTML = marked(md);
-                    document.querySelector('.lesson-content').setAttribute('data-lesson-id', lessonId);
+                    document.querySelector('.lesson-content').setAttribute('data-lesson-id', lessonUrl);
                 })
                 .catch(error => console.error('Error loading lesson:', error));
         }
@@ -86,7 +84,8 @@ title: Unit
                 newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lessonList.length - 1;
             }
 
-            loadLesson(lessonList[newIndex]);
+            const newLesson = lessonList[newIndex];
+            loadLesson(newLesson);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
