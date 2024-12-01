@@ -272,31 +272,53 @@ kramdown:
 # _config.yml
 lessons:
 # _config.yml
-en:
-  lessons:
-    unit01:
-      - title: "Lesson 01"
-        url: "/en/balkeon/letslearn/unit01/lessonBS01.md"
-      - title: "Lesson 02"
-        url: "/en/balkeon/letslearn/unit01/lessonBS02.md"
-    unit02:
-      - title: "Lesson 03"
-        url: "/en/balkeon/letslearn/unit02/lessonBS03.md"
-      - title: "Lesson 04"
-        url: "/en/balkeon/letslearn/unit02/lessonBS04.md"
+# _config.yml
 
-es:
+# Configuración básica
+title: "Let's Learn"
+baseurl: ""
+url: "http://yourwebsite.com"
+language: "es"
+
+# Directorios
+source: "./main"
+destination: "./_site"
+
+# Rutas personalizadas
+collections:
   lessons:
-    unit01:
-      - title: "Lección 01"
-        url: "/balkeon/letslearn/unit01/lessonBS01.md"
-      - title: "Lección 02"
-        url: "/balkeon/letslearn/unit01/lessonBS02.md"
-    unit02:
-      - title: "Lección 03"
-        url: "/balkeon/letslearn/unit02/lessonBS03.md"
-      - title: "Lección 04"
-        url: "/balkeon/letslearn/unit02/lessonBS04.md"
+    output: true
+    permalink: /:collection/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "lessons"
+    values:
+      layout: "lesson"
+  - scope:
+      path: ""
+      type: "units"
+    values:
+      layout: "unitmenu"
+
+# Parámetros adicionales
+markdown: kramdown
+highlighter: rouge
+
+# Configuración de estilos
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Enlaces de navegación
+navigation:
+  - text: "Inicio"
+    url: "/"
+  - text: "Unidades"
+    url: "/units/"
+  - text: "Contacto"
+    url: "/contact/"
 
 # Default YAML values (more information on Jekyll's site)
 defaults:
