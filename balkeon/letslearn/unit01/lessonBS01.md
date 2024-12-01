@@ -1,27 +1,7 @@
 ---
-layout: base
-title: Lessons
-language: "es"
+layout: lesson
+title: Lesson 01
 ---
 
-## Welcome to Lesson 1
-
-This lesson will introduce you to the basics of Markdown.
-
-### Headers
-
-You can create headers with `#`:
-
-# Header 1
-## Header 2
-### Header 3
-
-### Lists
-
-- Item 1
-- Item 2
-- Item 3
-
-### Links
-
-[Visit Markdown Guide](https://www.markdownguide.org/)
+# Lesson 01
+Welcome to Lesson 01. This is where your lesson content will go.
