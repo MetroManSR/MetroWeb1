@@ -1,5 +1,5 @@
 ---
-layout: base
+layout:base
 ---
 
 <!DOCTYPE html>
@@ -54,10 +54,12 @@ layout: base
         .nav-buttons button:hover {
             background-color: #555;
         }
+
+        .lesson-content {
+            margin-top: 20px;
+        }
     </style>
     <script>
-        const lang = "{{ page.language }}";
-
         function knlangRedirect() {
             let path = window.location.pathname;
             let newPath = "";
@@ -119,7 +121,7 @@ layout: base
             dropdown.addEventListener('change', function() {
                 const selectedUnit = dropdown.value;
                 if (selectedUnit) {
-                    window.location.href = `./${selectedUnit}/Unit 01.html`;
+                    loadLesson(selectedUnit + '/Unit 01.html');
                 }
             });
         }
@@ -142,35 +144,37 @@ layout: base
             document.getElementById("selectLesson").innerText = defaultStrings.selectLesson;
         });
 
-        const lessons = {
-            lesson01: "<h2>Lesson 01</h2><p>This is the content for Lesson 01...</p>",
-            lesson02: "<h2>Lesson 02</h2><p>This is the content for Lesson 02...</p>",
-            lesson03: "<h2>Lesson 03</h2><p>This is the content for Lesson 03...</p>"
-        };
-
-        function loadLesson(lessonId) {
-            document.getElementById('lesson-content').innerHTML = lessons[lessonId];
+        function loadLesson(lessonUrl) {
+            fetch(lessonUrl)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('lesson-content').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading lesson:', error));
         }
 
         function navigateToLesson(direction) {
-            const lessonIds = Object.keys(lessons);
-            const currentLessonId = document.querySelector('.main-content').getAttribute('data-lesson-id');
-            const currentIndex = lessonIds.indexOf(currentLessonId);
+            const lessons = ['unit01/lessonBS01.md', 'unit01/lessonBS02.md', 'unit02/lessonBS03.md', 'unit02/lessonBS04.md'];
+            const params = getQueryParams();
+            const currentLessonId = params['lessonid'];
+            const currentIndex = lessons.indexOf(currentLessonId);
             let newIndex;
 
             if (direction === 'next') {
-                newIndex = currentIndex + 1 < lessonIds.length ? currentIndex + 1 : 0;
+                newIndex = currentIndex + 1 < lessons.length ? currentIndex + 1 : 0;
             } else if (direction === 'previous') {
-                newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lessonIds.length - 1;
+                newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lessons.length - 1;
             }
 
-            loadLesson(lessonIds[newIndex]);
-            document.querySelector('.main-content').setAttribute('data-lesson-id', lessonIds[newIndex]);
+            const newLessonId = lessons[newIndex];
+            loadLesson(newLessonId);
+            window.history.pushState({}, '', `?lessonid=${newLessonId}`);
         }
 
         window.addEventListener('DOMContentLoaded', (event) => {
-            loadLesson('lesson01'); // Load the initial lesson
-            document.querySelector('.main-content').setAttribute('data-lesson-id', 'lesson01');
+            const params = getQueryParams();
+            const initialLesson = params['lessonid'] || 'unit01/lessonBS01.md';
+            loadLesson(initialLesson);
         });
     </script>
 </head>
@@ -196,7 +200,7 @@ layout: base
 
         <div id="lesson-id">Lesson ID: {{ page.lessonid }}</div>
 
-        <div class="main-content" id="lesson-content" data-lesson-id="lesson01"></div>
+        <div class="main-content" id="lesson-content" data-lesson-id="unit01/lessonBS01.md"></div>
 
         <div class="nav-buttons">
             <button id="previousbutton" onclick="navigateToLesson('previous')">Previous</button>
