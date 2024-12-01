@@ -158,7 +158,7 @@ layout: base
         }
 
         function navigateToLesson(direction) {
-            const lessons = ['unit01/lessonBS01.md', 'unit01/lessonBS02.md', 'unit02/lessonBS03.md', 'unit02/lessonBS04.md'];
+            const lessons = ['./unit01/lessonBS01.md', './unit01/lessonBS02.md', './unit02/lessonBS03.md', './unit02/lessonBS04.md'];
             const params = getQueryParams();
             const currentLessonId = params['lessonid'];
             const currentIndex = lessons.indexOf(currentLessonId);
