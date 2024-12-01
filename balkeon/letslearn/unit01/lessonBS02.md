@@ -1,10 +1,6 @@
 ---
 layout: lessons
-title: "Lesson 1: Introduction to Markdown"
-date: 2024-11-30 20:00:00 -0500
-categories: lesson
-full-width: true
-lessonid: "AD123"
+title: Lessons
 language: "es"
 ---
 
