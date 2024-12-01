@@ -39,7 +39,7 @@ layout: base
         <h1>{{ page.title }}</h1>
     </header>
     <main>
-        <article class="lesson-content">
+        <article class="lesson-content" id="lesson-content">
             {{ content }}
         </article>
         <div class="nav-buttons">
@@ -53,12 +53,24 @@ layout: base
     <script>
         const lessons = {
             "es": {
-                unit01: ['/balkeon/letslearn/unit01/lessonBS01', '/balkeon/letslearn/unit01/lessonBS02'],
-                unit02: ['/balkeon/letslearn/unit02/lessonBS03', '/balkeon/letslearn/unit02/lessonBS04']
+                "unit01": [
+                    '/balkeon/letslearn/unit01/lessonBS01.md',
+                    '/balkeon/letslearn/unit01/lessonBS02.md'
+                ],
+                "unit02": [
+                    '/balkeon/letslearn/unit02/lessonBS03.md',
+                    '/balkeon/letslearn/unit02/lessonBS04.md'
+                ]
             },
             "en": {
-                unit01: ['/en/balkeon/letslearn/unit01/lessonBS01', '/en/balkeon/letslearn/unit01/lessonBS02'],
-                unit02: ['/en/balkeon/letslearn/unit02/lessonBS03', '/en/balkeon/letslearn/unit02/lessonBS04']
+                "unit01": [
+                    '/en/balkeon/letslearn/unit01/lessonBS01.md',
+                    '/en/balkeon/letslearn/unit01/lessonBS02.md'
+                ],
+                "unit02": [
+                    '/en/balkeon/letslearn/unit02/lessonBS03.md',
+                    '/en/balkeon/letslearn/unit02/lessonBS04.md'
+                ]
             }
         };
 
@@ -66,7 +78,7 @@ layout: base
             fetch(lessonUrl)
                 .then(response => response.text())
                 .then(md => {
-                    document.getElementById('lesson-content').innerHTML = marked(md);
+                    document.getElementById('lesson-content').innerHTML = marked.parse(md);
                     document.querySelector('.lesson-content').setAttribute('data-lesson-id', lessonUrl);
                 })
                 .catch(error => console.error('Error loading lesson:', error));
@@ -75,8 +87,9 @@ layout: base
         function navigateToLesson(direction) {
             const lang = "{{ page.language }}";
             const unit = "{{ page.unit }}";
-            if (lessons[lang] && lessons[lang][unit]) {
-                const lessonList = lessons[lang][unit];
+            const lessonList = lessons[lang] && lessons[lang][unit] ? lessons[lang][unit] : null;
+
+            if (lessonList) {
                 const currentLesson = document.querySelector('.lesson-content').getAttribute('data-lesson-id') || lessonList[0];
                 const currentIndex = lessonList.indexOf(currentLesson);
                 let newIndex;
@@ -97,8 +110,10 @@ layout: base
         window.addEventListener('DOMContentLoaded', () => {
             const lang = "{{ page.language }}";
             const unit = "{{ page.unit }}";
-            if (lessons[lang] && lessons[lang][unit]) {
-                const initialLesson = lessons[lang][unit][0];
+            const lessonList = lessons[lang] && lessons[lang][unit] ? lessons[lang][unit] : null;
+
+            if (lessonList) {
+                const initialLesson = lessonList[0];
                 loadLesson(initialLesson);
             } else {
                 console.error('Lesson list not found for language:', lang, 'unit:', unit);
