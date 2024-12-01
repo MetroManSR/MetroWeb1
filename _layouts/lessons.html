@@ -29,12 +29,12 @@ title: Unit
             text-decoration: underline;
         }
         .lesson-content {
-            margin-top: 50px;
+            margin-top: 20px;
         }
         .nav-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 50px;
+            margin-top: 20px;
         }
         .nav-buttons button {
             background-color: #333;
@@ -51,12 +51,12 @@ title: Unit
     <script>
         const lessons = {
             "es": {
-                unit01: ['.././balkeon/letslearn/unit01/lessonBS01.md', '.././balkeon/letslearn/unit01/lessonBS02.md'],
-                unit02: ['.././balkeon/letslearn/unit02/lessonBS03.md', '.././balkeon/letslearn/unit02/lessonBS04.md']
+                unit01: ['/balkeon/letslearn/unit01/lessonBS01.md', '/balkeon/letslearn/unit01/lessonBS02.md'],
+                unit02: ['/balkeon/letslearn/unit02/lessonBS03.md', '/balkeon/letslearn/unit02/lessonBS04.md']
             },
             "en": {
-                unit01: ['.././en/balkeon/letslearn/unit01/lessonBS01.md', '.././en/balkeon/letslearn/unit01/lessonBS02.md'],
-                unit02: ['.././en/balkeon/letslearn/unit02/lessonBS03.md', '.././en/balkeon/letslearn/unit02/lessonBS04.md']
+                unit01: ['/en/balkeon/letslearn/unit01/lessonBS01.md', '/en/balkeon/letslearn/unit01/lessonBS02.md'],
+                unit02: ['/en/balkeon/letslearn/unit02/lessonBS03.md', '/en/balkeon/letslearn/unit02/lessonBS04.md']
             }
         };
 
@@ -74,14 +74,14 @@ title: Unit
             const lang = "{{ page.language }}";
             const unit = "{{ page.unit }}";
             const lessonList = lessons[lang][unit];
-            const currentLesson = document.querySelector('.lesson-content').getAttribute('data-lesson-id');
+            const currentLesson = document.querySelector('.lesson-content').getAttribute('data-lesson-id') || lessonList[0];
             const currentIndex = lessonList.indexOf(currentLesson);
             let newIndex;
 
             if (direction === 'next') {
-                newIndex = currentIndex + 1 < lessonList.length ? currentIndex + 1 : 0;
+                newIndex = (currentIndex + 1) % lessonList.length;
             } else if (direction === 'previous') {
-                newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : lessonList.length - 1;
+                newIndex = (currentIndex - 1 + lessonList.length) % lessonList.length;
             }
 
             const newLesson = lessonList[newIndex];
