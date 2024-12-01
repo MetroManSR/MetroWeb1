@@ -1,7 +1,5 @@
 ---
 layout: lessons
-title: "Lesson 1: Introduction to Markdown"
-layout: base
 title: Lessons
 language: "es"
 ---
