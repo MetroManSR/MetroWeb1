@@ -1,8 +1,23 @@
-.button-nav {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
+.button-nav-left {
+      position: fixed;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+.button-nav-right {
+      position: fixed;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
 }
 
 
