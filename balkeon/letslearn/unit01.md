@@ -1,14 +1,8 @@
 ---
 layout: unitmenu
-title: "Unidad 01"
-date: YYYY-MM-DD
-unit: "unit01"
-language: "es"
+title: Home
 ---
 
-# Unidad 01
+# Welcome to the Home Page
 
-## Lecciones
-
-- [Introducción a los Básicos](lessonBS01)
-- [Conceptos Avanzados](lessonBS02)
+This is the main menu. Use the links above to navigate to different pages.
