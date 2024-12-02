@@ -17,45 +17,14 @@ layout: base
       window.location.href = newUrl;
     }
 
-    function setDefaultStrings(language) {
-      const defaultStrings = {
-        en: {
-          back: "Return",
-          next: "Next",
-          prev: "Prev",
-          menu: "Lesson Menu"
-        },
-        es: {
-          back: "Volver",
-          next: "Siguiente",
-          prev: "Anterior",
-          menu: "Menú de Lecciones"
-        }
-      };
-      return defaultStrings[language];
-    }
-
-    async function checkLessonExists(lessonNumber) {
-      const lessonId = lessonPrefix + (lessonNumber < 10 ? "0" + lessonNumber : lessonNumber);
-      const lessonUrl = window.location.origin + window.location.pathname.replace(/BS\d+/, lessonId);
-
-      try {
-        const response = await fetch(lessonUrl, { method: 'HEAD' });
-        return response.ok;
-      } catch (error) {
-        console.error('Error:', error);
-        return false;
-      }
-    }
-
     async function navigateLesson(offset) {
       const lessonNumber = parseInt("{{ page.lesson_number }}");
       const newLessonNumber = lessonNumber + offset;
       const lessonId = lessonPrefix + (newLessonNumber < 10 ? "0" + newLessonNumber : newLessonNumber);
       const newUrl = window.location.origin + window.location.pathname.replace(/BS\d+/, lessonId);
 
-      const lessonExists = await checkLessonExists(newLessonNumber);
-      if (lessonExists) {
+      const response = await fetch(newUrl, { method: 'HEAD' });
+      if (response.ok) {
         window.location.href = newUrl;
       } else {
         alert("Lesson does not exist.");
@@ -64,20 +33,77 @@ layout: base
 
     async function initButtons() {
       const lessonNumber = parseInt("{{ page.lesson_number }}");
-      const prevLessonExists = await checkLessonExists(lessonNumber - 1);
-      const nextLessonExists = await checkLessonExists(lessonNumber + 1);
 
-      const prevButton = document.getElementById("prevButton");
-      const nextButton = document.getElementById("nextButton");
+      const prevLessonId = lessonPrefix + (lessonNumber - 1 < 10 ? "0" + (lessonNumber - 1) : (lessonNumber - 1));
+      const prevUrl = window.location.origin + window.location.pathname.replace(/BS\d+/, prevLessonId);
+      const prevResponse = await fetch(prevUrl, { method: 'HEAD' });
 
-      if (!prevLessonExists && prevButton) {
-        prevButton.style.display = "none";
+      if (!prevResponse.ok) {
+        document.getElementById("prevButton").style.display = "none";
       }
-      if (!nextLessonExists && nextButton) {
-        nextButton.style.display = "none";
+
+      const nextLessonId = lessonPrefix + (lessonNumber + 1 < 10 ? "0" + (lessonNumber + 1) : (lessonNumber + 1));
+      const nextUrl = window.location.origin + window.location.pathname.replace(/BS\d+/, nextLessonId);
+      const nextResponse = await fetch(nextUrl, { method: 'HEAD' });
+
+      if (!nextResponse.ok) {
+        document.getElementById("nextButton").style.display = "none";
       }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      const defaultStrings = setDefaultStrings(lang);
-      document.getElementById("backbutton").innerText = defaultStrings
+      initButtons();
+    });
+  </script>
+  <link rel="stylesheet" href="/assets/css/custom-styles.css">
+</head>
+<body>
+  <div class="intro-header">
+    <select onchange="window.location.href=this.value;">
+      <option value="" disabled selected>Menu</option>
+      {% for lesson in site.pages %}
+        {% if lesson.path contains '/balkeon/letslearn/unit01/lessons/' and lesson.language == page.language %}
+          <option value="{{ lesson.url }}">{{ lesson.title }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+
+  <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
+    {% if page.before-content %}
+      <div class="before-content">
+        {% for file in page.before-content %}
+          {% include {{ file }} %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <button class="button-82-pushable" onclick="history.back()">
+      <span class="button-82-shadow"></span>
+      <span class="button-82-edge"></span>
+      <span class="button-82-front text">
+        <div id="backbutton">Back</div>
+      </span> 
+    </button>
+    {{ content }}
+    <button class="button-17" role="button" onclick="knlangRedirect()">
+      <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
+    </button>
+
+    <button id="prevButton" class="button-nav-left" onclick="navigateLesson(-1)">
+      ←
+    </button>
+    <button id="nextButton" class="button-nav-right" onclick="navigateLesson(1)">
+      →
+    </button>
+
+    {% if page.after-content %}
+      <div class="after-content">
+        {% for file in page.after-content %}
+          {% include {{ file }} %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </main>
+</body>
+</html>
