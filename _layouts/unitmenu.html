@@ -23,6 +23,7 @@
       margin-top: 20px; /* Adjusting margin to prevent clipping */
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     function loadPage(unit, lesson) {
       fetch(`/letslearn/${unit}/${lesson}.md`)
@@ -38,11 +39,22 @@
         .then(response => response.text())
         .then(data => {
           document.getElementById('content').innerHTML = marked(data);
+          addLessonLinks(unit); // Adding links dynamically
         })
         .catch(error => console.error('Error loading unit menu:', error));
     }
+
+    function addLessonLinks(unit) {
+      const lessons = document.querySelectorAll('#content a');
+      lessons.forEach(lesson => {
+        lesson.addEventListener('click', function(event) {
+          event.preventDefault();
+          const lessonId = this.getAttribute('data-lesson');
+          loadPage(unit, lessonId);
+        });
+      });
+    }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body onload="loadUnitMenu('unit01')">
   <nav>
