@@ -1,8 +1,42 @@
 ---
-layout: unitmenu
-title: Home
+layout:base
 ---
 
-# Welcome to the Home Page
-
-This is the main menu. Use the links above to navigate to different pages.
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modular Menu</title>
+  <style>
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+  </style>
+  <script>
+    function loadPage(page) {
+      fetch(`/lessons/${page}`)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('content').innerHTML = marked(data);
+        });
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body onload="loadPage('page1')">
+  <nav>
+    <ul>
+      <li><a href="#" onclick="loadPage('BS01' )">Page 1</a></li>
+      <li><a href="#" onclick="loadPage('BS02')">Page 2</a></li>
+      <li><a href="#" onclick="loadPage('BS03')">Page 3</a></li>
+    </ul>
+  </nav>
+  <main id="content">
+    <!-- Content will be loaded here -->
+  </main>
+</body>
+</html>
