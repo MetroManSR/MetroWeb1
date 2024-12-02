@@ -1,5 +1,5 @@
 ---
-layout: base
+layout: default
 language: es
 title: Menú de Lecciones
 ---
