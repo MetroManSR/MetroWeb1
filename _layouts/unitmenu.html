@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Modular Menu</title>
+  <title>Dynamic Unit Menu</title>
   <style>
     nav ul {
       list-style-type: none;
@@ -14,8 +14,16 @@
     }
   </style>
   <script>
-    function loadPage(page) {
-      fetch(`/lessons/${page}.md`)
+    function loadPage(unit, lesson) {
+      fetch(`/letslearn/${unit}/${lesson}.md`)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('content').innerHTML = marked(data);
+        });
+    }
+
+    function loadUnitMenu(unit) {
+      fetch(`/letslearn/${unit}/unitmenu.md`)
         .then(response => response.text())
         .then(data => {
           document.getElementById('content').innerHTML = marked(data);
@@ -24,12 +32,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body onload="loadPage('BS01')">
+<body onload="loadUnitMenu('unit01')">
   <nav>
     <ul>
-      <li><a href="#" onclick="loadPage('BS01')">Page 1</a></li>
-      <li><a href="#" onclick="loadPage('BS02')">Page 2</a></li>
-      <li><a href="#" onclick="loadPage('BS03')">Page 3</a></li>
+      <li><a href="#" onclick="loadUnitMenu('unit01')">Unit 01</a></li>
+      <li><a href="#" onclick="loadUnitMenu('unit02')">Unit 02</a></li>
+      <li><a href="#" onclick="loadUnitMenu('unitxx')">Unit XX</a></li>
     </ul>
   </nav>
   <main id="content">
