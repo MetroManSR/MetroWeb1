@@ -269,10 +269,10 @@ kramdown:
   input: GFM
 
 # Default YAML values (more information on Jekyll's site
-collections:
-  lessons:
-    output: true
-    permalink: /:collection/:name
+#collections:
+  #lessons:
+   # o#utput: true
+  #  permalink: /:collection/:name
 
 #defaults:
 #  - scope:
