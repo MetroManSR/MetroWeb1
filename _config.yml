@@ -268,58 +268,6 @@ paginate: 5
 kramdown:
   input: GFM
 
-# _config.yml
-lessons:
-# _config.yml
-# _config.yml
-
-# Configuración básica
-# _config.yml
-
-# Configuración básica
-
-
-# Directorios
-source: "./main"
-destination: "./_site"
-
-# Rutas personalizadas
-collections:
-  lessons:
-    output: true
-    permalink: /:collection/:path/
-
-defaults:
-  - scope:
-      path: ""
-      type: "lessons"
-    values:
-      layout: "lesson"
-  - scope:
-      path: ""
-      type: "units"
-    values:
-      layout: "unitmenu"
-
-# Parámetros adicionales
-markdown: kramdown
-highlighter: rouge
-
-# Configuración de estilos
-sass:
-  sass_dir: _sass
-  style: compressed
-
-
-# Enlaces de navegación
-navigation:
-  - text: "Inicio"
-    url: "./balkeon/letslearn/index.md"
-  - text: "Unidades"
-    url: "/units/"
-  - text: "Contacto"
-    url: "/contact/"
-
 # Default YAML values (more information on Jekyll's site)
 defaults:
   -
