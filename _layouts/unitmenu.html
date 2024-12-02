@@ -33,7 +33,7 @@
       }
 
       function loadPage(unit, lesson) {
-        fetch(`/letslearn/${unit}/${lesson}`)
+        fetch(`/balkeon/letslearn/${unit}/${lesson}`)
           .then(response => response.text())
           .then(data => {
             document.getElementById('content').innerHTML = marked(data);
