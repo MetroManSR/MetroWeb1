@@ -21,26 +21,36 @@ layout: base
       const defaultStrings = {
         en: {
           back: "Return",
-          next: "Next Lesson",
-          prev: "Previous Lesson",
+          next: "Next",
+          prev: "Prev",
           menu: "Lesson Menu"
         },
         es: {
           back: "Volver",
-          next: "Siguiente Lección",
-          prev: "Lección Anterior",
+          next: "Siguiente",
+          prev: "Anterior",
           menu: "Menú de Lecciones"
         }
       };
       return defaultStrings[language];
     }
 
-    function navigateLesson(offset) {
+    async function navigateLesson(offset) {
       const lessonNumber = parseInt("{{ page.lesson_number }}");
       const newLessonNumber = lessonNumber + offset;
-      if (newLessonNumber > 0) {
-        const newLesson = lessonPrefix + (newLessonNumber < 10 ? "0" + newLessonNumber : newLessonNumber);
-        window.location.href = window.location.origin + window.location.pathname.replace(/BS\d+/, newLesson);
+      const newLesson = lessonPrefix + (newLessonNumber < 10 ? "0" + newLessonNumber : newLessonNumber);
+      const newUrl = window.location.origin + window.location.pathname.replace(/BS\d+/, newLesson);
+      
+      try {
+        const response = await fetch(newUrl, { method: 'HEAD' });
+        if (response.ok) {
+          window.location.href = newUrl;
+        } else {
+          alert("Lesson does not exist.");
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert("An error occurred while checking the lesson.");
       }
     }
 
@@ -54,7 +64,16 @@ layout: base
   </script>
 </head>
 <body>
-  <div class="intro-header"></div>
+  <div class="intro-header">
+    <select onchange="window.location.href=this.value;">
+      <option value="" disabled selected>{{ defaultStrings.menu }}</option>
+      {% for lesson in site.pages %}
+        {% if lesson.path contains '/balkeon/letslearn/unit01/lessons/' and lesson.language == page.language %}
+          <option value="{{ lesson.url }}">{{ lesson.title }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
 
   <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
     {% if page.before-content %}
@@ -76,27 +95,14 @@ layout: base
     <button class="button-17" role="button" onclick="knlangRedirect()">
       <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
     </button>
-    <button class="button-82-pushable" onclick="navigateLesson(-1)">
-      <span class="button-82-shadow"></span>
-      <span class="button-82-edge"></span>
-      <span class="button-82-front text">
-        <div id="prevbutton"></div>
-      </span> 
+    
+    <button class="button-nav" style="position: fixed; bottom: 10px; left: 10px;" onclick="navigateLesson(-1)">
+      ←
     </button>
-    <button class="button-82-pushable" onclick="navigateLesson(1)">
-      <span class="button-82-shadow"></span>
-      <span class="button-82-edge"></span>
-      <span class="button-82-front text">
-        <div id="nextbutton"></div>
-      </span> 
+    <button class="button-nav" style="position: fixed; bottom: 10px; right: 10px;" onclick="navigateLesson(1)">
+      →
     </button>
-    <button class="button-82-pushable" onclick="window.location.href='/{{ page.language }}/balkeon/letslearn/unit01/lessons/index.html'">
-      <span class="button-82-shadow"></span>
-      <span class="button-82-edge"></span>
-      <span class="button-82-front text">
-        <div id="menubutton"></div>
-      </span> 
-    </button>
+    
     {% if page.after-content %}
       <div class="after-content">
         {% for file in page.after-content %}
