@@ -1,10 +1,11 @@
 ---
-layout: base
+layout: default
 language: es
-title: Menú de Lecciones
+title: Unidad 01
 description: Test
 ---
 
+# Unidad 01: Introducción
 ## Menú de Lecciones
 
 <ul>
