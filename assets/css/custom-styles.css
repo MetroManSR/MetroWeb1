@@ -439,18 +439,35 @@ body.transition-page.loaded {
   vertical-align: middle;
 }
 
-.button-18:hover,
-.button-18:focus { 
+.button-nav-left:hover,
+.button-nav-left:focus { 
   background-color: #16437E;
   color: #ffffff;
 }
 
-.button-18:active {
+.button-nav-left:active {
   background: #09223b;
   color: rgb(255, 255, 255, .7);
 }
 
-.button-18:disabled { 
+.button-nav-left:disabled { 
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
+
+.button-nav-right:hover,
+.button-nav-right:focus { 
+  background-color: #16437E;
+  color: #ffffff;
+}
+
+.button-nav-right:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-nav-right:disabled { 
   cursor: not-allowed;
   background: rgba(0, 0, 0, .08);
   color: rgba(0, 0, 0, .3);
