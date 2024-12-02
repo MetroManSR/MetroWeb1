@@ -406,6 +406,7 @@ body.transition-page.loaded {
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
+  opacity: 0.5;
 }
 
 .button-nav-right {
@@ -438,6 +439,7 @@ body.transition-page.loaded {
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
+  opacity: 0.5;
 }
 
 .button-nav-left:hover,
