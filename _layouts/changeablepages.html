@@ -48,6 +48,20 @@ layout: base
       }
     }
 
+    async function navigateLesson(offset) {
+      const lessonNumber = parseInt("{{ page.lesson_number }}");
+      const newLessonNumber = lessonNumber + offset;
+      const lessonId = lessonPrefix + (newLessonNumber < 10 ? "0" + newLessonNumber : newLessonNumber);
+      const newUrl = window.location.origin + window.location.pathname.replace(/BS\d+/, lessonId);
+
+      const lessonExists = await checkLessonExists(newLessonNumber);
+      if (lessonExists) {
+        window.location.href = newUrl;
+      } else {
+        alert("Lesson does not exist.");
+      }
+    }
+
     async function initButtons() {
       const lessonNumber = parseInt("{{ page.lesson_number }}");
       const prevLessonExists = await checkLessonExists(lessonNumber - 1);
