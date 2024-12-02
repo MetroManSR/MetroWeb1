@@ -60,9 +60,9 @@ layout: base
 <body>
   <div class="intro-header">
     <select onchange="window.location.href=this.value;">
-      <option value="" disabled selected>Menu</option>
+      <option value="" disabled selected>Menú de Lecciones</option>
       {% for lesson in site.pages %}
-        {% if lesson.path contains '/balkeon/letslearn/unit01/lessons/' and lesson.language == page.language %}
+        {% if lesson.path contains 'balkeon/letslearn/unit01/lessons' and lesson.language == 'es' %}
           <option value="{{ lesson.url }}">{{ lesson.title }}</option>
         {% endif %}
       {% endfor %}
