@@ -35,31 +35,37 @@ layout: base
       return defaultStrings[language];
     }
 
-    async function navigateLesson(offset) {
-      const lessonNumber = parseInt("{{ page.lesson_number }}");
-      const newLessonNumber = lessonNumber + offset;
-      const newLesson = lessonPrefix + (newLessonNumber < 10 ? "0" + newLessonNumber : newLessonNumber);
-      const newUrl = window.location.origin + window.location.pathname.replace(/BS\d+/, newLesson);
-      
+    async function checkLessonExists(lessonNumber) {
+      const lessonId = lessonPrefix + (lessonNumber < 10 ? "0" + lessonNumber : lessonNumber);
+      const lessonUrl = window.location.origin + window.location.pathname.replace(/BS\d+/, lessonId);
+
       try {
-        const response = await fetch(newUrl, { method: 'HEAD' });
-        if (response.ok) {
-          window.location.href = newUrl;
-        } else {
-          alert("Lesson does not exist.");
-        }
+        const response = await fetch(lessonUrl, { method: 'HEAD' });
+        return response.ok;
       } catch (error) {
         console.error('Error:', error);
-        alert("An error occurred while checking the lesson.");
+        return false;
+      }
+    }
+
+    async function initButtons() {
+      const lessonNumber = parseInt("{{ page.lesson_number }}");
+      const prevLessonExists = await checkLessonExists(lessonNumber - 1);
+      const nextLessonExists = await checkLessonExists(lessonNumber + 1);
+
+      if (!prevLessonExists) {
+        document.getElementById("prevButton").style.display = "none";
+      }
+      if (!nextLessonExists) {
+        document.getElementById("nextButton").style.display = "none";
       }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
       const defaultStrings = setDefaultStrings(lang);
       document.getElementById("backbutton").innerText = defaultStrings.back;
-      document.getElementById("nextbutton").innerText = defaultStrings.next;
-      document.getElementById("prevbutton").innerText = defaultStrings.prev;
       document.getElementById("menubutton").innerText = defaultStrings.menu;
+      initButtons();
     });
   </script>
   <link rel="stylesheet" href="/assets/css/custom-styles.css">
@@ -97,10 +103,10 @@ layout: base
       <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
     </button>
 
-    <button class="button-nav-left" onclick="navigateLesson(-1)">
+    <button id="prevButton" class="button-nav-left" onclick="navigateLesson(-1)">
       ←
     </button>
-    <button class="button-nav-right" onclick="navigateLesson(1)">
+    <button id="nextButton" class="button-nav-right" onclick="navigateLesson(1)">
       →
     </button>
 
