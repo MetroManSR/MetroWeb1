@@ -1,9 +1,10 @@
 ---
-layout: base
+layout: default
 language: en
 title: Lesson Menu
 ---
 
+# Unit 01: Introduction
 ## Lesson Menu
 
 <ul>
