@@ -1,0 +1,109 @@
+---
+layout: base
+---
+
+<html lang="{{ page.language }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    const lang = "{{ page.language }}";
+    const lessonPrefix = "BS";
+
+    function knlangRedirect() {
+      let path = window.location.pathname;
+      let newPath = (lang === "es") ? '/en' + path : path.replace("/en", "");
+      let newUrl = window.location.origin + newPath;
+      window.location.href = newUrl;
+    }
+
+    function setDefaultStrings(language) {
+      const defaultStrings = {
+        en: {
+          back: "Return",
+          next: "Next Lesson",
+          prev: "Previous Lesson",
+          menu: "Lesson Menu"
+        },
+        es: {
+          back: "Volver",
+          next: "Siguiente Lección",
+          prev: "Lección Anterior",
+          menu: "Menú de Lecciones"
+        }
+      };
+      return defaultStrings[language];
+    }
+
+    function navigateLesson(offset) {
+      const lessonNumber = parseInt("{{ page.lesson_number }}");
+      const newLessonNumber = lessonNumber + offset;
+      if (newLessonNumber > 0) {
+        const newLesson = lessonPrefix + (newLessonNumber < 10 ? "0" + newLessonNumber : newLessonNumber);
+        window.location.href = window.location.origin + window.location.pathname.replace(/BS\d+/, newLesson);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const defaultStrings = setDefaultStrings(lang);
+      document.getElementById("backbutton").innerText = defaultStrings.back;
+      document.getElementById("nextbutton").innerText = defaultStrings.next;
+      document.getElementById("prevbutton").innerText = defaultStrings.prev;
+      document.getElementById("menubutton").innerText = defaultStrings.menu;
+    });
+  </script>
+</head>
+<body>
+  <div class="intro-header"></div>
+
+  <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
+    {% if page.before-content %}
+      <div class="before-content">
+        {% for file in page.before-content %}
+          {% include {{ file }} %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <button class="button-82-pushable" onclick="history.back()">
+      <span class="button-82-shadow"></span>
+      <span class="button-82-edge"></span>
+      <span class="button-82-front text">
+        <div id="backbutton"></div>
+      </span> 
+    </button>
+    {{ content }}
+    <button class="button-17" role="button" onclick="knlangRedirect()">
+      <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
+    </button>
+    <button class="button-82-pushable" onclick="navigateLesson(-1)">
+      <span class="button-82-shadow"></span>
+      <span class="button-82-edge"></span>
+      <span class="button-82-front text">
+        <div id="prevbutton"></div>
+      </span> 
+    </button>
+    <button class="button-82-pushable" onclick="navigateLesson(1)">
+      <span class="button-82-shadow"></span>
+      <span class="button-82-edge"></span>
+      <span class="button-82-front text">
+        <div id="nextbutton"></div>
+      </span> 
+    </button>
+    <button class="button-82-pushable" onclick="window.location.href='/{{ page.language }}/balkeon/letslearn/unit01/lessons/index.html'">
+      <span class="button-82-shadow"></span>
+      <span class="button-82-edge"></span>
+      <span class="button-82-front text">
+        <div id="menubutton"></div>
+      </span> 
+    </button>
+    {% if page.after-content %}
+      <div class="after-content">
+        {% for file in page.after-content %}
+          {% include {{ file }} %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </main>
+</body>
+</html>
