@@ -67,6 +67,7 @@
           unit.addEventListener('click', function(event) {
             event.preventDefault();
             const unitId = this.getAttribute('data-unit');
+            console.log('Unit clicked:', unitId); // Debugging line
             loadLessonsMenu(unitId);
           });
         });
@@ -89,6 +90,7 @@
           lesson.addEventListener('click', function(event) {
             event.preventDefault();
             const lessonId = this.getAttribute('data-lesson');
+            console.log('Lesson clicked:', lessonId); // Debugging line
             loadPage(unit, lessonId);
           });
         });
