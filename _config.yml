@@ -306,21 +306,7 @@ defaults:
       path: "" # any file that's not a post will be a "page" layout by default
     values:
       layout: "page"
-  - 
-  scope:
-      path: "balkeon/letslearn/unit01/lessons"
-      type: "pages"
-    values:
-      layout: "changeablepages"
-      language: "es"
-  - 
-  scope:
-      path: "en/balkeon/letslearn/unit01/lessons"
-      type: "pages"
-    values:
-      layout: "changeablepages"
-      language: "en"
-
+  
 # Exclude these files from production site
 exclude:
   - CHANGELOG.md
