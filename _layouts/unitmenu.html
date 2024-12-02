@@ -46,6 +46,7 @@
           .then(data => {
             const strippedContent = stripFrontMatter(data);
             document.getElementById('content').innerHTML = marked.parse(strippedContent);
+            console.log('Loaded page:', lesson); // Debugging line
           })
           .catch(error => console.error('Error loading page:', error));
       }
@@ -56,6 +57,7 @@
           .then(data => {
             const strippedContent = stripFrontMatter(data);
             document.getElementById('content').innerHTML = marked.parse(strippedContent);
+            console.log('Loaded units menu'); // Debugging line
             addUnitLinks(); // Adding links dynamically
           })
           .catch(error => console.error('Error loading units menu:', error));
@@ -79,6 +81,7 @@
           .then(data => {
             const strippedContent = stripFrontMatter(data);
             document.getElementById('content').innerHTML = marked.parse(strippedContent);
+            console.log('Loaded lessons menu:', unit); // Debugging line
             addLessonLinks(unit); // Adding links dynamically
           })
           .catch(error => console.error('Error loading lessons menu:', error));
