@@ -1,12 +1,4 @@
 ---
-layout: default
-language: es
-title: Menú de Lecciones
----
-
-## Menú de Lecciones
-
----
 layout: base
 language: es
 title: Menú de Lecciones
