@@ -1,5 +1,6 @@
 ---
-layout: unitmenu
+layout: base
+title: "Units Menu"
 ---
 
 # Units Menu
