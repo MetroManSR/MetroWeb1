@@ -81,9 +81,6 @@ layout: base
         {% if lesson.path contains 'balkeon/letslearn/unit01/lessons' and lesson.language == page.language %}
           <option value="{{ lesson.url }}">{{ lesson.title }}</option>
         {% endif %} 
-        {% if lesson.path contains 'en/balkeon/letslearn/unit01/lessons' and lesson.language == page.language %}
-          <option value="{{ lesson.url }}">{{ lesson.title }}</option>
-        {% endif %}
       {% endfor %}
     </select>
   </div>
