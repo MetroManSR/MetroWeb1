@@ -36,7 +36,7 @@
       }
 
       function loadPage(unit, lesson) {
-        fetch(`/balkeon/letslearn/${unit}/${lesson}.md`)
+        fetch(`/balkeon/letslearn/${unit}/${lesson}`)
           .then(response => response.text())
           .then(data => {
             document.getElementById('content').innerHTML = marked.parse(data);
@@ -45,7 +45,7 @@
       }
 
       function loadUnitMenu(unit) {
-        fetch(`/balkeon/letslearn/${unit}/unitmenu.md`)
+        fetch(`/balkeon/letslearn/${unit}/unitmenu`)
           .then(response => response.text())
           .then(data => {
             const content = marked.parse(data);
