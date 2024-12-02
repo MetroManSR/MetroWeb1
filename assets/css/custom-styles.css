@@ -381,7 +381,7 @@ body.transition-page.loaded {
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
-  background: none;
+  background: yellow;
   border: none;
   font-size: 2rem;
   cursor: pointer;
@@ -392,8 +392,9 @@ body.transition-page.loaded {
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  background: none;
+  background: yellow;
   border: none;
   font-size: 2rem;
   cursor: pointer;
 }
+
