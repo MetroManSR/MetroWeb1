@@ -46,4 +46,6 @@ function sortList() {
     }
   }
 }
+
+document.addEventListener('DOMContentLoaded', function() { sortList(); });
 </script>
