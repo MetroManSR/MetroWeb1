@@ -42,7 +42,7 @@
       }
 
       function loadUnitMenu(unit) {
-        fetch(`/letslearn/${unit}/unitmenu`)
+        fetch(`/balkeon/letslearn/${unit}/unitmenu`)
           .then(response => response.text())
           .then(data => {
             document.getElementById('content').innerHTML = marked(data);
