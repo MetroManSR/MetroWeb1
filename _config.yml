@@ -274,19 +274,19 @@ collections:
     output: true
     permalink: /:collection/:name
 
-defaults:
-  - scope:
-      path: "balkeon/letslearn/unit01/lessons"
-      type: "pages"
-    values:
-      layout: "changeablepages"
-      language: "es"
-  - scope:
-      path: "en/balkeon/letslearn/unit01/lessons"
-      type: "pages"
-    values:
-      layout: "changeablepages"
-      language: "en"
+#defaults:
+#  - scope:
+#      path: "balkeon/letslearn/unit01/lessons"
+     # type: "pages"
+    #values:
+  #   layout: "changeablepages"
+   #   language: "es"
+#  - scope:
+ #     path: "en/balkeon/letslearn/unit01/lessons"
+    #  type: "pages"
+ #   values:
+  #    layout: "changeablepages"
+#      language: "en"
   defaults:
    - scope:
       path: ""
