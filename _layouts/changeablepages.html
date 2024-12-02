@@ -17,6 +17,20 @@ layout: base
       window.location.href = newUrl;
     }
 
+    function setDefaultStrings(language) {
+      const defaultStrings = {
+        en: {
+          back: "Return",
+          dropdown: "Lessons Menu",
+        },
+        es: {
+          back: "Volver",
+          dropdown: "Menú de Lecciones",
+        }
+      };
+      return defaultStrings[language];
+    }
+
     async function navigateLesson(offset) {
       const lessonNumber = parseInt("{{ page.lesson_number }}");
       const newLessonNumber = lessonNumber + offset;
@@ -53,14 +67,16 @@ layout: base
 
     document.addEventListener('DOMContentLoaded', function() {
       initButtons();
-    });
+      const defaultStrings = setDefaultStrings(lang);
+      document.getElementById("backbutton").innerText = defaultStrings.back;
+      document.getElementById("dropdownLessons").innerText = defaultStrings.dropdown;
+    });  
   </script>
-  <link rel="stylesheet" href="/assets/css/custom-styles.css">
 </head>
 <body>
   <div class="intro-header">
     <select onchange="window.location.href=this.value;">
-      <option value="" disabled selected>Menú de Lecciones</option>
+      <option value="" disabled selected><div id="dropdownLessons"></div></option>
       {% for lesson in site.pages %}
         {% if lesson.path contains 'balkeon/letslearn/unit01/lessons' and lesson.language == 'es' %}
           <option value="{{ lesson.url }}">{{ lesson.title }}</option>
