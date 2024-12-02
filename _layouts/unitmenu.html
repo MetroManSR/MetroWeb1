@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dynamic Unit Menu</title>
+  <title>Dynamic Units Menu</title>
   <style>
     body {
       margin: 0;
@@ -50,15 +50,37 @@
           .catch(error => console.error('Error loading page:', error));
       }
 
-      function loadUnitMenu(unit) {
-        fetch(`/balkeon/letslearn/${unit}/unitmenu`)
+      function loadUnitsMenu() {
+        fetch(`/balkeon/letslearn/unitsmenu`)
+          .then(response => response.text())
+          .then(data => {
+            const strippedContent = stripFrontMatter(data);
+            document.getElementById('content').innerHTML = marked.parse(strippedContent);
+            addUnitLinks(); // Adding links dynamically
+          })
+          .catch(error => console.error('Error loading units menu:', error));
+      }
+
+      function addUnitLinks() {
+        const units = document.querySelectorAll('#content a[data-unit]');
+        units.forEach(unit => {
+          unit.addEventListener('click', function(event) {
+            event.preventDefault();
+            const unitId = this.getAttribute('data-unit');
+            loadLessonsMenu(unitId);
+          });
+        });
+      }
+
+      function loadLessonsMenu(unit) {
+        fetch(`/balkeon/letslearn/${unit}/lessonsmenu`)
           .then(response => response.text())
           .then(data => {
             const strippedContent = stripFrontMatter(data);
             document.getElementById('content').innerHTML = marked.parse(strippedContent);
             addLessonLinks(unit); // Adding links dynamically
           })
-          .catch(error => console.error('Error loading unit menu:', error));
+          .catch(error => console.error('Error loading lessons menu:', error));
       }
 
       function addLessonLinks(unit) {
@@ -72,15 +94,14 @@
         });
       }
 
-      // Initialize with unit01 menu
-      loadUnitMenu('unit01');
+      // Initialize with units menu
+      loadUnitsMenu();
 
       // Add event listeners for nav links
       document.querySelectorAll('nav ul li a').forEach(link => {
         link.addEventListener('click', function(event) {
           event.preventDefault();
-          const unit = this.textContent.trim().toLowerCase().replace(' ', '');
-          loadUnitMenu(unit);
+          loadUnitsMenu();
         });
       });
     });
@@ -89,9 +110,7 @@
 <body>
   <nav>
     <ul>
-      <li><a href="#">Unit 01</a></li>
-      <li><a href="#">Unit 02</a></li>
-      <li><a href="#">Unit XX</a></li>
+      <li><a href="#">Units Menu</a></li>
     </ul>
   </nav>
   <main id="content">
