@@ -270,8 +270,25 @@ kramdown:
 
 # Default YAML values (more information on Jekyll's site)
 defaults:
-  -
-    scope:
+collections:
+  lessons:
+    output: true
+    permalink: /:collection/:name
+
+defaults:
+  - scope:
+      path: "balkeon/letslearn/unit01/lessons"
+      type: "pages"
+    values:
+      layout: "changeablepages"
+      language: "es"
+  - scope:
+      path: "en/balkeon/letslearn/unit01/lessons"
+      type: "pages"
+    values:
+      layout: "changeablepages"
+      language: "en"
+   - scope:
       path: ""
       type: "posts"
     values:
