@@ -1,10 +1,14 @@
 ---
-layout: base
-title: "Units Menu"
+layout: default
+title: Units Menu
 ---
 
 # Units Menu
 
-- <a href="#" data-unit="unit01">Unit 01</a>
-- <a href="#" data-unit="unit02">Unit 02</a>
-- <a href="#" data-unit="unitXX">Unit XX</a>
+<ul>
+  {% for unit in site.pages %}
+    {% if unit.path contains 'balkeon/letslearn/unit' and unit.path contains 'index' and unit.language == 'es' and unit.lesson_number %}
+      <li><a href="{{ unit.url }}">{{ unit.title }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
