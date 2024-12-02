@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Dynamic Unit Menu</title>
@@ -21,10 +23,15 @@
       margin-top: 20px; /* Adjusting margin to prevent clipping */
     }
   </style>
-  <!-- Ensure this script is loaded correctly -->
-  
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Ensure marked is defined
+      if (typeof marked === 'undefined') {
+        console.error('Marked library is not loaded properly.');
+        return;
+      }
+
       function loadPage(unit, lesson) {
         fetch(`/letslearn/${unit}/${lesson}.md`)
           .then(response => response.text())
@@ -68,5 +75,17 @@
       });
     });
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#">Unit 01</a></li>
+      <li><a href="#">Unit 02</a></li>
+      <li><a href="#">Unit XX</a></li>
+    </ul>
+  </nav>
+  <main id="content">
+    <!-- Content will be loaded here -->
+  </main>
+</body>
+</html>
