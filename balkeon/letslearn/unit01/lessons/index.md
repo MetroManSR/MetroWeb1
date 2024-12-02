@@ -2,6 +2,7 @@
 layout: base
 language: es
 title: Menú de Lecciones
+description: Test
 ---
 
 ## Menú de Lecciones
