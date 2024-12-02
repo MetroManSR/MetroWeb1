@@ -78,7 +78,10 @@ layout: base
     <select onchange="window.location.href=this.value;">
       <option value="" disabled selected><div id="dropdownLessons"></div></option>
       {% for lesson in site.pages %}
-        {% if lesson.path contains 'balkeon/letslearn/unit01/lessons' and lesson.language == 'es' %}
+        {% if lesson.path contains 'balkeon/letslearn/unit01/lessons' and page.language == 'es' %}
+          <option value="{{ lesson.url }}">{{ lesson.title }}</option>
+        {% endif %} 
+        {% if lesson.path contains 'balkeon/letslearn/unit01/lessons' and page.language == 'en' %}
           <option value="{{ lesson.url }}">{{ lesson.title }}</option>
         {% endif %}
       {% endfor %}
@@ -98,7 +101,7 @@ layout: base
       <span class="button-82-shadow"></span>
       <span class="button-82-edge"></span>
       <span class="button-82-front text">
-        <div id="backbutton">Back</div>
+        <div id="backbutton"></div>
       </span> 
     </button>
     {{ content }}
