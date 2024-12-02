@@ -1,9 +1,11 @@
 ---
 layout:base
-
 ---
-<html lang="{{ page.language }}">
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Modular Menu</title>
   <style>
     nav ul {
@@ -17,7 +19,7 @@ layout:base
   </style>
   <script>
     function loadPage(page) {
-      fetch(`/lessons/${page}`)
+      fetch(`/lessons/${page}.md`)
         .then(response => response.text())
         .then(data => {
           document.getElementById('content').innerHTML = marked(data);
@@ -26,10 +28,10 @@ layout:base
   </script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body onload="loadPage('page1')">
+<body onload="loadPage('BS01')">
   <nav>
     <ul>
-      <li><a href="#" onclick="loadPage('BS01' )">Page 1</a></li>
+      <li><a href="#" onclick="loadPage('BS01')">Page 1</a></li>
       <li><a href="#" onclick="loadPage('BS02')">Page 2</a></li>
       <li><a href="#" onclick="loadPage('BS03')">Page 3</a></li>
     </ul>
