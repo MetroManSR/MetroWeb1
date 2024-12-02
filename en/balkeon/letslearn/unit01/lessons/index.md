@@ -1,7 +1,7 @@
 ---
 layout: default
 language: en
-title: Lesson Menu
+title: Unit 01 Menu
 ---
 
 # Unit 01: Introduction
