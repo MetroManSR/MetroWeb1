@@ -27,7 +27,7 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Check if marked is defined
+      // Ensure marked is defined
       if (typeof marked === 'undefined') {
         console.error('Marked library is not loaded properly.');
         return;
@@ -36,7 +36,7 @@
       }
 
       function loadPage(unit, lesson) {
-        fetch(`/letslearn/${unit}/${lesson}.md`)
+        fetch(`/balkeon/letslearn/${unit}/${lesson}.md`)
           .then(response => response.text())
           .then(data => {
             document.getElementById('content').innerHTML = marked.parse(data);
@@ -45,17 +45,18 @@
       }
 
       function loadUnitMenu(unit) {
-        fetch(`/letslearn/${unit}/unitmenu.md`)
+        fetch(`/balkeon/letslearn/${unit}/unitmenu.md`)
           .then(response => response.text())
           .then(data => {
-            document.getElementById('content').innerHTML = marked.parse(data);
+            const content = marked.parse(data);
+            document.getElementById('content').innerHTML = content;
             addLessonLinks(unit); // Adding links dynamically
           })
           .catch(error => console.error('Error loading unit menu:', error));
       }
 
       function addLessonLinks(unit) {
-        const lessons = document.querySelectorAll('#content a');
+        const lessons = document.querySelectorAll('#content a[data-lesson]');
         lessons.forEach(lesson => {
           lesson.addEventListener('click', function(event) {
             event.preventDefault();
