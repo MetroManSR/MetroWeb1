@@ -287,10 +287,6 @@ kramdown:
  #   values:
   #    layout: "changeablepages"
 #      language: "en"
-collections:
-  lessons:
-    output: true
-    permalink: /:collection/:name
 
 defaults:
   - 
