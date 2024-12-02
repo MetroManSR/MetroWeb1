@@ -1,3 +1,11 @@
+.button-nav {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+
 /* CSS */
 :root {
  --body-bg: #FFFFFF;
