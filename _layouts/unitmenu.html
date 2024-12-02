@@ -35,11 +35,17 @@
         console.log('Marked library loaded successfully.');
       }
 
+      function stripFrontMatter(content) {
+        const frontMatterPattern = /^---[\s\S]+?---/;
+        return content.replace(frontMatterPattern, '').trim();
+      }
+
       function loadPage(unit, lesson) {
         fetch(`/balkeon/letslearn/${unit}/${lesson}`)
           .then(response => response.text())
           .then(data => {
-            document.getElementById('content').innerHTML = marked.parse(data);
+            const strippedContent = stripFrontMatter(data);
+            document.getElementById('content').innerHTML = marked.parse(strippedContent);
           })
           .catch(error => console.error('Error loading page:', error));
       }
@@ -48,8 +54,8 @@
         fetch(`/balkeon/letslearn/${unit}/unitmenu`)
           .then(response => response.text())
           .then(data => {
-            const content = marked.parse(data);
-            document.getElementById('content').innerHTML = content;
+            const strippedContent = stripFrontMatter(data);
+            document.getElementById('content').innerHTML = marked.parse(strippedContent);
             addLessonLinks(unit); // Adding links dynamically
           })
           .catch(error => console.error('Error loading unit menu:', error));
