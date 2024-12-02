@@ -268,8 +268,7 @@ paginate: 5
 kramdown:
   input: GFM
 
-# Default YAML values (more information on Jekyll's site)
-defaults:
+# Default YAML values (more information on Jekyll's site
 collections:
   lessons:
     output: true
