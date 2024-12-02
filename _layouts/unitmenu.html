@@ -33,7 +33,7 @@
       }
 
       function loadPage(unit, lesson) {
-        fetch(`/letslearn/${unit}/${lesson}.md`)
+        fetch(`/letslearn/${unit}/${lesson}`)
           .then(response => response.text())
           .then(data => {
             document.getElementById('content').innerHTML = marked(data);
@@ -42,7 +42,7 @@
       }
 
       function loadUnitMenu(unit) {
-        fetch(`/letslearn/${unit}/unitmenu.md`)
+        fetch(`/letslearn/${unit}/unitmenu`)
           .then(response => response.text())
           .then(data => {
             document.getElementById('content').innerHTML = marked(data);
