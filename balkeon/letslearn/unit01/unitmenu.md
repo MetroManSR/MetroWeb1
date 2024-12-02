@@ -1,5 +1,5 @@
 ---
-layout: base
+layout: default
 ---
 
 # Lessons in Unit 01
