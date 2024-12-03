@@ -1,7 +1,6 @@
 function generateExercise(containerId, sentences, correctAnswers, options, language) {
     const container = document.getElementById(containerId);
 
-    // If sentences and correctAnswers are arrays, pick one randomly
     let sentence, correctAnswer;
     if (Array.isArray(sentences) && Array.isArray(correctAnswers)) {
         const randomIndex = Math.floor(Math.random() * sentences.length);
@@ -12,19 +11,12 @@ function generateExercise(containerId, sentences, correctAnswers, options, langu
         correctAnswer = correctAnswers;
     }
 
-    // Create and set up the sentence with dropdown
     const sentenceParts = sentence.split('__');
     const sentenceElement = document.createElement('p');
     sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
                                     <option value="">Select...</option>
                                   </select> ${sentenceParts[1]}`;
-    
-    // Ensure options is an array
-    if (!Array.isArray(options)) {
-        options = [options];
-    }
 
-    // Populate dropdown options
     const dropdown = sentenceElement.querySelector('.suffixDropdown');
     options.forEach(option => {
         const optionElement = document.createElement('option');
@@ -33,43 +25,21 @@ function generateExercise(containerId, sentences, correctAnswers, options, langu
         dropdown.appendChild(optionElement);
     });
 
-    // Create and set up the submit button
     const button = document.createElement('button');
     button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
-    button.style.backgroundColor = '#FFD700';
-    button.style.border = '2px solid #FFD700';
-    button.style.borderRadius = '15px';
-    button.style.padding = '5px 10px';
-    button.style.marginTop = '10px';
-    button.style.cursor = 'pointer';
     button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox); };
-    
-    // Create a container for the sentence and the button
+
     const exerciseBox = document.createElement('div');
-    exerciseBox.style.backgroundColor = '#f0f0f0';
-    exerciseBox.style.border = '2px solid #888888';
-    exerciseBox.style.borderRadius = '15px';
-    exerciseBox.style.padding = '10px';
-    exerciseBox.style.marginBottom = '20px';
-    
-    // Style the dropdown
-    dropdown.style.backgroundColor = '#d1ffd1';
-    dropdown.style.border = '1px solid #008000';
-    dropdown.style.borderRadius = '15px';
+    exerciseBox.className = 'exercise-box';
+    dropdown.className = 'suffixDropdown';
+    button.className = 'button';
 
     exerciseBox.appendChild(sentenceElement);
     exerciseBox.appendChild(button);
-    
-    // Append the exercise box to the main container
     container.appendChild(exerciseBox);
 
-    // Create feedback paragraph
     const feedback = document.createElement('p');
-    feedback.style.fontWeight = 'bold';
-    feedback.style.fontFamily = 'Arial, sans-serif';
-    feedback.style.marginTop = '10px';
-    feedback.style.padding = '5px 10px';
-    feedback.style.borderRadius = '15px';
+    feedback.className = 'feedback';
     exerciseBox.appendChild(feedback);
 }
 
@@ -91,73 +61,52 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
     }
 }
 
-
 function generateMultipleChoice(containerId, question, options, correctAnswer, language) {
     const container = document.getElementById(containerId);
 
-    // Create and set up the question
     const questionElement = document.createElement('p');
     questionElement.textContent = question;
-    
-    // Create a container for the multiple-choice options
+
     const optionsContainer = document.createElement('div');
     optionsContainer.style.marginTop = '10px';
     optionsContainer.style.marginBottom = '20px';
 
-    // Populate the multiple-choice options
     options.forEach((option, index) => {
         const optionContainer = document.createElement('div');
         optionContainer.style.marginBottom = '5px';
-        
+
         const radio = document.createElement('input');
         radio.type = 'radio';
         radio.id = `${containerId}-option-${index}`;
         radio.name = `${containerId}-options`;
         radio.value = option;
-        
+
         const label = document.createElement('label');
         label.textContent = option;
         label.htmlFor = radio.id;
-        label.style.marginLeft = '5px';
-        label.style.cursor = 'pointer';
-        
+        label.className = 'radio-label';
+
         optionContainer.appendChild(radio);
         optionContainer.appendChild(label);
         optionsContainer.appendChild(optionContainer);
     });
 
-    // Create and set up the submit button
     const button = document.createElement('button');
     button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
-    button.style.backgroundColor = '#FFD700';
-    button.style.border = '2px solid #FFD700';
-    button.style.borderRadius = '15px';
-    button.style.padding = '5px 10px';
-    button.style.cursor = 'pointer';
     button.onclick = function() { validateMultipleChoice(correctAnswer, feedback, language, containerId); };
 
-    // Create a container for the question, options, and the button
     const exerciseBox = document.createElement('div');
-    exerciseBox.style.backgroundColor = '#f0f0f0';
-    exerciseBox.style.border = '2px solid #888888';
-    exerciseBox.style.borderRadius = '15px';
-    exerciseBox.style.padding = '10px';
-    exerciseBox.style.marginBottom = '20px';
+    exerciseBox.className = 'exercise-box';
+    button.className = 'button';
 
     exerciseBox.appendChild(questionElement);
     exerciseBox.appendChild(optionsContainer);
     exerciseBox.appendChild(button);
 
-    // Append the exercise box to the main container
     container.appendChild(exerciseBox);
 
-    // Create feedback paragraph
     const feedback = document.createElement('p');
-    feedback.style.fontWeight = 'bold';
-    feedback.style.fontFamily = 'Arial, sans-serif';
-    feedback.style.marginTop = '10px';
-    feedback.style.padding = '5px 10px';
-    feedback.style.borderRadius = '15px';
+    feedback.className = 'feedback';
     exerciseBox.appendChild(feedback);
 }
 
