@@ -1,6 +1,7 @@
 function generateExercise(sentence, options, correctAnswer, language) {
+    console.log('Generating exercise...');
     const container = document.getElementById('exerciseContainer');
-
+    
     // Create and set up the sentence with dropdown
     const sentenceParts = sentence.split('__');
     const sentenceElement = document.createElement('p');
@@ -30,6 +31,8 @@ function generateExercise(sentence, options, correctAnswer, language) {
     const feedback = document.createElement('p');
     feedback.id = 'feedback';
     container.appendChild(feedback);
+
+    console.log('Exercise generated successfully');
 }
 
 function validateAnswer(correctAnswer, language) {
