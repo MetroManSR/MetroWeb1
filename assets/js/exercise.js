@@ -1,5 +1,6 @@
 function generateExercise(containerId, sentences, correctAnswers, options, language) {
     const container = document.getElementById(containerId);
+    container.innerHTML = ''; // Clear previous content to avoid multiple boxes
 
     // Ensure sentences and correctAnswers are arrays
     if (!Array.isArray(sentences) || !Array.isArray(correctAnswers)) {
@@ -7,50 +8,51 @@ function generateExercise(containerId, sentences, correctAnswers, options, langu
         return;
     }
 
+    // Pick a sentence and correct answer randomly
+    const randomIndex = Math.floor(Math.random() * sentences.length);
+    const sentence = sentences[randomIndex];
+    const correctAnswer = correctAnswers[randomIndex];
+
     // Create and set up the sentence with dropdown
-    sentences.forEach((sentence, index) => {
-        const sentenceParts = sentence.split('__');
-        if (sentenceParts.length !== 2) {
-            console.error('Sentence should contain exactly one "__" placeholder:', sentence);
-            return;
-        }
+    const sentenceParts = sentence.split('__');
+    if (sentenceParts.length !== 2) {
+        console.error('Sentence should contain exactly one "__" placeholder.');
+        return;
+    }
 
-        const correctAnswer = correctAnswers[index];
+    const sentenceElement = document.createElement('p');
+    sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
+                                    <option value="">Select...</option>
+                                  </select> ${sentenceParts[1]}`;
 
-        const sentenceElement = document.createElement('p');
-        sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
-                                        <option value="">Select...</option>
-                                      </select> ${sentenceParts[1]}`;
-
-        // Populate dropdown options
-        const dropdown = sentenceElement.querySelector('.suffixDropdown');
-        options.forEach(option => {
-            const optionElement = document.createElement('option');
-            optionElement.value = option;
-            optionElement.textContent = option;
-            dropdown.appendChild(optionElement);
-        });
-
-        // Create and set up the submit button
-        const button = document.createElement('button');
-        button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
-        button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox); };
-
-        // Create a container for the sentence and the button
-        const exerciseBox = document.createElement('div');
-        exerciseBox.className = 'exercise-box';
-        dropdown.className = 'suffixDropdown';
-        button.className = 'button';
-
-        exerciseBox.appendChild(sentenceElement);
-        exerciseBox.appendChild(button);
-        container.appendChild(exerciseBox);
-
-        // Create feedback paragraph
-        const feedback = document.createElement('p');
-        feedback.className = 'feedback';
-        exerciseBox.appendChild(feedback);
+    // Populate dropdown options
+    const dropdown = sentenceElement.querySelector('.suffixDropdown');
+    options.forEach(option => {
+        const optionElement = document.createElement('option');
+        optionElement.value = option;
+        optionElement.textContent = option;
+        dropdown.appendChild(optionElement);
     });
+
+    // Create and set up the submit button
+    const button = document.createElement('button');
+    button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
+    button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox); };
+
+    // Create a container for the sentence and the button
+    const exerciseBox = document.createElement('div');
+    exerciseBox.className = 'exercise-box';
+    dropdown.className = 'suffixDropdown';
+    button.className = 'button';
+
+    exerciseBox.appendChild(sentenceElement);
+    exerciseBox.appendChild(button);
+    container.appendChild(exerciseBox);
+
+    // Create feedback paragraph
+    const feedback = document.createElement('p');
+    feedback.className = 'feedback';
+    exerciseBox.appendChild(feedback);
 }
 
 function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox) {
@@ -70,6 +72,8 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
         exerciseBox.style.backgroundColor = 'red';
     }
 }
+
+
 
 function generateMultipleChoice(containerId, question, options, correctAnswer, language) {
     const container = document.getElementById(containerId);
