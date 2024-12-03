@@ -78,10 +78,13 @@ layout: base
     <select onchange="window.location.href=this.value;">
       <option value="" disabled selected><div id="dropdownLessons"></div></option>
       {% for lesson in site.pages %}
-        {% if lesson.path contains 'balkeon/letslearn/unit01/lessons' and lesson.language == page.language %}
-          <option value="{{ lesson.url }}">{{ lesson.title }}</option>
-        {% endif %} 
-      {% endfor %}
+       {% assign current_unit = page.path | split: '/' | slice: -3, 1 %}
+       {% assign lesson_unit = lesson.path | split: '/' | slice: -3, 1 %}
+       {% if lesson_unit == current_unit and lesson.language == page.language %}
+    <option value="{{ lesson.url }}">{{ lesson.title }}</option>
+      {% endif %}
+    {% endfor %}
+
     </select>
   </div>
 
