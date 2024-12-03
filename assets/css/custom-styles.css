@@ -5,11 +5,11 @@
   --nav-color-light: #E10600;
   --text-color-light: #000000;
 
-  --body-bg-dark: #000000;
-  --body-color-dark: #FFFFFF;
+  --body-bg-dark: #1c1c1c; /* Slightly lighter than pure black */
+  --body-color-dark: #d1d1d1; /* Light gray for better contrast */
   --body-link-color-dark: #A10500;
   --nav-color-dark: #A10500;
-  --text-color-dark: #FFFFFF;
+  --text-color-dark: #d1d1d1; /* Light gray for better contrast */
 
   --exercise-bg-light: #f0f0f0;
   --exercise-border-light: #888888;
@@ -19,9 +19,9 @@
   --button-border-light: #FFD700;
   --feedback-text-light: var(--text-color-light);
 
-  --exercise-bg-dark: #2a2a2a;
+  --exercise-bg-dark: #2a2a2a; /* Dark gray for better readability */
   --exercise-border-dark: #444444;
-  --dropdown-bg-dark: #444444;
+  --dropdown-bg-dark: #3a3a3a; /* Dark gray for better readability */
   --dropdown-border-dark: #007000;
   --button-bg-dark: #FFD700;
   --button-border-dark: #FFD700;
@@ -118,56 +118,6 @@ button {
     padding: 5px 10px;
     border-radius: 15px;
     color: var(--feedback-text-dark);
-  }
-
-  .radio-label {
-    color: var(--text-color-dark);
-  }
-}
-
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--body-bg-dark);
-    color: var(--body-color-dark) !important;
-  }
-
-  .navbar-custom {
-    background-color: var(--nav-color-dark);
-  }
-
-  .exercise-box {
-    background-color: #2a2a2a;
-    border: 2px solid #444444;
-    border-radius: 15px;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-
-  .suffixDropdown {
-    background-color: #444444;
-    border: 1px solid #007000;
-    border-radius: 15px;
-    color: var(--text-color-dark);
-  }
-
-  button {
-    background-color: #FFD700;
-    border: 2px solid #FFD700;
-    border-radius: 15px;
-    padding: 5px 10px;
-    cursor: pointer;
-    color: var(--text-color-dark);
-  }
-
-  .feedback {
-    font-weight: bold;
-    font-family: Arial, sans-serif;
-    margin-top: 10px;
-    padding: 5px 10px;
-    border-radius: 15px;
-    color: var(--text-color-dark);
   }
 
   .radio-label {
