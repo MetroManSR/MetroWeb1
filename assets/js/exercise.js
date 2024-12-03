@@ -1,16 +1,5 @@
-function generateExercise(containerId, sentences, correctAnswers, options, language) {
+function generateExercise(containerId, sentence, options, correctAnswer, language) {
     const container = document.getElementById(containerId);
-
-    // If sentences and correctAnswers are arrays, pick one randomly
-    let sentence, correctAnswer;
-    if (Array.isArray(sentences) && Array.isArray(correctAnswers)) {
-        const randomIndex = Math.floor(Math.random() * sentences.length);
-        sentence = sentences[randomIndex];
-        correctAnswer = correctAnswers[randomIndex];
-    } else {
-        sentence = sentences;
-        correctAnswer = correctAnswers;
-    }
 
     // Ensure options is an array
     if (!Array.isArray(options)) {
