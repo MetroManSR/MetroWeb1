@@ -1,6 +1,7 @@
 function generateExercise(containerId, sentences, correctAnswers, options, language) {
     const container = document.getElementById(containerId);
 
+    // If sentences and correctAnswers are arrays, pick one randomly
     let sentence, correctAnswer;
     if (Array.isArray(sentences) && Array.isArray(correctAnswers)) {
         const randomIndex = Math.floor(Math.random() * sentences.length);
@@ -11,12 +12,20 @@ function generateExercise(containerId, sentences, correctAnswers, options, langu
         correctAnswer = correctAnswers;
     }
 
+    // Ensure options is an array
+    if (!Array.isArray(options)) {
+        console.error('Options should be an array.');
+        return;
+    }
+
+    // Create and set up the sentence with dropdown
     const sentenceParts = sentence.split('__');
     const sentenceElement = document.createElement('p');
     sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
                                     <option value="">Select...</option>
                                   </select> ${sentenceParts[1]}`;
 
+    // Populate dropdown options
     const dropdown = sentenceElement.querySelector('.suffixDropdown');
     options.forEach(option => {
         const optionElement = document.createElement('option');
@@ -25,10 +34,12 @@ function generateExercise(containerId, sentences, correctAnswers, options, langu
         dropdown.appendChild(optionElement);
     });
 
+    // Create and set up the submit button
     const button = document.createElement('button');
     button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
     button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox); };
 
+    // Create a container for the sentence and the button
     const exerciseBox = document.createElement('div');
     exerciseBox.className = 'exercise-box';
     dropdown.className = 'suffixDropdown';
@@ -38,6 +49,7 @@ function generateExercise(containerId, sentences, correctAnswers, options, langu
     exerciseBox.appendChild(button);
     container.appendChild(exerciseBox);
 
+    // Create feedback paragraph
     const feedback = document.createElement('p');
     feedback.className = 'feedback';
     exerciseBox.appendChild(feedback);
@@ -49,7 +61,7 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
     if (selectedValue === "") {
         feedback.textContent = language === 'es' ? 'Por favor, seleccione una respuesta.' : 'Please select an answer.';
         feedback.style.color = 'red';
-        exerciseBox.style.backgroundColor = '#f0f0f0';
+        exerciseBox.style.backgroundColor = getComputedStyle(document.body).getPropertyValue('--exercise-bg-light');
     } else if (selectedValue === correctAnswer) {
         feedback.textContent = language === 'es' ? '¡Correcto!' : 'Correct!';
         feedback.style.color = 'white';
@@ -63,6 +75,12 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
 
 function generateMultipleChoice(containerId, question, options, correctAnswer, language) {
     const container = document.getElementById(containerId);
+
+    // Ensure options is an array
+    if (!Array.isArray(options)) {
+        console.error('Options should be an array.');
+        return;
+    }
 
     const questionElement = document.createElement('p');
     questionElement.textContent = question;
@@ -117,7 +135,7 @@ function validateMultipleChoice(correctAnswer, feedback, language, containerId) 
     if (!selectedOption) {
         feedback.textContent = language === 'es' ? 'Por favor, seleccione una respuesta.' : 'Please select an answer.';
         feedback.style.color = 'red';
-        exerciseBox.style.backgroundColor = '#f0f0f0';
+        exerciseBox.style.backgroundColor = getComputedStyle(document.body).getPropertyValue('--exercise-bg-light');
     } else if (selectedOption.value === correctAnswer) {
         feedback.textContent = language === 'es' ? '¡Correcto!' : 'Correct!';
         feedback.style.color = 'white';
