@@ -1,208 +1,113 @@
 :root {
-  --body-bg: #FFFFFF;
-  --body-color: #000000;
-  --body-link-color: #E10600;
-  --nav-color: #E10600;
-  --text-color: #000000;
+  --body-bg-light: #FFFFFF;
+  --body-color-light: #000000;
+  --body-link-color-light: #E10600;
+  --nav-color-light: #E10600;
+  --text-color-light: #000000;
+
+  --body-bg-dark: #000000;
+  --body-color-dark: #FFFFFF;
+  --body-link-color-dark: #A10500;
+  --nav-color-dark: #A10500;
+  --text-color-dark: #FFFFFF;
 }
 
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --body-bg: #000000;
-    --body-color: #FFFFFF;
-    --body-link-color: #A10500;
-    --nav-color: #A10500;
-    --text-color: #FFFFFF;
-  }
-}
-
-/* Table style */
-th {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  padding: 8px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
-  color: #000000;
-}
-
-td, tr {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  padding: 8px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #FFFFFF;
-  color: #000000;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: #ddd;
-}
-
+/* Light mode */
 body {
-  background-color: var(--body-bg);
-  color: var(--body-color) !important;
+  background-color: var(--body-bg-light);
+  color: var(--body-color-light) !important;
 }
 
 .navbar-custom {
-  background-color: var(--nav-color);
+  background-color: var(--nav-color-light);
 }
 
-/* Exercise box styles */
-:root {
-  --body-bg: #FFFFFF;
-  --body-color: #000000;
-  --body-link-color: #E10600;
-  --nav-color: #E10600;
-  --text-color: #000000;
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-:root {
-  --body-bg: #FFFFFF;
-  --body-color: #000000;
-  --body-link-color: #E10600;
-  --nav-color: #E10600;
-  --text-color: #000000;
-  
-  /* Light mode colors */
-  --exercise-bg-light: #f0f0f0;
-  --border-color-light: #888888;
-  --dropdown-bg-light: #d1ffd1;
-  --button-bg-light: #FFD700;
-  --correct-bg-light: green;
-  --incorrect-bg-light: red;
-  --feedback-color-light: #000000;
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --body-bg: #000000;
-    --body-color: #FFFFFF;
-    --body-link-color: #A10500;
-    --nav-color: #A10500;
-    --text-color: #FFFFFF;
-    
-    /* Dark mode colors */
-    --exercise-bg-dark: #333333;
-    --border-color-dark: #666666;
-    --dropdown-bg-dark: #3d4d3d;
-    --button-bg-dark: #b38f00;
-    --correct-bg-dark: #006400;
-    --incorrect-bg-dark: #8b0000;
-    --feedback-color-dark: #FFFFFF;
-  }
-}
-
-/* Table style */
-th, td {
-  font-family: Arial, Helvetica, sans-serif;
-  border: 1px solid #ddd;
-  padding: 8px;
-  background-color: #FFFFFF;
-  color: #000000;
-}
-
-th {
-  background-color: #04AA6D;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: #ddd;
-}
-
-body {
-  background-color: var(--body-bg);
-  color: var(--body-color) !important;
-}
-
-.navbar-custom {
-  background-color: var(--nav-color);
-}
-
-/* Exercise box styles */
 .exercise-box {
-  background-color: var(--exercise-bg-light);
-  border: 2px solid var(--border-color-light);
+  background-color: #f0f0f0;
+  border: 2px solid #888888;
   border-radius: 15px;
   padding: 10px;
   margin-bottom: 20px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .exercise-box {
-    background-color: var(--exercise-bg-dark);
-    border: 2px solid var(--border-color-dark);
-  }
-}
-
-/* Dropdown styles */
 .suffixDropdown {
-  background-color: var(--dropdown-bg-light);
+  background-color: #d1ffd1;
   border: 1px solid #008000;
   border-radius: 15px;
-  color: var(--text-color);
+  color: var(--text-color-light);
 }
 
-@media (prefers-color-scheme: dark) {
-  .suffixDropdown {
-    background-color: var(--dropdown-bg-dark);
-  }
-}
-
-/* Button styles */
 button {
-  background-color: var(--button-bg-light);
-  border: 2px solid var(--button-bg-light);
+  background-color: #FFD700;
+  border: 2px solid #FFD700;
   border-radius: 15px;
   padding: 5px 10px;
   cursor: pointer;
-  color: var(--text-color);
+  color: var(--text-color-light);
 }
 
-@media (prefers-color-scheme: dark) {
-  button {
-    background-color: var(--button-bg-dark);
-    border: 2px solid var(--button-bg-dark);
-  }
-}
-
-/* Feedback styles */
 .feedback {
   font-weight: bold;
   font-family: Arial, sans-serif;
   margin-top: 10px;
   padding: 5px 10px;
   border-radius: 15px;
-  color: var(--feedback-color-light);
+  color: var(--text-color-light);
 }
 
+.radio-label {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
-  .feedback {
-    color: var(--feedback-color-dark);
+  body {
+    background-color: var(--body-bg-dark);
+    color: var(--body-color-dark) !important;
   }
 
+  .navbar-custom {
+    background-color: var(--nav-color-dark);
+  }
 
+  .exercise-box {
+    background-color: #2a2a2a;
+    border: 2px solid #444444;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .suffixDropdown {
+    background-color: #444444;
+    border: 1px solid #007000;
+    border-radius: 15px;
+    color: var(--text-color-dark);
+  }
+
+  button {
+    background-color: #FFD700;
+    border: 2px solid #FFD700;
+    border-radius: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: var(--text-color-dark);
+  }
+
+  .feedback {
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: var(--text-color-dark);
+  }
+
+  .radio-label {
+    color: var(--text-color-dark);
+  }
+}
 
 
 /* Enable smooth scrolling */
