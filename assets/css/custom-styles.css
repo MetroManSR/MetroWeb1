@@ -10,6 +10,22 @@
   --body-link-color-dark: #A10500;
   --nav-color-dark: #A10500;
   --text-color-dark: #FFFFFF;
+
+  --exercise-bg-light: #f0f0f0;
+  --exercise-border-light: #888888;
+  --dropdown-bg-light: #d1ffd1;
+  --dropdown-border-light: #008000;
+  --button-bg-light: #FFD700;
+  --button-border-light: #FFD700;
+  --feedback-text-light: var(--text-color-light);
+
+  --exercise-bg-dark: #2a2a2a;
+  --exercise-border-dark: #444444;
+  --dropdown-bg-dark: #444444;
+  --dropdown-border-dark: #007000;
+  --button-bg-dark: #FFD700;
+  --button-border-dark: #FFD700;
+  --feedback-text-dark: var(--text-color-dark);
 }
 
 /* Light mode */
@@ -23,23 +39,23 @@ body {
 }
 
 .exercise-box {
-  background-color: #f0f0f0;
-  border: 2px solid #888888;
+  background-color: var(--exercise-bg-light);
+  border: 2px solid var(--exercise-border-light);
   border-radius: 15px;
   padding: 10px;
   margin-bottom: 20px;
 }
 
 .suffixDropdown {
-  background-color: #d1ffd1;
-  border: 1px solid #008000;
+  background-color: var(--dropdown-bg-light);
+  border: 1px solid var(--dropdown-border-light);
   border-radius: 15px;
   color: var(--text-color-light);
 }
 
 button {
-  background-color: #FFD700;
-  border: 2px solid #FFD700;
+  background-color: var(--button-bg-light);
+  border: 2px solid var(--button-border-light);
   border-radius: 15px;
   padding: 5px 10px;
   cursor: pointer;
@@ -52,13 +68,63 @@ button {
   margin-top: 10px;
   padding: 5px 10px;
   border-radius: 15px;
-  color: var(--text-color-light);
+  color: var(--feedback-text-light);
 }
 
 .radio-label {
   cursor: pointer;
   margin-left: 5px;
 }
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--body-bg-dark);
+    color: var(--body-color-dark) !important;
+  }
+
+  .navbar-custom {
+    background-color: var(--nav-color-dark);
+  }
+
+  .exercise-box {
+    background-color: var(--exercise-bg-dark);
+    border: 2px solid var(--exercise-border-dark);
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .suffixDropdown {
+    background-color: var(--dropdown-bg-dark);
+    border: 1px solid var(--dropdown-border-dark);
+    border-radius: 15px;
+    color: var(--text-color-dark);
+  }
+
+  button {
+    background-color: var(--button-bg-dark);
+    border: 2px solid var(--button-border-dark);
+    border-radius: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: var(--text-color-dark);
+  }
+
+  .feedback {
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: var(--feedback-text-dark);
+  }
+
+  .radio-label {
+    color: var(--text-color-dark);
+  }
+}
+
 
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
