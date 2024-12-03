@@ -26,7 +26,7 @@ function generateExercise(containerId, sentence, options, correctAnswer, languag
     button.style.padding = '5px 10px';
     button.style.marginTop = '10px';
     button.style.cursor = 'pointer';
-    button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language); };
+    button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox); };
     
     // Create a container for the sentence and the button
     const exerciseBox = document.createElement('div');
@@ -57,20 +57,20 @@ function generateExercise(containerId, sentence, options, correctAnswer, languag
     exerciseBox.appendChild(feedback);
 }
 
-function validateAnswer(dropdown, correctAnswer, feedback, language) {
+function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox) {
     const selectedValue = dropdown.value;
 
     if (selectedValue === "") {
         feedback.textContent = language === 'es' ? 'Por favor, seleccione una respuesta.' : 'Please select an answer.';
-        feedback.style.backgroundColor = '#f0f0f0';
         feedback.style.color = 'red';
+        exerciseBox.style.backgroundColor = '#f0f0f0';
     } else if (selectedValue === correctAnswer) {
         feedback.textContent = language === 'es' ? '¡Correcto!' : 'Correct!';
-        feedback.style.backgroundColor = 'green';
         feedback.style.color = 'white';
+        exerciseBox.style.backgroundColor = 'green';
     } else {
         feedback.textContent = language === 'es' ? 'Incorrecto. Inténtalo de nuevo.' : 'Incorrect. Try again.';
-        feedback.style.backgroundColor = 'red';
         feedback.style.color = 'white';
+        exerciseBox.style.backgroundColor = 'red';
     }
 }
