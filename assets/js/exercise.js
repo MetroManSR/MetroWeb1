@@ -67,13 +67,40 @@ function generateExercise(containerId, sentences, correctAnswers, options, langu
     if (Array.isArray(options)) {
         options.forEach(option => {
             const optionElement = document.createElement('option');
-            optionElement.value = option;
-            optionElement.textContent = option;
-            dropdown.appendChild(optionElement);
-        });
+function generateExercise(containerId, sentences, correctAnswers, options, language) {
+    const container = document.getElementById(containerId);
+
+    // If sentences and correctAnswers are arrays, pick one randomly
+    let sentence, correctAnswer;
+    if (Array.isArray(sentences) && Array.isArray(correctAnswers)) {
+        const randomIndex = Math.floor(Math.random() * sentences.length);
+        sentence = sentences[randomIndex];
+        correctAnswer = correctAnswers[randomIndex];
     } else {
-        console.error('Options should be an array.');
+        sentence = sentences;
+        correctAnswer = correctAnswers;
     }
+
+    // Create and set up the sentence with dropdown
+    const sentenceParts = sentence.split('__');
+    const sentenceElement = document.createElement('p');
+    sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
+                                    <option value="">Select...</option>
+                                  </select> ${sentenceParts[1]}`;
+
+    // Ensure options is an array
+    if (!Array.isArray(options)) {
+        options = [options];
+    }
+    
+    // Populate dropdown options
+    const dropdown = sentenceElement.querySelector('.suffixDropdown');
+    options.forEach(option => {
+        const optionElement = document.createElement('option');
+        optionElement.value = option;
+        optionElement.textContent = option;
+        dropdown.appendChild(optionElement);
+    });
 
     // Create and set up the submit button
     const button = document.createElement('button');
@@ -132,8 +159,6 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
         exerciseBox.style.backgroundColor = 'red';
     }
 }
-
-
 
 
 
