@@ -1,7 +1,6 @@
 function generateExercise(sentence, options, correctAnswer, language) {
-    console.log('Generating exercise...');
     const container = document.getElementById('exerciseContainer');
-    
+
     // Create and set up the sentence with dropdown
     const sentenceParts = sentence.split('__');
     const sentenceElement = document.createElement('p');
@@ -18,21 +17,36 @@ function generateExercise(sentence, options, correctAnswer, language) {
         dropdown.appendChild(optionElement);
     });
 
-    // Append sentence to the container
-    container.appendChild(sentenceElement);
-
     // Create and set up the submit button
     const button = document.createElement('button');
     button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
     button.onclick = function() { validateAnswer(correctAnswer, language); };
-    container.appendChild(button);
+    
+    // Create a container for the sentence and the button
+    const exerciseBox = document.createElement('div');
+    exerciseBox.style.backgroundColor = '#f0f0f0';
+    exerciseBox.style.border = '2px solid #888888';
+    exerciseBox.style.borderRadius = '15px';
+    exerciseBox.style.padding = '10px';
+    exerciseBox.style.marginBottom = '20px';
+    
+    // Style the dropdown
+    dropdown.style.backgroundColor = '#d1ffd1';
+    dropdown.style.border = '1px solid #008000';
+    dropdown.style.borderRadius = '15px';
+
+    exerciseBox.appendChild(sentenceElement);
+    exerciseBox.appendChild(button);
+    
+    // Append the exercise box to the main container
+    container.appendChild(exerciseBox);
 
     // Create feedback paragraph
     const feedback = document.createElement('p');
     feedback.id = 'feedback';
+    feedback.style.fontWeight = 'bold';
+    feedback.style.marginTop = '10px';
     container.appendChild(feedback);
-
-    console.log('Exercise generated successfully');
 }
 
 function validateAnswer(correctAnswer, language) {
