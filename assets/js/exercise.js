@@ -68,12 +68,9 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
     }
 }
 
-
-
-
-
 function generateMultipleChoice(containerId, question, options, correctAnswer, language) {
     const container = document.getElementById(containerId);
+    container.innerHTML = ''; // Clear previous content to avoid multiple choices
 
     // Ensure options is an array
     if (!Array.isArray(options)) {
