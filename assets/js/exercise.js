@@ -1,47 +1,56 @@
-function generateExercise(containerId, sentence, options, correctAnswer, language) {
+function generateExercise(containerId, sentences, correctAnswers, options, language) {
     const container = document.getElementById(containerId);
 
-    // Ensure options is an array
-    if (!Array.isArray(options)) {
-        console.error('Options should be an array:', options);
+    // Ensure sentences and correctAnswers are arrays
+    if (!Array.isArray(sentences) || !Array.isArray(correctAnswers)) {
+        console.error('Sentences and correctAnswers should be arrays.');
         return;
     }
 
     // Create and set up the sentence with dropdown
-    const sentenceParts = sentence.split('__');
-    const sentenceElement = document.createElement('p');
-    sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
-                                    <option value="">Select...</option>
-                                  </select> ${sentenceParts[1]}`;
+    sentences.forEach((sentence, index) => {
+        const sentenceParts = sentence.split('__');
+        if (sentenceParts.length !== 2) {
+            console.error('Sentence should contain exactly one "__" placeholder:', sentence);
+            return;
+        }
 
-    // Populate dropdown options
-    const dropdown = sentenceElement.querySelector('.suffixDropdown');
-    options.forEach(option => {
-        const optionElement = document.createElement('option');
-        optionElement.value = option;
-        optionElement.textContent = option;
-        dropdown.appendChild(optionElement);
+        const correctAnswer = correctAnswers[index];
+
+        const sentenceElement = document.createElement('p');
+        sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
+                                        <option value="">Select...</option>
+                                      </select> ${sentenceParts[1]}`;
+
+        // Populate dropdown options
+        const dropdown = sentenceElement.querySelector('.suffixDropdown');
+        options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option;
+            optionElement.textContent = option;
+            dropdown.appendChild(optionElement);
+        });
+
+        // Create and set up the submit button
+        const button = document.createElement('button');
+        button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
+        button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox); };
+
+        // Create a container for the sentence and the button
+        const exerciseBox = document.createElement('div');
+        exerciseBox.className = 'exercise-box';
+        dropdown.className = 'suffixDropdown';
+        button.className = 'button';
+
+        exerciseBox.appendChild(sentenceElement);
+        exerciseBox.appendChild(button);
+        container.appendChild(exerciseBox);
+
+        // Create feedback paragraph
+        const feedback = document.createElement('p');
+        feedback.className = 'feedback';
+        exerciseBox.appendChild(feedback);
     });
-
-    // Create and set up the submit button
-    const button = document.createElement('button');
-    button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
-    button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox); };
-
-    // Create a container for the sentence and the button
-    const exerciseBox = document.createElement('div');
-    exerciseBox.className = 'exercise-box';
-    dropdown.className = 'suffixDropdown';
-    button.className = 'button';
-
-    exerciseBox.appendChild(sentenceElement);
-    exerciseBox.appendChild(button);
-    container.appendChild(exerciseBox);
-
-    // Create feedback paragraph
-    const feedback = document.createElement('p');
-    feedback.className = 'feedback';
-    exerciseBox.appendChild(feedback);
 }
 
 function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox) {
