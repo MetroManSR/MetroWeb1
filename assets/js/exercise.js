@@ -20,6 +20,12 @@ function generateExercise(sentence, options, correctAnswer, language) {
     // Create and set up the submit button
     const button = document.createElement('button');
     button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
+    button.style.backgroundColor = '#FFD700';
+    button.style.border = '2px solid #FFD700';
+    button.style.borderRadius = '15px';
+    button.style.padding = '5px 10px';
+    button.style.marginTop = '10px';
+    button.style.cursor = 'pointer';
     button.onclick = function() { validateAnswer(correctAnswer, language); };
     
     // Create a container for the sentence and the button
@@ -45,8 +51,11 @@ function generateExercise(sentence, options, correctAnswer, language) {
     const feedback = document.createElement('p');
     feedback.id = 'feedback';
     feedback.style.fontWeight = 'bold';
+    feedback.style.fontFamily = 'Arial, sans-serif';
     feedback.style.marginTop = '10px';
-    container.appendChild(feedback);
+    feedback.style.padding = '5px 10px';
+    feedback.style.borderRadius = '15px';
+    exerciseBox.appendChild(feedback);
 }
 
 function validateAnswer(correctAnswer, language) {
@@ -56,12 +65,15 @@ function validateAnswer(correctAnswer, language) {
 
     if (selectedValue === "") {
         feedback.textContent = language === 'es' ? 'Por favor, seleccione una respuesta.' : 'Please select an answer.';
+        feedback.style.backgroundColor = '#f0f0f0';
         feedback.style.color = 'red';
     } else if (selectedValue === correctAnswer) {
         feedback.textContent = language === 'es' ? '¡Correcto!' : 'Correct!';
-        feedback.style.color = 'green';
+        feedback.style.backgroundColor = 'green';
+        feedback.style.color = 'white';
     } else {
         feedback.textContent = language === 'es' ? 'Incorrecto. Inténtalo de nuevo.' : 'Incorrect. Try again.';
-        feedback.style.color = 'red';
+        feedback.style.backgroundColor = 'red';
+        feedback.style.color = 'white';
     }
 }
