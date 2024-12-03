@@ -1,15 +1,15 @@
-function generateExercise(sentence, options, correctAnswer, language) {
-    const container = document.getElementById('exerciseContainer');
+function generateExercise(containerId, sentence, options, correctAnswer, language) {
+    const container = document.getElementById(containerId);
 
     // Create and set up the sentence with dropdown
     const sentenceParts = sentence.split('__');
     const sentenceElement = document.createElement('p');
-    sentenceElement.innerHTML = `${sentenceParts[0]} <select id="suffixDropdown">
+    sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
                                     <option value="">Select...</option>
                                   </select> ${sentenceParts[1]}`;
     
     // Populate dropdown options
-    const dropdown = sentenceElement.querySelector('#suffixDropdown');
+    const dropdown = sentenceElement.querySelector('.suffixDropdown');
     options.forEach(option => {
         const optionElement = document.createElement('option');
         optionElement.value = option;
@@ -26,7 +26,7 @@ function generateExercise(sentence, options, correctAnswer, language) {
     button.style.padding = '5px 10px';
     button.style.marginTop = '10px';
     button.style.cursor = 'pointer';
-    button.onclick = function() { validateAnswer(correctAnswer, language); };
+    button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language); };
     
     // Create a container for the sentence and the button
     const exerciseBox = document.createElement('div');
@@ -49,7 +49,6 @@ function generateExercise(sentence, options, correctAnswer, language) {
 
     // Create feedback paragraph
     const feedback = document.createElement('p');
-    feedback.id = 'feedback';
     feedback.style.fontWeight = 'bold';
     feedback.style.fontFamily = 'Arial, sans-serif';
     feedback.style.marginTop = '10px';
@@ -58,10 +57,8 @@ function generateExercise(sentence, options, correctAnswer, language) {
     exerciseBox.appendChild(feedback);
 }
 
-function validateAnswer(correctAnswer, language) {
-    const dropdown = document.getElementById('suffixDropdown');
+function validateAnswer(dropdown, correctAnswer, feedback, language) {
     const selectedValue = dropdown.value;
-    const feedback = document.getElementById('feedback');
 
     if (selectedValue === "") {
         feedback.textContent = language === 'es' ? 'Por favor, seleccione una respuesta.' : 'Please select an answer.';
