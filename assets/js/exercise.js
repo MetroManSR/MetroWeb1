@@ -1,5 +1,16 @@
-function generateExercise(containerId, sentence, options, correctAnswer, language) {
+function generateExercise(containerId, sentences, correctAnswers, options, language) {
     const container = document.getElementById(containerId);
+
+    // If sentences and correctAnswers are arrays, pick one randomly
+    let sentence, correctAnswer;
+    if (Array.isArray(sentences) && Array.isArray(correctAnswers)) {
+        const randomIndex = Math.floor(Math.random() * sentences.length);
+        sentence = sentences[randomIndex];
+        correctAnswer = correctAnswers[randomIndex];
+    } else {
+        sentence = sentences;
+        correctAnswer = correctAnswers;
+    }
 
     // Create and set up the sentence with dropdown
     const sentenceParts = sentence.split('__');
@@ -74,6 +85,7 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
         exerciseBox.style.backgroundColor = 'red';
     }
 }
+
 
 
 function generateMultipleChoice(containerId, question, options, correctAnswer, language) {
