@@ -1,17 +1,12 @@
-function generateExercise(containerId, sentences, correctAnswers, options, language) {
+function generateExercise(containerId, sentence, correctAnswer, options, language) {
     const container = document.getElementById(containerId);
     container.innerHTML = ''; // Clear previous content to avoid multiple boxes
 
-    // Ensure sentences and correctAnswers are arrays
-    if (!Array.isArray(sentences) || !Array.isArray(correctAnswers)) {
-        console.error('Sentences and correctAnswers should be arrays.');
+    // Ensure sentence and correctAnswer are strings
+    if (typeof sentence !== 'string' || typeof correctAnswer !== 'string') {
+        console.error('Sentence and correctAnswer should be strings.');
         return;
     }
-
-    // Pick a sentence and correct answer randomly
-    const randomIndex = Math.floor(Math.random() * sentences.length);
-    const sentence = sentences[randomIndex];
-    const correctAnswer = correctAnswers[randomIndex];
 
     // Create and set up the sentence with dropdown
     const sentenceParts = sentence.split('__');
@@ -72,6 +67,7 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
         exerciseBox.style.backgroundColor = 'red';
     }
 }
+
 
 
 
