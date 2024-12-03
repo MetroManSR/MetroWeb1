@@ -1,6 +1,6 @@
-function generateExercise(sentence, options, correctAnswer) {
+function generateExercise(sentence, options, correctAnswer, language) {
     const container = document.getElementById('exerciseContainer');
-    
+
     // Create and set up the sentence with dropdown
     const sentenceParts = sentence.split('__');
     const sentenceElement = document.createElement('p');
@@ -16,14 +16,14 @@ function generateExercise(sentence, options, correctAnswer) {
         optionElement.textContent = option;
         dropdown.appendChild(optionElement);
     });
-    
+
     // Append sentence to the container
     container.appendChild(sentenceElement);
 
     // Create and set up the submit button
     const button = document.createElement('button');
-    button.textContent = 'Submit Answer';
-    button.onclick = function() { validateAnswer(correctAnswer); };
+    button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
+    button.onclick = function() { validateAnswer(correctAnswer, language); };
     container.appendChild(button);
 
     // Create feedback paragraph
@@ -32,19 +32,19 @@ function generateExercise(sentence, options, correctAnswer) {
     container.appendChild(feedback);
 }
 
-function validateAnswer(correctAnswer) {
+function validateAnswer(correctAnswer, language) {
     const dropdown = document.getElementById('suffixDropdown');
     const selectedValue = dropdown.value;
     const feedback = document.getElementById('feedback');
 
     if (selectedValue === "") {
-        feedback.textContent = 'Please select an answer.';
+        feedback.textContent = language === 'es' ? 'Por favor, seleccione una respuesta.' : 'Please select an answer.';
         feedback.style.color = 'red';
     } else if (selectedValue === correctAnswer) {
-        feedback.textContent = 'Correct!';
+        feedback.textContent = language === 'es' ? '¡Correcto!' : 'Correct!';
         feedback.style.color = 'green';
     } else {
-        feedback.textContent = 'Incorrect. Try again.';
+        feedback.textContent = language === 'es' ? 'Incorrecto. Inténtalo de nuevo.' : 'Incorrect. Try again.';
         feedback.style.color = 'red';
     }
 }
