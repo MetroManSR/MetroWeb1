@@ -1,26 +1,25 @@
-/* CSS */
 :root {
- --body-bg: #FFFFFF;
- --body-color: #000000;
- --body-link-color: #E10600;
- --nav-color: #E10600;
- --text-color: #000000;
+  --body-bg: #FFFFFF;
+  --body-color: #000000;
+  --body-link-color: #E10600;
+  --nav-color: #E10600;
+  --text-color: #000000;
 }
 
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
- :root {
- --body-bg: #000000;
- --body-color: #FFFFFF;
- --body-link-color: #A10500;
- --nav-color: #A10500;
- --text-color: #FFFFFF
+  :root {
+    --body-bg: #000000;
+    --body-color: #FFFFFF;
+    --body-link-color: #A10500;
+    --nav-color: #A10500;
+    --text-color: #FFFFFF;
   }
 }
 
-/*table style */
+/* Table style */
 th {
- font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #ddd;
@@ -33,7 +32,7 @@ th {
 }
 
 td, tr {
-font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #ddd;
@@ -43,20 +42,62 @@ font-family: Arial, Helvetica, sans-serif;
   text-align: left;
   background-color: #FFFFFF;
   color: #000000;
-} 
+}
 
-tr:nth-child(even){background-color: #f2f2f2;}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-tr:hover {background-color: #ddd;}
+tr:hover {
+  background-color: #ddd;
+}
 
 body {
- background-color: var(--body-bg);
- color: var(--body-color) !important;
+  background-color: var(--body-bg);
+  color: var(--body-color) !important;
 }
 
 .navbar-custom {
   background-color: var(--nav-color);
 }
+
+/* Exercise box styles */
+.exercise-box {
+  background-color: #f0f0f0;
+  border: 2px solid #888888;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+/* Dropdown styles */
+.suffixDropdown {
+  background-color: #d1ffd1;
+  border: 1px solid #008000;
+  border-radius: 15px;
+  color: var(--text-color);
+}
+
+/* Button styles */
+button {
+  background-color: #FFD700;
+  border: 2px solid #FFD700;
+  border-radius: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+/* Feedback styles */
+.feedback {
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: var(--text-color);
+}
+
 
 /* Enable smooth scrolling */
 @media screen and (prefers-reduced-motion: no-preference) {
