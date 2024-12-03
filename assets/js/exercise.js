@@ -37,7 +37,10 @@ function validateAnswer(correctAnswer) {
     const selectedValue = dropdown.value;
     const feedback = document.getElementById('feedback');
 
-    if (selectedValue === correctAnswer) {
+    if (selectedValue === "") {
+        feedback.textContent = 'Please select an answer.';
+        feedback.style.color = 'red';
+    } else if (selectedValue === correctAnswer) {
         feedback.textContent = 'Correct!';
         feedback.style.color = 'green';
     } else {
