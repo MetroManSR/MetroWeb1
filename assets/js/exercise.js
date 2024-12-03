@@ -4,7 +4,9 @@ function generateExercise(sentence, options, correctAnswer) {
     // Create and set up the sentence with dropdown
     const sentenceParts = sentence.split('__');
     const sentenceElement = document.createElement('p');
-    sentenceElement.innerHTML = `${sentenceParts[0]} <select id="suffixDropdown"></select> ${sentenceParts[1]}`;
+    sentenceElement.innerHTML = `${sentenceParts[0]} <select id="suffixDropdown">
+                                    <option value="">Select...</option>
+                                  </select> ${sentenceParts[1]}`;
     
     // Populate dropdown options
     const dropdown = sentenceElement.querySelector('#suffixDropdown');
