@@ -75,6 +75,7 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
 
 
 
+
 function generateMultipleChoice(containerId, question, options, correctAnswer, language) {
     const container = document.getElementById(containerId);
 
