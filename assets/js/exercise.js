@@ -74,8 +74,6 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
         exerciseBox.style.backgroundColor = 'red';
     }
 }
-
-
 function generateMultipleChoice(containerId, question, options, correctAnswer, language) {
     const container = document.getElementById(containerId);
 
@@ -89,18 +87,21 @@ function generateMultipleChoice(containerId, question, options, correctAnswer, l
     optionsContainer.style.marginBottom = '20px';
 
     // Populate the multiple-choice options
-    options.forEach(option => {
+    options.forEach((option, index) => {
         const optionContainer = document.createElement('div');
         optionContainer.style.marginBottom = '5px';
         
         const radio = document.createElement('input');
         radio.type = 'radio';
+        radio.id = `${containerId}-option-${index}`;
         radio.name = `${containerId}-options`;
         radio.value = option;
         
         const label = document.createElement('label');
         label.textContent = option;
+        label.htmlFor = radio.id;
         label.style.marginLeft = '5px';
+        label.style.cursor = 'pointer';
         
         optionContainer.appendChild(radio);
         optionContainer.appendChild(label);
