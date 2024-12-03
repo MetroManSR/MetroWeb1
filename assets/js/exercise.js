@@ -19,80 +19,11 @@ function generateExercise(containerId, sentences, correctAnswers, options, langu
                                     <option value="">Select...</option>
                                   </select> ${sentenceParts[1]}`;
     
-    // Populate dropdown options
-    const dropdown = sentenceElement.querySelector('.suffixDropdown');
-    options.forEach(option => {
-        const optionElement = document.createElement('option');
-        optionElement.value = option;
-        optionElement.textContent = option;
-        dropdown.appendChild(optionElement);
-    });
-
-    // Create and set up the submit button
-    const button = document.createElement('button');
-    button.textContent = language === 'es' ? 'Enviar respuesta' : 'Submit Answer';
-    button.style.backgroundColor = '#FFD700';
-    button.style.border = '2px solid #FFD700';
-    button.style.borderRadius = '15px';
-    button.style.padding = '5px 10px';
-    button.style.marginTop = '10px';
-    button.style.cursor = 'pointer';
-    button.onclick = function() { validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox); };
-    
-    // Create a container for the sentence and the button
-    const exerciseBox = document.createElement('div');
-function generateExercise(containerId, sentences, correctAnswers, options, language) {
-    const container = document.getElementById(containerId);
-
-    // If sentences and correctAnswers are arrays, pick one randomly
-    let sentence, correctAnswer;
-    if (Array.isArray(sentences) && Array.isArray(correctAnswers)) {
-        const randomIndex = Math.floor(Math.random() * sentences.length);
-        sentence = sentences[randomIndex];
-        correctAnswer = correctAnswers[randomIndex];
-    } else {
-        sentence = sentences;
-        correctAnswer = correctAnswers;
-    }
-
-    // Create and set up the sentence with dropdown
-    const sentenceParts = sentence.split('__');
-    const sentenceElement = document.createElement('p');
-    sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
-                                    <option value="">Select...</option>
-                                  </select> ${sentenceParts[1]}`;
-    
-    // Populate dropdown options
-    const dropdown = sentenceElement.querySelector('.suffixDropdown');
-    if (Array.isArray(options)) {
-        options.forEach(option => {
-            const optionElement = document.createElement('option');
-function generateExercise(containerId, sentences, correctAnswers, options, language) {
-    const container = document.getElementById(containerId);
-
-    // If sentences and correctAnswers are arrays, pick one randomly
-    let sentence, correctAnswer;
-    if (Array.isArray(sentences) && Array.isArray(correctAnswers)) {
-        const randomIndex = Math.floor(Math.random() * sentences.length);
-        sentence = sentences[randomIndex];
-        correctAnswer = correctAnswers[randomIndex];
-    } else {
-        sentence = sentences;
-        correctAnswer = correctAnswers;
-    }
-
-    // Create and set up the sentence with dropdown
-    const sentenceParts = sentence.split('__');
-    const sentenceElement = document.createElement('p');
-    sentenceElement.innerHTML = `${sentenceParts[0]} <select class="suffixDropdown">
-                                    <option value="">Select...</option>
-                                  </select> ${sentenceParts[1]}`;
-
     // Ensure options is an array
     if (!Array.isArray(options)) {
         options = [options];
     }
-    
+
     // Populate dropdown options
     const dropdown = sentenceElement.querySelector('.suffixDropdown');
     options.forEach(option => {
@@ -159,7 +90,6 @@ function validateAnswer(dropdown, correctAnswer, feedback, language, exerciseBox
         exerciseBox.style.backgroundColor = 'red';
     }
 }
-
 
 
 function generateMultipleChoice(containerId, question, options, correctAnswer, language) {
