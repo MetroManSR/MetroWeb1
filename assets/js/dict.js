@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const regex = new RegExp(`(${term})`, 'gi');
         return text.replace(regex, '<mark>$1</mark>');
     }
-
     // Function to create a dictionary box
     function createDictionaryBox({ word, partOfSpeech, definition, explanation, etymology }, searchTerm) {
         const box = document.createElement('div');
@@ -99,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const rootElement = document.createElement('div');
         rootElement.className = 'root';
-        rootElement.innerHTML = searchTerm ? highlight(`Etymology: ${etymology}`, searchTerm) : `Etymology: ${etymology}`;
+        rootElement.innerHTML = etymology && allRowsById[etymology.toLowerCase()] ? `<a href="?search=${etymology}">Etymology: ${etymology}</a>` : `Etymology: ${etymology}`;
 
         box.appendChild(title);
         box.appendChild(partOfSpeechElement);
@@ -189,22 +188,42 @@ document.addEventListener('DOMContentLoaded', () => {
         pageInput.type = 'number';
         pageInput.min = 1;
         pageInput.max = Math.ceil(filteredRows.length / rowsPerPage);
+        pageInput.value = currentPage;
         pageInput.addEventListener('change', () => {
             const value = parseInt(pageInput.value, 10);
             if (value >= 1 && value <= Math.ceil(filteredRows.length / rowsPerPage)) {
                 currentPage = value;
                 displayPage(currentPage);
+            } else {
+                displayWarning('page-warning', 'Invalid page number');
             }
         });
         pagination.appendChild(pageInput);
 
+        const pageWarning = document.createElement('div');
+        pageWarning.id = 'page-warning';
+        pageWarning.style.color = 'red';
+        pagination.appendChild(pageWarning);
+
         updatePagination(currentPage);
+    }
+
+    // Function to display warnings
+    function displayWarning(elementId, message) {
+        const warningElement = document.getElementById(elementId);
+        warningElement.textContent = message;
+        setTimeout(() => {
+            warningElement.textContent = '';
+        }, 3000);
     }
 
     // Function to update pagination info
     function updatePagination(page) {
         const pageInfo = document.getElementById('page-info');
         pageInfo.textContent = `Page ${page} / ${Math.ceil(filteredRows.length / rowsPerPage)}`;
+
+        const pageInput = document.querySelector('#pagination input[type="number"]');
+        pageInput.value = page;
     }
 
     // Add event listener to the search input
@@ -222,8 +241,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
         const value = parseInt(document.getElementById('rows-per-page-input').value, 10);
-        rowsPerPage = Math.min(Math.max(value, 5), 500);
-        createPaginationControls();
-        displayPage(1);
+        if (value >= 5 && value <= 500) {
+            rowsPerPage = value;
+            createPaginationControls();
+            displayPage(1);
+        } else {
+            displayWarning('rows-warning', 'Please enter a value between 5 and 500');
+        }
     });
-});
+}); 
