@@ -2,7 +2,7 @@ import { fetchData } from './dictScripts/fetchData.js';
 import { highlight } from './dictScripts/searchHighlight.js';
 import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
 import { displayWarning } from './dictScripts/warnings.js';
-import { calculateSimilarity, displayRelatedWords } from './dictScripts/utils.js';
+import { calculateSimilarity, getRelatedWords } from './dictScripts/utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const defaultRowsPerPage = 100;
@@ -61,25 +61,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join(', ');
         rootElement.innerHTML = `Etymology: ${etymologyLinks}`;
 
+        // Add related words section
+        const relatedWords = getRelatedWords(word, allRows);
+        if (relatedWords) {
+            const relatedWordsElement = document.createElement('div');
+            relatedWordsElement.className = 'related-words';
+            relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
+            relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
+            rootElement.appendChild(relatedWordsElement);
+        }
+
         box.appendChild(title);
         box.appendChild(partOfSpeechElement);
         box.appendChild(meaningElement);
         if (explanation) box.appendChild(explanationElement);
         box.appendChild(rootElement);
 
-        // Add related words section
-        const relatedWords = displayRelatedWords(word, allRows);
-        if (relatedWords) {
-            const relatedWordsElement = document.createElement('div');
-            relatedWordsElement.className = 'related-words';
-            relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
-            box.appendChild(relatedWordsElement);
-        }
-
         return box;
     }
-
-    // Function to display rows of the current page
+// Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -117,7 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
             displayPage(1, searchTerm, searchIn, exactMatch);
 
             if (filteredRows.length === 1) {
-                displayRelatedWords(filteredRows[0].word, allRows);
+                const relatedWords = getRelatedWords(filteredRows[0].word, allRows);
+                if (relatedWords) {
+                    const relatedWordsElement = document.createElement('div');
+                    relatedWordsElement.className = 'related-words';
+                    relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
+                    relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
+                    document.querySelector('.root').appendChild(relatedWordsElement);
+                }
             }
         } else if (searchId && parseInt(searchId) > 0) {
             const row = allRowsById[parseInt(searchId)];
@@ -126,7 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
                 displayPage(1, row.word, searchIn, exactMatch);
 
-                displayRelatedWords(row.word, allRows);
+                const relatedWords = getRelatedWords(row.word, allRows);
+                if (relatedWords) {
+                    const relatedWordsElement = document.createElement('div');
+                    relatedWordsElement.className = 'related-words';
+                    relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
+                    relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
+                    document.querySelector('.root').appendChild(relatedWordsElement);
+                }
             }
         }
     }
