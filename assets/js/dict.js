@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Function to create a dictionary box
-            function createDictionaryBox(word, partOfSpeech, meaning, root, explanation) {
+            function createDictionaryBox(word, partOfSpeech, definition, explanation, etymology) {
                 const box = document.createElement('div');
                 box.className = 'dictionary-box';
 
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const meaningElement = document.createElement('div');
                 meaningElement.className = 'meaning';
-                meaningElement.textContent = `Meaning: ${meaning}`;
+                meaningElement.textContent = `Definition: ${definition}`;
 
                 const explanationElement = document.createElement('div');
                 explanationElement.className = 'explanation';
@@ -48,9 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const rootElement = document.createElement('div');
                 rootElement.className = 'root';
-                rootElement.textContent = `Root: ${root}`;
+                rootElement.textContent = `Etymology: ${etymology}`;
 
                 box.appendChild(title);
+                box.appendChild(partOfSpeechElement);
                 box.appendChild(meaningElement);
                 if (explanation) box.appendChild(explanationElement);
                 box.appendChild(rootElement);
@@ -69,10 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const cols = row.split(',');
                     const box = createDictionaryBox(
                         sanitizeHTML(cols[0]),
-                        sanitizeHTML(cols[3]), // partOfSpeech
-                        sanitizeHTML(cols[1]), // meaning
-                        sanitizeHTML(cols[4]), // root
-                        sanitizeHTML(cols[5])  // explanation
+                        sanitizeHTML(cols[1]),
+                        sanitizeHTML(cols[2]),
+                        sanitizeHTML(cols[3]),
+                        sanitizeHTML(cols[4])
                     );
                     dictionaryContainer.appendChild(box);
                 });
