@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dictionaryContainer.innerHTML = ''; // Clear previous entries
 
         filteredRows.slice(start, end).forEach(row => {
-            const box = createDictionaryBox(row, searchTerm);
+            const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
             dictionaryContainer.appendChild(box);
         });
 
