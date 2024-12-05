@@ -198,3 +198,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('search-in-definition').checked = true;
     document.getElementById('search-in-etymology').checked = true;
 });
+                        
