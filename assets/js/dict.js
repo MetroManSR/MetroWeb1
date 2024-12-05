@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
             displayPage(currentPage);
 
             const params = new URLSearchParams(window.location.search);
-            const wordId = params.get('word');
-            if (wordId && allRowsById[wordId]) {
-                displayWordById(wordId);
+            const searchTerm = params.get('word');
+            if (searchTerm) {
+                filterAndDisplayWord(searchTerm);
             }
         })
         .catch(error => console.error('Error loading CSV file:', error));
@@ -70,14 +70,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return temp.innerHTML;
     }
 
+    // Function to highlight matched text
+    function highlight(text, term) {
+        const regex = new RegExp(`(${term})`, 'gi');
+        return text.replace(regex, '<mark>$1</mark>');
+    }
+
     // Function to create a dictionary box
-    function createDictionaryBox({ word, partOfSpeech, definition, explanation, etymology }) {
+    function createDictionaryBox({ word, partOfSpeech, definition, explanation, etymology }, searchTerm) {
         const box = document.createElement('div');
         box.className = 'dictionary-box';
 
         const title = document.createElement('div');
         title.className = 'title';
-        title.textContent = word;
+        title.innerHTML = searchTerm ? highlight(word, searchTerm) : word;
 
         const partOfSpeechElement = document.createElement('span');
         partOfSpeechElement.className = 'part-of-speech';
@@ -85,15 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const meaningElement = document.createElement('div');
         meaningElement.className = 'meaning';
-        meaningElement.textContent = `Definition: ${definition}`;
+        meaningElement.innerHTML = searchTerm ? highlight(`Definition: ${definition}`, searchTerm) : `Definition: ${definition}`;
 
         const explanationElement = document.createElement('div');
         explanationElement.className = 'explanation';
-        explanationElement.textContent = explanation ? `Explanation: ${explanation}` : '';
+        explanationElement.innerHTML = explanation ? (searchTerm ? highlight(`Explanation: ${explanation}`, searchTerm) : `Explanation: ${explanation}`) : '';
 
         const rootElement = document.createElement('div');
         rootElement.className = 'root';
-        rootElement.textContent = `Etymology: ${etymology}`;
+        rootElement.innerHTML = searchTerm ? highlight(`Etymology: ${etymology}`, searchTerm) : `Etymology: ${etymology}`;
 
         box.appendChild(title);
         box.appendChild(partOfSpeechElement);
@@ -125,6 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
         dictionaryContainer.appendChild(box);
     }
 
+    // Function to filter rows based on search term
+    function filterAndDisplayWord(searchTerm) {
+        filteredRows = allRows.filter(row => row.word.toLowerCase().includes(searchTerm.toLowerCase()));
+        createPaginationControls();
+        displayPage(1, searchTerm);
+    }
+
     // Function to create pagination controls
     function createPaginationControls() {
         const pagination = document.getElementById('pagination');
@@ -141,28 +154,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to filter rows based on search term
-    function filterRows(searchTerm) {
-        if (searchTerm) {
-            filteredRows = allRows.filter(row => row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-        } else {
-            filteredRows = allRows;
-        }
-        createPaginationControls();
-        displayPage(1);
-    }
-
     // Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const searchTerm = e.target.value;
-            filterRows(searchTerm);
+            filterAndDisplayWord(searchTerm);
         }
     });
 
     document.getElementById('search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value;
-        filterRows(searchTerm);
+        filterAndDisplayWord(searchTerm);
     });
 
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
