@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const rowsPerPage = 100; // Number of rows per page
     let currentPage = 1;
-    const dictionaryFile = location.pathname.includes('/en/') ? '/_docs/english-dictionary.csv' : '/_docs/spanish-dictionary.csv';
+    const dictionaryFile = location.pathname.includes('/en/') ? '../../../_docs/english-dictionary.csv' : '../../_docs/spanish-dictionary.csv';
 
     fetch(dictionaryFile)
         .then(response => response.text())
