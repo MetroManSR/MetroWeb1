@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('search');
-        if (searchTerm && searchTerm.trim()) {
+        const searchId = params.get('id');
+        if (searchTerm && searchTerm.trim() && searchId && parseInt(searchId) > 0) {
             filterAndDisplayWord(searchTerm.trim());
         }
     });
@@ -93,8 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return (1 - (d[lengthA][lengthB] / Math.max(lengthA, lengthB))) * 100;
-    }
-    // Function to display rows of the current page
+                }
+
+
+// Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -207,4 +210,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('search-in-word').checked = true;
     document.getElementById('search-in-definition').checked = true;
     document.getElementById('search-in-etymology').checked = true;
-});
+});                        
