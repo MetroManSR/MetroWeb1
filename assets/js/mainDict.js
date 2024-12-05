@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('search');
         const searchId = params.get('id');
-        if (searchTerm && searchTerm.trim() && searchId && parseInt(searchId) > 0) {
-            filterAndDisplayWord(searchTerm.trim(), searchId);
+        if ((searchTerm && searchTerm.trim()) || (searchId && parseInt(searchId) > 0)) {
+            filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', searchId);
         }
     });
 
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         const exactMatch = document.getElementById('exact-match').checked;
 
-        if (!searchTerm.trim() && (!searchId || parseInt(searchId) <= 0)) return;
+        if ((!searchTerm.trim() && (!searchId || parseInt(searchId) <= 0))) return;
 
         if (searchTerm && searchTerm.trim()) {
             filteredRows = allRows.filter(row => {
@@ -135,13 +135,19 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const searchTerm = e.target.value.trim();
-            filterAndDisplayWord(searchTerm);
+            filterAndDisplayWord(searchTerm, '');
         }
     });
 
     document.getElementById('search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm);
+        filterAndDisplayWord(searchTerm, '');
+    });
+
+    // Add event listener to clear the search
+    document.getElementById('clear-search-button').addEventListener('click', () => {
+        document.getElementById('search-input').value = '';
+        displayPage(1);
     });
 
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
@@ -168,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('apply-search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm);
+        filterAndDisplayWord(searchTerm, '');
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
