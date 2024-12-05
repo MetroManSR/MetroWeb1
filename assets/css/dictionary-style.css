@@ -1,0 +1,26 @@
+.dictionary-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+.dictionary-box .title {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+.dictionary-box .part-of-speech {
+            font-style: italic;
+            color: #555;
+            margin-left: 10px;
+        }
+
+.dictionary-box .meaning {
+            margin-top: 5px;
+        }
+
+.dictionary-box .explanation, .dictionary-box .root {
+            margin-top: 5px;
+        }
