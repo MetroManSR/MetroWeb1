@@ -67,6 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (explanation) box.appendChild(explanationElement);
         box.appendChild(rootElement);
 
+        // Add related words section
+        const relatedWords = displayRelatedWords(word, allRows);
+        if (relatedWords) {
+            const relatedWordsElement = document.createElement('div');
+            relatedWordsElement.className = 'related-words';
+            relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
+            box.appendChild(relatedWordsElement);
+        }
+
         return box;
     }
 
@@ -125,13 +134,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            const searchTerm = e.target.value;
+            const searchTerm = e.target.value.trim();
             filterAndDisplayWord(searchTerm);
         }
     });
 
     document.getElementById('search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value;
+        const searchTerm = document.getElementById('search-input').value.trim();
         filterAndDisplayWord(searchTerm);
     });
 
@@ -158,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('apply-search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value;
+        const searchTerm = document.getElementById('search-input').value.trim();
         filterAndDisplayWord(searchTerm);
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
