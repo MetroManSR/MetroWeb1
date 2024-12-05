@@ -16,6 +16,8 @@ layout: base
     </header>
     <main>
         <input type="text" id="search-input" placeholder="Search..." />
+        <button id="search-button">Search</button>
+        <input type="number" id="page-size-input" placeholder="Words per page" min="5" max="500" value="100" />
         {{ content }}
         <div id="pagination"></div>
     </main>
