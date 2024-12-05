@@ -28,12 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
         for (const line of lines) {
             const columns = [];
             let col = '', inQuotes = false;
-            for (let char of line) {
-                if (char === '"' && inQuotes && col.slice(-1) === '"') {
-                    inQuotes = false;
-                    col = col.slice(0, -1); // Remove closing quote
-                } else if (char === '"' && !inQuotes) {
-                    inQuotes = true;
+            for (let i = 0; i < line.length; i++) {
+                let char = line[i];
+                if (char === '"' && (i === 0 || line[i - 1] !== '\\')) {
+                    inQuotes = !inQuotes;
                 } else if (char === ',' && !inQuotes) {
                     columns.push(col.trim());
                     col = '';
@@ -42,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             columns.push(col.trim()); // Push the last column
+
             rows.push({
                 word: sanitizeHTML(columns[0]),
                 partOfSpeech: sanitizeHTML(columns[1]),
@@ -153,5 +152,4 @@ document.addEventListener('DOMContentLoaded', () => {
         createPaginationControls();
         displayPage(1);
     });
-
 });
