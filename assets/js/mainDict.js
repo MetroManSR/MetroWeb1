@@ -52,8 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const rootElement = document.createElement('div');
         rootElement.className = 'root';
         const highlightedEtymology = searchIn.etymology && (exactMatch ? etymology === searchTerm : etymology.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(etymology, searchTerm) : etymology;
-        const etymologyRow = allRows.find(row => row.word.toLowerCase() === etymology.toLowerCase());
-        rootElement.innerHTML = etymologyRow ? `<a href="?search=${etymology}&id=${etymologyRow.id}">Etymology: ${highlightedEtymology}</a>` : `Etymology: ${highlightedEtymology}`;
+        const etymologyRoots = etymology.split(',').map(root => root.trim());
+        const etymologyLinks = etymologyRoots.map(root => {
+            const etymologyRow = allRows.find(row => row.word.toLowerCase() === root.toLowerCase());
+            return etymologyRow ? `<a href="?search=${root}&id=${etymologyRow.id}">${highlight(root, searchTerm)}</a>` : root;
+        }).join(', ');
+        rootElement.innerHTML = `Etymology: ${etymologyLinks}`;
 
         box.appendChild(title);
         box.appendChild(partOfSpeechElement);
@@ -90,8 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return (1 - (d[lengthA][lengthB] / Math.max(lengthA, lengthB))) * 100;
     }
-
-// Function to display rows of the current page
+    // Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -115,22 +118,27 @@ document.addEventListener('DOMContentLoaded', () => {
         relatedWordsContainer.appendChild(relatedWordsTitle);
 
         const relatedWordsList = document.createElement('ul');
+        let count = 0;
 
         allRows.forEach(row => {
             const similarity = calculateSimilarity(word, row.word);
-            if (similarity >= 90 && row.word.toLowerCase() !== word.toLowerCase()) {
+            if (similarity >= 90 && row.word.toLowerCase() !== word.toLowerCase() && count < 10) {
                 const relatedWordItem = document.createElement('li');
                 relatedWordItem.innerHTML = `<a href="?search=${row.word}&id=${row.id}">${row.word}</a>`;
                 relatedWordsList.appendChild(relatedWordItem);
+                count++;
             }
         });
 
         relatedWordsContainer.appendChild(relatedWordsList);
-        document.getElementById('dictionary').appendChild(relatedWordsContainer);
+        const dictionaryContainer = document.getElementById('dictionary');
+        dictionaryContainer.appendChild(relatedWordsContainer);
     }
 
     // Function to filter rows based on search term with options
     function filterAndDisplayWord(searchTerm) {
+        if (!searchTerm.trim()) return;
+
         const searchIn = {
             word: document.getElementById('search-in-word').checked,
             definition: document.getElementById('search-in-definition').checked,
