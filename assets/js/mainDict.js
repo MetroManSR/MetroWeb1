@@ -52,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const rootElement = document.createElement('div');
         rootElement.className = 'root';
         const highlightedEtymology = searchIn.etymology && (exactMatch ? etymology === searchTerm : etymology.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(etymology, searchTerm) : etymology;
-        rootElement.innerHTML = etymology && allRows.some(row => row.word.toLowerCase() === etymology.toLowerCase()) ? `<a href="?search=${etymology}">Etymology: ${highlightedEtymology}</a>` : `Etymology: ${highlightedEtymology}`;
+        const etymologyRow = allRows.find(row => row.word.toLowerCase() === etymology.toLowerCase());
+        rootElement.innerHTML = etymologyRow ? `<a href="?search=${etymology}&id=${etymologyRow.id}">Etymology: ${highlightedEtymology}</a>` : `Etymology: ${highlightedEtymology}`;
 
         box.appendChild(title);
         box.appendChild(partOfSpeechElement);
@@ -62,7 +63,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return box;
     }
-// Function to display rows of the current page
+
+    // Function to calculate similarity
+    function calculateSimilarity(a, b) {
+        const lengthA = a.length;
+        const lengthB = b.length;
+        const d = [];
+
+        for (let i = 0; i <= lengthA; i++) {
+            d[i] = [i];
+        }
+
+        for (let j = 0; j <= lengthB; j++) {
+            d[0][j] = j;
+        }
+
+        for (let i = 1; i <= lengthA; i++) {
+            for (let j = 1; j <= lengthB; j++) {
+                if (a[i - 1] === b[j - 1]) {
+                    d[i][j] = d[i - 1][j - 1];
+                } else {
+                    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + 1);
+                }
+            }
+        }
+
+        return (1 - (d[lengthA][lengthB] / Math.max(lengthA, lengthB))) * 100;
+    }
+
+                          // Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -75,6 +104,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         updatePagination(page, filteredRows, rowsPerPage);
+    }
+
+    // Function to display related words
+    function displayRelatedWords(word) {
+        const relatedWordsContainer = document.createElement('div');
+        relatedWordsContainer.className = 'related-words';
+        const relatedWordsTitle = document.createElement('h3');
+        relatedWordsTitle.textContent = 'Related Words:';
+        relatedWordsContainer.appendChild(relatedWordsTitle);
+
+        const relatedWordsList = document.createElement('ul');
+
+        allRows.forEach(row => {
+            const similarity = calculateSimilarity(word, row.word);
+            if (similarity >= 90 && row.word.toLowerCase() !== word.toLowerCase()) {
+                const relatedWordItem = document.createElement('li');
+                relatedWordItem.innerHTML = `<a href="?search=${row.word}&id=${row.id}">${row.word}</a>`;
+                relatedWordsList.appendChild(relatedWordItem);
+            }
+        });
+
+        relatedWordsContainer.appendChild(relatedWordsList);
+        document.getElementById('dictionary').appendChild(relatedWordsContainer);
     }
 
     // Function to filter rows based on search term with options
@@ -95,6 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
         displayPage(1, searchTerm, searchIn, exactMatch);
+
+        if (filteredRows.length === 1) {
+            displayRelatedWords(filteredRows[0].word);
+        }
     }
 
     // Add event listener to the search input
@@ -138,4 +194,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
+
+    // Ensure all checkboxes are checked by default
+    document.getElementById('search-in-word').checked = true;
+    document.getElementById('search-in-definition').checked = true;
+    document.getElementById('search-in-etymology').checked = true;
 });
