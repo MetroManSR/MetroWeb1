@@ -25,12 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function parseCSV(data) {
         const rows = [];
         const lines = data.split('\n').slice(1); // Remove the header row
+
         for (const line of lines) {
             const columns = [];
             let col = '', inQuotes = false;
             for (let i = 0; i < line.length; i++) {
                 let char = line[i];
-                if (char === '"' && (i === 0 || line[i - 1] !== '\\')) {
+                if (char === '"') {
                     inQuotes = !inQuotes;
                 } else if (char === ',' && !inQuotes) {
                     columns.push(col.trim());
