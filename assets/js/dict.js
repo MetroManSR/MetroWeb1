@@ -1,13 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     const rowsPerPage = 100; // Number of rows per page
     let currentPage = 1;
-    const dictionaryFile = location.pathname.includes('/en/') ? '../../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
+    const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
+    let allRows = [];
+    let filteredRows = [];
 
     fetch(dictionaryFile)
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
         .then(data => {
-            const rows = data.split('\n').slice(1); // Remove the header row
-            const totalPages = Math.ceil(rows.length / rowsPerPage);
+            allRows = data.split('\n').slice(1); // Remove the header row
+            filteredRows = allRows;
+            const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
 
             const table = document.createElement('table');
             const headerRow = document.createElement('tr');
@@ -22,6 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             table.appendChild(headerRow);
 
+            // Function to sanitize data
+            function sanitizeHTML(str) {
+                const temp = document.createElement('div');
+                temp.textContent = str;
+                return temp.innerHTML;
+            }
+
             // Function to display rows of the current page
             function displayPage(page) {
                 const start = (page - 1) * rowsPerPage;
@@ -29,12 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tableBody = document.querySelector('tbody') || document.createElement('tbody');
                 tableBody.innerHTML = ''; // Clear previous rows
 
-                rows.slice(start, end).forEach(row => {
+                filteredRows.slice(start, end).forEach(row => {
                     const cols = row.split(',');
                     const tr = document.createElement('tr');
                     cols.forEach(col => {
                         const td = document.createElement('td');
-                        td.textContent = col;
+                        td.innerHTML = sanitizeHTML(col);
                         tr.appendChild(td);
                     });
                     tableBody.appendChild(tr);
@@ -47,8 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
             function createPaginationControls() {
                 const pagination = document.createElement('div');
                 pagination.id = 'pagination';
+                pagination.innerHTML = '';
 
-                for (let i = 1; i <= totalPages; i++) {
+                for (let i = 1; i <= Math.ceil(filteredRows.length / rowsPerPage); i++) {
                     const button = document.createElement('button');
                     button.textContent = i;
                     button.addEventListener('click', () => {
@@ -60,6 +76,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 document.getElementById('dictionary').appendChild(pagination);
             }
+
+            // Function to filter rows based on search term
+            function filterRows(searchTerm) {
+                if (searchTerm) {
+                    filteredRows = allRows.filter(row => row.toLowerCase().includes(searchTerm.toLowerCase()));
+                } else {
+                    filteredRows = allRows;
+                }
+                createPaginationControls();
+                displayPage(1);
+            }
+
+            // Add event listener to the search input
+            document.getElementById('search-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const searchTerm = e.target.value;
+                    document.querySelector('table').style.display = searchTerm ? 'none' : '';
+                    filterRows(searchTerm);
+                }
+            });
 
             document.getElementById('dictionary').appendChild(table);
             createPaginationControls();
