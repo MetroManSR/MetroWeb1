@@ -1,4 +1,4 @@
- .dictionary-box {
+.dictionary-box {
             border: 1px solid #ddd;
             padding: 10px;
             margin: 10px;
@@ -42,3 +42,7 @@
         #page-info {
             margin: 0 10px;
         }
+
+        #rows-warning, #page-warning {
+            color: red;
+}
