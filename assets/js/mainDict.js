@@ -68,18 +68,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (explanation) box.appendChild(explanationElement);
         box.appendChild(rootElement);
 
-        // Add click event listener for related words
+        // Add click event listener for highlighting and related words
         box.addEventListener('click', () => {
-            if (!box.querySelector('.related-words')) {
-                const relatedWordsElement = document.createElement('div');
-                relatedWordsElement.className = 'related-words';
-                relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
-
-                const relatedWords = getRelatedWords(word, allRows);
-                if (relatedWords) {
-                    relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
-                    box.appendChild(relatedWordsElement);
+            // Remove highlight from previously selected box
+            const previouslySelectedBox = document.querySelector('.dictionary-box.selected');
+            if (previouslySelectedBox) {
+                previouslySelectedBox.classList.remove('selected');
+                const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
+                if (previousRelatedWords) {
+                    previouslySelectedBox.removeChild(previousRelatedWords);
                 }
+            }
+
+            // Highlight the clicked box
+            box.classList.add('selected');
+            box.style.backgroundColor = 'darkorange';
+
+            // Display related words
+            const relatedWordsElement = document.createElement('div');
+            relatedWordsElement.className = 'related-words';
+            relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
+
+            const relatedWords = getRelatedWords(word, allRows);
+            if (relatedWords) {
+                relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
+                box.appendChild(relatedWordsElement);
             }
         });
 
