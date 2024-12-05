@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createDictionaryBox({ word, partOfSpeech, definition, explanation, etymology }, searchTerm, exactMatch, searchIn) {
         const box = document.createElement('div');
         box.className = 'dictionary-box';
+        box.setAttribute('data-word', word);
 
         const title = document.createElement('div');
         title.className = 'title';
@@ -61,25 +62,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join(', ');
         rootElement.innerHTML = `Etymology: ${etymologyLinks}`;
 
-        // Add related words section
-        const relatedWords = getRelatedWords(word, allRows);
-        if (relatedWords) {
-            const relatedWordsElement = document.createElement('div');
-            relatedWordsElement.className = 'related-words';
-            relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
-            relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
-            rootElement.appendChild(relatedWordsElement);
-        }
-
         box.appendChild(title);
         box.appendChild(partOfSpeechElement);
         box.appendChild(meaningElement);
         if (explanation) box.appendChild(explanationElement);
         box.appendChild(rootElement);
 
+        // Add click event listener for related words
+        box.addEventListener('click', () => {
+            const relatedWordsElement = document.createElement('div');
+            relatedWordsElement.className = 'related-words';
+            relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
+
+            const relatedWords = getRelatedWords(word, allRows);
+            if (relatedWords) {
+                relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
+                if (!box.querySelector('.related-words')) {
+                    box.appendChild(relatedWordsElement);
+                }
+            }
+        });
+
         return box;
     }
-    // Function to display rows of the current page
+// Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -115,32 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
             displayPage(1, searchTerm, searchIn, exactMatch);
-
-            if (filteredRows.length === 1) {
-                const relatedWords = getRelatedWords(filteredRows[0].word, allRows);
-                if (relatedWords) {
-                    const relatedWordsElement = document.createElement('div');
-                    relatedWordsElement.className = 'related-words';
-                    relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
-                    relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
-                    document.querySelector('.root').appendChild(relatedWordsElement);
-                }
-            }
         } else if (searchId && parseInt(searchId) > 0) {
             const row = allRowsById[parseInt(searchId)];
             if (row) {
                 filteredRows = [row];
                 createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
                 displayPage(1, row.word, searchIn, exactMatch);
-
-                const relatedWords = getRelatedWords(row.word, allRows);
-                if (relatedWords) {
-                    const relatedWordsElement = document.createElement('div');
-                    relatedWordsElement.className = 'related-words';
-                    relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
-                    relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
-                    document.querySelector('.root').appendChild(relatedWordsElement);
-                }
             }
         }
     }
