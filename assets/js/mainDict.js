@@ -29,13 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Function to create a dictionary box
-    function createDictionaryBox({ word, partOfSpeech, definition, explanation, etymology }, searchTerm) {
+    function createDictionaryBox({ word, partOfSpeech, definition, explanation, etymology }, searchTerm, exactMatch, searchIn) {
         const box = document.createElement('div');
         box.className = 'dictionary-box';
 
         const title = document.createElement('div');
         title.className = 'title';
-        title.innerHTML = searchTerm ? highlight(word, searchTerm) : word;
+        title.innerHTML = searchIn.word && (exactMatch ? word === searchTerm : word.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(word, searchTerm) : word;
 
         const partOfSpeechElement = document.createElement('span');
         partOfSpeechElement.className = 'part-of-speech';
@@ -43,15 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const meaningElement = document.createElement('div');
         meaningElement.className = 'meaning';
-        meaningElement.innerHTML = searchTerm ? highlight(`Definition: ${definition}`, searchTerm) : `Definition: ${definition}`;
+        meaningElement.innerHTML = searchIn.definition && (exactMatch ? definition === searchTerm : definition.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(`Definition: ${definition}`, searchTerm) : `Definition: ${definition}`;
 
         const explanationElement = document.createElement('div');
         explanationElement.className = 'explanation';
-        explanationElement.innerHTML = explanation ? (searchTerm ? highlight(`Explanation: ${explanation}`, searchTerm) : `Explanation: ${explanation}`) : '';
+        explanationElement.innerHTML = explanation ? (searchIn.definition && (exactMatch ? explanation === searchTerm : explanation.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(`Explanation: ${explanation}`, searchTerm) : `Explanation: ${explanation}`) : '';
 
         const rootElement = document.createElement('div');
         rootElement.className = 'root';
-        rootElement.innerHTML = etymology && allRows.some(row => row.word.toLowerCase() === etymology.toLowerCase()) ? `<a href="?search=${etymology}">Etymology: ${etymology}</a>` : `Etymology: ${etymology}`;
+        const highlightedEtymology = searchIn.etymology && (exactMatch ? etymology === searchTerm : etymology.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(etymology, searchTerm) : etymology;
+        rootElement.innerHTML = etymology && allRows.some(row => row.word.toLowerCase() === etymology.toLowerCase()) ? `<a href="?search=${etymology}">Etymology: ${highlightedEtymology}</a>` : `Etymology: ${highlightedEtymology}`;
 
         box.appendChild(title);
         box.appendChild(partOfSpeechElement);
