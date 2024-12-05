@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
     let allRows = [];
     let filteredRows = [];
+    let allRowsById = {};
 
     fetch(dictionaryFile)
         .then(response => {
@@ -18,6 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredRows = allRows;
             createPaginationControls();
             displayPage(currentPage);
+
+            const params = new URLSearchParams(window.location.search);
+            const wordId = params.get('word');
+            if (wordId && allRowsById[wordId]) {
+                displayWordById(wordId);
+            }
         })
         .catch(error => console.error('Error loading CSV file:', error));
 
@@ -25,12 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function parseCSV(data) {
         const rows = [];
         const lines = data.split('\n').slice(1); // Remove the header row
-
-        for (const line of lines) {
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
             const columns = [];
             let col = '', inQuotes = false;
-            for (let i = 0; i < line.length; i++) {
-                let char = line[i];
+            for (let j = 0; j < line.length; j++) {
+                let char = line[j];
                 if (char === '"') {
                     inQuotes = !inQuotes;
                 } else if (char === ',' && !inQuotes) {
@@ -42,13 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             columns.push(col.trim()); // Push the last column
 
-            rows.push({
+            const row = {
+                id: i + 1, // Assign a unique ID starting from 1
                 word: sanitizeHTML(columns[0]),
                 partOfSpeech: sanitizeHTML(columns[1]),
                 definition: sanitizeHTML(columns[2]),
                 explanation: sanitizeHTML(columns[3]),
                 etymology: sanitizeHTML(columns[4])
-            });
+            };
+            rows.push(row);
+            allRowsById[row.id] = row; // Store by ID
         }
         return rows;
     }
@@ -105,6 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const box = createDictionaryBox(row);
             dictionaryContainer.appendChild(box);
         });
+    }
+
+    // Function to display a word by its ID
+    function displayWordById(id) {
+        const dictionaryContainer = document.getElementById('dictionary');
+        dictionaryContainer.innerHTML = ''; // Clear previous entries
+        const box = createDictionaryBox(allRowsById[id]);
+        dictionaryContainer.appendChild(box);
     }
 
     // Function to create pagination controls
