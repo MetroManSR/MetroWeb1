@@ -38,23 +38,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 partOfSpeechElement.textContent = `(${partOfSpeech})`;
                 title.appendChild(partOfSpeechElement);
 
-                const meaningElement = document.createElement('div');
-                meaningElement.className = 'meaning';
-                meaningElement.textContent = `Definition: ${definition}`;
+                const definitionElement = document.createElement('div');
+                definitionElement.className = 'definition';
+                definitionElement.textContent = `Definition: ${definition}`;
 
                 const explanationElement = document.createElement('div');
                 explanationElement.className = 'explanation';
                 explanationElement.textContent = explanation ? `Explanation: ${explanation}` : '';
 
-                const rootElement = document.createElement('div');
-                rootElement.className = 'root';
-                rootElement.textContent = `Etymology: ${etymology}`;
+                const etymologyElement = document.createElement('div');
+                etymologyElement.className = 'etymology';
+                etymologyElement.textContent = `Etymology: ${etymology}`;
 
                 box.appendChild(title);
-                box.appendChild(partOfSpeechElement);
-                box.appendChild(meaningElement);
+                box.appendChild(definitionElement);
                 if (explanation) box.appendChild(explanationElement);
-                box.appendChild(rootElement);
+                box.appendChild(etymologyElement);
 
                 return box;
             }
@@ -69,11 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 filteredRows.slice(start, end).forEach(row => {
                     const cols = row.split(',');
                     const box = createDictionaryBox(
-                        sanitizeHTML(cols[0]),
-                        sanitizeHTML(cols[1]),
-                        sanitizeHTML(cols[2]),
-                        sanitizeHTML(cols[3]),
-                        sanitizeHTML(cols[4])
+                        sanitizeHTML(cols[0]), // Word
+                        sanitizeHTML(cols[1]), // Part of Speech
+                        sanitizeHTML(cols[2]), // Definition
+                        sanitizeHTML(cols[3]), // Explanation
+                        sanitizeHTML(cols[4])  // Etymology
                     );
                     dictionaryContainer.appendChild(box);
                 });
@@ -119,15 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 filterRows(searchTerm);
             });
 
-            const rowsPerPageInput = document.getElementById('rows-per-page-input');
-            if (rowsPerPageInput) {
-                rowsPerPageInput.addEventListener('change', (e) => {
-                    const value = parseInt(e.target.value, 10);
-                    rowsPerPage = Math.min(Math.max(value, 5), 500);
-                    createPaginationControls();
-                    displayPage(1);
-                });
-            }
+            document.getElementById('rows-per-page-button').addEventListener('click', () => {
+                const value = parseInt(document.getElementById('rows-per-page-input').value, 10);
+                rowsPerPage = Math.min(Math.max(value, 5), 500);
+                createPaginationControls();
+                displayPage(1);
+            });
 
             createPaginationControls();
             displayPage(currentPage);
