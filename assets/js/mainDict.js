@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const title = document.createElement('div');
         title.className = 'title';
-        title.innerHTML = searchIn.word && (exactMatch ? word === searchTerm : word.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(word, searchTerm) : word;
+        title.innerHTML = searchIn.word && searchTerm && (exactMatch ? word === searchTerm : word.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(word, searchTerm) : word;
 
         const partOfSpeechElement = document.createElement('span');
         partOfSpeechElement.className = 'part-of-speech';
@@ -46,15 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const meaningElement = document.createElement('div');
         meaningElement.className = 'meaning';
-        meaningElement.innerHTML = searchIn.definition && (exactMatch ? definition === searchTerm : definition.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(`Definition: ${definition}`, searchTerm) : `Definition: ${definition}`;
+        meaningElement.innerHTML = searchIn.definition && searchTerm && (exactMatch ? definition === searchTerm : definition.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(`Definition: ${definition}`, searchTerm) : `Definition: ${definition}`;
 
         const explanationElement = document.createElement('div');
         explanationElement.className = 'explanation';
-        explanationElement.innerHTML = explanation ? (searchIn.definition && (exactMatch ? explanation === searchTerm : explanation.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(`Explanation: ${explanation}`, searchTerm) : `Explanation: ${explanation}`) : '';
+        explanationElement.innerHTML = explanation ? (searchIn.definition && searchTerm && (exactMatch ? explanation === searchTerm : explanation.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(`Explanation: ${explanation}`, searchTerm) : `Explanation: ${explanation}`) : '';
 
         const rootElement = document.createElement('div');
         rootElement.className = 'root';
-        const highlightedEtymology = searchIn.etymology && (exactMatch ? etymology === searchTerm : etymology.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(etymology, searchTerm) : etymology;
+        const highlightedEtymology = searchIn.etymology && searchTerm && (exactMatch ? etymology === searchTerm : etymology.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(etymology, searchTerm) : etymology;
         const etymologyRoots = etymology.split(',').map(root => root.trim());
         const etymologyLinks = etymologyRoots.map(root => {
             const etymologyRow = allRows.find(row => row.word.toLowerCase() === root.toLowerCase());
@@ -113,9 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (searchTerm && searchTerm.trim()) {
             filteredRows = allRows.filter(row => {
-                const wordMatch = searchIn.word && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-                const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
-                const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
+                const wordMatch = searchIn.word && searchTerm && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
+                const definitionMatch = searchIn.definition && searchTerm && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
+                const etymologyMatch = searchIn.etymology && searchTerm && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
                 return wordMatch || definitionMatch || etymologyMatch;
             });
 
