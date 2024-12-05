@@ -36,24 +36,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 const partOfSpeechElement = document.createElement('span');
                 partOfSpeechElement.className = 'part-of-speech';
                 partOfSpeechElement.textContent = `(${partOfSpeech})`;
-                title.appendChild(partOfSpeechElement);
 
-                const definitionElement = document.createElement('div');
-                definitionElement.className = 'definition';
-                definitionElement.textContent = `Definition: ${definition}`;
+                const meaningElement = document.createElement('div');
+                meaningElement.className = 'meaning';
+                meaningElement.textContent = `Definition: ${definition}`;
 
                 const explanationElement = document.createElement('div');
                 explanationElement.className = 'explanation';
                 explanationElement.textContent = explanation ? `Explanation: ${explanation}` : '';
 
-                const etymologyElement = document.createElement('div');
-                etymologyElement.className = 'etymology';
-                etymologyElement.textContent = `Etymology: ${etymology}`;
+                const rootElement = document.createElement('div');
+                rootElement.className = 'root';
+                rootElement.textContent = `Etymology: ${etymology}`;
 
                 box.appendChild(title);
-                box.appendChild(definitionElement);
+                box.appendChild(partOfSpeechElement);
+                box.appendChild(meaningElement);
                 if (explanation) box.appendChild(explanationElement);
-                box.appendChild(etymologyElement);
+                box.appendChild(rootElement);
 
                 return box;
             }
@@ -68,11 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 filteredRows.slice(start, end).forEach(row => {
                     const cols = row.split(',');
                     const box = createDictionaryBox(
-                        sanitizeHTML(cols[0]), // Word
-                        sanitizeHTML(cols[1]), // Part of Speech
-                        sanitizeHTML(cols[2]), // Definition
-                        sanitizeHTML(cols[3]), // Explanation
-                        sanitizeHTML(cols[4])  // Etymology
+                        sanitizeHTML(cols[0]),
+                        sanitizeHTML(cols[1]),
+                        sanitizeHTML(cols[2]),
+                        sanitizeHTML(cols[3]),
+                        sanitizeHTML(cols[4])
                     );
                     dictionaryContainer.appendChild(box);
                 });
