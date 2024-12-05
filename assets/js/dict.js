@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Function to create a dictionary box
-            function createDictionaryBox(word, meaning, partOfSpeech, root, explanation) {
+            function createDictionaryBox(word, partOfSpeech, meaning, root, explanation) {
                 const box = document.createElement('div');
                 box.className = 'dictionary-box';
 
@@ -69,10 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const cols = row.split(',');
                     const box = createDictionaryBox(
                         sanitizeHTML(cols[0]),
-                        sanitizeHTML(cols[1]),
-                        sanitizeHTML(cols[2]),
-                        sanitizeHTML(cols[3]),
-                        sanitizeHTML(cols[4])
+                        sanitizeHTML(cols[3]), // partOfSpeech
+                        sanitizeHTML(cols[1]), // meaning
+                        sanitizeHTML(cols[4]), // root
+                        sanitizeHTML(cols[5])  // explanation
                     );
                     dictionaryContainer.appendChild(box);
                 });
@@ -118,12 +118,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 filterRows(searchTerm);
             });
 
-            document.getElementById('rows-per-page-input').addEventListener('change', (e) => {
-                const value = parseInt(e.target.value, 10);
-                rowsPerPage = Math.min(Math.max(value, 5), 500);
-                createPaginationControls();
-                displayPage(1);
-            });
+            const rowsPerPageInput = document.getElementById('rows-per-page-input');
+            if (rowsPerPageInput) {
+                rowsPerPageInput.addEventListener('change', (e) => {
+                    const value = parseInt(e.target.value, 10);
+                    rowsPerPage = Math.min(Math.max(value, 5), 500);
+                    createPaginationControls();
+                    displayPage(1);
+                });
+            }
 
             createPaginationControls();
             displayPage(currentPage);
