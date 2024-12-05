@@ -70,14 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add click event listener for related words
         box.addEventListener('click', () => {
-            const relatedWordsElement = document.createElement('div');
-            relatedWordsElement.className = 'related-words';
-            relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
+            if (!box.querySelector('.related-words')) {
+                const relatedWordsElement = document.createElement('div');
+                relatedWordsElement.className = 'related-words';
+                relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
 
-            const relatedWords = getRelatedWords(word, allRows);
-            if (relatedWords) {
-                relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
-                if (!box.querySelector('.related-words')) {
+                const relatedWords = getRelatedWords(word, allRows);
+                if (relatedWords) {
+                    relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
                     box.appendChild(relatedWordsElement);
                 }
             }
