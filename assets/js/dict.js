@@ -1,45 +1,69 @@
-function fetchDefinition(event) {
-            const definitionDiv = document.getElementById('definition'); 
-            event.preventDefault();
-            const searchTerm = document.getElementById('word').value.toLowerCase();
-            fetch('../dictionary.csv')
-                .then(response => response.text())
-                .then(data => {
-                    Papa.parse(data, {
-                        delimiter: ' = ',
-                        complete: function(results) {
-                            const dictionary = {};
-                            results.data.forEach(row => {
-                                definitionDiv.textContent = `j ${row}`        
-                                const [word, definition] = row;
-                                if (word && definition) {
-                                    dictionary[word.trim().toLowerCase()] = definition.trim();
-                                }
-                            });
-                            displayMatches(dictionary, searchTerm);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching definition:', error);
-                    definitionDiv.textContent = `Ups ${error}`
-                });
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    const rowsPerPage = 100; // Number of rows per page
+    let currentPage = 1;
+    const dictionaryFile = location.pathname.includes('/en/') ? '/_docs/english-dictionary.csv' : '/_docs/spanish-dictionary.csv';
 
-function displayMatches(dictionary, searchTerm) {
-           const definitionDiv = document.getElementById('definition');
-            definitionDiv.textContent = Object.entries(dictionary)
-            definitionDiv.innerHTML = ''; // Clear previous results
-            const matches = [];
-            for (const [word, definition] of Object.entries(dictionary)) {
-                definitionDiv.textContent = `${word}: ${definition}`
-                if (word.includes(searchTerm) || definition.includes(searchTerm)) {
-                    matches.push(`${word}: ${definition}`);
+    fetch(dictionaryFile)
+        .then(response => response.text())
+        .then(data => {
+            const rows = data.split('\n').slice(1); // Remove the header row
+            const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+
+            // Define table headers
+            const headers = ['Word', 'Meaning', 'Pronunciation', 'Part of Speech', 'Root', 'Explanation'];
+
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+
+            // Function to display rows of the current page
+            function displayPage(page) {
+                const start = (page - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                const tableBody = document.querySelector('tbody') || document.createElement('tbody');
+                tableBody.innerHTML = ''; // Clear previous rows
+
+                rows.slice(start, end).forEach(row => {
+                    const cols = row.split(',');
+                    const tr = document.createElement('tr');
+                    cols.forEach(col => {
+                        const td = document.createElement('td');
+                        td.textContent = col;
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+
+                if (!table.querySelector('tbody')) table.appendChild(tableBody);
+            }
+
+            // Function to create pagination controls
+            function createPaginationControls() {
+                const pagination = document.createElement('div');
+                pagination.id = 'pagination';
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const button = document.createElement('button');
+                    button.textContent = i;
+                    button.addEventListener('click', () => {
+                        currentPage = i;
+                        displayPage(currentPage);
+                    });
+                    pagination.appendChild(button);
                 }
+
+                document.getElementById('dictionary').appendChild(pagination);
             }
-            if (matches.length > 0) {
-                definitionDiv.innerHTML = matches.join('<br>');
-            } else {
-                definitionDiv.textContent = `No matches found for ${searchTerm} in ${Object.entries(dictionary)}`;
-            }
-        }
+
+            document.getElementById('dictionary').appendChild(table);
+            createPaginationControls();
+            displayPage(currentPage);
+        })
+        .catch(error => console.error('Error loading CSV file:', error));
+});
