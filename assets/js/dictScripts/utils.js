@@ -7,7 +7,7 @@ export function calculateSimilarity(a, b) {
         d[i] = [i];
     }
 
-    for (let j = 0; j <= lengthB; j++) {
+    for (let j = 0; i <= lengthB; j++) {
         d[0][j] = j;
     }
 
@@ -24,27 +24,12 @@ export function calculateSimilarity(a, b) {
     return (1 - (d[lengthA][lengthB] / Math.max(lengthA, lengthB))) * 100;
 }
 
-export function displayRelatedWords(word, allRows) {
-    const relatedWordsContainer = document.createElement('div');
-    relatedWordsContainer.className = 'related-words';
-    const relatedWordsTitle = document.createElement('h3');
-    relatedWordsTitle.textContent = 'Related Words:';
-    relatedWordsContainer.appendChild(relatedWordsTitle);
+export function getRelatedWords(word, allRows) {
+    const relatedWords = allRows
+        .filter(row => calculateSimilarity(word, row.word) >= 90 && row.word.toLowerCase() !== word.toLowerCase())
+        .slice(0, 10)
+        .map(row => `<a href="?search=${row.word}&id=${row.id}">${row.word}</a>`)
+        .join(', ');
 
-    const relatedWordsList = document.createElement('ul');
-    let count = 0;
-
-    allRows.forEach(row => {
-        const similarity = calculateSimilarity(word, row.word);
-        if (similarity >= 90 && row.word.toLowerCase() !== word.toLowerCase() && count < 10) {
-            const relatedWordItem = document.createElement('li');
-            relatedWordItem.innerHTML = `<a href="?search=${row.word}&id=${row.id}">${row.word}</a>`;
-            relatedWordsList.appendChild(relatedWordItem);
-            count++;
-        }
-    });
-
-    relatedWordsContainer.appendChild(relatedWordsList);
-    const dictionaryContainer = document.getElementById('dictionary');
-    dictionaryContainer.appendChild(relatedWordsContainer);
+    return relatedWords ? relatedWords : null;
 }
