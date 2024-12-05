@@ -1,7 +1,3 @@
----
-layout: base
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +13,7 @@ layout: base
         <div>
             <input type="text" id="search-input" placeholder="Search..." />
             <button id="search-button">Search</button>
+            <button id="advanced-search-button">Advanced Search</button>
         </div>
         <div>
             <label for="rows-per-page-input">Elige cuántas palabras ver por página:</label>
@@ -28,6 +25,29 @@ layout: base
         <div id="dictionary"></div>
         <div id="pagination" class="pagination"></div>
     </main>
-    <script type="module" src="../../assets/js/mainDict.js"></script>
+
+    <!-- Popup for advanced search -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="advanced-search-popup">
+        <h3>Advanced Search</h3>
+        <label>
+            <input type="checkbox" id="search-in-word" checked /> Word
+        </label>
+        <label>
+            <input type="checkbox" id="search-in-definition" /> Definition
+        </label>
+        <label>
+            <input type="checkbox" id="search-in-etymology" /> Etymology
+        </label>
+        <br/>
+        <label>
+            <input type="checkbox" id="exact-match" /> Exact Match
+        </label>
+        <br/>
+        <button id="apply-search-button">Apply</button>
+        <button id="close-popup-button">Close</button>
+    </div>
+
+    <script type="module" src="../../assets/js/dictScripts/mainDict.js"></script>
 </body>
 </html>
