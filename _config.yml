@@ -165,7 +165,7 @@ site-css:
 site-js:
  - "/assets/js/search.js"
  - "/assets/js/exercise.js"
- - "/assets/js/dict.js" 
+ - "/assets/js/mainDict.js" 
  
 
 #################################
