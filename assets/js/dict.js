@@ -14,7 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.text();
         })
         .then(data => {
-            allRows = data.split('\n').slice(1); // Remove the header row
+            // Split by lines and clean up quotation marks
+            allRows = data.split('\n').slice(1).map(row => {
+                return row.replace(/"([^"]+)"/g, '$1'); // Remove quotation marks
+            });
+
             filteredRows = allRows;
 
             // Function to sanitize data
