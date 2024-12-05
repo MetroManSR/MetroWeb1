@@ -24,6 +24,7 @@ export function calculateSimilarity(a, b) {
     return (1 - (d[lengthA][lengthB] / Math.max(lengthA, lengthB))) * 100;
 }
 
+
 export function getRelatedWords(word, allRows) {
     const relatedWords = allRows
         .filter(row => calculateSimilarity(word, row.word) >= 90 && row.word.toLowerCase() !== word.toLowerCase())
