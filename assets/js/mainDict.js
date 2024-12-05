@@ -2,6 +2,7 @@ import { fetchData } from './dictScripts/fetchData.js';
 import { highlight } from './dictScripts/searchHighlight.js';
 import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
 import { displayWarning } from './dictScripts/warnings.js';
+import { calculateSimilarity, displayRelatedWords } from './dictScripts/utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const defaultRowsPerPage = 100;
@@ -69,34 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return box;
     }
 
-    // Function to calculate similarity
-    function calculateSimilarity(a, b) {
-        const lengthA = a.length;
-        const lengthB = b.length;
-        const d = [];
-
-        for (let i = 0; i <= lengthA; i++) {
-            d[i] = [i];
-        }
-
-        for (let j = 0; j <= lengthB; j++) {
-            d[0][j] = j;
-        }
-
-        for (let i = 1; i <= lengthA; i++) {
-            for (let j = 1; j <= lengthB; j++) {
-                if (a[i - 1] === b[j - 1]) {
-                    d[i][j] = d[i - 1][j - 1];
-                } else {
-                    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + 1);
-                }
-            }
-        }
-
-        return (1 - (d[lengthA][lengthB] / Math.max(lengthA, lengthB))) * 100;
-    }
-
-// Function to display rows of the current page
+    // Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -111,34 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePagination(page, filteredRows, rowsPerPage);
     }
 
-    // Function to display related words
-    function displayRelatedWords(word) {
-        const relatedWordsContainer = document.createElement('div');
-        relatedWordsContainer.className = 'related-words';
-        const relatedWordsTitle = document.createElement('h3');
-        relatedWordsTitle.textContent = 'Related Words:';
-        relatedWordsContainer.appendChild(relatedWordsTitle);
-
-        const relatedWordsList = document.createElement('ul');
-        let count = 0;
-
-        allRows.forEach(row => {
-            const similarity = calculateSimilarity(word, row.word);
-            if (similarity >= 90 && row.word.toLowerCase() !== word.toLowerCase() && count < 10) {
-                const relatedWordItem = document.createElement('li');
-                relatedWordItem.innerHTML = `<a href="?search=${row.word}&id=${row.id}">${row.word}</a>`;
-                relatedWordsList.appendChild(relatedWordItem);
-                count++;
-            }
-        });
-
-        relatedWordsContainer.appendChild(relatedWordsList);
-        const dictionaryContainer = document.getElementById('dictionary');
-        dictionaryContainer.appendChild(relatedWordsContainer);
-    }
-
     // Function to filter rows based on search term with options
-    function filterAndDisplayWord(searchTerm) {
+    function filterAndDisplayWord(searchTerm, searchId) {
         const searchIn = {
             word: document.getElementById('search-in-word').checked,
             definition: document.getElementById('search-in-definition').checked,
@@ -146,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         const exactMatch = document.getElementById('exact-match').checked;
 
-        if (!searchTerm.trim()) return;
+        if (!searchTerm.trim() && (!searchId || parseInt(searchId) <= 0)) return;
 
         if (searchTerm && searchTerm.trim()) {
             filteredRows = allRows.filter(row => {
@@ -160,16 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
             displayPage(1, searchTerm, searchIn, exactMatch);
 
             if (filteredRows.length === 1) {
-                displayRelatedWords(filteredRows[0].word);
+                displayRelatedWords(filteredRows[0].word, allRows);
             }
         } else if (searchId && parseInt(searchId) > 0) {
             const row = allRowsById[parseInt(searchId)];
             if (row) {
                 filteredRows = [row];
                 createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-                displayPage(1, searchTerm, searchIn, exactMatch);
+                displayPage(1, row.word, searchIn, exactMatch);
 
-                displayRelatedWords(row.word);
+                displayRelatedWords(row.word, allRows);
             }
         }
     }
