@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const rowsPerPage = 100; // Number of rows per page
+    const defaultRowsPerPage = 100;
+    let rowsPerPage = defaultRowsPerPage;
     let currentPage = 1;
     const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
     let allRows = [];
@@ -15,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             allRows = data.split('\n').slice(1); // Remove the header row
             filteredRows = allRows;
-            const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
 
             // Function to sanitize data
             function sanitizeHTML(str) {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Function to create a dictionary box
-            function createDictionaryBox(word, meaning, pronunciation, partOfSpeech, root, explanation) {
+            function createDictionaryBox(word, meaning, partOfSpeech, root, explanation) {
                 const box = document.createElement('div');
                 box.className = 'dictionary-box';
 
@@ -42,10 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 meaningElement.className = 'meaning';
                 meaningElement.textContent = `Meaning: ${meaning}`;
 
-                const pronunciationElement = document.createElement('div');
-                pronunciationElement.className = 'pronunciation';
-                pronunciationElement.textContent = `Pronunciation: ${pronunciation}`;
-
                 const explanationElement = document.createElement('div');
                 explanationElement.className = 'explanation';
                 explanationElement.textContent = explanation ? `Explanation: ${explanation}` : '';
@@ -56,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 box.appendChild(title);
                 box.appendChild(meaningElement);
-                box.appendChild(pronunciationElement);
                 if (explanation) box.appendChild(explanationElement);
                 box.appendChild(rootElement);
 
@@ -77,8 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         sanitizeHTML(cols[1]),
                         sanitizeHTML(cols[2]),
                         sanitizeHTML(cols[3]),
-                        sanitizeHTML(cols[4]),
-                        sanitizeHTML(cols[5])
+                        sanitizeHTML(cols[4])
                     );
                     dictionaryContainer.appendChild(box);
                 });
@@ -117,6 +111,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     const searchTerm = e.target.value;
                     filterRows(searchTerm);
                 }
+            });
+
+            document.getElementById('search-button').addEventListener('click', () => {
+                const searchTerm = document.getElementById('search-input').value;
+                filterRows(searchTerm);
+            });
+
+            document.getElementById('rows-per-page-input').addEventListener('change', (e) => {
+                const value = parseInt(e.target.value, 10);
+                rowsPerPage = Math.min(Math.max(value, 5), 500);
+                createPaginationControls();
+                displayPage(1);
             });
 
             createPaginationControls();
