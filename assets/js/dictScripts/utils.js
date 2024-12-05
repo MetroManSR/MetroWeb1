@@ -7,7 +7,7 @@ export function calculateSimilarity(a, b) {
         d[i] = [i];
     }
 
-    for (let j = 0; i <= lengthB; j++) {
+    for (let j = 0; j <= lengthB; j++) {
         d[0][j] = j;
     }
 
