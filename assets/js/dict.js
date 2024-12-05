@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayPage(currentPage);
 
             const params = new URLSearchParams(window.location.search);
-            const searchTerm = params.get('word');
+            const searchTerm = params.get('search');
             if (searchTerm) {
                 filterAndDisplayWord(searchTerm);
             }
@@ -111,16 +111,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to display rows of the current page
-    function displayPage(page) {
+    function displayPage(page, searchTerm = '') {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const dictionaryContainer = document.getElementById('dictionary');
         dictionaryContainer.innerHTML = ''; // Clear previous entries
 
         filteredRows.slice(start, end).forEach(row => {
-            const box = createDictionaryBox(row);
+            const box = createDictionaryBox(row, searchTerm);
             dictionaryContainer.appendChild(box);
         });
+
+        updatePagination(page);
     }
 
     // Function to display a word by its ID
@@ -143,15 +145,66 @@ document.addEventListener('DOMContentLoaded', () => {
         const pagination = document.getElementById('pagination');
         pagination.innerHTML = ''; // Clear previous controls
 
-        for (let i = 1; i <= Math.ceil(filteredRows.length / rowsPerPage); i++) {
-            const button = document.createElement('button');
-            button.textContent = i;
-            button.addEventListener('click', () => {
-                currentPage = i;
+        const firstPageButton = document.createElement('button');
+        firstPageButton.innerHTML = '⏪';
+        firstPageButton.addEventListener('click', () => {
+            currentPage = 1;
+            displayPage(currentPage);
+        });
+        pagination.appendChild(firstPageButton);
+
+        const prevPageButton = document.createElement('button');
+        prevPageButton.innerHTML = '⬅️';
+        prevPageButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
                 displayPage(currentPage);
-            });
-            pagination.appendChild(button);
-        }
+            }
+        });
+        pagination.appendChild(prevPageButton);
+
+        const pageInfo = document.createElement('span');
+        pageInfo.id = 'page-info';
+        pagination.appendChild(pageInfo);
+
+        const nextPageButton = document.createElement('button');
+        nextPageButton.innerHTML = '➡️';
+        nextPageButton.addEventListener('click', () => {
+            if (currentPage < Math.ceil(filteredRows.length / rowsPerPage)) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        });
+        pagination.appendChild(nextPageButton);
+
+        const lastPageButton = document.createElement('button');
+        lastPageButton.innerHTML = '⏩';
+        lastPageButton.addEventListener('click', () => {
+            currentPage = Math.ceil(filteredRows.length / rowsPerPage);
+            displayPage(currentPage);
+        });
+        pagination.appendChild(lastPageButton);
+
+        const pageInput = document.createElement('input');
+        pageInput.type = 'number';
+        pageInput.min = 1;
+        pageInput.max = Math.ceil(filteredRows.length / rowsPerPage);
+        pageInput.addEventListener('change', () => {
+            const value = parseInt(pageInput.value, 10);
+            if (value >= 1 && value <= Math.ceil(filteredRows.length / rowsPerPage)) {
+                currentPage = value;
+                displayPage(currentPage);
+            }
+        });
+        pagination.appendChild(pageInput);
+
+        updatePagination(currentPage);
+    }
+
+    // Function to update pagination info
+    function updatePagination(page) {
+        const pageInfo = document.getElementById('page-info');
+        pageInfo.textContent = `Page ${page} / ${Math.ceil(filteredRows.length / rowsPerPage)}`;
     }
 
     // Add event listener to the search input
