@@ -1,0 +1,47 @@
+{
+    "en": {
+        "searchPlaceholder": "Search...",
+        "searchButton": "Search",
+        "clearSearchButton": "Clear Search",
+        "rowsPerPageLabel": "Rows per page:",
+        "rowsPerPageButton": "Submit",
+        "advancedSearchButton": "Advanced Search",
+        "applySearchButton": "Apply",
+        "closeSearchButton": "Close",
+        "searchInWord": "Word",
+        "searchInRoot": "Root",
+        "searchInDefinition": "Definition",
+        "searchInEtymology": "Etymology",
+        "exactMatch": "Exact Match"
+    },
+    "es": {
+        "searchPlaceholder": "Buscar...",
+        "searchButton": "Buscar",
+        "clearSearchButton": "Borrar Búsqueda",
+        "rowsPerPageLabel": "Filas por página:",
+        "rowsPerPageButton": "Enviar",
+        "advancedSearchButton": "Búsqueda Avanzada",
+        "applySearchButton": "Aplicar",
+        "closeSearchButton": "Cerrar",
+        "searchInWord": "Palabra",
+        "searchInRoot": "Raíz",
+        "searchInDefinition": "Definición",
+        "searchInEtymology": "Etimología",
+        "exactMatch": "Coincidencia Exacta"
+    },
+    "bk": {
+        "searchPlaceholder": "Placeholder...",
+        "searchButton": "Placeholder",
+        "clearSearchButton": "Placeholder",
+        "rowsPerPageLabel": "Placeholder",
+        "rowsPerPageButton": "Placeholder",
+        "advancedSearchButton": "Placeholder",
+        "applySearchButton": "Placeholder",
+        "closeSearchButton": "Placeholder",
+        "searchInWord": "Placeholder",
+        "searchInRoot": "Placeholder",
+        "searchInDefinition": "Placeholder",
+        "searchInEtymology": "Placeholder",
+        "exactMatch": "Placeholder"
+    }
+}
