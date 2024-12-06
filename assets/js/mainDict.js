@@ -2,7 +2,7 @@ import { fetchData } from './dictScripts/fetchData.js';
 import { highlight } from './dictScripts/searchHighlight.js';
 import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
 import { displayWarning } from './dictScripts/warnings.js';
-import { calculateSimilarity, getRelatedWords } from './dictScripts/utils.js';
+import { calculateSimilarity, getRelatedWordsByRoot } from './dictScripts/utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const defaultRowsPerPage = 100;
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             relatedWordsElement.className = 'related-words';
             relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
 
-            const relatedWords = getRelatedWords(word, allRows);
+            const relatedWords = getRelatedWordsByRoot(word, etymology, allRows);
             if (relatedWords) {
                 relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
                 box.appendChild(relatedWordsElement);
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
         const value = parseInt(document.getElementById('rows-per-page-input').value, 10);
-        if (value >= 5 && value <= 500) {
+        if (value >= 5 and value <= 500) {
             rowsPerPage = value;
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
             displayPage(1);
