@@ -1,3 +1,11 @@
+import { fetchData } from './dictScripts/fetchData.js';
+import { highlight } from './dictScripts/searchHighlight.js';
+import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
+import { displayWarning } from './dictScripts/warnings.js';
+import { getRelatedWordsByRoot } from './dictScripts/utils.js';
+import { createDictionaryBox } from './dictScripts/boxes.js';
+ 
+
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
