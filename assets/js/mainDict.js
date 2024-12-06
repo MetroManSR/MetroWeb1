@@ -37,11 +37,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         displayPage(currentPage);
 
         const params = new URLSearchParams(window.location.search);
-        const searchTerm = params.get('dictionaryword');
-        const wordId = params.get('wordid');
-        const rootId = params.get('rootid');
-        if ((searchTerm && searchTerm.trim()) || (wordId && parseInt(wordId) > 0) || (rootId && parseInt(rootId) > 0)) {
-            filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordId, rootId);
+        const searchTerm = params.get('searchTerm');
+        const wordID = params.get('wordID');
+        const rootID = params.get('rootID');
+        if ((searchTerm && searchTerm.trim()) || (wordID && parseInt(wordID) > 0) || (rootID && parseInt(rootID) > 0)) {
+            filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordID, rootID);
         }
     } catch (error) {
         console.error('Error loading data:', error);
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
 
                 const cleanedRow = {
-                    id: row.id, // Assign unique ID from original data
+                    id: row.id || index, // Assign unique ID if missing
                     word: sanitizeHTML(root ? root.trim() : ''),
                     definition: sanitizeHTML(translation ? translation.trim() : ''),
                     notes: sanitizeHTML(notes ? notes.trim() : ''),
@@ -71,12 +71,12 @@ document.addEventListener('DOMContentLoaded', async function() {
             } else {
                 const cleanedRow = {
                     ...row,
-                    id: row.id, // Ensure ID is carried over
-                    word: row.word.trim(),
-                    partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
-                    definition: row.definition ? row.definition.trim() : '',
-                    explanation: row.explanation ? row.explanation.trim() : '',
-                    etymology: row.etymology ? row.etymology.trim() : '',
+                    id: row.id || index, // Ensure ID is assigned
+                    word: sanitizeHTML(row.word ? row.word.trim() : ''),
+                    partOfSpeech: sanitizeHTML(row.partOfSpeech ? row.partOfSpeech.trim() : ''),
+                    definition: sanitizeHTML(row.definition ? row.definition.trim() : ''),
+                    explanation: sanitizeHTML(row.explanation ? row.explanation.trim() : ''),
+                    etymology: sanitizeHTML(row.etymology ? row.etymology.trim() : ''),
                     type: 'word'
                 };
 
@@ -120,10 +120,10 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         });
 
-        updatePagination(page, filteredRows, rowsPerPage);
+        updatePagination(currentPage, filteredRows, rowsPerPage);
     }
 
-    function filterAndDisplayWord(searchTerm, wordId, rootId) {
+    function filterAndDisplayWord(searchTerm, wordID, rootID) {
         const searchIn = {
             word: document.getElementById('search-in-word').checked,
             root: document.getElementById('search-in-root').checked,
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         };
         const exactMatch = document.getElementById('exact-match').checked;
 
-        if ((!searchTerm.trim() && (!wordId || parseInt(wordId) <= 0) && (!rootId || parseInt(rootId) <= 0))) return;
+        if ((!searchTerm.trim() && (!wordID || parseInt(wordID) <= 0) && (!rootID || parseInt(rootID) <= 0))) return;
 
         if (searchTerm && searchTerm.trim()) {
             filteredRows = allRows.filter(row => {
@@ -145,15 +145,15 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
             displayPage(1, searchTerm, searchIn, exactMatch);
-        } else if (wordId && parseInt(wordId) > 0) {
-            const row = allRowsById[parseInt(wordId)];
+        } else if (wordID && parseInt(wordID) > 0) {
+            const row = allRowsById[parseInt(wordID)];
             if (row) {
                 filteredRows = [row];
                 createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
                 displayPage(1, '', searchIn, exactMatch);
             }
-        } else if (rootId && parseInt(rootId) > 0) {
-            const row = allRowsById[parseInt(rootId)];
+        } else if (rootID && parseInt(rootID) > 0) {
+            const row = allRowsById[parseInt(rootID)];
             if (row) {
                 filteredRows = [row];
                 createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
@@ -168,11 +168,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             const searchTerm = e.target.value.trim();
             filterAndDisplayWord(searchTerm, '', '');
         }
-    });
-
-    document.getElementById('search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, '', '');
     });
 
     // Add event listener to clear the search
@@ -192,6 +187,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             displayWarning('rows-warning', 'Please enter a value between 5 and 500');
         }
     });
+
     // Popup window functionality
     document.getElementById('advanced-search-button').addEventListener('click', () => {
         document.getElementById('advanced-search-popup').classList.add('active');
