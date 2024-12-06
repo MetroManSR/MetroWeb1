@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Error loading data:', error);
     }
 
-
     function cleanData(data, type) {
         return data.map((row, index) => {
             console.log(`Cleaning row ${index + 1}:`, row);
@@ -89,25 +88,25 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const dictionaryContainer = document.getElementById('dictionary');
-    dictionaryContainer.innerHTML = ''; // Clear previous entries
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const dictionaryContainer = document.getElementById('dictionary');
+        dictionaryContainer.innerHTML = ''; // Clear previous entries
 
-    const rowsToDisplay = filteredRows.slice(start, end);
-    console.log('Rows to display:', rowsToDisplay);
+        const rowsToDisplay = filteredRows.slice(start, end);
+        console.log('Rows to display:', rowsToDisplay);
 
-    rowsToDisplay.forEach(row => {
-        const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
-        if (box && box instanceof Node) {
-            dictionaryContainer.appendChild(box);
-            console.log('Appended box:', box);
-        } else {
-            console.error('Failed to create a valid object for:', row);
-        }
-    });
+        rowsToDisplay.forEach(row => {
+            const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
+            if (box && box instanceof Node) {
+                dictionaryContainer.appendChild(box);
+                console.log('Appended box:', box);
+            } else {
+                console.error('Failed to create a valid object for:', row);
+            }
+        });
 
-    updatePagination(page, filteredRows, rowsPerPage);
+        updatePagination(page, filteredRows, rowsPerPage);
     }
 
     function filterAndDisplayWord(searchTerm, searchId) {
@@ -191,5 +190,5 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Ensure all checkboxes are checked by default
     document.getElementById('search-in-word').checked = true;
     document.getElementById('search-in-definition').checked = true;
-    document.getElementById('search-in-etymology').checked = true;// Closing bracket for document.addEventListener
+    document.getElementById('search-in-etymology').checked = true;
 });
