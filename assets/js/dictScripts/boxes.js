@@ -70,9 +70,9 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
         relatedWordsElement.className = 'related-words';
         relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
 
-        const relatedWords = getRelatedWordsByRoot(row.word, row.etymology, allRows);
-        if (relatedWords) {
-            relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
+        const { count, list } = getRelatedWordsByRoot(row.word, row.etymology, allRows);
+        if (list) {
+            relatedWordsElement.innerHTML = `${count} words related: ${list}`;
             box.appendChild(relatedWordsElement);
 
             // Check if the related words exceed 4 lines and make it scrollable
