@@ -71,11 +71,11 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const cleanedRow = {
                     ...row,
                     id: row.id, // Ensure ID is carried over
-                    word: row.word.trim(),
-                    partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
-                    definition: row.definition ? row.definition.trim() : '',
-                    explanation: row.explanation ? row.explanation.trim() : '',
-                    etymology: row.etymology ? row.etymology.trim() : '',
+                    word: sanitizeHTML(row.word.trim()),
+                    partOfSpeech: row.partOfSpeech ? sanitizeHTML(row.partOfSpeech.trim()) : '',
+                    definition: row.definition ? sanitizeHTML(row.definition.trim()) : '',
+                    explanation: row.explanation ? sanitizeHTML(row.explanation.trim()) : '',
+                    etymology: row.etymology ? sanitizeHTML(row.etymology.trim()) : '',
                     type: 'word'
                 };
 
@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function sanitizeHTML(str) {
+        if (!str) return '';  // Return empty string if str is undefined or null
         const temp = document.createElement('div');
         temp.textContent = str;
         return temp.innerHTML;
