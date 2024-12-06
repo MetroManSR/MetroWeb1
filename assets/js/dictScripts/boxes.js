@@ -1,8 +1,9 @@
-import { getRelatedWordsByRoot } from './utils.js'
+import { getRelatedWordsByRoot } from './utils.js';
 
 // Function to create a dictionary box
 export async function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     console.log('Creating box for:', row);
+
     const box = document.createElement('div');
     box.classList.add('dictionary-box');
     box.id = `entry-${row.id}`;
@@ -38,7 +39,7 @@ export async function createDictionaryBox(row, searchTerm, exactMatch, searchIn)
     typeTag.style.padding = '2px 5px';
     typeTag.style.borderRadius = '3px';
     typeTag.style.fontSize = '0.8em';
-    
+
     box.appendChild(typeTag);
     box.appendChild(wordElement);
     box.appendChild(translationElement);
