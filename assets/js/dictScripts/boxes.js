@@ -2,6 +2,7 @@ import { getRelatedWordsByRoot } from './utils.js'
 
 // Function to create a dictionary box
 export async function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
+    console.log('Creating box for:', row);
     const box = document.createElement('div');
     box.classList.add('dictionary-box');
     box.id = `entry-${row.id}`;
