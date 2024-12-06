@@ -49,54 +49,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-// Function to create a dictionary box
-function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
-    const box = document.createElement('div');
-    box.classList.add('dictionary-box');
-    box.id = `entry-${row.id}`;
 
-    const wordElement = document.createElement('div');
-    wordElement.classList.add('word');
-    wordElement.textContent = row.word;
-
-    const translationElement = document.createElement('div');
-    translationElement.classList.add('translation');
-    translationElement.textContent = row.definition;
-
-    const notesElement = document.createElement('div');
-    notesElement.classList.add('notes');
-    notesElement.textContent = row.notes;
-
-    const originElement = document.createElement('div');
-    originElement.classList.add('origin');
-    originElement.textContent = row.etymology;
-
-    const typeElement = document.createElement('div');
-    typeElement.classList.add('type');
-    typeElement.textContent = row.type === 'root' ? 'Root' : 'Word';
-
-    // Add type tag to the top right
-    const typeTag = document.createElement('span');
-    typeTag.classList.add('type-tag');
-    typeTag.textContent = row.type === 'root' ? 'Root' : 'Word';
-    typeTag.style.position = 'absolute';
-    typeTag.style.top = '5px';
-    typeTag.style.right = '5px';
-    typeTag.style.backgroundColor = 'lightgrey';
-    typeTag.style.padding = '2px 5px';
-    typeTag.style.borderRadius = '3px';
-    typeTag.style.fontSize = '0.8em';
-    
-    box.appendChild(typeTag);
-    box.appendChild(wordElement);
-    box.appendChild(translationElement);
-    box.appendChild(notesElement);
-    box.appendChild(originElement);
-    box.appendChild(typeElement);
-
-    box.addEventListener('click', function() {
-        if (previouslySelectedBox) {
-            previouslySelectedBox.classList.remove('selected');
 // Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
