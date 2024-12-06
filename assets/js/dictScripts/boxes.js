@@ -90,4 +90,5 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     });
 
     return box;
-} 
+}
+ 
