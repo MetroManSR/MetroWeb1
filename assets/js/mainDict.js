@@ -5,8 +5,6 @@ import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { createDictionaryBox } from './dictScripts/boxes.js';
 
-let previouslySelectedBox = null; // Initialize previouslySelectedBox
-
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
@@ -108,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Rows to display:', rowsToDisplay);
 
         rowsToDisplay.forEach(row => {
-            const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
+            const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
             if (box) {
                 dictionaryContainer.appendChild(box);
                 console.log('Appended box:', box);
@@ -149,7 +147,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         }
     }
- 
+
     // Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -164,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
     // Add event listener to clear the search
-    document.getElementById('clear-search-button').addEventListener('click', () => {
+    document.getElementId('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         displayPage(1);
     });
