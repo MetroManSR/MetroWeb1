@@ -3,7 +3,13 @@ export function getRelatedWordsByRoot(word, etymology, allRows) {
     const relatedWords = allRows.filter(row => {
         const rowRoots = row.etymology.split(',').map(root => root.trim().toLowerCase());
         return etymologyRoots.some(root => rowRoots.includes(root)) && row.word.toLowerCase() !== word.toLowerCase();
-    }).map(row => `<a href="?search=${row.word}&id=${row.id}">${row.word}</a>`).join(', ');
+    });
 
-    return relatedWords ? relatedWords : null;
-}
+    const relatedWordsList = relatedWords.map(row => `<a href="?search=${row.word}&id=${row.id}">${row.word}</a>`).join(', ');
+    const relatedWordsCount = relatedWords.length;
+
+    return {
+        count: relatedWordsCount,
+        list: relatedWordsList
+    };
+} 
