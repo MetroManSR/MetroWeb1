@@ -33,7 +33,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const originElement = document.createElement('div');
     originElement.classList.add('root');
-    originElement.innerHTML = `Root: ${highlight(row.etymology || '', searchTerm)}`;
+    originElement.innerHTML = `Etymology: ${highlight(row.etymology || '', searchTerm)}`;
 
     const typeElement = document.createElement('div');
     typeElement.classList.add('part-of-speech');
@@ -46,9 +46,9 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     box.appendChild(typeTag);
     box.appendChild(wordElement);
-    if (row.type !== 'root') box.appendChild(translationElement);
+    box.appendChild(translationElement);
     box.appendChild(notesElement);
-    if (row.type !== 'root') box.appendChild(originElement);
+    box.appendChild(originElement);
     box.appendChild(typeElement);
 
     console.log('Created box:', box);
@@ -91,4 +91,3 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     return box;
 }
- 
