@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         rowsToDisplay.forEach(row => {
             const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
             if (box) {
-                dictionaryContainer.appendChild(box);
+                dictionaryContainer.innerHTML = dictionaryContainer.innerHTML + box;
                 console.log('Appended box:', box);
             } else {
                 console.error('Failed to create a valid object for:', row);
