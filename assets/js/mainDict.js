@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         rowsToDisplay.forEach(row => {
             const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
-            if (box) { // Removed the instanceof Node check
+            if (box) {
                 dictionaryContainer.appendChild(box);
                 console.log('Appended box:', box);
             } else {
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.getElementById('apply-search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, '');
+        filterAndDisplayWord(searchTerm, ''); 
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
