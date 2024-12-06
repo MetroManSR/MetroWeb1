@@ -10,40 +10,33 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     }
 
     const box = document.createElement('div');
-    box.classList.add('dictionary-box');
+    box.classList.add('dictionary-box'); // Ensures it uses the .dictionary-box class
     box.id = `entry-${row.id}`;
 
     const wordElement = document.createElement('div');
-    wordElement.classList.add('word');
+    wordElement.classList.add('title'); // Use .title class
     wordElement.textContent = row.word;
 
     const translationElement = document.createElement('div');
-    translationElement.classList.add('translation');
+    translationElement.classList.add('meaning'); // Use .meaning class
     translationElement.textContent = row.definition;
 
     const notesElement = document.createElement('div');
-    notesElement.classList.add('notes');
+    notesElement.classList.add('explanation'); // Use .explanation class
     notesElement.textContent = row.notes;
 
     const originElement = document.createElement('div');
-    originElement.classList.add('origin');
+    originElement.classList.add('root'); // Use .root class
     originElement.textContent = row.etymology;
 
     const typeElement = document.createElement('div');
-    typeElement.classList.add('type');
+    typeElement.classList.add('part-of-speech'); // Use .part-of-speech class
     typeElement.textContent = row.type === 'root' ? 'Root' : 'Word';
 
     // Add type tag to the top right
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
     typeTag.textContent = row.type === 'root' ? 'Root' : 'Word';
-    typeTag.style.position = 'absolute';
-    typeTag.style.top = '5px';
-    typeTag.style.right = '5px';
-    typeTag.style.backgroundColor = 'lightgrey';
-    typeTag.style.padding = '2px 5px';
-    typeTag.style.borderRadius = '3px';
-    typeTag.style.fontSize = '0.8em';
 
     box.appendChild(typeTag);
     box.appendChild(wordElement);
