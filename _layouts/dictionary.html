@@ -1,5 +1,5 @@
 ---
-layout: base
+layout: default
 ---
 
 <!DOCTYPE html>
@@ -22,7 +22,7 @@ layout: base
             <button id="advanced-search-button">Advanced Search</button>
         </div>
         <div>
-            <label for="rows-per-page-input">Elige cuántas palabras ver por página:</label>
+            <label id="rows-per-page-label" for="rows-per-page-input">Rows per page:</label>
             <input type="number" id="rows-per-page-input" value="20" min="5" max="500" />
             <button id="rows-per-page-button">Submit</button>
             <div id="rows-warning"></div>
@@ -34,27 +34,27 @@ layout: base
 
     <!-- Popup for advanced search -->
     <div class="popup-overlay" id="popup-overlay"></div>
-    <div id="advanced-search-popup">
-    <h3>Advanced Search</h3>
-    <label>
-        <input type="checkbox" id="search-in-word" checked /> Word
-    </label>
-    <label>
-        <input type="checkbox" id="search-in-root" checked /> Root
-    </label>
-    <label>
-        <input type="checkbox" id="search-in-definition" checked /> Definition
-    </label>
-    <label>
-        <input type="checkbox" id="search-in-etymology" checked /> Etymology
-    </label>
-    <br/>
-    <label>
-        <input type="checkbox" id="exact-match" /> Exact Match
-    </label>
-    <br/>
-    <button id="apply-search-button">Apply</button>
-    <button id="close-popup-button">Close</button>
+    <div class="popup" id="advanced-search-popup">
+        <h3>Advanced Search</h3>
+        <label id="search-in-word-label">
+            <input type="checkbox" id="search-in-word" checked /> Word
+        </label>
+        <label id="search-in-root-label">
+            <input type="checkbox" id="search-in-root" checked /> Root
+        </label>
+        <label id="search-in-definition-label">
+            <input type="checkbox" id="search-in-definition" checked /> Definition
+        </label>
+        <label id="search-in-etymology-label">
+            <input type="checkbox" id="search-in-etymology" checked /> Etymology
+        </label>
+        <br/>
+        <label id="exact-match-label">
+            <input type="checkbox" id="exact-match" /> Exact Match
+        </label>
+        <br/>
+        <button id="apply-search-button">Apply</button>
+        <button id="close-popup-button">Close</button>
     </div>
 
     <script type="module" src="../../assets/js/mainDict.js"></script>
