@@ -74,6 +74,11 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
         if (relatedWords) {
             relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
             box.appendChild(relatedWordsElement);
+
+            // Check if the related words exceed 4 lines and make it scrollable
+            if (relatedWordsElement.scrollHeight > relatedWordsElement.clientHeight) {
+                relatedWordsElement.classList.add('scrollable-box');
+            }
         }
 
         previouslySelectedBox = box; // Set the clicked box as the previously selected one
