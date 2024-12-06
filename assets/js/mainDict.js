@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetched roots data:', rootsData);
 
         allRows = [...cleanData(dictionaryData, 'word'), ...cleanData(rootsData, 'root')];
-        filteredRows = allRows;
+        filteredRows = allRows.sort((a, b) => a.word.localeCompare(b.word));
         console.log('Processed rows:', allRows);
 
         filteredRows.forEach(row => {
