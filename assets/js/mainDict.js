@@ -38,60 +38,55 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('dictionaryword');
-        const searchId = params.get('dictionaryid');
-        if ((searchTerm && searchTerm.trim()) || (searchId && parseInt(searchId) > 0)) {
-            filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', searchId);
+        const wordId = params.get('wordid');
+        const rootId = params.get('rootid');
+        if ((searchTerm && searchTerm.trim()) || (wordId && parseInt(wordId) > 0) || (rootId && parseInt(rootId) > 0)) {
+            filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordId, rootId);
         }
     } catch (error) {
         console.error('Error loading data:', error);
     }
 
     function cleanData(data, type) {
-    return data.map((row, index) => {
-        if (!row || !row.word) {
-            console.error('Invalid row data:', row);
-            return null;
-        }
+        return data.map((row, index) => {
+            console.log(`Cleaning row ${index + 1}:`, row);
 
-        console.log(`Cleaning row ${index + 1}:`, row);
+            if (type === 'root') {
+                const raw = row.word || '';
+                const [root, rest] = raw.split(' = ');
+                const [translation, meta] = rest ? rest.split(' (') : ['', ''];
+                const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
 
-        if (type === 'root') {
-            const raw = row.word || '';
-            const [root, rest] = raw.split(' = ');
-            const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-            const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
+                const cleanedRow = {
+                    id: row.id, // Assign unique ID from original data
+                    word: sanitizeHTML(root ? root.trim() : ''),
+                    definition: sanitizeHTML(translation ? translation.trim() : ''),
+                    notes: sanitizeHTML(notes ? notes.trim() : ''),
+                    etymology: sanitizeHTML(origin ? origin.trim() : ''),
+                    type: 'root'
+                };
 
-            const cleanedRow = {
-                id: row.id, // Assign unique ID from original data
-                word: sanitizeHTML(root ? root.trim() : ''),
-                definition: sanitizeHTML(translation ? translation.trim() : ''),
-                notes: sanitizeHTML(notes ? notes.trim() : ''),
-                etymology: sanitizeHTML(origin ? origin.trim() : ''),
-                type: 'root'
-            };
+                console.log('Cleaned root row:', cleanedRow);
+                return cleanedRow;
+            } else {
+                const cleanedRow = {
+                    ...row,
+                    id: row.id, // Ensure ID is carried over
+                    word: row.word.trim(),
+                    partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
+                    definition: row.definition ? row.definition.trim() : '',
+                    explanation: row.explanation ? row.explanation.trim() : '',
+                    etymology: row.etymology ? row.etymology.trim() : '',
+                    type: 'word'
+                };
 
-            console.log('Cleaned root row:', cleanedRow);
-            return cleanedRow;
-        } else {
-            const cleanedRow = {
-                ...row,
-                id: row.id, // Ensure ID is carried over
-                word: row.word ? row.word.trim() : '',
-                partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
-                definition: row.definition ? row.definition.trim() : '',
-                explanation: row.explanation ? row.explanation.trim() : '',
-                etymology: row.etymology ? row.etymology.trim() : '',
-                type: 'word'
-            };
-
-            console.log('Cleaned word row:', cleanedRow);
-            return cleanedRow;
-        }
-    }).filter(row => row !== null); // Filter out any invalid rows
+                console.log('Cleaned word row:', cleanedRow);
+                return cleanedRow;
+            }
+        });
     }
 
     function sanitizeHTML(str) {
-        if (!str) return '';  // Return empty string if str is undefined or null
         const temp = document.createElement('div');
         temp.textContent = str;
         return temp.innerHTML;
@@ -128,54 +123,62 @@ document.addEventListener('DOMContentLoaded', async function() {
         updatePagination(page, filteredRows, rowsPerPage);
     }
 
-    function filterAndDisplayWord(searchTerm, searchId) {
-    const searchIn = {
-        word: document.getElementById('search-in-word').checked,
-        root: document.getElementById('search-in-root').checked,
-        definition: document.getElementById('search-in-definition').checked,
-        etymology: document.getElementById('search-in-etymology').checked
-    };
-    const exactMatch = document.getElementById('exact-match').checked;
+    function filterAndDisplayWord(searchTerm, wordId, rootId) {
+        const searchIn = {
+            word: document.getElementById('search-in-word').checked,
+            root: document.getElementById('search-in-root').checked,
+            definition: document.getElementById('search-in-definition').checked,
+            etymology: document.getElementById('search-in-etymology').checked
+        };
+        const exactMatch = document.getElementById('exact-match').checked;
 
-    if ((!searchTerm.trim() && (!searchId || parseInt(searchId) <= 0))) return;
+        if ((!searchTerm.trim() && (!wordId || parseInt(wordId) <= 0) && (!rootId || parseInt(rootId) <= 0))) return;
 
-    if (searchTerm && searchTerm.trim()) {
-        filteredRows = allRows.filter(row => {
-            const wordMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-            const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-            const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
-            const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
-            return wordMatch || rootMatch || definitionMatch || etymologyMatch;
-        });
+        if (searchTerm && searchTerm.trim()) {
+            filteredRows = allRows.filter(row => {
+                const wordMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
+                const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
+                const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
+                const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
+                return wordMatch || rootMatch || definitionMatch || etymologyMatch;
+            });
 
-        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(1, searchTerm, searchIn, exactMatch);
-    } else if (searchId && parseInt(searchId) > 0) {
-        const row = allRowsById[parseInt(searchId)];
-        if (row) {
-            filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(1, row.word, searchIn, exactMatch);
+            displayPage(1, searchTerm, searchIn, exactMatch);
+        } else if (wordId && parseInt(wordId) > 0) {
+            const row = allRowsById[parseInt(wordId)];
+            if (row) {
+                filteredRows = [row];
+                createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+                displayPage(1, row.word, searchIn, exactMatch);
+            }
+        } else if (rootId && parseInt(rootId) > 0) {
+            const row = allRowsById[parseInt(rootId)];
+            if (row) {
+                filteredRows = [row];
+                createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+                displayPage(1, row.word, searchIn, exactMatch);
+            }
         }
-    }
     }
 
     // Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const searchTerm = e.target.value.trim();
-            filterAndDisplayWord(searchTerm, '');
+            filterAndDisplayWord(searchTerm, '', '');
         }
     });
 
     document.getElementById('search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, '');
+        filterAndDisplayWord(searchTerm, '', '');
     });
 
     // Add event listener to clear the search
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
+        window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
         displayPage(1);
     });
 
@@ -188,7 +191,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         } else {
             displayWarning('rows-warning', 'Please enter a value between 5 and 500');
         }
-    });
 
     // Popup window functionality
     document.getElementById('advanced-search-button').addEventListener('click', () => {
