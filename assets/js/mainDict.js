@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
 
-    console.log('Type of dictionaryContainer:', typeof dictionaryContainer, dictionaryContainer);
+    console.log('Type of dictionaryContainer:', dictionaryContainer);
 
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     rowsToDisplay.forEach(row => {
         const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
-        if (box instanceof HTMLElement) {
+        if (box) {
             dictionaryContainer.appendChild(box);
             console.log('Appended box:', box);
         } else {
