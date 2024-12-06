@@ -2,7 +2,7 @@
 
 export function cleanData(data, type) {
     return data.map((row, index) => {
-        console.log(`Cleaning row ${index + 1}:`, row);
+        console.log(`Cleaning ${type} row ${index + 1}:`, row);
 
         if (type === 'root') {
             const raw = row.word || '';
