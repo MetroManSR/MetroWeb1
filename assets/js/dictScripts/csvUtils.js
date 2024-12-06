@@ -5,29 +5,12 @@ export function cleanData(data, type) {
         console.log(`Cleaning row ${index + 1}:`, row);
 
         if (type === 'root') {
-            const raw = row.word || '';
-            let root = '';
+            const r = row.word || '';
+            let root = row.word || '';
             let rest = '';
-            let translation = '';
-            let notes = '';
-            let origin = '';
-
-            if (raw.includes(' = ')) {
-                root = row.word;
-            } else {
-                root = raw;
-                rest = 'undefined';
-            }
-
-            let rest = raw.word.split(' (')[1]
-            translation = row.translation|| 'undefined';
-
-            if (rest.includes(', ')) {
-                
-                [notes, origin] = rest.slice(0, -1).split(', ');
-            } else {
-                notes = rest.slice(0, -1);
-            }
+            let translation = row.translation || '';
+            let notes = row.notes || '';
+            let origin = row.etimology || '';
 
             const cleanedRow = {
                 id: row.id || index, // Assign unique ID if missing
