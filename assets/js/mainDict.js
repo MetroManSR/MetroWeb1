@@ -38,34 +38,43 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function cleanData(data, type) {
-        return data.map(row => {
-            if (type === 'root') {
-                const raw = row.word || '';
-                const [root, rest] = raw.split(' = ');
-                const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-                const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
+    function cleanData(data, type) {
+    return data.map((row, index) => {
+        console.log(`Cleaning row ${index + 1}:`, row);
 
-                return {
-                    id: row.id, // Assign unique ID from original data
-                    word: sanitizeHTML(root ? root.trim() : ''),
-                    definition: sanitizeHTML(translation ? translation.trim() : ''),
-                    notes: sanitizeHTML(notes ? notes.trim() : ''),
-                    etymology: sanitizeHTML(origin ? origin.trim() : ''),
-                    type: 'root'
-                };
-            } else {
-                return {
-                    ...row,
-                    id: row.id, // Ensure ID is carried over
-                    word: row.word.trim(),
-                    partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
-                    definition: row.definition ? row.definition.trim() : '',
-                    explanation: row.explanation ? row.explanation.trim() : '',
-                    etymology: row.etymology ? row.etymology.trim() : '',
-                    type: 'word'
-                };
-            }
-        });
+        if (type === 'root') {
+            const raw = row.word || '';
+            const [root, rest] = raw.split(' = ');
+            const [translation, meta] = rest ? rest.split(' (') : ['', ''];
+            const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
+
+            const cleanedRow = {
+                id: row.id, // Assign unique ID from original data
+                word: sanitizeHTML(root ? root.trim() : ''),
+                definition: sanitizeHTML(translation ? translation.trim() : ''),
+                notes: sanitizeHTML(notes ? notes.trim() : ''),
+                etymology: sanitizeHTML(origin ? origin.trim() : ''),
+                type: 'root'
+            };
+
+            console.log('Cleaned root row:', cleanedRow);
+            return cleanedRow;
+        } else {
+            const cleanedRow = {
+                ...row,
+                id: row.id, // Ensure ID is carried over
+                word: row.word.trim(),
+                partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
+                definition: row.definition ? row.definition.trim() : '',
+                explanation: row.explanation ? row.explanation.trim() : '',
+                etymology: row.etymology ? row.etymology.trim() : '',
+                type: 'word'
+            };
+
+            console.log('Cleaned word row:', cleanedRow);
+            return cleanedRow;
+        }
+    });
     }
 
     function sanitizeHTML(str) {
