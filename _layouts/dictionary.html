@@ -7,12 +7,12 @@ layout: default
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }}</title>
+    <title>Your Dictionary</title>
     <link rel="stylesheet" href="../../assets/css/dictionary-style.css">
 </head>
 <body>
     <header>
-        <h1>{{ page.title }}</h1>
+        <h1>Your Dictionary</h1>
     </header>
     <main>
         <div>
@@ -27,36 +27,35 @@ layout: default
             <button id="rows-per-page-button">Submit</button>
             <div id="rows-warning"></div>
         </div>
-        {{ content }}
         <div id="dictionary"></div>
         <div id="pagination" class="pagination"></div>
+
+        <!-- Popup for advanced search -->
+        <div class="popup-overlay" id="popup-overlay"></div>
+        <div class="popup" id="advanced-search-popup">
+            <h3>Advanced Search</h3>
+            <label id="search-in-word-label">
+                <input type="checkbox" id="search-in-word" checked /> Word
+            </label>
+            <label id="search-in-root-label">
+                <input type="checkbox" id="search-in-root" checked /> Root
+            </label>
+            <label id="search-in-definition-label">
+                <input type="checkbox" id="search-in-definition" checked /> Definition
+            </label>
+            <label id="search-in-etymology-label">
+                <input type="checkbox" id="search-in-etymology" checked /> Etymology
+            </label>
+            <br/>
+            <label id="exact-match-label">
+                <input type="checkbox" id="exact-match" /> Exact Match
+            </label>
+            <br/>
+            <button id="apply-search-button">Apply</button>
+            <button id="close-popup-button">Close</button>
+        </div>
+
+        <script type="module" src="../../assets/js/mainDict.js"></script>
     </main>
-
-    <!-- Popup for advanced search -->
-    <div class="popup-overlay" id="popup-overlay"></div>
-    <div class="popup" id="advanced-search-popup">
-        <h3>Advanced Search</h3>
-        <label id="search-in-word-label">
-            <input type="checkbox" id="search-in-word" checked /> Word
-        </label>
-        <label id="search-in-root-label">
-            <input type="checkbox" id="search-in-root" checked /> Root
-        </label>
-        <label id="search-in-definition-label">
-            <input type="checkbox" id="search-in-definition" checked /> Definition
-        </label>
-        <label id="search-in-etymology-label">
-            <input type="checkbox" id="search-in-etymology" checked /> Etymology
-        </label>
-        <br/>
-        <label id="exact-match-label">
-            <input type="checkbox" id="exact-match" /> Exact Match
-        </label>
-        <br/>
-        <button id="apply-search-button">Apply</button>
-        <button id="close-popup-button">Close</button>
-    </div>
-
-    <script type="module" src="../../assets/js/mainDict.js"></script>
 </body>
 </html>
