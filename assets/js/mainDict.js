@@ -4,6 +4,7 @@ import { createPaginationControls, updatePagination } from './dictScripts/pagina
 import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { createDictionaryBox } from './dictScripts/boxes.js';
+import { setTexts } from './dictScripts/loadTexts.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
@@ -14,6 +15,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     let allRows = [];
     let filteredRows = [];
     let allRowsById = {};
+
+    const language = location.pathname.includes('/en/') ? 'en' : 'es';
+    await setTexts(language);
 
     try {
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
@@ -87,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         return temp.innerHTML;
     }
 
-    function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
+    function displayPage(page, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const dictionaryContainer = document.getElementById('dictionary');
@@ -119,36 +123,36 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function filterAndDisplayWord(searchTerm, searchId) {
-    const searchIn = {
-        word: document.getElementById('search-in-word').checked,
-        root: document.getElementById('search-in-root').checked,
-        definition: document.getElementById('search-in-definition').checked,
-        etymology: document.getElementById('search-in-etymology').checked
-    };
-    const exactMatch = document.getElementById('exact-match').checked;
+        const searchIn = {
+            word: document.getElementById('search-in-word').checked,
+            root: document.getElementById('search-in-root').checked,
+            definition: document.getElementById('search-in-definition').checked,
+            etymology: document.getElementById('search-in-etymology').checked
+        };
+        const exactMatch = document.getElementById('exact-match').checked;
 
-    if ((!searchTerm.trim() && (!searchId || parseInt(searchId) <= 0))) return;
+        if ((!searchTerm.trim() && (!searchId || parseInt(searchId) <= 0))) return;
 
-    if (searchTerm && searchTerm.trim()) {
-        filteredRows = allRows.filter(row => {
-            const wordMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-            const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-            const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
-            const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
-            return wordMatch || rootMatch || definitionMatch || etymologyMatch;
-        });
+        if (searchTerm && searchTerm.trim()) {
+            filteredRows = allRows.filter(row => {
+                const wordMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
+                const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
+                const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
+                const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
+                return wordMatch || rootMatch || definitionMatch || etymologyMatch;
+            });
 
-        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(1, searchTerm, searchIn, exactMatch);
-    } else if (searchId && parseInt(searchId) > 0) {
-        const row = allRowsById[parseInt(searchId)];
-        if (row) {
-            filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(1, row.word, searchIn, exactMatch);
+            displayPage(1, searchTerm, searchIn, exactMatch);
+        } else if (searchId && parseInt(searchId) > 0) {
+            const row = allRowsById[parseInt(searchId)];
+            if (row) {
+                filteredRows = [row];
+                createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+                displayPage(1, row.word, searchIn, exactMatch);
+            }
         }
     }
-    
 
     // Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
@@ -197,6 +201,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
+
+    // Ensure all checkboxes are checked by default
 
     // Ensure all checkboxes are checked by default
     document.getElementById('search-in-word').checked = true;
