@@ -37,71 +37,70 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Error loading data:', error);
     }
 
-    
     function cleanData(data, type) {
-function cleanData(data, type) {
-    return data.map((row, index) => {
-        console.log(`Cleaning row ${index + 1}:`, row);
+        return data.map((row, index) => {
+            console.log(`Cleaning row ${index + 1}:`, row);
 
-        if (type === 'root') {
-            const raw = row.word || '';
-            const [root, rest] = raw.split(' = ');
-            const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-            const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
+            if (type === 'root') {
+                const raw = row.word || '';
+                const [root, rest] = raw.split(' = ');
+                const [translation, meta] = rest ? rest.split(' (') : ['', ''];
+                const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
 
-            const cleanedRow = {
-                id: row.id, // Assign unique ID from original data
-                word: sanitizeHTML(root ? root.trim() : ''),
-                definition: sanitizeHTML(translation ? translation.trim() : ''),
-                notes: sanitizeHTML(notes ? notes.trim() : ''),
-                etymology: sanitizeHTML(origin ? origin.trim() : ''),
-                type: 'root'
-            };
+                const cleanedRow = {
+                    id: row.id, // Assign unique ID from original data
+                    word: sanitizeHTML(root ? root.trim() : ''),
+                    definition: sanitizeHTML(translation ? translation.trim() : ''),
+                    notes: sanitizeHTML(notes ? notes.trim() : ''),
+                    etymology: sanitizeHTML(origin ? origin.trim() : ''),
+                    type: 'root'
+                };
 
-            console.log('Cleaned root row:', cleanedRow);
-            return cleanedRow;
-        } else {
-            const cleanedRow = {
-                ...row,
-                id: row.id, // Ensure ID is carried over
-                word: row.word.trim(),
-                partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
-                definition: row.definition ? row.definition.trim() : '',
-                explanation: row.explanation ? row.explanation.trim() : '',
-                etymology: row.etymology ? row.etymology.trim() : '',
-                type: 'word'
-            };
+                console.log('Cleaned root row:', cleanedRow);
+                return cleanedRow;
+            } else {
+                const cleanedRow = {
+                    ...row,
+                    id: row.id, // Ensure ID is carried over
+                    word: row.word.trim(),
+                    partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
+                    definition: row.definition ? row.definition.trim() : '',
+                    explanation: row.explanation ? row.explanation.trim() : '',
+                    etymology: row.etymology ? row.etymology.trim() : '',
+                    type: 'word'
+                };
 
-            console.log('Cleaned word row:', cleanedRow);
-            return cleanedRow;
-        }
-    });
-}
+                console.log('Cleaned word row:', cleanedRow);
+                return cleanedRow;
+            }
+        });
+    }
 
-function sanitizeHTML(str) {
+    function sanitizeHTML(str) {
         const temp = document.createElement('div');
         temp.textContent = str;
         return temp.innerHTML;
     }
 
-function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const dictionaryContainer = document.getElementById('dictionary');
-    dictionaryContainer.innerHTML = ''; // Clear previous entries
+    function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const dictionaryContainer = document.getElementById('dictionary');
+        dictionaryContainer.innerHTML = ''; // Clear previous entries
 
-    filteredRows.slice(start, end).forEach(row => {
-        const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
-        if (box && box instanceof Node) {
-            dictionaryContainer.appendChild(box);
-            console.log('Appended box:', box);
-        } else {
-            console.error('Failed to create a valid object for:', row);
-        }
-    });
+        filteredRows.slice(start, end).forEach(row => {
+            const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
+            if (box && box instanceof Node) {
+                dictionaryContainer.appendChild(box);
+                console.log('Appended box:', box);
+            } else {
+                console.error('Failed to create a valid object for:', row);
+            }
+        });
 
-    updatePagination(page, filteredRows, rowsPerPage);
-}
+        updatePagination(page, filteredRows, rowsPerPage);
+    }
+
     function filterAndDisplayWord(searchTerm, searchId) {
         const searchIn = {
             word: document.getElementById('search-in-word').checked,
