@@ -5,18 +5,9 @@ import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { createDictionaryBox} from './dictScripts/boxes.js';
     
-document.addEventListener('DOMContentLoaded', () => {
-    const defaultRowsPerPage = 10;
-let rowsPerPage = defaultRowsPerPage;
-let currentPage = 1;
-const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
-const rootsFile = location.pathname.includes('/en/') ? '../../assets/data/english-roots.csv' : '../../assets/data/balkeon-roots-es.csv';
-let allRows = [];
-let filteredRows = [];
-let allRowsById = {};
 
 document.addEventListener('DOMContentLoaded', async function() {
-    const defaultRowsPerPage = 100;
+    const defaultRowsPerPage = 20;
    let rowsPerPage = defaultRowsPerPage;
    let currentPage = 1;
     const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
