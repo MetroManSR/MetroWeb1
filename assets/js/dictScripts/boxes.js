@@ -3,7 +3,7 @@ import { getRelatedWordsByRoot } from './utils.js';
 let previouslySelectedBox = null; // Ensure this is defined outside the function
 
 // Function to create a dictionary box
-export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
+export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
     console.log('Creating box for:', row);
 
     if (!row || !row.word) {
