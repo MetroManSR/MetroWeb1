@@ -47,42 +47,47 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function cleanData(data, type) {
-        return data.map((row, index) => {
-            console.log(`Cleaning row ${index + 1}:`, row);
+    return data.map((row, index) => {
+        if (!row || !row.word) {
+            console.error('Invalid row data:', row);
+            return null;
+        }
 
-            if (type === 'root') {
-                const raw = row.word || '';
-                const [root, rest] = raw.split(' = ');
-                const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-                const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
+        console.log(`Cleaning row ${index + 1}:`, row);
 
-                const cleanedRow = {
-                    id: row.id, // Assign unique ID from original data
-                    word: sanitizeHTML(root ? root.trim() : ''),
-                    definition: sanitizeHTML(translation ? translation.trim() : ''),
-                    notes: sanitizeHTML(notes ? notes.trim() : ''),
-                    etymology: sanitizeHTML(origin ? origin.trim() : ''),
-                    type: 'root'
-                };
+        if (type === 'root') {
+            const raw = row.word || '';
+            const [root, rest] = raw.split(' = ');
+            const [translation, meta] = rest ? rest.split(' (') : ['', ''];
+            const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
 
-                console.log('Cleaned root row:', cleanedRow);
-                return cleanedRow;
-            } else {
-                const cleanedRow = {
-                    ...row,
-                    id: row.id, // Ensure ID is carried over
-                    word: sanitizeHTML(row.word.trim()),
-                    partOfSpeech: row.partOfSpeech ? sanitizeHTML(row.partOfSpeech.trim()) : '',
-                    definition: row.definition ? sanitizeHTML(row.definition.trim()) : '',
-                    explanation: row.explanation ? sanitizeHTML(row.explanation.trim()) : '',
-                    etymology: row.etymology ? sanitizeHTML(row.etymology.trim()) : '',
-                    type: 'word'
-                };
+            const cleanedRow = {
+                id: row.id, // Assign unique ID from original data
+                word: sanitizeHTML(root ? root.trim() : ''),
+                definition: sanitizeHTML(translation ? translation.trim() : ''),
+                notes: sanitizeHTML(notes ? notes.trim() : ''),
+                etymology: sanitizeHTML(origin ? origin.trim() : ''),
+                type: 'root'
+            };
 
-                console.log('Cleaned word row:', cleanedRow);
-                return cleanedRow;
-            }
-        });
+            console.log('Cleaned root row:', cleanedRow);
+            return cleanedRow;
+        } else {
+            const cleanedRow = {
+                ...row,
+                id: row.id, // Ensure ID is carried over
+                word: row.word ? row.word.trim() : '',
+                partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
+                definition: row.definition ? row.definition.trim() : '',
+                explanation: row.explanation ? row.explanation.trim() : '',
+                etymology: row.etymology ? row.etymology.trim() : '',
+                type: 'word'
+            };
+
+            console.log('Cleaned word row:', cleanedRow);
+            return cleanedRow;
+        }
+    }).filter(row => row !== null); // Filter out any invalid rows
     }
 
     function sanitizeHTML(str) {
