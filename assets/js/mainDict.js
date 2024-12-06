@@ -48,64 +48,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-    // Function to create a dictionary box
-    function createDictionaryBox({ word, partOfSpeech, definition, explanation, etymology }, searchTerm, exactMatch, searchIn) {
-        const box = document.createElement('div');
-        box.className = 'dictionary-box';
-        box.setAttribute('data-word', word);
-
-        const title = document.createElement('div');
-        title.className = 'title';
-        title.innerHTML = searchIn.word && searchTerm && (exactMatch ? word === searchTerm : word.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(word, searchTerm) : word;
-
-        const partOfSpeechElement = document.createElement('span');
-        partOfSpeechElement.className = 'part-of-speech';
-        partOfSpeechElement.textContent = `(${partOfSpeech})`;
-
-        const meaningElement = document.createElement('div');
-        meaningElement.className = 'meaning';
-        meaningElement.innerHTML = searchIn.definition && searchTerm && (exactMatch ? definition === searchTerm : definition.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(`Definition: ${definition}`, searchTerm) : `Definition: ${definition}`;
-
-        const explanationElement = document.createElement('div');
-        explanationElement.className = 'explanation';
-        explanationElement.innerHTML = explanation ? (searchIn.definition && searchTerm && (exactMatch ? explanation === searchTerm : explanation.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(`Explanation: ${explanation}`, searchTerm) : `Explanation: ${explanation}`) : '';
-
-        const rootElement = document.createElement('div');
-        rootElement.className = 'root';
-        const highlightedEtymology = searchIn.etymology && searchTerm && (exactMatch ? etymology === searchTerm : etymology.toLowerCase().includes(searchTerm.toLowerCase())) ? highlight(etymology, searchTerm) : etymology;
-        const etymologyRoots = etymology.split(',').map(root => root.trim());
-        const etymologyLinks = etymologyRoots.map(root => {
-            const etymologyRow = allRows.find(row => row.word.toLowerCase() === root.toLowerCase());
-            return etymologyRow ? `<a href="?search=${root}&id=${etymologyRow.id}">${highlight(root, searchTerm)}</a>` : root;
-        }).join(', ');
-        rootElement.innerHTML = `Etymology: ${etymologyLinks}`;
-
-        box.appendChild(title);
-        box.appendChild(partOfSpeechElement);
-        box.appendChild(meaningElement);
-        if (explanation) box.appendChild(explanationElement);
-        box.appendChild(rootElement);
-
-        // Add click event listener for highlighting and related words
-        box.addEventListener('click', () => {
-            if (box.classList.contains('selected')) {
-                // Dehighlight the box and remove related words if already selected
-                box.classList.remove('selected');
-                box.style.backgroundColor = ''; // Reset background color
-                const relatedWordsElement = box.querySelector('.related-words');
-                if (relatedWordsElement) {
-                    box.removeChild(relatedWordsElement);
-                }
-            } else {
-                // Remove highlight from previously selected box
-                const previouslySelectedBox = document.querySelector('.dictionary-box.selected');
-                if (previouslySelectedBox) {
-                    previouslySelectedBox.classList.remove('selected');
-                    previouslySelectedBox.style.backgroundColor = ''; // Reset background color
-                    const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
-                    if (previousRelatedWords) {
-                        previouslySelectedBox.removeChild(previousRelatedWords);
-                    }
+// Function to create a dictionary box
 function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     const box = document.createElement('div');
     box.classList.add('dictionary-box');
