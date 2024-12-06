@@ -2,7 +2,7 @@ import { fetchData } from './dictScripts/fetchData.js';
 import { highlight } from './dictScripts/searchHighlight.js';
 import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
 import { displayWarning } from './dictScripts/warnings.js';
-import { calculateSimilarity, getRelatedWordsByRoot } from './dictScripts/utils.js';
+import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const defaultRowsPerPage = 100;
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             box.classList.add('selected');
             box.style.backgroundColor = 'darkorange';
 
-            // Display related words
+            // Display related words by root
             const relatedWordsElement = document.createElement('div');
             relatedWordsElement.className = 'related-words';
             relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return box;
     }
-// Function to display rows of the current page
+    // Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
