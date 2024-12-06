@@ -3,6 +3,8 @@
     padding: 10px;
     margin-bottom: 10px;
     cursor: pointer;
+    border-radius: 10px; /* Make boxes rounder */
+    transition: background-color 0.3s; /* Smooth transition for background color changes */
 }
 
 .dictionary-box .title {
@@ -102,6 +104,17 @@ mark {
     margin-top: 10px;
 }
 
-.dictionary-box.selected {
-    background-color: darkorange;
+/* New classes for styling root words and selected words */
+.root-word {
+    background-color: darkblue;
+    color: white;
+}
+
+.selected-word {
+    background-color: lightgreen;
+}
+
+.selected-root {
+    background-color: darkblue;
+    color: white;
 }
