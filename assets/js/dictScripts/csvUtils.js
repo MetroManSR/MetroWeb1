@@ -13,19 +13,17 @@ export function cleanData(data, type) {
             let origin = '';
 
             if (raw.includes(' = ')) {
-                [root, rest] = raw.split(' = ');
+                root = row.word;
             } else {
                 root = raw;
-                rest = '';
+                rest = 'undefined';
             }
 
-            if (rest.includes(' (')) {
-                [translation, rest] = rest.split(' (');
-            } else {
-                translation = rest;
-            }
+            let rest = raw.word.split(' (')[1]
+            translation = row.translation|| 'undefined';
 
             if (rest.includes(', ')) {
+                
                 [notes, origin] = rest.slice(0, -1).split(', ');
             } else {
                 notes = rest.slice(0, -1);
