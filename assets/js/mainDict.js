@@ -145,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
     // Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
