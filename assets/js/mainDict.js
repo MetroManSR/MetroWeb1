@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
     // Add event listener to clear the search
-    document.getElementId('clear-search-button').addEventListener('click', () => {
+    document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         displayPage(1);
     });
