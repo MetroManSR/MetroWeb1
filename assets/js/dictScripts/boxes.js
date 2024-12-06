@@ -6,7 +6,7 @@ let previouslySelectedBox = null; // Ensure this is defined outside the function
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
     console.log('Creating box for:', row);
 
-    if (!row || !row.word || !row.etymology) {
+    if (!row || !row.word) {
         console.error('Invalid row data:', row);
         return null;
     }
@@ -90,4 +90,4 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     });
 
     return box;
-}
+} 
