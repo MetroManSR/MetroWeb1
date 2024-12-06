@@ -89,7 +89,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
-    function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     const dictionaryContainer = document.getElementById('dictionary');
