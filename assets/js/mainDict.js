@@ -124,44 +124,44 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function filterAndDisplayWord(searchTerm, wordId, rootId) {
-        const searchIn = {
-            word: document.getElementById('search-in-word').checked,
-            root: document.getElementById('search-in-root').checked,
-            definition: document.getElementById('search-in-definition').checked,
-            etymology: document.getElementById('search-in-etymology').checked
-        };
-        const exactMatch = document.getElementById('exact-match').checked;
+    function filterAndDisplayWord(searchTerm, wordId, rootId) {
+    const searchIn = {
+        word: document.getElementById('search-in-word').checked,
+        root: document.getElementById('search-in-root').checked,
+        definition: document.getElementById('search-in-definition').checked,
+        etymology: document.getElementById('search-in-etymology').checked
+    };
+    const exactMatch = document.getElementById('exact-match').checked;
 
-        if ((!searchTerm.trim() && (!wordId || parseInt(wordId) <= 0) && (!rootId || parseInt(rootId) <= 0))) return;
+    if ((!searchTerm.trim() && (!wordId || parseInt(wordId) <= 0) && (!rootId || parseInt(rootId) <= 0))) return;
 
-        if (searchTerm && searchTerm.trim()) {
-            filteredRows = allRows.filter(row => {
-                const wordMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-                const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-                const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
-                const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
-                return wordMatch || rootMatch || definitionMatch || etymologyMatch;
-            });
+    if (searchTerm && searchTerm.trim()) {
+        filteredRows = allRows.filter(row => {
+            const wordMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
+            const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
+            const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
+            const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
+            return wordMatch || rootMatch || definitionMatch || etymologyMatch;
+        });
 
+        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+        displayPage(1, searchTerm, searchIn, exactMatch);
+    } else if (wordId && parseInt(wordId) > 0) {
+        const row = allRowsById[parseInt(wordId)];
+        if (row) {
+            filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(1, searchTerm, searchIn, exactMatch);
-        } else if (wordId && parseInt(wordId) > 0) {
-            const row = allRowsById[parseInt(wordId)];
-            if (row) {
-                filteredRows = [row];
-                createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-                displayPage(1, '', searchIn, exactMatch);
-            }
-        } else if (rootId && parseInt(rootId) > 0) {
-            const row = allRowsById[parseInt(rootId)];
-            if (row) {
-                filteredRows = [row];
-                createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-                displayPage(1, '', searchIn, exactMatch);
-            }
+            displayPage(1, '', searchIn, exactMatch);
+        }
+    } else if (rootId && parseInt(rootId) > 0) {
+        const row = allRowsById[parseInt(rootId)];
+        if (row) {
+            filteredRows = [row];
+            createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+            displayPage(1, '', searchIn, exactMatch);
         }
     }
-
+    }
     // Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
