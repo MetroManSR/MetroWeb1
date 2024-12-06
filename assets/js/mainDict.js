@@ -92,11 +92,11 @@ function displayPage(page, searchTerm = '', searchIn = { word: true, definition:
 
     filteredRows.slice(start, end).forEach(row => {
         const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
-        if (box instanceof Node) {
+        if (box && box instanceof Node) {
             dictionaryContainer.appendChild(box);
             console.log('Appended box:', box);
         } else {
-            console.error('Failed to create a valid node for:', row);
+            console.error('Failed to create a valid object for:', row);
         }
     });
 
