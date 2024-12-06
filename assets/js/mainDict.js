@@ -70,36 +70,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add click event listener for highlighting and related words
         box.addEventListener('click', () => {
-            // Remove highlight from previously selected box
-            const previouslySelectedBox = document.querySelector('.dictionary-box.selected');
-            if (previouslySelectedBox) {
-                previouslySelectedBox.classList.remove('selected');
-                previouslySelectedBox.style.backgroundColor = ''; // Reset background color
-                const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
-                if (previousRelatedWords) {
-                    previouslySelectedBox.removeChild(previousRelatedWords);
+            if (box.classList.contains('selected')) {
+                // Dehighlight the box and remove related words if already selected
+                box.classList.remove('selected');
+                box.style.backgroundColor = ''; // Reset background color
+                const relatedWordsElement = box.querySelector('.related-words');
+                if (relatedWordsElement) {
+                    box.removeChild(relatedWordsElement);
                 }
-            }
+            } else {
+                // Remove highlight from previously selected box
+                const previouslySelectedBox = document.querySelector('.dictionary-box.selected');
+                if (previouslySelectedBox) {
+                    previouslySelectedBox.classList.remove('selected');
+                    previouslySelectedBox.style.backgroundColor = ''; // Reset background color
+                    const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
+                    if (previousRelatedWords) {
+                        previouslySelectedBox.removeChild(previousRelatedWords);
+                    }
+                }
 
-            // Highlight the clicked box
-            box.classList.add('selected');
-            box.style.backgroundColor = 'darkorange';
+                // Highlight the clicked box
+                box.classList.add('selected');
+                box.style.backgroundColor = 'darkorange';
 
-            // Display related words by root
-            const relatedWordsElement = document.createElement('div');
-            relatedWordsElement.className = 'related-words';
-            relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
+                // Display related words by root
+                const relatedWordsElement = document.createElement('div');
+                relatedWordsElement.className = 'related-words';
+                relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
 
-            const relatedWords = getRelatedWordsByRoot(word, etymology, allRows);
-            if (relatedWords) {
-                relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
-                box.appendChild(relatedWordsElement);
+                const relatedWords = getRelatedWordsByRoot(word, etymology, allRows);
+                if (relatedWords) {
+                    relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
+                    box.appendChild(relatedWordsElement);
+                }
             }
         });
 
         return box;
     }
-    // Function to display rows of the current page
+// Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -145,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
     // Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
