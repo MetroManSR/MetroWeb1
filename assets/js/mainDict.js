@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         displayPage(currentPage);
 
         const params = new URLSearchParams(window.location.search);
-        const searchTerm = params.get('search');
-        const searchId = params.get('id');
+        const searchTerm = params.get('dictionaryword');
+        const searchId = params.get('dictionaryid');
         if ((searchTerm && searchTerm.trim()) || (searchId && parseInt(searchId) > 0)) {
             filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', searchId);
         }
