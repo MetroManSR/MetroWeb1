@@ -47,6 +47,8 @@ export async function createDictionaryBox(row, searchTerm, exactMatch, searchIn)
     box.appendChild(originElement);
     box.appendChild(typeElement);
 
+    console.log('Created box:', box);
+
     box.addEventListener('click', function() {
         if (previouslySelectedBox) {
             previouslySelectedBox.classList.remove('selected');
