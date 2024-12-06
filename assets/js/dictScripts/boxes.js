@@ -1,5 +1,5 @@
 // Function to create a dictionary box
-export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
+export async function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     const box = document.createElement('div');
     box.classList.add('dictionary-box');
     box.id = `entry-${row.id}`;
