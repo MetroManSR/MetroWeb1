@@ -10,27 +10,35 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     }
 
     const box = document.createElement('div');
-    box.classList.add('dictionary-box'); // Ensures it uses the .dictionary-box class
+    box.classList.add('dictionary-box');
     box.id = `entry-${row.id}`;
 
+    if (row.type === 'root') {
+        box.style.backgroundColor = 'darkblue';
+        box.style.color = 'white'; // To ensure text is readable on a dark background
+    } else {
+        box.style.backgroundColor = 'darkgreen';
+        box.style.color = 'white'; // To ensure text is readable on a dark background
+       } 
+
     const wordElement = document.createElement('div');
-    wordElement.classList.add('title'); // Use .title class
-    wordElement.textContent = row.word;
+    wordElement.classList.add('title');
+    wordElement.textContent = `${row.word}${row.partOfSpeech ? ` (${row.partOfSpeech})` : ''}`;
 
     const translationElement = document.createElement('div');
-    translationElement.classList.add('meaning'); // Use .meaning class
+    translationElement.classList.add('meaning');
     translationElement.textContent = row.definition;
 
     const notesElement = document.createElement('div');
-    notesElement.classList.add('explanation'); // Use .explanation class
+    notesElement.classList.add('explanation');
     notesElement.textContent = row.notes;
 
     const originElement = document.createElement('div');
-    originElement.classList.add('root'); // Use .root class
-    originElement.textContent = row.etymology;
+    originElement.classList.add('root');
+    originElement.textContent = `Root: ${row.etymology}`;
 
     const typeElement = document.createElement('div');
-    typeElement.classList.add('part-of-speech'); // Use .part-of-speech class
+    typeElement.classList.add('part-of-speech');
     typeElement.textContent = row.type === 'root' ? 'Root' : 'Word';
 
     // Add type tag to the top right
@@ -40,9 +48,9 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
 
     box.appendChild(typeTag);
     box.appendChild(wordElement);
-    box.appendChild(translationElement);
+    if (row.type !== 'root') box.appendChild(translationElement);
     box.appendChild(notesElement);
-    box.appendChild(originElement);
+    if (row.type !== 'root') box.appendChild(originElement);
     box.appendChild(typeElement);
 
     console.log('Created box:', box);
@@ -59,7 +67,11 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
 
         // Highlight the clicked box
         box.classList.add('selected');
-        box.style.backgroundColor = 'darkorange';
+        if (row.type !== 'root') {
+            box.style.backgroundColor = 'darkorange';
+        } else {
+            box.style.backgroundColor = 'darkblue';
+        }
 
         // Display related words by root
         const relatedWordsElement = document.createElement('div');
@@ -76,4 +88,4 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     });
 
     return box;
-}
+} 
