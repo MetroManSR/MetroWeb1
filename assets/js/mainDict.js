@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return box;
     }
-    // Function to display rows of the current page
+// Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
         const value = parseInt(document.getElementById('rows-per-page-input').value, 10);
-        if (value >= 5 and value <= 500) {
+        if (value >= 5 && value <= 500) {
             rowsPerPage = value;
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
             displayPage(1);
