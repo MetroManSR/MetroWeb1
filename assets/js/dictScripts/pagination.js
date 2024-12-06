@@ -74,4 +74,4 @@ export function updatePagination(page, filteredRows, rowsPerPage) {
 
     const pageInput = document.querySelector('#pagination input[type="number"]');
     pageInput.value = page;
-        }
+}
