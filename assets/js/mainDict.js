@@ -74,20 +74,24 @@ document.addEventListener('DOMContentLoaded', async function() {
         return temp.innerHTML;
     }
 
-    function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
-        const start = (page - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const dictionaryContainer = document.getElementById('dictionary');
-        dictionaryContainer.innerHTML = ''; // Clear previous entries
+function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const dictionaryContainer = document.getElementById('dictionary');
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
 
-        filteredRows.slice(start, end).forEach(row => {
-            const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
+    filteredRows.slice(start, end).forEach(row => {
+        const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
+        if (box instanceof Node) {
             dictionaryContainer.appendChild(box);
-        });
+            console.log('Appended box:', box);
+        } else {
+            console.error('Failed to create a valid node for:', row);
+        }
+    });
 
-        updatePagination(page, filteredRows, rowsPerPage);
-    }
-
+    updatePagination(page, filteredRows, rowsPerPage);
+}
     function filterAndDisplayWord(searchTerm, searchId) {
         const searchIn = {
             word: document.getElementById('search-in-word').checked,
