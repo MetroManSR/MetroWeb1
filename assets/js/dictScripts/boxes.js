@@ -14,12 +14,8 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     box.id = `entry-${row.id}`;
 
     if (row.type === 'root') {
-        box.style.backgroundColor = 'darkblue';
-        box.style.color = 'white'; // To ensure text is readable on a dark background
-    } else {
-        box.style.backgroundColor = 'darkgreen';
-        box.style.color = 'white'; // To ensure text is readable on a dark background
-       } 
+        box.classList.add('root-word'); // Apply root word styling
+    }
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('title');
@@ -57,8 +53,7 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
 
     box.addEventListener('click', function() {
         if (previouslySelectedBox) {
-            previouslySelectedBox.classList.remove('selected');
-            previouslySelectedBox.style.backgroundColor = ''; // Reset background color
+            previouslySelectedBox.classList.remove('selected-word', 'selected-root');
             const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
             if (previousRelatedWords) {
                 previouslySelectedBox.removeChild(previousRelatedWords);
@@ -66,12 +61,7 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
         }
 
         // Highlight the clicked box
-        box.classList.add('selected');
-        if (row.type !== 'root') {
-            box.style.backgroundColor = 'darkorange';
-        } else {
-            box.style.backgroundColor = 'darkblue';
-        }
+        box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
 
         // Display related words by root
         const relatedWordsElement = document.createElement('div');
@@ -88,4 +78,35 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     });
 
     return box;
-} 
+}
+
+function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const dictionaryContainer = document.getElementById('dictionary');
+
+    // Check if dictionaryContainer is properly selected
+    if (!dictionaryContainer) {
+        console.error('Dictionary container not found');
+        return;
+    }
+
+    console.log('Type of dictionaryContainer:', dictionaryContainer);
+
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+    const rowsToDisplay = filteredRows.slice(start, end);
+    console.log('Rows to display:', rowsToDisplay);
+
+    rowsToDisplay.forEach(row => {
+        const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
+        if (box) {
+            dictionaryContainer.appendChild(box);
+            console.log('Appended box:', box);
+        } else {
+            console.error('Failed to create a valid object for:', row);
+        }
+    });
+
+    updatePagination(page, filteredRows, rowsPerPage);
+}
