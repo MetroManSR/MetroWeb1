@@ -4,18 +4,16 @@ import { createPaginationControls, updatePagination } from './dictScripts/pagina
 import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { createDictionaryBox } from './dictScripts/boxes.js';
-    
 
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
-   let rowsPerPage = defaultRowsPerPage;
-   let currentPage = 1;
+    let rowsPerPage = defaultRowsPerPage;
+    let currentPage = 1;
     const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
     const rootsFile = location.pathname.includes('/en/') ? '../../assets/data/english-roots.csv' : '../../assets/data/balkeon-roots-es.csv';
     let allRows = [];
     let filteredRows = [];
     let allRowsById = {};
-
 
     try {
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
@@ -40,103 +38,136 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
+function cleanData(data, type) {
+    return data.map(row => {
+        if (type === 'root') {
+            const raw = row.word || '';
+            const [root, rest] = raw.split(' = ');
+            const [translation, meta] = rest ? rest.split(' (') : ['', ''];
+            const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
 
-// Function to display rows of the current page
-    function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
-        const start = (page - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const dictionaryContainer = document.getElementById('dictionary');
-        dictionaryContainer.innerHTML = ''; // Clear previous entries
+            return {
+                id: row.id, // Assign unique ID from original data
+                word: sanitizeHTML(root ? root.trim() : ''),
+                definition: sanitizeHTML(translation ? translation.trim() : ''),
+                notes: sanitizeHTML(notes ? notes.trim() : ''),
+                etymology: sanitizeHTML(origin ? origin.trim() : ''),
+                type: 'root'
+            };
+        } else {
+            return {
+                ...row,
+                id: row.id, // Ensure ID is carried over
+                word: row.word.trim(),
+                partOfSpeech: row.partOfSpeech ? row.partOfSpeech.trim() : '',
+                definition: row.definition ? row.definition.trim() : '',
+                explanation: row.explanation ? row.explanation.trim() : '',
+                etymology: row.etymology ? row.etymology.trim() : '',
+                type: 'word'
+            };
+        }
+    });
+}
 
-        filteredRows.slice(start, end).forEach(row => {
-            const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
-            dictionaryContainer.appendChild(box);
+function sanitizeHTML(str) {
+    const temp = document.createElement('div');
+    temp.textContent = str;
+    return temp.innerHTML;
+}
+
+function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const dictionaryContainer = document.getElementById('dictionary');
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+    filteredRows.slice(start, end).forEach(row => {
+        const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
+        dictionaryContainer.appendChild(box);
+    });
+
+    updatePagination(page, filteredRows, rowsPerPage);
+}
+
+function filterAndDisplayWord(searchTerm, searchId) {
+    const searchIn = {
+        word: document.getElementById('search-in-word').checked,
+        definition: document.getElementById('search-in-definition').checked,
+        etymology: document.getElementById('search-in-etymology').checked
+    };
+    const exactMatch = document.getElementById('exact-match').checked;
+
+    if ((!searchTerm.trim() && (!searchId || parseInt(searchId) <= 0))) return;
+
+    if (searchTerm && searchTerm.trim()) {
+        filteredRows = allRows.filter(row => {
+            const wordMatch = searchIn.word && searchTerm && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
+            const definitionMatch = searchIn.definition && searchTerm && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
+            const etymologyMatch = searchIn.etymology && searchTerm && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
+            return wordMatch || definitionMatch || etymologyMatch;
         });
 
-        updatePagination(page, filteredRows, rowsPerPage);
-    }
-
-    // Function to filter rows based on search term with options
-    function filterAndDisplayWord(searchTerm, searchId) {
-        const searchIn = {
-            word: document.getElementById('search-in-word').checked,
-            definition: document.getElementById('search-in-definition').checked,
-            etymology: document.getElementById('search-in-etymology').checked
-        };
-        const exactMatch = document.getElementById('exact-match').checked;
-
-        if ((!searchTerm.trim() && (!searchId || parseInt(searchId) <= 0))) return;
-
-        if (searchTerm && searchTerm.trim()) {
-            filteredRows = allRows.filter(row => {
-                const wordMatch = searchIn.word && searchTerm && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-                const definitionMatch = searchIn.definition && searchTerm && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
-                const etymologyMatch = searchIn.etymology && searchTerm && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
-                return wordMatch || definitionMatch || etymologyMatch;
-            });
-
+        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+        displayPage(1, searchTerm, searchIn, exactMatch);
+    } else if (searchId && parseInt(searchId) > 0) {
+        const row = allRowsById[parseInt(searchId)];
+        if (row) {
+            filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(1, searchTerm, searchIn, exactMatch);
-        } else if (searchId && parseInt(searchId) > 0) {
-            const row = allRowsById[parseInt(searchId)];
-            if (row) {
-                filteredRows = [row];
-                createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-                displayPage(1, row.word, searchIn, exactMatch);
-            }
+            displayPage(1, row.word, searchIn, exactMatch);
         }
     }
+}
 
-    // Add event listener to the search input
-    document.getElementById('search-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const searchTerm = e.target.value.trim();
-            filterAndDisplayWord(searchTerm, '');
-        }
-    });
-
-    document.getElementById('search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value.trim();
+// Add event listener to the search input
+document.getElementById('search-input').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        const searchTerm = e.target.value.trim();
         filterAndDisplayWord(searchTerm, '');
-    });
-
-    // Add event listener to clear the search
-    document.getElementById('clear-search-button').addEventListener('click', () => {
-        document.getElementById('search-input').value = '';
-        displayPage(1);
-    });
-
-    document.getElementById('rows-per-page-button').addEventListener('click', () => {
-        const value = parseInt(document.getElementById('rows-per-page-input').value, 10);
-        if (value >= 5 && value <= 500) {
-            rowsPerPage = value;
-            createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(1);
-        } else {
-            displayWarning('rows-warning', 'Please enter a value between 5 and 500');
-        }
-    });
-
-    // Popup window functionality
-    document.getElementById('advanced-search-button').addEventListener('click', () => {
-        document.getElementById('advanced-search-popup').classList.add('active');
-        document.getElementById('popup-overlay').classList.add('active');
-    });
-
-    document.getElementById('close-popup-button').addEventListener('click', () => {
-        document.getElementById('advanced-search-popup').classList.remove('active');
-        document.getElementById('popup-overlay').classList.remove('active');
-    });
-
-    document.getElementById('apply-search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, '');
-        document.getElementById('advanced-search-popup').classList.remove('active');
-        document.getElementById('popup-overlay').classList.remove('active');
-    });
-
-    // Ensure all checkboxes are checked by default
-    document.getElementById('search-in-word').checked = true;
-    document.getElementById('search-in-definition').checked = true;
-    document.getElementById('search-in-etymology').checked = true;
+    }
 });
+
+document.getElementById('search-button').addEventListener('click', () => {
+    const searchTerm = document.getElementById('search-input').value.trim();
+    filterAndDisplayWord(searchTerm, '');
+});
+
+// Add event listener to clear the search
+document.getElementById('clear-search-button').addEventListener('click', () => {
+    document.getElementById('search-input').value = '';
+    displayPage(1);
+});
+
+document.getElementById('rows-per-page-button').addEventListener('click', () => {
+    const value = parseInt(document.getElementById('rows-per-page-input').value, 10);
+    if (value >= 5 && value <= 500) {
+        rowsPerPage = value;
+        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+        displayPage(1);
+    } else {
+        displayWarning('rows-warning', 'Please enter a value between 5 and 500');
+    }
+});
+
+// Popup window functionality
+document.getElementById('advanced-search-button').addEventListener('click', () => {
+    document.getElementById('advanced-search-popup').classList.add('active');
+    document.getElementById('popup-overlay').classList.add('active');
+});
+
+document.getElementById('close-popup-button').addEventListener('click', () => {
+    document.getElementById('advanced-search-popup').classList.remove('active');
+    document.getElementById('popup-overlay').classList.remove('active');
+});
+
+document.getElementById('apply-search-button').addEventListener('click', () => {
+    const searchTerm = document.getElementById('search-input').value.trim();
+    filterAndDisplayWord(searchTerm, '');
+    document.getElementById('advanced-search-popup').classList.remove('active');
+    document.getElementById('popup-overlay').classList.remove('active');
+});
+
+// Ensure all checkboxes are checked by default
+document.getElementById('search-in-word').checked = true;
+document.getElementById('search-in-definition').checked = true;
+document.getElementById('search-in-etymology').checked = true;
