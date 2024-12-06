@@ -1,5 +1,7 @@
 import { getRelatedWordsByRoot } from './utils.js';
 
+let previouslySelectedBox = null; // Ensure this is defined outside the function
+
 // Function to create a dictionary box
 export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     console.log('Creating box for:', row);
@@ -78,35 +80,4 @@ export function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     });
 
     return box;
-}
-
-function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const dictionaryContainer = document.getElementById('dictionary');
-
-    // Check if dictionaryContainer is properly selected
-    if (!dictionaryContainer) {
-        console.error('Dictionary container not found');
-        return;
-    }
-
-    console.log('Type of dictionaryContainer:', dictionaryContainer);
-
-    dictionaryContainer.innerHTML = ''; // Clear previous entries
-
-    const rowsToDisplay = filteredRows.slice(start, end);
-    console.log('Rows to display:', rowsToDisplay);
-
-    rowsToDisplay.forEach(row => {
-        const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
-        if (box) {
-            dictionaryContainer.appendChild(box);
-            console.log('Appended box:', box);
-        } else {
-            console.error('Failed to create a valid object for:', row);
-        }
-    });
-
-    updatePagination(page, filteredRows, rowsPerPage);
 }
