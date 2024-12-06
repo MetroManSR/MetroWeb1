@@ -24,6 +24,16 @@
     margin-top: 5px;
 }
 
+.type-tag {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: lightgrey;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
 mark {
     background-color: yellow;
 }
