@@ -3,7 +3,8 @@ import { highlight } from './dictScripts/searchHighlight.js';
 import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
 import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
-
+import { createDictionaryBox} from './dictScripts/boxes.js';
+    
 document.addEventListener('DOMContentLoaded', () => {
     const defaultRowsPerPage = 10;
 let rowsPerPage = defaultRowsPerPage;
@@ -96,33 +97,6 @@ function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     box.addEventListener('click', function() {
         if (previouslySelectedBox) {
             previouslySelectedBox.classList.remove('selected');
-            previouslySelectedBox.style.backgroundColor = ''; // Reset background color
-            const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
-            if (previousRelatedWords) {
-                previouslySelectedBox.removeChild(previousRelatedWords);
-            }
-        }
-
-        // Highlight the clicked box
-        box.classList.add('selected');
-        box.style.backgroundColor = 'darkorange';
-
-        // Display related words by root
-        const relatedWordsElement = document.createElement('div');
-        relatedWordsElement.className = 'related-words';
-        relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
-
-        const relatedWords = getRelatedWordsByRoot(row.word, row.etymology, allRows);
-        if (relatedWords) {
-            relatedWordsElement.innerHTML = `Related Words: ${relatedWords}`;
-            box.appendChild(relatedWordsElement);
-        }
-
-        previouslySelectedBox = box; // Set the clicked box as the previously selected one
-    });
-
-    return box;
-}
 // Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
