@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     
     function cleanData(data, type) {
+function cleanData(data, type) {
     return data.map((row, index) => {
         console.log(`Cleaning row ${index + 1}:`, row);
 
@@ -75,9 +76,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             return cleanedRow;
         }
     });
-    }
+}
 
-    function sanitizeHTML(str) {
+function sanitizeHTML(str) {
         const temp = document.createElement('div');
         temp.textContent = str;
         return temp.innerHTML;
