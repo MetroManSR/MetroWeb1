@@ -17,12 +17,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     try {
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
+        console.log('Fetched dictionary data:', dictionaryData);
+        console.log('Fetched roots data:', rootsData);
 
         allRows = [...cleanData(dictionaryData, 'word'), ...cleanData(rootsData, 'root')];
         filteredRows = allRows;
+        console.log('Processed rows:', allRows);
+
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
         });
+        console.log('allRowsById:', allRowsById);
 
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
         displayPage(currentPage);
@@ -36,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     } catch (error) {
         console.error('Error loading data:', error);
     }
+
 
     function cleanData(data, type) {
         return data.map((row, index) => {
@@ -182,5 +188,5 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Ensure all checkboxes are checked by default
     document.getElementById('search-in-word').checked = true;
     document.getElementById('search-in-definition').checked = true;
-    document.getElementById('search-in-etymology').checked = true;
-}); // Closing bracket for document.addEventListener
+    document.getElementById('search-in-etymology').checked = true;// Closing bracket for document.addEventListener
+});
