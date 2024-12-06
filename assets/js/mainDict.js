@@ -5,6 +5,7 @@ import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { createDictionaryBox } from './dictScripts/boxes.js';
 import { setTexts } from './dictScripts/loadTexts.js';
+import { cleanData, sanitizeHTML } from './dictScripts/csvUtils.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
@@ -45,51 +46,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     } catch (error) {
         console.error('Error loading data:', error);
-    }
-
-    function cleanData(data, type) {
-        return data.map((row, index) => {
-            console.log(`Cleaning row ${index + 1}:`, row);
-
-            if (type === 'root') {
-                const raw = row.word || '';
-                const [root, rest] = raw.split(' = ');
-                const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-                const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
-
-                const cleanedRow = {
-                    id: row.id || index, // Assign unique ID if missing
-                    word: sanitizeHTML(root ? root.trim() : ''),
-                    definition: sanitizeHTML(translation ? translation.trim() : ''),
-                    notes: sanitizeHTML(notes ? notes.trim() : ''),
-                    etymology: sanitizeHTML(origin ? origin.trim() : ''),
-                    type: 'root'
-                };
-
-                console.log('Cleaned root row:', cleanedRow);
-                return cleanedRow;
-            } else {
-                const cleanedRow = {
-                    ...row,
-                    id: row.id || index, // Ensure ID is assigned
-                    word: sanitizeHTML(row.word ? row.word.trim() : ''),
-                    partOfSpeech: sanitizeHTML(row.partOfSpeech ? row.partOfSpeech.trim() : ''),
-                    definition: sanitizeHTML(row.definition ? row.definition.trim() : ''),
-                    explanation: sanitizeHTML(row.explanation ? row.explanation.trim() : ''),
-                    etymology: sanitizeHTML(row.etymology ? row.etymology.trim() : ''),
-                    type: 'word'
-                };
-
-                console.log('Cleaned word row:', cleanedRow);
-                return cleanedRow;
-            }
-        });
-    }
-
-    function sanitizeHTML(str) {
-        const temp = document.createElement('div');
-        temp.textContent = str;
-        return temp.innerHTML;
     }
 
     function displayPage(page, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false) {
@@ -168,6 +124,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             const searchTerm = e.target.value.trim();
             filterAndDisplayWord(searchTerm, '', '');
         }
+    });
+
+    document.getElementById('search-button').addEventListener('click', () => {
+        const searchTerm = document.getElementById('search-input').value.trim();
+        filterAndDisplayWord(searchTerm, '', '');
     });
 
     // Add event listener to clear the search
