@@ -34,24 +34,27 @@ layout: base
 
     <!-- Popup for advanced search -->
     <div class="popup-overlay" id="popup-overlay"></div>
-    <div class="popup" id="advanced-search-popup">
-        <h3>Advanced Search</h3>
-        <label>
-            <input type="checkbox" id="search-in-word" checked /> Word
-        </label>
-        <label>
-            <input type="checkbox" id="search-in-definition" checked /> Definition
-        </label>
-        <label>
-            <input type="checkbox" id="search-in-etymology" checked /> Etymology
-        </label>
-        <br/>
-        <label>
-            <input type="checkbox" id="exact-match" /> Exact Match
-        </label>
-        <br/>
-        <button id="apply-search-button">Apply</button>
-        <button id="close-popup-button">Close</button>
+    <div id="advanced-search-popup">
+    <h3>Advanced Search</h3>
+    <label>
+        <input type="checkbox" id="search-in-word" checked /> Word
+    </label>
+    <label>
+        <input type="checkbox" id="search-in-root" checked /> Root
+    </label>
+    <label>
+        <input type="checkbox" id="search-in-definition" checked /> Definition
+    </label>
+    <label>
+        <input type="checkbox" id="search-in-etymology" checked /> Etymology
+    </label>
+    <br/>
+    <label>
+        <input type="checkbox" id="exact-match" /> Exact Match
+    </label>
+    <br/>
+    <button id="apply-search-button">Apply</button>
+    <button id="close-popup-button">Close</button>
     </div>
 
     <script type="module" src="../../assets/js/mainDict.js"></script>
