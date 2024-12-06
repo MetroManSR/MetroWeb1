@@ -62,6 +62,11 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
             }
         }
 
+        if (box === previouslySelectedBox) {
+            previouslySelectedBox = null;
+            return; // Deselect the current box
+        }
+
         // Highlight the clicked box
         box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
 
@@ -75,8 +80,8 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
             relatedWordsElement.innerHTML = `${count} words related: ${list}`;
             box.appendChild(relatedWordsElement);
 
-            // Check if the related words exceed 4 lines and make it scrollable
-            if (relatedWordsElement.scrollHeight > relatedWordsElement.clientHeight) {
+            // Check if the related words exceed 30 and make it scrollable
+            if (count > 30) {
                 relatedWordsElement.classList.add('scrollable-box');
             }
         }
