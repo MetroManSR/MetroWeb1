@@ -1,10 +1,3 @@
-import { fetchData } from './dictScripts/fetchData.js';
-import { highlight } from './dictScripts/searchHighlight.js';
-import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
-import { displayWarning } from './dictScripts/warnings.js';
-import { getRelatedWordsByRoot } from './dictScripts/utils.js';
-import { createDictionaryBox } from './dictScripts/boxes.js';
-
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
@@ -91,6 +84,15 @@ document.addEventListener('DOMContentLoaded', async function() {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const dictionaryContainer = document.getElementById('dictionary');
+        
+        console.log('Type of dictionaryContainer:', typeof dictionaryContainer);
+
+        // Check if dictionaryContainer is properly selected
+        if (!dictionaryContainer) {
+            console.error('Dictionary container not found');
+            return;
+        }
+
         dictionaryContainer.innerHTML = ''; // Clear previous entries
 
         const rowsToDisplay = filteredRows.slice(start, end);
@@ -182,7 +184,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.getElementById('apply-search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, ''); 
+        filterAndDisplayWord(searchTerm, '');
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
