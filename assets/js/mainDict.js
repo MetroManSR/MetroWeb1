@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         rowsToDisplay.forEach(row => {
             const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
-            if (box && box instanceof Node) {
+            if (box) { // Removed the instanceof Node check
                 dictionaryContainer.appendChild(box);
                 console.log('Appended box:', box);
             } else {
