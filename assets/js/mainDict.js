@@ -150,14 +150,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (row) {
                 filteredRows = [row];
                 createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-                displayPage(1, row.word, searchIn, exactMatch);
+                displayPage(1, '', searchIn, exactMatch);
             }
         } else if (rootId && parseInt(rootId) > 0) {
             const row = allRowsById[parseInt(rootId)];
             if (row) {
                 filteredRows = [row];
                 createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-                displayPage(1, row.word, searchIn, exactMatch);
+                displayPage(1, '', searchIn, exactMatch);
             }
         }
     }
