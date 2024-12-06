@@ -5,6 +5,8 @@ import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { createDictionaryBox } from './dictScripts/boxes.js';
 
+let previouslySelectedBox = null; // Initialize previouslySelectedBox
+
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
@@ -98,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             return;
         }
 
-        console.log('Type of dictionaryContainer:', typeof dictionaryContainer, dictionaryContainer);
+        console.log('Type of dictionaryContainer:', dictionaryContainer);
 
         dictionaryContainer.innerHTML = ''; // Clear previous entries
 
@@ -147,7 +149,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         }
     }
-
+ 
     // Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
