@@ -1,4 +1,4 @@
-import { getRelatedWordsByRoot } from './utils.js';
+import { getRelatedWordsByRoot, highlight } from './utils.js';
 
 let previouslySelectedBox = null; // Ensure this is defined outside the function
 
@@ -21,19 +21,19 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('title');
-    wordElement.textContent = `${row.word}${row.partOfSpeech ? ` (${row.partOfSpeech})` : ''}`;
+    wordElement.innerHTML = highlight(row.word, searchTerm);
 
     const translationElement = document.createElement('div');
     translationElement.classList.add('meaning');
-    translationElement.textContent = row.definition;
+    translationElement.innerHTML = highlight(row.definition, searchTerm);
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('explanation');
-    notesElement.textContent = row.notes;
+    notesElement.innerHTML = highlight(row.notes, searchTerm);
 
     const originElement = document.createElement('div');
     originElement.classList.add('root');
-    originElement.textContent = `Root: ${row.etymology}`;
+    originElement.innerHTML = `Root: ${highlight(row.etymology, searchTerm)}`;
 
     const typeElement = document.createElement('div');
     typeElement.classList.add('part-of-speech');
