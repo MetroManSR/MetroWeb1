@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return box;
     }
-// Function to display rows of the current page
+    // Function to display rows of the current page
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
