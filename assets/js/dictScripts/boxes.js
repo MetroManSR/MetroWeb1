@@ -6,7 +6,7 @@ let previouslySelectedBox = null; // Ensure this is defined outside the function
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
     console.log('Creating box for:', row);
 
-    if (!row || !row.word) {
+    if (!row || !row.word || !row.etymology) {
         console.error('Invalid row data:', row);
         return null;
     }
@@ -21,19 +21,19 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('title');
-    wordElement.innerHTML = highlight(row.word, searchTerm);
+    wordElement.innerHTML = highlight(row.word || '', searchTerm);
 
     const translationElement = document.createElement('div');
     translationElement.classList.add('meaning');
-    translationElement.innerHTML = highlight(row.definition, searchTerm);
+    translationElement.innerHTML = highlight(row.definition || '', searchTerm);
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('explanation');
-    notesElement.innerHTML = highlight(row.notes, searchTerm);
+    notesElement.innerHTML = highlight(row.notes || '', searchTerm);
 
     const originElement = document.createElement('div');
     originElement.classList.add('root');
-    originElement.innerHTML = `Root: ${highlight(row.etymology, searchTerm)}`;
+    originElement.innerHTML = `Root: ${highlight(row.etymology || '', searchTerm)}`;
 
     const typeElement = document.createElement('div');
     typeElement.classList.add('part-of-speech');
