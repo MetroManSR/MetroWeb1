@@ -9,7 +9,7 @@ export function cleanData(data, type) {
             const [root, rest] = raw.split(' = ');
             const [translation, meta] = rest ? rest.split(' (') : ['', ''];
             const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
-            console.log('Original root rows', root, ' ', translation, ' ', notes, ' ', origin) 
+
             const cleanedRow = {
                 id: row.id || index, // Assign unique ID if missing
                 word: sanitizeHTML(root ? root.trim() : ''),
