@@ -4,7 +4,6 @@ import { createPaginationControls, updatePagination } from './dictScripts/pagina
 import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { createDictionaryBox } from './dictScripts/boxes.js';
- 
 
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
@@ -89,34 +88,34 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function displayPage(page, searchTerm = '', searchIn = { word: true, definition: false, etymology: false }, exactMatch = false) {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const dictionaryContainer = document.getElementById('dictionary');
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const dictionaryContainer = document.getElementById('dictionary');
 
-    // Check if dictionaryContainer is properly selected
-    if (!dictionaryContainer) {
-        console.error('Dictionary container not found');
-        return;
-    }
-
-    console.log('Type of dictionaryContainer:', dictionaryContainer);
-
-    dictionaryContainer.innerHTML = ''; // Clear previous entries
-
-    const rowsToDisplay = filteredRows.slice(start, end);
-    console.log('Rows to display:', rowsToDisplay);
-
-    rowsToDisplay.forEach(row => {
-        const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
-        if (box) {
-            dictionaryContainer.appendChild(box);
-            console.log('Appended box:', box);
-        } else {
-            console.error('Failed to create a valid object for:', row);
+        // Check if dictionaryContainer is properly selected
+        if (!dictionaryContainer) {
+            console.error('Dictionary container not found');
+            return;
         }
-    });
 
-    updatePagination(page, filteredRows, rowsPerPage);
+        console.log('Type of dictionaryContainer:', typeof dictionaryContainer, dictionaryContainer);
+
+        dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+        const rowsToDisplay = filteredRows.slice(start, end);
+        console.log('Rows to display:', rowsToDisplay);
+
+        rowsToDisplay.forEach(row => {
+            const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
+            if (box) {
+                dictionaryContainer.appendChild(box);
+                console.log('Appended box:', box);
+            } else {
+                console.error('Failed to create a valid object for:', row);
+            }
+        });
+
+        updatePagination(page, filteredRows, rowsPerPage);
     }
 
     function filterAndDisplayWord(searchTerm, searchId) {
