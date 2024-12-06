@@ -91,3 +91,7 @@ mark {
     font-size: 0.85em;
     margin-top: 10px;
 }
+
+.dictionary-box.selected {
+    background-color: darkorange;
+}
