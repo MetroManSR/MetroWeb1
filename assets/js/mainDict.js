@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const previouslySelectedBox = document.querySelector('.dictionary-box.selected');
             if (previouslySelectedBox) {
                 previouslySelectedBox.classList.remove('selected');
+                previouslySelectedBox.style.backgroundColor = ''; // Reset background color
                 const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
                 if (previousRelatedWords) {
                     previouslySelectedBox.removeChild(previousRelatedWords);
