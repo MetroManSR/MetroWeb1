@@ -16,7 +16,7 @@ export function cleanData(data, type) {
                 id: row.id || index, // Assign unique ID if missing
                 word: sanitizeHTML(root ? root.trim() : ''),
                 definition: sanitizeHTML(translation ? translation.trim() : ''),
-                notes: sanitizeHTML(notes ? notes.trim() : ''),
+                explanation: sanitizeHTML(notes ? notes.trim() : ''),
                 etymology: sanitizeHTML(origin ? origin.trim() : ''),
                 type: 'root'
             };
