@@ -1,8 +1,12 @@
 import { getRelatedWordsByRoot } from './utils.js';
 
-// Function to create a dictionary box
 export async function createDictionaryBox(row, searchTerm, exactMatch, searchIn) {
     console.log('Creating box for:', row);
+
+    if (!row || !row.word) {
+        console.error('Invalid row data:', row);
+        return null;
+    }
 
     const box = document.createElement('div');
     box.classList.add('dictionary-box');
