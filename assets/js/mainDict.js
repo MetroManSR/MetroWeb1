@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Error loading data:', error);
     }
 
-    function cleanData(data, type) {
+    
     function cleanData(data, type) {
     return data.map((row, index) => {
         console.log(`Cleaning row ${index + 1}:`, row);
