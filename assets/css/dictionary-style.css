@@ -4,7 +4,9 @@
     margin-bottom: 10px;
     cursor: pointer;
     border-radius: 10px; /* Make boxes rounder */
-    transition: background-color 0.3s; /* Smooth transition for background color changes */
+    transition: background-color 0.3s, border 0.3s; /* Smooth transition for background and border changes */
+    background-color: darkgreen; /* Default background color for word dictionary boxes */
+    color: white; /* Ensure text is readable on dark background */
 }
 
 .dictionary-box .title {
@@ -14,7 +16,7 @@
 
 .dictionary-box .part-of-speech {
     font-style: italic;
-    color: #555;
+    color: #ddd; /* Lighter color for part of speech */
     margin-left: 10px;
 }
 
@@ -112,6 +114,8 @@ mark {
 
 .selected-word {
     background-color: lightgreen;
+    border: 2px solid white; /* Wider white border for selected word dictionary boxes */
+    border-radius: 10px;
 }
 
 .selected-root {
