@@ -94,7 +94,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     const dictionaryContainer = document.getElementById('dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
-    filteredRows.slice(start, end).forEach(row => {
+    const rowsToDisplay = filteredRows.slice(start, end);
+    console.log('Rows to display:', rowsToDisplay);
+
+    rowsToDisplay.forEach(row => {
         const box = createDictionaryBox(row, searchTerm, exactMatch, searchIn);
         if (box && box instanceof Node) {
             dictionaryContainer.appendChild(box);
