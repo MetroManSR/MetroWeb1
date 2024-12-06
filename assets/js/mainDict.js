@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
 
         updatePagination(page, filteredRows, rowsPerPage);
-    }
+   } 
 
     function filterAndDisplayWord(searchTerm, searchId) {
         const searchIn = {
