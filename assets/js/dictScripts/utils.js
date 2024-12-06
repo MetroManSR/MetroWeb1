@@ -13,3 +13,8 @@ export function getRelatedWordsByRoot(word, etymology, allRows) {
         list: relatedWordsList
     };
 }
+
+export function highlight(text, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
