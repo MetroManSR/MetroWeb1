@@ -5,7 +5,7 @@ import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const defaultRowsPerPage = 100;
+    const defaultRowsPerPage = 10;
 let rowsPerPage = defaultRowsPerPage;
 let currentPage = 1;
 const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
