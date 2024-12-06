@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         } else {
             displayWarning('rows-warning', 'Please enter a value between 5 and 500');
         }
+    });
 
     // Popup window functionality
     document.getElementById('advanced-search-button').addEventListener('click', () => {
@@ -205,15 +206,14 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.getElementById('apply-search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, '');
+        filterAndDisplayWord(searchTerm, '', '');
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
 
     // Ensure all checkboxes are checked by default
-
-    // Ensure all checkboxes are checked by default
     document.getElementById('search-in-word').checked = true;
+    document.getElementById('search-in-root').checked = true;
     document.getElementById('search-in-definition').checked = true;
     document.getElementById('search-in-etymology').checked = true;
 });
