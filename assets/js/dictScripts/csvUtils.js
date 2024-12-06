@@ -2,13 +2,34 @@
 
 export function cleanData(data, type) {
     return data.map((row, index) => {
-        console.log(`Cleaning ${type} row ${index + 1}:`, row);
+        console.log(`Cleaning row ${index + 1}:`, row);
 
         if (type === 'root') {
             const raw = row.word || '';
-            const [root, rest] = raw.split(' = ');
-            const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-            const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
+            let root = '';
+            let rest = '';
+            let translation = '';
+            let notes = '';
+            let origin = '';
+
+            if (raw.includes(' = ')) {
+                [root, rest] = raw.split(' = ');
+            } else {
+                root = raw;
+                rest = '';
+            }
+
+            if (rest.includes(' (')) {
+                [translation, rest] = rest.split(' (');
+            } else {
+                translation = rest;
+            }
+
+            if (rest.includes(', ')) {
+                [notes, origin] = rest.slice(0, -1).split(', ');
+            } else {
+                notes = rest.slice(0, -1);
+            }
 
             const cleanedRow = {
                 id: row.id || index, // Assign unique ID if missing
