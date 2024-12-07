@@ -33,17 +33,13 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     try {
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
-        console.log('Fetched dictionary data:', dictionaryData);
-        console.log('Fetched roots data:', rootsData);
 
         allRows = [...cleanData(dictionaryData, 'word'), ...cleanData(rootsData, 'root')];
         filteredRows = allRows.filter(row => row.word && row.definition).sort((a, b) => a.word.localeCompare(b.word));
-        console.log('Processed rows:', allRows);
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
         });
-        console.log('allRowsById:', allRowsById);
 
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
         displayPage(currentPage);
@@ -74,14 +70,12 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         const validRows = filteredRows.filter(row => row.word && row.definition);
         const rowsToDisplay = validRows.slice(start, end); // Ensure rowsToDisplay is defined
-        console.log('Rows to display:', rowsToDisplay);
 
         rowsToDisplay.forEach((row, index) => {
             const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
             if (box) {
                 setTimeout(() => {
                     dictionaryContainer.appendChild(box);
-                    console.log('Appended box:', box);
                 }, index * 100); // Delay each box by 100ms for fade-in effect
             } else {
                 console.error('Failed to create a valid object for:', row);
