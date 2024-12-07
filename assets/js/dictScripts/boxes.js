@@ -91,6 +91,8 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 }
 
 function getPartOfSpeechAbbreviation(partOfSpeech, language) {
+    if (!partOfSpeech) return ''; // Return an empty string if partOfSpeech is undefined
+
     const abbreviations = {
         en: {
             noun: 'n.',
