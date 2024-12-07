@@ -181,11 +181,13 @@ header {
 .popup {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 10%; /* Reduce top position */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     padding: 40px; /* Increase padding */
     width: 80%; /* Increase width */
+    max-height: 80%; /* Add max-height */
+    overflow-y: auto; /* Enable scrolling */
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -209,11 +211,13 @@ header {
 .statistics-popup {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 10%; /* Reduce top position */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     padding: 40px; /* Increase padding */
     width: 80%; /* Increase width */
+    max-height: 80%; /* Add max-height */
+    overflow-y: auto; /* Enable scrolling */
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -235,4 +239,12 @@ header {
 
 .statistics-popup li {
     margin-bottom: 5px;
+}
+
+/* Loading Message */
+.loading-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    color: #0078d4;
 }
