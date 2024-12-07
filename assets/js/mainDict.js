@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Fetch the frontmatter to determine the language
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
+    console.log('Language set to:', language);
 
     await setTexts(language);
 
