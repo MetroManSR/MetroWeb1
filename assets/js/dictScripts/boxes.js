@@ -31,7 +31,7 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
         }
     };
 
-    return abbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
+    return abbreviations[language] && abbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
 }
 
 // Function to create a dictionary box
