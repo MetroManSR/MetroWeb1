@@ -60,20 +60,22 @@ layout: default
         <div class="popup-overlay" id="popup-overlay"></div>
         <div class="popup" id="advanced-search-popup">
             <h3>Advanced Search</h3>
-            <label id="search-in-word-label" for="search-in-word">
-                <input type="checkbox" id="search-in-word" checked /> Word
-            </label>
-            <label id="search-in-root-label" for="search-in-root">
-                <input type="checkbox" id="search-in-root" checked /> Root
-            </label>
-            <label id="search-in-definition-label" for="search-in-definition">
-                <input type="checkbox" id="search-in-definition" checked /> Definition
-            </label>
-            <label id="search-in-etymology-label" for="search-in-etymology">
-                <input type="checkbox" id="search-in-etymology" checked /> Etymology
-            </label>
+            <div class="checkbox-group">
+                <label for="search-in-word">
+                    <input type="checkbox" id="search-in-word" checked /> Word
+                </label>
+                <label for="search-in-root">
+                    <input type="checkbox" id="search-in-root" checked /> Root
+                </label>
+                <label for="search-in-definition">
+                    <input type="checkbox" id="search-in-definition" checked /> Definition
+                </label>
+                <label for="search-in-etymology">
+                    <input type="checkbox" id="search-in-etymology" checked /> Etymology
+                </label>
+            </div>
             <br/>
-            <label id="exact-match-label" for="exact-match">
+            <label for="exact-match">
                 <input type="checkbox" id="exact-match" /> Exact Match
             </label>
             <br/>
