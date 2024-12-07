@@ -1,6 +1,8 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* Light gray background for better readability */
+    color: #333; /* Dark text for better contrast */
 }
 
 /* Header */
@@ -51,6 +53,15 @@ header {
 #filter-dropdown {
     text-align: center;
     margin: 20px 0;
+}
+
+#filter-dropdown label {
+    margin-right: 10px;
+}
+
+#word-filter {
+    padding: 5px;
+    font-size: 16px;
 }
 
 /* Pagination Container */
@@ -107,7 +118,8 @@ header {
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f9f9f9; /* Light gray background for better readability */
+    background-color: #fff; /* White background for better readability */
+    color: #333; /* Dark text for better readability */
     opacity: 0; /* Initially hidden */
     transition: opacity 0.5s ease; /* Transition for fade-in effect */
 }
@@ -149,6 +161,16 @@ header {
     right: 10px; /* Adjust as needed */
     font-size: 0.85em;
     color: #aaa;
+}
+
+/* Scrollable Box */
+.scrollable-box {
+    max-height: 150px; /* Adjust as needed */
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff; /* White for better readability */
 }
 
 /* Popup Styles */
