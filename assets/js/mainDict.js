@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     });
 
-// Popup window functionality
+    // Popup window functionality
     document.getElementById('advanced-search-button').addEventListener('click', () => {
         document.getElementById('advanced-search-popup').classList.add('active');
         document.getElementById('popup-overlay').classList.add('active');
