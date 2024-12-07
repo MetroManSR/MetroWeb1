@@ -53,13 +53,10 @@ document.addEventListener('DOMContentLoaded', async function() {
         const end = start + rowsPerPage;
         const dictionaryContainer = document.getElementById('dictionary');
 
-        // Check if dictionaryContainer is properly selected
         if (!dictionaryContainer) {
             console.error('Dictionary container not found');
             return;
         }
-
-        console.log('Type of dictionaryContainer:', dictionaryContainer);
 
         dictionaryContainer.innerHTML = ''; // Clear previous entries
 
