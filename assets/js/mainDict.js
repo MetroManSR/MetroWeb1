@@ -8,7 +8,7 @@ import { cleanData, sanitizeHTML } from './dictScripts/csvUtils.js';
 import { setTexts } from './dictScripts/loadTexts.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
-    const defaultRowsPerPage = ;
+    const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
     let currentPage = 1;
 
