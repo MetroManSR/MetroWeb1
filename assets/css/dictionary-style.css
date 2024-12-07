@@ -203,3 +203,34 @@ header {
 .popup h3 {
     margin-top: 0;
 }
+
+/* Statistics Popup */
+.statistics-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.statistics-popup.active {
+    display: block;
+}
+
+.statistics-popup h3 {
+    margin-top: 0;
+}
+
+.statistics-popup ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.statistics-popup li {
+    margin-bottom: 5px;
+}
