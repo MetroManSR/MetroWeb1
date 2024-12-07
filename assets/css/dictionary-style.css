@@ -1,4 +1,5 @@
 .dictionary-box {
+    position:relative
     border: 1px solid #ddd;
     padding: 10px;
     margin-bottom: 10px;
@@ -30,12 +31,14 @@
 
 .type-tag {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: lightgrey;
-    padding: 2px 5px;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    padding: 5px 10px;
+    background-color: #0078d4;
+    color: #fff;
     border-radius: 3px;
-    font-size: 0.8em;
+    font-size: 0.85em;
+    font-weight: bold;
 }
 
 mark {
