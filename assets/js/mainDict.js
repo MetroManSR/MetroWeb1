@@ -57,14 +57,14 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
+        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows, currentPage);
 
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
         const wordID = params.get('wordid');
         const rootID = params.get('rootid');
         if ((searchTerm && searchTerm.trim()) || (wordID && parseInt(wordID) > 0) || (rootID && parseInt(rootID) > 0)) {
-            filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage);
+            filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage, currentPage);
         }
 
         // Hide the loading message after JS is ready
