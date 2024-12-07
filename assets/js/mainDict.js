@@ -54,9 +54,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         if ((searchTerm && searchTerm.trim()) || (wordID && parseInt(wordID) > 0) || (rootID && parseInt(rootID) > 0)) {
             filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordID, rootID);
         }
-
-        // Ensure to remove duplicates before displaying statistics
-        displayStatistics([...new Set(allRows.map(row => row.word))]); 
     } catch (error) {
         console.error('Error loading data:', error);
         displayError('Failed to load dictionary data. Please try again later.');
@@ -191,18 +188,22 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
     // Ensure all checkboxes are checked by default
-    document.getElementById('search-in-word').checked = true;
-    document.getElementById('search-in-root').checked = true;
-    document.getElementById('search-in-definition').checked = true;
-    document.getElementById('search-in-etymology').checked = true;
+    const searchInWord = document.getElementById('search-in-word');
+    const searchInRoot = document.getElementById('search-in-root');
+    const searchInDefinition = document.getElementById('search-in-definition');
+    const searchInEtymology = document.getElementById('search-in-etymology');
+
+    if (searchInWord) searchInWord.checked = true;
+    if (searchInRoot) searchInRoot.checked = true;
+    if (searchInDefinition) searchInDefinition.checked = true;
+    if (searchInEtymology) searchInEtymology.checked = true;
 
     // Statistics popup functionality
     function displayStatistics(rows) {
-        const uniqueRows = [...new Set(rows)];
-        const totalWords = uniqueRows.filter(row => row.type === 'word').length;
-        const totalRoots = uniqueRows.filter(row => row.type === 'root').length;
+        const totalWords = rows.filter(row => row.type === 'word').length;
+        const totalRoots = rows.filter(row => row.type === 'root').length;
 
-        const partOfSpeechCounts = uniqueRows.reduce((counts, row) => {
+        const partOfSpeechCounts = rows.reduce((counts, row) => {
             if (row.type === 'word' && row.partOfSpeech) {
                 counts[row.partOfSpeech] = (counts[row.partOfSpeech] || 0) + 1;
             }
