@@ -1,77 +1,96 @@
-import { displayWarning } from './warnings.js';
-
+/**
+ * Creates pagination controls and updates the display of dictionary entries.
+ *
+ * @param {number} rowsPerPage - The number of rows to display per page.
+ * @param {Array} filteredRows - The filtered array of dictionary entries.
+ * @param {number} currentPage - The current page number.
+ * @param {Function} displayPage - Function to display the given page.
+ */
 export function createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage) {
-    const pagination = document.getElementById('pagination');
-    pagination.innerHTML = ''; // Clear previous controls
+    const paginationContainer = document.getElementById('pagination');
+    paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
-    const firstPageButton = document.createElement('button');
-    firstPageButton.innerHTML = '⏪';
-    firstPageButton.addEventListener('click', () => {
-        currentPage = 1;
-        displayPage(currentPage);
-    });
-    pagination.appendChild(firstPageButton);
+    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
 
-    const prevPageButton = document.createElement('button');
-    prevPageButton.innerHTML = '⬅️';
-    prevPageButton.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            displayPage(currentPage);
+    const createPageButton = (pageNumber, label = null) => {
+        const button = document.createElement('button');
+        button.textContent = label || pageNumber;
+        button.classList.add('pagination-button');
+        if (pageNumber === currentPage) {
+            button.classList.add('active');
         }
-    });
-    pagination.appendChild(prevPageButton);
 
-    const pageInfo = document.createElement('span');
-    pageInfo.id = 'page-info';
-    pagination.appendChild(pageInfo);
+        button.addEventListener('click', () => {
+            displayPage(pageNumber);
+        });
 
-    const nextPageButton = document.createElement('button');
-    nextPageButton.innerHTML = '➡️';
-    nextPageButton.addEventListener('click', () => {
-        if (currentPage < Math.ceil(filteredRows.length / rowsPerPage)) {
-            currentPage++;
-            displayPage(currentPage);
-        }
-    });
-    pagination.appendChild(nextPageButton);
+        return button;
+    };
 
-    const lastPageButton = document.createElement('button');
-    lastPageButton.innerHTML = '⏩';
-    lastPageButton.addEventListener('click', () => {
-        currentPage = Math.ceil(filteredRows.length / rowsPerPage);
-        displayPage(currentPage);
-    });
-    pagination.appendChild(lastPageButton);
+    // Add previous button
+    if (currentPage > 1) {
+        const prevButton = createPageButton(currentPage - 1, 'Previous');
+        paginationContainer.appendChild(prevButton);
+    }
 
-    const pageInput = document.createElement('input');
-    pageInput.type = 'number';
-    pageInput.min = 1;
-    pageInput.max = Math.ceil(filteredRows.length / rowsPerPage);
-    pageInput.value = currentPage;
-    pageInput.addEventListener('change', () => {
-        const value = parseInt(pageInput.value, 10);
-        if (value >= 1 && value <= Math.ceil(filteredRows.length / rowsPerPage)) {
-            currentPage = value;
-            displayPage(currentPage);
+    // Add current page input
+    const currentPageInput = document.createElement('input');
+    currentPageInput.type = 'number';
+    currentPageInput.value = currentPage;
+    currentPageInput.min = 1;
+    currentPageInput.max = totalPages;
+    currentPageInput.classList.add('pagination-input');
+
+    currentPageInput.addEventListener('change', () => {
+        let pageNumber = parseInt(currentPageInput.value, 10);
+        if (pageNumber >= 1 && pageNumber <= totalPages) {
+            displayPage(pageNumber);
         } else {
-            displayWarning('page-warning', 'Invalid page number');
+            currentPageInput.value = currentPage;
         }
     });
-    pagination.appendChild(pageInput);
 
-    const pageWarning = document.createElement('div');
-    pageWarning.id = 'page-warning';
-    pageWarning.style.color = 'red';
-    pagination.appendChild(pageWarning);
+    const currentPageDisplay = document.createElement('span');
+    currentPageDisplay.textContent = ` / ${totalPages}`;
+    currentPageDisplay.classList.add('pagination-display');
 
-    updatePagination(currentPage, filteredRows, rowsPerPage);
+    paginationContainer.appendChild(currentPageInput);
+    paginationContainer.appendChild(currentPageDisplay);
+
+    // Add next button
+    if (currentPage < totalPages) {
+        const nextButton = createPageButton(currentPage + 1, 'Next');
+        paginationContainer.appendChild(nextButton);
+    }
 }
 
-export function updatePagination(page, filteredRows, rowsPerPage) {
-    const pageInfo = document.getElementById('page-info');
-    pageInfo.textContent = `Page ${page} / ${Math.ceil(filteredRows.length / rowsPerPage)}`;
+/**
+ * Updates the pagination display based on the current page and total rows.
+ *
+ * @param {number} currentPage - The current page number.
+ * @param {Array} filteredRows - The filtered array of dictionary entries.
+ * @param {number} rowsPerPage - The number of rows to display per page.
+ */
+export function updatePagination(currentPage, filteredRows, rowsPerPage) {
+    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    const paginationContainer = document.getElementById('pagination');
+    const buttons = paginationContainer.querySelectorAll('.pagination-button');
+    const currentPageInput = paginationContainer.querySelector('.pagination-input');
+    const currentPageDisplay = paginationContainer.querySelector('.pagination-display');
 
-    const pageInput = document.querySelector('#pagination input[type="number"]');
-    pageInput.value = page;
+    buttons.forEach((button) => {
+        button.classList.remove('active');
+    });
+
+    if (currentPage > 1) {
+        buttons[0].classList.add('active');
+    }
+
+    if (currentPage < totalPages) {
+        buttons[buttons.length - 1].classList.add('active');
+    }
+
+    buttons[currentPage - 1].classList.add('active');
+    currentPageInput.value = currentPage;
+    currentPageDisplay.textContent = ` / ${totalPages}`;
 }
