@@ -7,7 +7,7 @@ layout: default
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="language" content="en">
+    <meta name="language" content="page.language">
     <title>Your Dictionary</title>
     <link rel="stylesheet" href="../../assets/css/dictionary-style.css">
     <script src="../../assets/js/dictScripts/loadTexts.js" type="module"></script>
@@ -62,15 +62,20 @@ layout: default
             <form id="advanced-search-form">
                 <h3>Advanced Search</h3>
                 <input type="checkbox" id="search-in-word" name="search-in-word" value="Word">
-                <label for="search-in-word" class="container"> Word</label><br>
+                <label class="container" id="search-in-word-label" for="search-in-word"> Word</label>
+                <br>
                 <input type="checkbox" id="search-in-root" name="search-in-root" value="Root">
-                <label for="search-in-root" class="container"> Root</label><br>
+                <label class="container" id="search-in-root-label" for="search-in-root"> Root</label>
+                <br>
                 <input type="checkbox" id="search-in-definition" name="search-in-definition" value="Definition">
-                <label for="search-in-definition" class="container"> Definition</label><br>
+                <label class="container" id="search-in-definition-label" for="search-in-definition"> Definition</label>
+                <br>
                 <input type="checkbox" id="search-in-etymology" name="search-in-etymology" value="Etymology">
-                <label for="search-in-etymology" class="container"> Etymology</label><br>
+                <label class="container" id="search-in-etymology-label" for="search-in-etymology"> Etymology</label>
+                <br>
                 <input type="checkbox" id="exact-match" name="exact-match" value="Exact Match">
-                <label for="exact-match" class="container"> Exact Match</label><br>
+                <label class="container" id="exact-match-label" for="exact-match"> Exact Match</label>
+                <br>
                 <button type="button" id="apply-search-button" class="btn">Apply</button>
                 <button type="button" id="close-popup-button" class="btn">Close</button>
             </form>
@@ -86,4 +91,4 @@ layout: default
         <div id="error-message" class="error-message" style="display: none;"></div>
     </main>
 </body>
-</html>
+</html
