@@ -1,3 +1,5 @@
+import { sanitizeHTML } from './csvUtils.js';
+
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
     const box = document.createElement('div');
     box.className = 'dictionary-box ' + (row.type === 'root' ? 'root-word' : 'word');
