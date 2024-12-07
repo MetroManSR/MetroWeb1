@@ -29,19 +29,34 @@
         "searchInEtymology": "Etimología",
         "exactMatch": "Coincidencia Exacta"
     },
+    "eo": {
+        "searchPlaceholder": "Serĉi...",
+        "searchButton": "Serĉi?",
+        "clearSearchButton": "Malplenigi serĉejon",
+        "rowsPerPageLabel": "Linioj en ĉiu paĝo",
+        "rowsPerPageButton": "Sendi",
+        "advancedSearchButton": "Serĉi pli komplekse",
+        "applySearchButton": "Apliki",
+        "closeSearchButton": "Fermi",
+        "searchInWord": "Vorto",
+        "searchInRoot": "Radiko",
+        "searchInDefinition": "Difino",
+        "searchInEtymology": "Etimologio",
+        "exactMatch": "Nur trafojn ekzaktajn"
+    },
     "bk": {
-        "searchPlaceholder": "Placeholder...",
-        "searchButton": "Placeholder",
-        "clearSearchButton": "Placeholder",
-        "rowsPerPageLabel": "Placeholder",
-        "rowsPerPageButton": "Placeholder",
-        "advancedSearchButton": "Placeholder",
-        "applySearchButton": "Placeholder",
-        "closeSearchButton": "Placeholder",
-        "searchInWord": "Placeholder",
-        "searchInRoot": "Placeholder",
-        "searchInDefinition": "Placeholder",
-        "searchInEtymology": "Placeholder",
-        "exactMatch": "Placeholder"
+        "searchPlaceholder": "Tansakirian...",
+        "searchButton": "Tansakirian",
+        "clearSearchButton": "Nebirian",
+        "rowsPerPageLabel": "Linseon kich biringeon",
+        "rowsPerPageButton": "Efektasnirian",
+        "advancedSearchButton": "Tansakirian ",
+        "applySearchButton": "Efektasnirian",
+        "closeSearchButton": "Klosirian",
+        "searchInWord": "Bakleon",
+        "searchInRoot": "Beiseon",
+        "searchInDefinition": "Defineon",
+        "searchInEtymology": "Baklufrokeon",
+        "exactMatch": "Ol eksaktidseon samemseon"
     }
 }
