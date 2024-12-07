@@ -25,12 +25,12 @@ export async function setTexts(language) {
         Object.keys(elements).forEach(id => {
             const element = document.getElementById(id);
             const prop = elements[id];
-            if (element && texts[id]) {
+            if (element && texts[id.split('-')[2]]) {
                 if (prop === 'innerHTML') {
                     const htmlContent = id.includes('label') ? `<input type="checkbox" id="${id.split('-')[2]}" checked /> <span class="checkmark"></span> ${texts[id.split('-')[2]]}` : texts[id];
                     element.innerHTML = htmlContent;
                 } else {
-                    element[prop] = texts[id] || element[prop];
+                    element[prop] = texts[id.split('-')[2]] || element[prop];
                 }
             }
         });
