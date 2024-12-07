@@ -121,11 +121,20 @@ header {
     background-color: #003366; /* Dark blue */
 }
 
+/* Selected Box */
+.selected-word, .selected-root {
+    background-color: #669999; /* Lighter shade of the default color */
+}
+
 .meaning-box {
     padding: 10px;
     margin-top: 10px;
-    background-color: #99ccff; /* Lighter blue */
+    background-color: #008000; /* Slightly lighter green for word meaning box */
     border-radius: 5px;
+}
+
+.root-word .meaning-box {
+    background-color: #99ccff; /* Lighter blue for root meaning box */
 }
 
 .type-tag {
