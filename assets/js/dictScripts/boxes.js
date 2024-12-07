@@ -25,14 +25,18 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const definitionElement = document.createElement('div');
     definitionElement.classList.add('meaning-box');
-    definitionElement.innerHTML = `
-        <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
-        <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
-        <div class="root">${document.querySelector('meta[name="language"]').content === 'es' ? 'Raíz: ' : 'Root: '}${highlight(row.etymology || '', searchTerm)}</div>
-    `;
-
     if (row.type === 'root') {
-        definitionElement.innerHTML += `<div class="origin">${highlight(row.etymology || '', searchTerm)}</div>`;
+        definitionElement.innerHTML = `
+            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
+            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
+            <div class="etymology">${document.querySelector('meta[name="language"]').content === 'es' ? 'Etimología: ' : 'Etymology: '}${highlight(row.etymology || '', searchTerm)}</div>
+        `;
+    } else {
+        definitionElement.innerHTML = `
+            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
+            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
+            <div class="root">${document.querySelector('meta[name="language"]').content === 'es' ? 'Raíz: ' : 'Root: '}${highlight(row.etymology || '', searchTerm)}</div>
+        `;
     }
 
     const typeTag = document.createElement('span');
