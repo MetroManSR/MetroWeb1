@@ -1,4 +1,7 @@
-import { getRelatedWordsByRoot, highlight } from './utils.js';
+import { getRelatedWordsByRoot } from './dictScripts/utils.js';
+import { createDictionaryBox } from './dictScripts/boxes.js';
+import { cleanData, sanitizeHTML } from './dictScripts/csvUtils.js';
+import { setTexts } from './dictScripts/loadTexts.js';
 
 let previouslySelectedBox = null;
 
