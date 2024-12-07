@@ -101,15 +101,23 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
             noun: 'n.',
             verb: 'v.',
             adjective: 'adj.',
-            adverb: 'adv.'
+            adverb: 'adv.',
+            conjunction: 'conj.',
+            interjection: 'int.',
+            preposition: 'prep.',
+            expression: 'expr.'
         },
         es: {
             noun: 's.',
             verb: 'v.',
             adjective: 'adj.',
-            adverb: 'adv.'
+            adverb: 'adv.',
+            conjunction: 'conj.',
+            interjection: 'interj.',
+            preposition: 'prep.',
+            expression: 'expr.'
         }
     };
 
     return abbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
-} 
+}
