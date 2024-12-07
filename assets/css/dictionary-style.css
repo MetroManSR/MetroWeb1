@@ -8,6 +8,11 @@
     transition: background-color 0.3s, border 0.3s; /* Smooth transition for background and border changes */
     background-color: darkgreen; /* Default background color for word dictionary boxes */
     color: white; /* Ensure text is readable on dark background */
+    transition: opacity 0.5s ease; /* Transition for fade-in effect */
+}
+
+.dictionary-box.fade-in {
+    opacity: 1; /* Visible when the fade-in class is added */
 }
 
 .dictionary-box .title {
