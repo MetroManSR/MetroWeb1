@@ -1,23 +1,25 @@
 ---
 layout: default
-title: Balkeon Afijos
-language: es
+title: Balkeon Afiksoj
+language: eo
 --- 
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Docs</button>
 
-# Tabla de Afijos
+# Tabelo de afiksoj
 
-<input type="text" id="search-input" placeholder="¿Qué deseas buscar?"> <button id="search-button" onclick="searchAndHighlightTable()">Buscar</button> <button id="next-button" onclick="nextMatch()">Siguiente</button> <button id="previous-button" onclick="previousMatch()">Anterior</button>
+ATENTU! Jena paĝo nun estas en tradukado.
+
+<input type="text" id="search-input" placeholder="¿Qué deseas buscar?"> <button id="search-button" onclick="searchAndHighlightTable()">Serĉi</button> <button id="next-button" onclick="nextMatch()">Sekva trafo</button> <button id="previous-button" onclick="previousMatch()">Malsekva trafo</button>
 
 <div class="table-wrapper" markdown="block">
 <table id="content-table" style="width:100%">
     <thead>
         <tr>
-            <th>Definición</th>
-            <th>Afijo</th>
-            <th>Definición</th>
-            <th>Afijo</th>
+            <th>Difino</th>
+            <th>Afikso</th>
+            <th>Difino</th>
+            <th>Afikso</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +30,7 @@ language: es
             <td>-iop-</td>
         </tr>
         <tr>
-            <td>Ex</td>
+            <td>Eks-</td>
             <td>Eks-</td>
             <td>Idioma</td>
             <td>-iom-</td>

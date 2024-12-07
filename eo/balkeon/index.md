@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Balkeon Menu
-language: es
+title: Balkeon Ĉefpaĝo
+language: eo
 ---
  
 

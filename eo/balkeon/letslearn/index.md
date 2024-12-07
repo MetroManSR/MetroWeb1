@@ -1,10 +1,10 @@
 ---
 layout: default
 language: eo
-title: Menuo de lecionoj
+title: Menuo de lecionaroj
 ---
 
-# Menuo de lecionoj
+# Menuo de lecionaroj
 
 <ul id="id01">
   {% for unit in site.pages %}
