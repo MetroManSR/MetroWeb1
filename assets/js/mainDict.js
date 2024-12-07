@@ -66,11 +66,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         const rowsToDisplay = filteredRows.slice(start, end);
         console.log('Rows to display:', rowsToDisplay);
 
-        rowsToDisplay.forEach(row => {
+        rowsToDisplay.forEach((row, index) => {
             const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
             if (box) {
-                dictionaryContainer.appendChild(box);
-                console.log('Appended box:', box);
+                setTimeout(() => {
+                    dictionaryContainer.appendChild(box);
+                    console.log('Appended box:', box);
+                }, index * 100); // Delay each box by 100ms for fade-in effect
             } else {
                 console.error('Failed to create a valid object for:', row);
             }
@@ -86,7 +88,15 @@ document.addEventListener('DOMContentLoaded', async function() {
             definition: document.getElementById('search-in-definition').checked,
             etymology: document.getElementById('search-in-etymology').checked
         };
+
         const exactMatch = document.getElementById('exact-match').checked;
+
+        // Ensure at least one checkbox is checked
+        if (!searchIn.word && !searchIn.root) {
+            alert('At least one of "Word" or "Root" must be checked.');
+            document.getElementById('search-in-word').checked = true;
+            searchIn.word = true;
+        }
 
         if ((!searchTerm.trim() && (!wordID || parseInt(wordID) <= 0) && (!rootID || parseInt(rootID) <= 0))) return;
 
