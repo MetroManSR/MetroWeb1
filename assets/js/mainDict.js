@@ -3,6 +3,7 @@ import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
 import { filterAndDisplayWord, displayPage } from './dictScripts/dictSearch.js';
 import { initializeEventListeners } from './dictScripts/init.js';
+import { cleanData } from './dictScripts/csvUtils.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOMContentLoaded event triggered');
