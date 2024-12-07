@@ -4,7 +4,7 @@ import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popu
 import { filterAndDisplayWord, displayPage } from './dictScripts/dictSearch.js';
 import { initializeEventListeners } from './dictScripts/init.js';
 import { cleanData, sanitizeHTML } from './dictScripts/csvUtils.js';
-import { createPaginationControls } from './dictScripts/pagination.js';
+import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOMContentLoaded event triggered');
@@ -83,4 +83,3 @@ document.addEventListener('DOMContentLoaded', async function() {
     initStatisticsPopup(allRows);
     console.log('Initialization complete');
 });
-
