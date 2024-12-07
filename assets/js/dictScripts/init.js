@@ -2,7 +2,7 @@ import { createPaginationControls } from './pagination.js';
 import { filterAndDisplayWord, displayPage } from './dictSearch.js';
 import { displayWarning } from './warnings.js';
 
-export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
+export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filteredRows) {
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const searchTerm = e.target.value.trim();
