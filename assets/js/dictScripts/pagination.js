@@ -12,9 +12,9 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
 
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
 
-    const createPageButton = (pageNumber, label = null) => {
+    const createPageButton = (pageNumber, label) => {
         const button = document.createElement('button');
-        button.textContent = label || pageNumber;
+        button.innerHTML = label;
         button.classList.add('pagination-button');
         if (pageNumber === currentPage) {
             button.classList.add('active');
@@ -27,9 +27,13 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
         return button;
     };
 
+    // Add go to beginning button
+    const beginButton = createPageButton(1, '&laquo;');
+    paginationContainer.appendChild(beginButton);
+
     // Add previous button
     if (currentPage > 1) {
-        const prevButton = createPageButton(currentPage - 1, 'Previous');
+        const prevButton = createPageButton(currentPage - 1, '&lsaquo;');
         paginationContainer.appendChild(prevButton);
     }
 
@@ -59,9 +63,13 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
 
     // Add next button
     if (currentPage < totalPages) {
-        const nextButton = createPageButton(currentPage + 1, 'Next');
+        const nextButton = createPageButton(currentPage + 1, '&rsaquo;');
         paginationContainer.appendChild(nextButton);
     }
+
+    // Add go to last button
+    const endButton = createPageButton(totalPages, '&raquo;');
+    paginationContainer.appendChild(endButton);
 }
 
 /**
