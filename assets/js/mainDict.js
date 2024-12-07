@@ -40,16 +40,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
 
-        // Clean and sort data alphabetically before assigning IDs
+        // Clean and sort data alphabetically
         const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.word.localeCompare(b.word));
         const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.word.localeCompare(b.word));
 
-        // Assign unique IDs to roots and words in alphabetical order
+        // Assign unique IDs to roots and words separately
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
-        cleanedRootsData.forEach((item, index) => { item.id = index + 1 + cleanedDictionaryData.length; });
+        cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
-        // Combine the cleaned and sorted data
-        allRows = [...cleanedDictionaryData, ...cleanedRootsData];
+        // Combine the cleaned and sorted data for display
+        allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.word.localeCompare(b.word));
         filteredRows = allRows.filter(row => row.word && row.definition);
 
         filteredRows.forEach(row => {
@@ -153,20 +153,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    // Add event listener to the search input
-    document.getElementById('search-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const searchTerm = e.target.value.trim();
-            filterAndDisplayWord(searchTerm, '', '');
-        }
-    });
-
-    document.getElementById('search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, '', '');
-    });
-
- // Add event listener to clear the search
+// Add event listener to clear the search
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
