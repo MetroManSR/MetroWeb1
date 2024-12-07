@@ -28,8 +28,12 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     definitionElement.innerHTML = `
         <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
         <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
-        <div class="root">${highlight(row.etymology || '', searchTerm)}</div>
+        <div class="root">${document.querySelector('meta[name="language"]').content === 'es' ? 'Raíz: ' : 'Root: '}${highlight(row.etymology || '', searchTerm)}</div>
     `;
+
+    if (row.type === 'root') {
+        definitionElement.innerHTML += `<div class="origin">${highlight(row.etymology || '', searchTerm)}</div>`;
+    }
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
