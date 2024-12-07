@@ -39,8 +39,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
 
-        allRows = [...cleanData(dictionaryData, 'word'), ...cleanData(rootsData, 'root')];
-        filteredRows = allRows.filter(row => row.word && row.definition).sort((a, b) => a.word.localeCompare(b.word));
+        // Combine and clean data, then sort it alphabetically
+        allRows = [...cleanData(dictionaryData, 'word'), ...cleanData(rootsData, 'root')].sort((a, b) => a.word.localeCompare(b.word));
+        filteredRows = allRows.filter(row => row.word && row.definition);
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
