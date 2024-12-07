@@ -22,6 +22,7 @@ layout: default
             <p>Loading dictionary, please wait...</p>
         </div>
         <div class="search-container">
+            <label for="search-input">Search:</label>
             <input type="text" id="search-input" placeholder="Search..." class="search-input"/>
             <button id="search-button" class="btn">Search</button>
             <button id="clear-search-button" class="btn btn-danger">Clear Search</button>
@@ -59,20 +60,20 @@ layout: default
         <div class="popup-overlay" id="popup-overlay"></div>
         <div class="popup" id="advanced-search-popup">
             <h3>Advanced Search</h3>
-            <label id="search-in-word-label">
+            <label id="search-in-word-label" for="search-in-word">
                 <input type="checkbox" id="search-in-word" checked /> Word
             </label>
-            <label id="search-in-root-label">
+            <label id="search-in-root-label" for="search-in-root">
                 <input type="checkbox" id="search-in-root" checked /> Root
             </label>
-            <label id="search-in-definition-label">
+            <label id="search-in-definition-label" for="search-in-definition">
                 <input type="checkbox" id="search-in-definition" checked /> Definition
             </label>
-            <label id="search-in-etymology-label">
+            <label id="search-in-etymology-label" for="search-in-etymology">
                 <input type="checkbox" id="search-in-etymology" checked /> Etymology
             </label>
             <br/>
-            <label id="exact-match-label">
+            <label id="exact-match-label" for="exact-match">
                 <input type="checkbox" id="exact-match" /> Exact Match
             </label>
             <br/>
