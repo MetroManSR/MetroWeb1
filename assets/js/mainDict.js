@@ -9,6 +9,9 @@ import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
+    // Display the loading message
+    document.getElementById('loading-message').style.display = 'block';
+
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
     let currentPage = 1;
@@ -51,9 +54,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         if ((searchTerm && searchTerm.trim()) || (wordID && parseInt(wordID) > 0) || (rootID && parseInt(rootID) > 0)) {
             filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordID, rootID);
         }
+
+        // Hide the loading message after JS is ready
+        document.getElementById('loading-message').style.display = 'none';
     } catch (error) {
         console.error('Error loading data:', error);
         displayError('Failed to load dictionary data. Please try again later.');
+        // Hide the loading message in case of an error
+        document.getElementById('loading-message').style.display = 'none';
     }
 
     function displayPage(page, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false) {
