@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.word.localeCompare(b.word));
         const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.word.localeCompare(b.word));
 
-        // Assign unique IDs to roots and words separately
+        // Assign unique IDs to roots and words separately, starting at 1
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
@@ -153,13 +153,19 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-// Add event listener to clear the search
-    document.getElementById('clear-search-button').addEventListener('click', () => {
-        document.getElementById('search-input').value = '';
-        window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
-        displayPage(1);
+    // Add event listener to the search input
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const searchTerm = e.target.value.trim();
+            filterAndDisplayWord(searchTerm, '', '');
+        }
     });
 
+    document.getElementById('search-button').addEventListener('click', () => {
+        const searchTerm = document.getElementById('search-input').value.trim();
+        filterAndDisplayWord(searchTerm, '', '');
+    });
+    
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
         const value = parseInt(document.getElementById('rows-per-page-input').value, 10);
         if (value >= 5 && value <= 500) {
