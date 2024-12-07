@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('loading-message').style.display = 'none';
     }
 
-   function displayPage(page, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false) {
+    function displayPage(page, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false) {
         console.log('Displaying page:', page);
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    // Add event listener to the search input
+// Add event listener to the search input
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const searchTerm = e.target.value.trim();
