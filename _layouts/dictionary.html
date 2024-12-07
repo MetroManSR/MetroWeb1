@@ -7,8 +7,11 @@ layout: default
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="lang" content="{{ page.lang }}">
     <title>Your Dictionary</title>
     <link rel="stylesheet" href="../../assets/css/dictionary-style.css">
+    <script src="../../assets/js/dictScripts/loadTexts.js"></script>
+    <script type="module" src="../../assets/js/mainDict.js"></script>
 </head>
 <body>
     <header>
@@ -27,9 +30,7 @@ layout: default
             <button id="rows-per-page-button">Submit</button>
             <div id="rows-warning"></div>
         </div>
-        <div id="dictionary">
-           <div class="type-tag"></div> 
-        </div>
+        <div id="dictionary"></div>
         <div id="pagination" class="pagination"></div>
 
         <!-- Popup for advanced search -->
@@ -56,8 +57,6 @@ layout: default
             <button id="apply-search-button">Apply</button>
             <button id="close-popup-button">Close</button>
         </div>
-
-        <script type="module" src="../../assets/js/mainDict.js"></script>
     </main>
 </body>
 </html>
