@@ -188,4 +188,4 @@ document.addEventListener('DOMContentLoaded', async function() {
     initAdvancedSearchPopup();
     initStatisticsPopup(allRows);
     console.log('Initialization complete');
-}); 
+});
