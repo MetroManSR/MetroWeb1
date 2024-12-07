@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetched roots data:', rootsData);
 
         allRows = [...cleanData(dictionaryData, 'word'), ...cleanData(rootsData, 'root')];
-        filteredRows = allRows.sort((a, b) => a.word.localeCompare(b.word));
+        filteredRows = allRows.filter(row => row.word && row.definition).sort((a, b) => a.word.localeCompare(b.word));
         console.log('Processed rows:', allRows);
 
         filteredRows.forEach(row => {
@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         displayPage(currentPage);
 
         const params = new URLSearchParams(window.location.search);
-        const searchTerm = params.get('searchTerm');
-        const wordID = params.get('wordID');
-        const rootID = params.get('rootID');
+        const searchTerm = params.get('hypersearchterm');
+        const wordID = params.get('wordid');
+        const rootID = params.get('rootid');
         if ((searchTerm && searchTerm.trim()) || (wordID && parseInt(wordID) > 0) || (rootID && parseInt(rootID) > 0)) {
             filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordID, rootID);
         }
@@ -71,15 +71,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         dictionaryContainer.innerHTML = ''; // Clear previous entries
 
-        const rowsToDisplay = filteredRows.slice(start, end); // Ensure rowsToDisplay is defined
+        const validRows = filteredRows.filter(row => row.word && row.definition);
+        const rowsToDisplay = validRows.slice(start, end); // Ensure rowsToDisplay is defined
         console.log('Rows to display:', rowsToDisplay);
 
         rowsToDisplay.forEach((row, index) => {
-            if (!row.word || !row.definition) {
-                console.error('Invalid row data:', row);
-                return; // Skip invalid rows
-            }
-
             const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
             if (box) {
                 setTimeout(() => {
@@ -91,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         });
 
-        updatePagination(currentPage, filteredRows, rowsPerPage);
+        updatePagination(currentPage, validRows, rowsPerPage);
     }
 
     function filterAndDisplayWord(searchTerm, wordID, rootID) {
