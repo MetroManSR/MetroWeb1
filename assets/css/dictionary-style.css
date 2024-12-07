@@ -1,267 +1,96 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9; /* Light gray background for better readability */
-    color: #333; /* Dark text for better contrast */
-}
+---
+layout: default
+---
 
-/* Header */
-header {
-    text-align: center;
-    padding: 20px;
-    background-color: #f2f2f2;
-    border-bottom: 1px solid #ddd;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="{{ page.language }}">
+    <title>Your Dictionary</title>
+    <link rel="stylesheet" href="../../assets/css/dictionary-style.css">
+    <script src="../../assets/js/dictScripts/loadTexts.js"></script>
+    <script type="module" src="../../assets/js/mainDict.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Your Dictionary</h1>
+    </header>
+    <main>
+        <div id="loading-message" class="loading-message">
+            <p>Loading dictionary, please wait...</p>
+        </div>
+        <div class="search-container">
+            <label for="search-input">Search:</label>
+            <input type="text" id="search-input" placeholder="Search..." class="search-input"/>
+            <button id="search-button" class="btn">Search</button>
+            <button id="clear-search-button" class="btn btn-danger">Clear Search</button>
+            <button id="advanced-search-button" class="btn">Advanced Search</button>
+            <button id="view-statistics-button" class="btn">View Statistics</button>
+        </div>
+        <div class="pagination-container">
+            <label id="rows-per-page-label" for="rows-per-page-input">Rows per page:</label>
+            <input type="number" id="rows-per-page-input" value="20" min="5" max="500" class="rows-input"/>
+            <button id="rows-per-page-button" class="btn">Submit</button>
+            <div id="rows-warning"></div>
+        </div>
+        <!-- Filter Dropdown -->
+        <div id="filter-dropdown">
+            <label for="word-filter">Filter by:</label>
+            <select id="word-filter" multiple class="filter-select">
+                <option value="word">Word</option>
+                <option value="root">Root</option>
+                <option value="noun">Noun</option>
+                <option value="verb">Verb</option>
+                <option value="adjective">Adjective</option>
+                <option value="adverb">Adverb</option>
+                <option value="conjunction">Conjunction</option>
+                <option value="interjection">Interjection</option>
+                <option value="preposition">Preposition</option>
+                <option value="expression">Expression</option>
+                <option value="pronoun">Pronoun</option>
+            </select>
+            <button id="apply-filter-button" class="btn">Apply</button>
+        </div>
+        <div id="dictionary"></div>
+        <div id="pagination" class="pagination"></div>
 
-/* Search Container */
-.search-container {
-    text-align: center;
-    padding: 20px;
-}
+        <!-- Popup for advanced search -->
+        <div class="popup-overlay" id="popup-overlay"></div>
+        <div class="popup" id="advanced-search-popup">
+            <h3>Advanced Search</h3>
+            <div class="checkbox-group">
+                <label for="search-in-word">
+                    <input type="checkbox" id="search-in-word" checked /> Word
+                </label>
+                <label for="search-in-root">
+                    <input type="checkbox" id="search-in-root" checked /> Root
+                </label>
+                <label for="search-in-definition">
+                    <input type="checkbox" id="search-in-definition" checked /> Definition
+                </label>
+                <label for="search-in-etymology">
+                    <input type="checkbox" id="search-in-etymology" checked /> Etymology
+                </label>
+            </div>
+            <br/>
+            <label for="exact-match">
+                <input type="checkbox" id="exact-match" /> Exact Match
+            </label>
+            <br/>
+            <button id="apply-search-button" class="btn">Apply</button>
+            <button id="close-popup-button" class="btn">Close</button>
+        </div>
 
-.search-input, .rows-input, .filter-select {
-    padding: 5px;
-    margin: 5px;
-    font-size: 16px;
-}
+        <!-- Popup for statistics -->
+        <div class="popup-overlay" id="statistics-popup-overlay"></div>
+        <div class="popup statistics-popup" id="statistics">
+            <!-- Content will be added dynamically -->
+        </div>
 
-/* Button Styles */
-.btn {
-    padding: 10px 15px;
-    margin: 5px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #0078d4;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #005a9e;
-}
-
-.btn-danger {
-    background-color: #d9534f;
-}
-
-.btn-danger:hover {
-    background-color: #c9302c;
-}
-
-/* Filter Dropdown */
-#filter-dropdown {
-    text-align: center;
-    margin: 20px 0;
-}
-
-#filter-dropdown label {
-    margin-right: 10px;
-}
-
-#word-filter {
-    padding: 5px;
-    font-size: 16px;
-}
-
-/* Pagination Container */
-.pagination-container {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.pagination-button {
-    padding: 10px 15px;
-    margin: 5px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #0078d4;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.pagination-button:hover {
-    background-color: #005a9e;
-}
-
-.pagination-button.active {
-    background-color: #005a9e;
-}
-
-.pagination-input {
-    width: 50px;
-    padding: 5px;
-    font-size: 16px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 0 5px;
-}
-
-.pagination-display {
-    font-size: 16px;
-    margin-left: 5px;
-}
-
-/* Error Message */
-.error-message {
-    text-align: center;
-    padding: 20px;
-    color: #d9534f;
-}
-
-/* Dictionary Box */
-.dictionary-box {
-    position: relative; /* Ensure the dictionary box is relatively positioned */
-    padding: 15px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff; /* White background for better readability */
-    color: #333; /* Dark text for better readability */
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.5s ease; /* Transition for fade-in effect */
-}
-
-.dictionary-box.fade-in {
-    opacity: 1; /* Visible when the fade-in class is added */
-}
-
-/* Root Word Box */
-.root-word {
-    background-color: #d8eaff; /* Light blue */
-}
-
-/* Word Box */
-.word {
-    background-color: #e9ffd8; /* Light green */
-}
-
-/* Meaning Box */
-.meaning-box {
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #fff; /* White for better readability */
-    border-radius: 5px;
-}
-
-/* Part of Speech */
-.part-of-speech {
-    font-size: 0.85em;
-    font-weight: bold;
-    color: #333;
-    margin-top: 5px;
-}
-
-/* ID Display */
-.id-display {
-    position: absolute;
-    bottom: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
-    font-size: 0.85em;
-    color: #aaa;
-}
-
-/* Scrollable Box */
-.scrollable-box {
-    max-height: 150px; /* Adjust as needed */
-    overflow-y: auto;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff; /* White for better readability */
-}
-
-/* Popup Styles */
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-}
-
-.popup-overlay.active {
-    display: block;
-}
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 10%; /* Reduce top position */
-    left: 50%;
-    transform: translate(-50%, 0%);
-    padding: 40px; /* Increase padding */
-    width: 80%; /* Increase width */
-    max-height: 80%; /* Add max-height */
-    overflow-y: auto; /* Enable scrolling */
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.popup.active {
-    display: block;
-}
-
-.popup label {
-    display: inline-block; /* Inline-block to align with checkboxes */
-    margin-bottom: 10px;
-    vertical-align: middle; /* Vertical align with checkboxes */
-}
-
-.popup input[type="checkbox"] {
-    margin-right: 5px; /* Space between checkbox and label */
-    vertical-align: middle; /* Vertical align with labels */
-}
-
-.popup h3 {
-    margin-top: 0;
-}
-
-/* Statistics Popup */
-.statistics-popup {
-    display: none;
-    position: fixed;
-    top: 10%; /* Reduce top position */
-    left: 50%;
-    transform: translate(-50%, 0%);
-    padding: 40px; /* Increase padding */
-    width: 80%; /* Increase width */
-    max-height: 80%; /* Add max-height */
-    overflow-y: auto; /* Enable scrolling */
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.statistics-popup.active {
-    display: block;
-}
-
-.statistics-popup h3 {
-    margin-top: 0;
-}
-
-.statistics-popup ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.statistics-popup li {
-    margin-bottom: 5px;
-}
-
-/* Loading Message */
-.loading-message {
-    text-align: center;
-    padding: 20px;
-    font-size: 18px;
-    color: #0078d4;
-}
+        <!-- Error Message Container -->
+        <div id="error-message" class="error-message" style="display: none;"></div>
+    </main>
+</body>
+</html>
