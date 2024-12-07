@@ -1,4 +1,6 @@
+import { createPaginationControls } from './pagination.js';
 import { filterAndDisplayWord, displayPage } from './dictSearch.js';
+import { displayWarning } from './warnings.js';
 
 export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
     document.getElementById('search-input').addEventListener('keypress', (e) => {
@@ -16,7 +18,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
-        displayPage(1);
+        displayPage(1, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
     });
 
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
@@ -24,7 +26,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
         if (value >= 5 && value <= 500) {
             rowsPerPage = value;
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(1);
+            displayPage(1, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
         } else {
             displayWarning('rows-warning', 'Please enter a value between 5 and 500');
         }
