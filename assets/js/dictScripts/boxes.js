@@ -1,6 +1,6 @@
 import { getRelatedWordsByRoot, highlight } from './utils.js';
 
-let previouslySelectedBox = null; // Ensure this is defined outside the function
+let previouslySelectedBox = null;
 
 // Function to create a dictionary box
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
@@ -87,6 +87,11 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
         previouslySelectedBox = box; // Set the clicked box as the previously selected one
     });
+
+    // Add fade-in effect
+    setTimeout(() => {
+        box.classList.add('fade-in');
+    }, 100);
 
     return box;
 }
