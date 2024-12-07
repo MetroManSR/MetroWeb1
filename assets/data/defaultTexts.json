@@ -12,12 +12,15 @@
         "searchInRoot": "Root",
         "searchInDefinition": "Definition",
         "searchInEtymology": "Etymology",
-        "exactMatch": "Exact Match"
+        "exactMatch": "Exact Match",
+        "viewStatisticsButton": "View Statistics",
+        "loadingMessage": "Loading dictionary, please wait...",
+        "errorLoadingData": "Failed to load dictionary data. Please try again later."
     },
     "es": {
         "searchPlaceholder": "Buscar...",
         "searchButton": "Buscar",
-        "clearSearchButton": "Borrar Búsqueda",
+        "clearSearchButton": "Limpiar Búsqueda",
         "rowsPerPageLabel": "Filas por página:",
         "rowsPerPageButton": "Enviar",
         "advancedSearchButton": "Búsqueda Avanzada",
@@ -27,21 +30,9 @@
         "searchInRoot": "Raíz",
         "searchInDefinition": "Definición",
         "searchInEtymology": "Etimología",
-        "exactMatch": "Coincidencia Exacta"
-    },
-    "bk": {
-        "searchPlaceholder": "Placeholder...",
-        "searchButton": "Placeholder",
-        "clearSearchButton": "Placeholder",
-        "rowsPerPageLabel": "Placeholder",
-        "rowsPerPageButton": "Placeholder",
-        "advancedSearchButton": "Placeholder",
-        "applySearchButton": "Placeholder",
-        "closeSearchButton": "Placeholder",
-        "searchInWord": "Placeholder",
-        "searchInRoot": "Placeholder",
-        "searchInDefinition": "Placeholder",
-        "searchInEtymology": "Placeholder",
-        "exactMatch": "Placeholder"
+        "exactMatch": "Coincidencia Exacta",
+        "viewStatisticsButton": "Ver Estadísticas",
+        "loadingMessage": "Cargando diccionario, por favor espera...",
+        "errorLoadingData": "No se pudo cargar los datos del diccionario. Por favor, inténtalo de nuevo más tarde."
     }
 }
