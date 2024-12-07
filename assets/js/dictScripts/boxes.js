@@ -21,7 +21,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('title');
-    wordElement.innerHTML = highlight(row.word || '', searchTerm);
+    wordElement.innerHTML = highlight(row.word || '', searchTerm) + ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})`;
 
     const definitionElement = document.createElement('div');
     definitionElement.classList.add('meaning-box');
@@ -30,10 +30,6 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
         <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
         <div class="root">${highlight(row.etymology || '', searchTerm)}</div>
     `;
-
-    const typeElement = document.createElement('div');
-    typeElement.classList.add('part-of-speech');
-    typeElement.textContent = getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en');
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
@@ -47,7 +43,6 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     box.appendChild(typeTag);
     box.appendChild(wordElement);
     box.appendChild(definitionElement);
-    if (row.type !== 'root') box.appendChild(typeElement);
 
     console.log('Created box:', box);
 
@@ -105,7 +100,8 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
             conjunction: 'conj.',
             interjection: 'int.',
             preposition: 'prep.',
-            expression: 'expr.'
+            expression: 'expr.',
+            pronoun: 'pron.'
         },
         es: {
             noun: 's.',
@@ -115,7 +111,8 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
             conjunction: 'conj.',
             interjection: 'interj.',
             preposition: 'prep.',
-            expression: 'expr.'
+            expression: 'expr.',
+            pronoun: 'pron.'
         }
     };
 
