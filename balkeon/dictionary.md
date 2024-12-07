@@ -1,6 +1,6 @@
 ---
 layout: dictionary
-lang: es
+language: es
 title: Balkeon Dictionary (Spanish)
 ---
 
