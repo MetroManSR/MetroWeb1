@@ -40,12 +40,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
 
-        // Assign unique IDs to roots and words
-        const processedDictionaryData = cleanData(dictionaryData, 'word');
-        const processedRootsData = cleanData(rootsData, 'root').map((root, index) => ({ ...root, id: index + processedDictionaryData.length + 1 }));
+        // Assign unique IDs to roots and words in alphabetical order
+        const processedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.word.localeCompare(b.word));
+        const processedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.word.localeCompare(b.word))
+            .map((root, index) => ({ ...root, id: index + 1 + processedDictionaryData.length }));
 
         // Combine and clean data, then sort it alphabetically
-        allRows = [...processedDictionaryData, ...processedRootsData].sort((a, b) => a.word.localeCompare(b.word));
+        allRows = [...processedDictionaryData, ...processedRootsData];
         filteredRows = allRows.filter(row => row.word && row.definition);
 
         filteredRows.forEach(row => {
@@ -148,20 +149,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         }
     }
-
-    // Add event listener to the search input
-    document.getElementById('search-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const searchTerm = e.target.value.trim();
-            filterAndDisplayWord(searchTerm, '', '');
-        }
-    });
-
-    document.getElementById('search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, '', '');
-    });
-
 // Add event listener to clear the search
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
@@ -185,3 +172,4 @@ document.addEventListener('DOMContentLoaded', async function() {
     initStatisticsPopup(allRows);
     console.log('Initialization complete');
 });
+    
