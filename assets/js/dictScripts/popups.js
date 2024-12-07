@@ -1,4 +1,5 @@
 export function initAdvancedSearchPopup() {
+    // Popup window functionality for advanced search
     document.getElementById('advanced-search-button').addEventListener('click', () => {
         document.getElementById('advanced-search-popup').classList.add('active');
         document.getElementById('popup-overlay').classList.add('active');
@@ -11,32 +12,30 @@ export function initAdvancedSearchPopup() {
 
     document.getElementById('apply-search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
-        const searchIn = {
-            word: document.getElementById('search-in-word').checked,
-            root: document.getElementById('search-in-root').checked,
-            definition: document.getElementById('search-in-definition').checked,
-            etymology: document.getElementById('search-in-etymology').checked
-        };
-        const exactMatch = document.getElementById('exact-match').checked;
-
-        filterAndDisplayWord(searchTerm, searchIn, exactMatch);
+        filterAndDisplayWord(searchTerm, '', '');
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
 
     // Ensure all checkboxes are checked by default
-    document.getElementById('search-in-word').checked = true;
-    document.getElementById('search-in-root').checked = true;
-    document.getElementById('search-in-definition').checked = true;
-    document.getElementById('search-in-etymology').checked = true;
+    const searchInWord = document.getElementById('search-in-word');
+    const searchInRoot = document.getElementById('search-in-root');
+    const searchInDefinition = document.getElementById('search-in-definition');
+    const searchInEtymology = document.getElementById('search-in-etymology');
+
+    if (searchInWord) searchInWord.checked = true;
+    if (searchInRoot) searchInRoot.checked = true;
+    if (searchInDefinition) searchInDefinition.checked = true;
+    if (searchInEtymology) searchInEtymology.checked = true;
 }
 
-export function initStatisticsPopup(rows) {
+export function initStatisticsPopup(allRows) {
+    // Statistics popup functionality
     document.getElementById('view-statistics-button').addEventListener('click', () => {
-        const totalWords = rows.filter(row => row.type === 'word').length;
-        const totalRoots = rows.filter(row => row.type === 'root').length;
+        const totalWords = allRows.filter(row => row.type === 'word').length;
+        const totalRoots = allRows.filter(row => row.type === 'root').length;
 
-        const partOfSpeechCounts = rows.reduce((counts, row) => {
+        const partOfSpeechCounts = allRows.reduce((counts, row) => {
             if (row.type === 'word' && row.partOfSpeech) {
                 counts[row.partOfSpeech] = (counts[row.partOfSpeech] || 0) + 1;
             }
