@@ -248,3 +248,12 @@ header {
     font-size: 18px;
     color: #0078d4;
 }
+
+/* ID Display */
+.id-display {
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    font-size: 0.85em;
+    color: #aaa;
+}
