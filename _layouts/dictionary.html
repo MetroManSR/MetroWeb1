@@ -23,6 +23,7 @@ layout: default
             <button id="search-button" class="btn">Search</button>
             <button id="clear-search-button" class="btn btn-danger">Clear Search</button>
             <button id="advanced-search-button" class="btn">Advanced Search</button>
+            <button id="view-statistics-button" class="btn">View Statistics</button>
         </div>
         <div class="pagination-container">
             <label id="rows-per-page-label" for="rows-per-page-input">Rows per page:</label>
@@ -74,6 +75,12 @@ layout: default
             <br/>
             <button id="apply-search-button" class="btn">Apply</button>
             <button id="close-popup-button" class="btn">Close</button>
+        </div>
+
+        <!-- Popup for statistics -->
+        <div class="popup-overlay" id="statistics-popup-overlay"></div>
+        <div class="popup" id="statistics">
+            <!-- Content will be added dynamically -->
         </div>
 
         <!-- Error Message Container -->
