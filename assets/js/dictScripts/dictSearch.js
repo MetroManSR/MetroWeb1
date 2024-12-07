@@ -1,6 +1,6 @@
 import { createPaginationControls } from './pagination.js';
 
-export function displayPage(page, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows, allRows) {
+export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows, allRows) {
     console.log('Displaying page:', page);
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
@@ -58,20 +58,20 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
 
         filteredRows.sort((a, b) => a.word.localeCompare(b.word));
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(1, searchTerm, searchIn, exactMatch, filteredRows, allRows);
+        displayPage(1, rowsPerPage, searchTerm, searchIn, exactMatch, filteredRows, allRows);
     } else if (wordID && parseInt(wordID) > 0) {
         const row = allRowsById[parseInt(wordID)];
         if (row) {
             filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(1, '', searchIn, exactMatch, filteredRows, allRows);
+            displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
         }
     } else if (rootID && parseInt(rootID) > 0) {
         const row = allRowsById[parseInt(rootID)];
         if (row) {
             filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(1, '', searchIn, exactMatch, filteredRows, allRows);
+            displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
         }
     }
 }
