@@ -40,13 +40,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
 
-        // Assign unique IDs to roots and words in alphabetical order
-        const processedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.word.localeCompare(b.word));
-        const processedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.word.localeCompare(b.word))
-            .map((root, index) => ({ ...root, id: index + 1 + processedDictionaryData.length }));
+        // Clean and sort data alphabetically before assigning IDs
+        const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.word.localeCompare(b.word));
+        const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.word.localeCompare(b.word));
 
-        // Combine and clean data, then sort it alphabetically
-        allRows = [...processedDictionaryData, ...processedRootsData];
+        // Assign unique IDs to roots and words in alphabetical order
+        cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
+        cleanedRootsData.forEach((item, index) => { item.id = index + 1 + cleanedDictionaryData.length; });
+
+        // Combine the cleaned and sorted data
+        allRows = [...cleanedDictionaryData, ...cleanedRootsData];
         filteredRows = allRows.filter(row => row.word && row.definition);
 
         filteredRows.forEach(row => {
@@ -149,7 +152,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         }
     }
-// Add event listener to clear the search
+
+    // Add event listener to clear the search
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
@@ -172,4 +176,3 @@ document.addEventListener('DOMContentLoaded', async function() {
     initStatisticsPopup(allRows);
     console.log('Initialization complete');
 });
-    
