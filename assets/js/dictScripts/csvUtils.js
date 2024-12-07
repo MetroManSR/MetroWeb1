@@ -1,5 +1,3 @@
-// csvUtils.js
-
 export function cleanData(data, type) {
     return data.map((row, index) => {
         console.log(`Cleaning row ${index + 1}:`, row);
