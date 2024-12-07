@@ -82,6 +82,11 @@ header {
     opacity: 1; /* Visible when the fade-in class is added */
 }
 
+/* Root Word Box */
+.root-word {
+    background-color: #003366; /* Dark blue */
+}
+
 .meaning-box {
     padding: 10px;
     margin-top: 10px;
@@ -139,44 +144,4 @@ header {
 
 .popup.active {
     display: block;
-}
-
-/* Pagination Container */
-.pagination-container {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.pagination-button {
-    padding: 10px 15px;
-    margin: 5px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #0078d4;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.pagination-button:hover {
-    background-color: #005a9e;
-}
-
-.pagination-button.active {
-    background-color: #005a9e;
-}
-
-.pagination-input {
-    width: 50px;
-    padding: 5px;
-    font-size: 16px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-right: 5px;
-}
-
-.pagination-display {
-    font-size: 16px;
-    margin-left: 5px;
 }
