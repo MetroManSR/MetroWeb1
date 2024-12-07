@@ -194,3 +194,12 @@ header {
 .popup.active {
     display: block;
 }
+
+.popup label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.popup h3 {
+    margin-top: 0;
+}
