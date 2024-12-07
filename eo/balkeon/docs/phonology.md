@@ -1,23 +1,25 @@
 ---
 layout: default
-title: Balkeon Fonología
-language: es
+title: Balkeon Fonologio
+language: eo
 --- 
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Docs</button>
 
-# Fonología en Balkeon
+# Fonologio en Balkeon
 
-Pronunciar y hablar Balkeon tan difícil no es, las palabras se pronuncian como se leen y hay con suerte un par de sonidos nuevos.
+ATENTU! Jena paĝo nun estas en konstruado.
+
+Ne estas tiel malfacila pronunci kaj paroli Balkeon-on; la vortoj elparolatas kiel ili tekstas.
 
 <a name="top"></a>
 <a class="top-link hide" href="#top">⏫️</a>
 
-## Letras
+## Literoj
 
-### Vocales 
+### Vokaloj
 
-Incluyendo la manera escrita y la manera hablada hay 5 vocales: `a, e, i, o, u`, todas pronunciables como se hace en el Español, al hablar se incluye una vocal secreta, el [*schwa*](https://es.m.wikipedia.org/wiki/Schwa). Su pronunciación es similar al del Inglés, siendo para Balkeon un comodín cuando no eres capaz de pronunciar alguna palabra.
+Incluyendo la manera escrita y la manera hablada hay 5 vocales: `a, e, i, o, u`, todas pronunciables como se hace en el Español, al hablar se incluye una vocal secreta, el [*schwa*](https://eo.wikipedia.org/wiki/%C5%9Cvao). Su pronunciación es similar al del Inglés, siendo para Balkeon un comodín cuando no eres capaz de pronunciar alguna palabra.
 
 **Ejemplos de uso:**
 
@@ -30,15 +32,15 @@ En estos ejemplos tenemos la letra `T` y la letra `F`, las que cuando van juntas
 
 Si te cuesta entender qué significa el schwa solo velo como decir "u" con la boca casi cerrada por completo y más grave.
 
-### Consonantes
+### Konsonantoj
 
-Las consonantes son 15, aquí les dejo la lista:
+Estas 15 konsonantoj:
 
 - B, C, D, F, G, H, K, L, M, N, P, R, S, T, Y.
 
-Con las consonantes el único tema sería la `C` que nunca aparece sola, sino acompañada de la `H`. En conclusión son casi los mismos sonidos que en Español solo que en menor cantidad.
+Inter la konsonantoj la nura specialaĵo estas ke C neniam aperas sole, sed kun la H (kiel Esperanta H-skribo). Ĉiu sono estas jam bone konata al vi, krom la Y, kiun eblas elparoli kiel la Esperanta J sen estigi konfuzon.
 
-Por si necesitan saber el IPA de la Y es: [ʝ](https://es.m.wikipedia.org/wiki/%EA%9E%B2). *O sea tu ll/y promedio*
+Se necesas kia estas la preciza IFA por la Y: [ʝ](https://eo.wikipedia.org/wiki/Vo%C4%89a_palatala_frikativo). *Tio estus via ll/y hispana mezuma. Ankaŭ akcepteblas la *
 
 ### Africadas
 

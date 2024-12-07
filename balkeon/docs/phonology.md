@@ -17,7 +17,7 @@ Pronunciar y hablar Balkeon tan difícil no es, las palabras se pronuncian como 
 
 ### Vocales 
 
-Incluyendo la manera escrita y la manera hablada hay 5 vocales: `a, e, i, o, u`, todas pronunciables como se hace en el Español, al hablar se incluye una vocal secreta, el [*schwa*](https://es.m.wikipedia.org/wiki/Schwa). Su pronunciación es similar al del Inglés, siendo para Balkeon un comodín cuando no eres capaz de pronunciar alguna palabra.
+Incluyendo la manera escrita y la manera hablada hay 5 vocales: `a, e, i, o, u`, todas pronunciables como se hace en el Español, al hablar se incluye una vocal secreta, el [*schwa*](https://es.wikipedia.org/wiki/Schwa). Su pronunciación es similar al del Inglés, siendo para Balkeon un comodín cuando no eres capaz de pronunciar alguna palabra.
 
 **Ejemplos de uso:**
 
@@ -38,13 +38,13 @@ Las consonantes son 15, aquí les dejo la lista:
 
 Con las consonantes el único tema sería la `C` que nunca aparece sola, sino acompañada de la `H`. En conclusión son casi los mismos sonidos que en Español solo que en menor cantidad.
 
-Por si necesitan saber el IPA de la Y es: [ʝ](https://es.m.wikipedia.org/wiki/%EA%9E%B2). *O sea tu ll/y promedio*
+Por si necesitan saber el IPA de la Y es: [ʝ](https://es.wikipedia.org/wiki/%EA%9E%B2). *O sea tu ll/y promedio*
 
 ### Africadas
 
 En Balkeon solo hay 2: `ch, sh`
 
-Por si necesitan saber, el IPA de estas es: [t͡ʃ](https://es.m.wikipedia.org/wiki/Africada_postalveolar_sorda) y ʃ
+Por si necesitan saber, el IPA de estas es: [t͡ʃ](https://es.wikipedia.org/wiki/Africada_postalveolar_sorda) y ʃ
 
 # Fonotácticas 
 
