@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     let rowsPerPage = defaultRowsPerPage;
     let currentPage = 1;
 
+    // Function to display error messages
+    function displayError(message) {
+        const errorContainer = document.getElementById('error-message');
+        errorContainer.innerHTML = `<p>${message}</p>`;
+        errorContainer.style.display = 'block';
+    }
+
     // Fetch the frontmatter to determine the language
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
@@ -49,6 +56,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     } catch (error) {
         console.error('Error loading data:', error);
+        displayError('Failed to load dictionary data. Please try again later.');
     }
 
     function displayPage(page, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false) {
