@@ -61,28 +61,16 @@ layout: default
         <div class="popup" id="advanced-search-popup">
             <form id="advanced-search-form">
                 <h3>Advanced Search</h3>
-                <label class="container" id="search-in-word-label" for="search-in-word">
-                    <input type="checkbox" id="search-in-word" checked />
-                    <span class="checkmark"></span> Word
-                </label>
-                <label class="container" id="search-in-root-label" for="search-in-root">
-                    <input type="checkbox" id="search-in-root" checked />
-                    <span class="checkmark"></span> Root
-                </label>
-                <label class="container" id="search-in-definition-label" for="search-in-definition">
-                    <input type="checkbox" id="search-in-definition" checked />
-                    <span class="checkmark"></span> Definition
-                </label>
-                <label class="container" id="search-in-etymology-label" for="search-in-etymology">
-                    <input type="checkbox" id="search-in-etymology" checked />
-                    <span class="checkmark"></span> Etymology
-                </label>
-                <br/>
-                <label class="container" id="exact-match-label" for="exact-match">
-                    <input type="checkbox" id="exact-match" />
-                    <span class="checkmark"></span> Exact Match
-                </label>
-                <br/>
+                <input type="checkbox" id="search-in-word" name="search-in-word" value="Word">
+                <label for="search-in-word" class="container"> Word</label><br>
+                <input type="checkbox" id="search-in-root" name="search-in-root" value="Root">
+                <label for="search-in-root" class="container"> Root</label><br>
+                <input type="checkbox" id="search-in-definition" name="search-in-definition" value="Definition">
+                <label for="search-in-definition" class="container"> Definition</label><br>
+                <input type="checkbox" id="search-in-etymology" name="search-in-etymology" value="Etymology">
+                <label for="search-in-etymology" class="container"> Etymology</label><br>
+                <input type="checkbox" id="exact-match" name="exact-match" value="Exact Match">
+                <label for="exact-match" class="container"> Exact Match</label><br>
                 <button type="button" id="apply-search-button" class="btn">Apply</button>
                 <button type="button" id="close-popup-button" class="btn">Close</button>
             </form>
