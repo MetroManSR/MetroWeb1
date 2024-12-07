@@ -1,7 +1,7 @@
 import { createPaginationControls } from './pagination.js';
 import { createDictionaryBox } from './boxes.js';
 
-export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows, allRows) {
+export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
     console.log('Displaying page:', page);
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
@@ -47,6 +47,8 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
     const showAll = selectedFilters.length === 0;
 
     if ((!searchTerm.trim() && (!wordID || parseInt(wordID) <= 0) && (!rootID || parseInt(rootID) <= 0))) return;
+
+    let filteredRows = [];
 
     if (searchTerm && searchTerm.trim()) {
         filteredRows = allRows.filter(row => {
