@@ -9,6 +9,7 @@ import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
+    console.log('DOMContentLoaded event triggered');
     // Display the loading message
     document.getElementById('loading-message').style.display = 'block';
 
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     let allRowsById = {};
 
     try {
+        console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
 
         allRows = [...cleanData(dictionaryData, 'word'), ...cleanData(rootsData, 'root')];
@@ -44,6 +46,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             allRowsById[row.id] = row;
         });
 
+        console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
         displayPage(currentPage);
 
@@ -65,6 +68,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function displayPage(page, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false) {
+        console.log('Displaying page:', page);
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const dictionaryContainer = document.getElementById('dictionary');
@@ -94,6 +98,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function filterAndDisplayWord(searchTerm, wordID, rootID) {
+        console.log('Filtering and displaying word:', searchTerm || wordID || rootID);
         const searchIn = {
             word: document.getElementById('search-in-word')?.checked || false,
             root: document.getElementById('search-in-root')?.checked || false,
@@ -171,4 +176,5 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Initialize popup systems
     initAdvancedSearchPopup();
     initStatisticsPopup(allRows);
+    console.log('Initialization complete');
 });
