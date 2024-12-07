@@ -23,9 +23,9 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     wordElement.classList.add('title');
     wordElement.innerHTML = highlight(row.word || '', searchTerm);
 
-    const translationElement = document.createElement('div');
-    translationElement.classList.add('meaning');
-    translationElement.innerHTML = highlight(row.definition || '', searchTerm);
+    const definitionElement = document.createElement('div');
+    definitionElement.classList.add('meaning');
+    definitionElement.innerHTML = highlight(row.definition || '', searchTerm);
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('explanation');
@@ -35,21 +35,20 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     originElement.classList.add('root');
     originElement.innerHTML = `Etymology: ${highlight(row.etymology || '', searchTerm)}`;
 
-    const typeElement = document.createElement('div');
-    typeElement.classList.add('part-of-speech');
-    typeElement.textContent = row.type === 'root' ? 'Root' : 'Word';
-
-    // Add type tag to the top right
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
     typeTag.textContent = row.type === 'root' ? 'Root' : 'Word';
+    typeTag.style.position = 'absolute';
+    typeTag.style.top = '10px';
+    typeTag.style.right = '10px';
+
+    box.style.position = 'relative';  // Ensure the box is relatively positioned
 
     box.appendChild(typeTag);
     box.appendChild(wordElement);
-    box.appendChild(translationElement);
+    box.appendChild(definitionElement);
     box.appendChild(notesElement);
     box.appendChild(originElement);
-    box.appendChild(typeElement);
 
     console.log('Created box:', box);
 
