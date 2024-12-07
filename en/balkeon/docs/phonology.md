@@ -24,7 +24,7 @@ Including the written and spoken form, there are 5 vowels: `a, e, i, o, u`, all 
 - Tutfosin, tutfaum
 - Always, anyway
 
-In these examples we have the letter `T` and the letter `F`, which when together usually cause problems when speaking, with the silent vowel *schwa* (we will represent it as **ə**) it would be like this:
+In these examples we have the letter `T` and the letter `F`, which when together can cause problems when speaking, with the vowel *schwa* (we will represent it as **ə**) it would be like this:
 
 - Tutəfosin, tutəfaum
 
@@ -38,11 +38,11 @@ With the consonants the only issue would be the `C` that never appears alone, bu
 
 `S` appears both alone and in combination with `SH`, which is the same sound at the start of English "share"
 
-In case you need to know, the IPA for Y is: [ʝ](https://en.wikipedia.org/wiki/%EA%9E%B2). *That is your average Spanish ll/y*
+In case you need to know, the IPA for Y is: [ʝ](https://en.wikipedia.org/wiki/%EA%9E%B2). *That is an average Spanish ll/y. Without causing confusion, though technically wrong, it is also possible to use the English Y in "yes"*
 
 ### Affricates
 
-In Balkeon there is only 1: `ch`, which is roughly but not exactly equivalent to `t` and `sh` combined, or the same sound at the start of English "chair"
+In Balkeon there is only 1: `ch`, which is roughly but not exactly equivalent to `t` and `sh` combined, or the same sound at the start of English "chair".
 
 In case you need to know, the IPA for these is: [t͡ʃ](https://en.wikipedia.org/wiki/Voiceless_postalveolar_affricate) and ʃ
 
@@ -52,7 +52,7 @@ In case you need to know, the IPA for these is: [t͡ʃ](https://en.wikipedia.org
 
 - Triphthongs should never appear; if a triphthong is formed by combining two roots they must be separated using the wildcard `r`.
 
-- In 99% of the cases no word can begin with `s` or `l` if its successor consonant is the same, a consonant, this includes consonants such as `b, d, h, k, p, t, y` plus any combination that can be made between them (`bd`, `hk`, `kh`). There are less than 10 roots with these exceptions, as well as the pronouns such as "saye".
+- In 99% of cases no word can begin with `s` or `l` if the consonant following is also a consonant, this includes consonants such as `b, d, h, k, p, t, y` plus any combination that can be made between them (`bd`, `hk`, `kh`). There are less than 10 roots with these exceptions, as well as the pronouns such as "saye".
 
 - Adding to this it is common practice that any word borrowed from another language beginning in one of these combinations should either be simplified to a single consonant or have `e` added if appropriate) e.g. `espokeon`.
 

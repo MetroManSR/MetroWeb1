@@ -1,19 +1,47 @@
 export async function setTexts(language) {
     const texts = await loadTexts(language);
     if (texts) {
-        document.getElementById('search-input').placeholder = texts.searchPlaceholder;
-        document.getElementById('search-button').textContent = texts.searchButton;
-        document.getElementById('clear-search-button').textContent = texts.clearSearchButton;
-        document.getElementById('rows-per-page-label').textContent = texts.rowsPerPageLabel;
-        document.getElementById('rows-per-page-button').textContent = texts.rowsPerPageButton;
-        document.getElementById('advanced-search-button').textContent = texts.advancedSearchButton;
-        document.getElementById('apply-search-button').textContent = texts.applySearchButton;
-        document.getElementById('close-popup-button').textContent = texts.closeSearchButton;
-        document.getElementById('search-in-word-label').textContent = texts.searchInWord;
-        document.getElementById('search-in-root-label').textContent = texts.searchInRoot;
-        document.getElementById('search-in-definition-label').textContent = texts.searchInDefinition;
-        document.getElementById('search-in-etymology-label').textContent = texts.searchInEtymology;
-        document.getElementById('exact-match-label').textContent = texts.exactMatch;
+        const elements = {
+            'search-input': 'placeholder',
+            'search-button': 'textContent',
+            'clear-search-button': 'textContent',
+            'rows-per-page-label': 'textContent',
+            'rows-per-page-button': 'textContent',
+            'advanced-search-button': 'textContent',
+            'apply-search-button': 'textContent',
+            'close-popup-button': 'textContent',
+            'search-in-word-label': 'innerHTML',
+            'search-in-root-label': 'innerHTML',
+            'search-in-definition-label': 'innerHTML',
+            'search-in-etymology-label': 'innerHTML',
+            'exact-match-label': 'innerHTML',
+            'view-statistics-button': 'textContent',
+            'filter-dropdown': 'innerHTML',
+            'apply-filter-button': 'textContent',
+            'loading-message': 'textContent',
+            'error-message': 'textContent'
+        };
+
+        Object.keys(elements).forEach(id => {
+            const element = document.getElementById(id);
+            const prop = elements[id];
+            if (element && texts[id.split('-')[2]]) {
+                if (prop === 'innerHTML') {
+                    const htmlContent = id.includes('label') ? `<input type="checkbox" id="${id.split('-')[2]}" checked /> <span class="checkmark"></span> ${texts[id.split('-')[2]]}` : texts[id];
+                    element.innerHTML = htmlContent;
+                } else {
+                    element[prop] = texts[id.split('-')[2]] || element[prop];
+                }
+            }
+        });
+
+        const options = ['noun', 'verb', 'adjective', 'adverb', 'conjunction', 'interjection', 'preposition', 'expression', 'pronoun'];
+        options.forEach(option => {
+            const element = document.querySelector(`option[value="${option}"]`);
+            if (element && texts[option]) {
+                element.textContent = texts[option];
+            }
+        });
     }
 }
 
@@ -26,4 +54,4 @@ async function loadTexts(language) {
         console.error('Error loading texts:', error);
         return null;
     }
-} 
+}

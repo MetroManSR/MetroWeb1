@@ -36,15 +36,15 @@ ATENTU! Jena paĝo nun estas en tradukado.
             <td>-iom-</td>
         </tr>
         <tr>
-            <td>Primitivo</td>
+            <td>Pra-</td>
             <td>Fri-</td>
-            <td>Instrumento / Herramienta para</td>
+            <td>-ilo</td>
             <td>-of-</td>
         </tr>
         <tr>
             <td>Parentesco Político</td>
             <td>Po-</td>
-            <td>Lugar</td>
+            <td>-ejo</td>
             <td>-ats-</td>
         </tr>
         <tr>
@@ -120,9 +120,9 @@ ATENTU! Jena paĝo nun estas en tradukado.
             <td>-erb-</td>
         </tr>
         <tr>
-            <td>El que hace / El que es / El que se encarga de</td>
+            <td>Kiun karakterizas la radiko</td>
             <td>-em-</td>
-            <td>Doctrina o sistema de creencia</td>
+            <td>Dogmo aŭ sistemo de kredo</td>
             <td>-og-</td>
         </tr>
         <tr>
@@ -132,31 +132,31 @@ ATENTU! Jena paĝo nun estas en tradukado.
             <td>-ont-</td>
         </tr>
         <tr>
-            <td>Miembro</td>
+            <td>Membro/Ano</td>
             <td>-ambr-</td>
-            <td>Más</td>
+            <td>Pli</td>
             <td>-upr-</td>
         </tr>
         <tr>
-            <td>Menos</td>
+            <td>Malpli</td>
             <td>-en-</td>
-            <td>Lo más</td>
+            <td>Plej</td>
             <td>-unt-</td>
         </tr>
         <tr>
-            <td>Lo Menos</td>
+            <td>Malplej</td>
             <td>-ent-</td>
             <td>Poco</td>
             <td>-ek-</td>
         </tr>
         <tr>
-            <td>Ser</td>
+            <td>"Ser" (esti, verboj stativaj)</td>
             <td>-es-</td>
-            <td>Hacer mal</td>
+            <td>Fari fuŝe</td>
             <td>Bu-</td>
         </tr>
         <tr>
-            <td>Que estudia</td>
+            <td>Studanto, lernanto de</td>
             <td>-ern-</td>
             <td>-itis inflamación</td>
             <td>-infl-</td>
@@ -168,10 +168,10 @@ ATENTU! Jena paĝo nun estas en tradukado.
             <td>-in/-un</td>
         </tr>
         <tr>
-            <td>Ser</td>
+            <td>"Ser" (esti, verboj stativaj)</td>
             <td>-es-</td>
-            <td>Estar</td>
-            <td>-ados-</td>
+            <td>"Estar" (esti, ne-esence)</td>
+            <td>-ados-, -est-</td>
         </tr>
     </tbody>
 </table>

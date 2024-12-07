@@ -1,32 +1,38 @@
+import { getRelatedWordsByRoot, highlight } from './utils.js';
+import { sanitizeHTML } from './csvUtils.js';
+
+let previouslySelectedBox = null;
+
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
-    const box = document.createElement('div');
-    box.className = 'dictionary-box ' + (row.type === 'root' ? 'root-word' : 'word');
-    
-    const wordElement = document.createElement('h3');
-    wordElement.textContent = sanitizeHTML(row.word);
-    box.appendChild(wordElement);
+    console.log('Creating box for:', row);
 
-    const definitionElement = document.createElement('p');
-    definitionElement.className = 'meaning-box';
-    definitionElement.innerHTML = sanitizeHTML(row.definition);
-    box.appendChild(definitionElement);
-
-    // Add part of speech if available
-    if (row.partOfSpeech) {
-        const posElement = document.createElement('div');
-        posElement.className = 'part-of-speech';
-        posElement.textContent = row.partOfSpeech;
-        box.appendChild(posElement);
+    if (!row || !row.word) {
+        console.error('Invalid row data:', row);
+        return null;
     }
 
-    // Add ID display in bottom right
-    const idElement = document.createElement('div');
-    idElement.className = 'id-display';
-    idElement.textContent = 'ID: ' + row.id;
-    box.appendChild(idElement);
+    const box = document.createElement('div');
+    box.classList.add('dictionary-box');
+    box.id = `entry-${row.id}`;
 
-    // Implement the fade-in effect
-    setTimeout(() => box.classList.add('fade-in'), 10);
+    if (row.type === 'root') {
+        box.classList.add('root-word'); // Apply root word styling
+    }
 
-    return box;
-}
+    const wordElement = document.createElement('div');
+    wordElement.classList.add('title');
+    wordElement.innerHTML = highlight(row.word || '', searchTerm) + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
+
+    const definitionElement = document.createElement('div');
+    definitionElement.classList.add('meaning-box');
+    if (row.type === 'root') {
+        definitionElement.innerHTML = `
+            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
+            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
+            <div class="etymology">${document.querySelector('meta[name="language"]').content === 'es' ? 'Etimología: ' : 'Etymology: '}${highlight(row.etymology || '', searchTerm)}</div>
+        `;
+    } else {
+        definitionElement.innerHTML = `
+            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
+            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
+            <div class="root">${document.querySelector('meta[name="language"]').content === 'es' ? 'Raíz: ' : 'Root

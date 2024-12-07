@@ -7,92 +7,88 @@ layout: default
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="language" content="{{ page.language }}">
+    <meta name="language" content="page.language">
     <title>Your Dictionary</title>
-    <link rel="stylesheet" href="../../assets/css/dictionary-style.css">
-    <script src="../../assets/js/dictScripts/loadTexts.js"></script>
-    <script type="module" src="../../assets/js/mainDict.js"></script>
+    <link rel="stylesheet" href="../../../assets/css/dictionary-style.css">
+    <script src="../../../assets/js/dictScripts/loadTexts.js" type="module"></script>
+    <script src="../../../assets/js/mainDict.js" type="module"></script>
 </head>
 <body>
     <header>
         <h1>Your Dictionary</h1>
     </header>
     <main>
-        <!-- Loading Message -->
-        <div id="loading-message" style="display: none; text-align: center; padding: 20px;">
-            <p>Loading Dictionary...</p>
+        <div id="loading-message" class="loading-message">
+            <p>Loading dictionary, please wait...</p>
         </div>
+        <div class="search-container">
+            <label for="search-input">Search:</label>
+            <input type="text" id="search-input" placeholder="Search..." class="search-input"/>
+            <button id="search-button" class="btn">Search</button>
+            <button id="clear-search-button" class="btn btn-danger">Clear Search</button>
+            <button id="advanced-search-button" class="btn">Advanced Search</button>
+            <button id="view-statistics-button" class="btn">View Statistics</button>
+        </div>
+        <div class="pagination-container">
+            <label id="rows-per-page-label" for="rows-per-page-input">Rows per page:</label>
+            <input type="number" id="rows-per-page-input" value="20" min="5" max="500" class="rows-input"/>
+            <button id="rows-per-page-button" class="btn">Submit</button>
+            <div id="rows-warning"></div>
+        </div>
+        <!-- Filter Dropdown -->
+        <div id="filter-dropdown">
+            <label for="word-filter">Filter by:</label>
+            <select id="word-filter" multiple class="filter-select">
+                <option value="word">Word</option>
+                <option value="root">Root</option>
+                <option value="noun">Noun</option>
+                <option value="verb">Verb</option>
+                <option value="adjective">Adjective</option>
+                <option value="adverb">Adverb</option>
+                <option value="conjunction">Conjunction</option>
+                <option value="interjection">Interjection</option>
+                <option value="preposition">Preposition</option>
+                <option value="expression">Expression</option>
+                <option value="pronoun">Pronoun</option>
+            </select>
+            <button id="apply-filter-button" class="btn">Apply</button>
+        </div>
+        <div id="dictionary"></div>
+        <div id="pagination" class="pagination"></div>
 
-        <!-- Content Container -->
-        <div id="content-container" style="display: none;">
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Search..." class="search-input"/>
-                <button id="search-button" class="btn">Search</button>
-                <button id="clear-search-button" class="btn btn-danger">Clear Search</button>
-                <button id="advanced-search-button" class="btn">Advanced Search</button>
-                <button id="view-statistics-button" class="btn">View Statistics</button>
-            </div>
-            <div class="pagination-container">
-                <label id="rows-per-page-label" for="rows-per-page-input">Rows per page:</label>
-                <input type="number" id="rows-per-page-input" value="20" min="5" max="500" class="rows-input"/>
-                <button id="rows-per-page-button" class="btn">Submit</button>
-                <div id="rows-warning"></div>
-            </div>
-            <!-- Filter Dropdown -->
-            <div id="filter-dropdown">
-                <label>Filter by:</label>
-                <select id="word-filter" multiple class="filter-select">
-                    <option value="word">Word</option>
-                    <option value="root">Root</option>
-                    <option value="noun">Noun</option>
-                    <option value="verb">Verb</option>
-                    <option value="adjective">Adjective</option>
-                    <option value="adverb">Adverb</option>
-                    <option value="conjunction">Conjunction</option>
-                    <option value="interjection">Interjection</option>
-                    <option value="preposition">Preposition</option>
-                    <option value="expression">Expression</option>
-                    <option value="pronoun">Pronoun</option>
-                </select>
-                <button id="apply-filter-button" class="btn">Apply</button>
-            </div>
-            <div id="dictionary"></div>
-            <div id="pagination" class="pagination"></div>
-
-            <!-- Popup for advanced search -->
-            <div class="popup-overlay" id="popup-overlay"></div>
-            <div class="popup" id="advanced-search-popup">
+        <!-- Popup for advanced search -->
+        <div class="popup-overlay" id="popup-overlay"></div>
+        <div class="popup" id="advanced-search-popup">
+            <form id="advanced-search-form">
                 <h3>Advanced Search</h3>
-                <label id="search-in-word-label">
-                    <input type="checkbox" id="search-in-word" checked /> Word
-                </label>
-                <label id="search-in-root-label">
-                    <input type="checkbox" id="search-in-root" checked /> Root
-                </label>
-                <label id="search-in-definition-label">
-                    <input type="checkbox" id="search-in-definition" checked /> Definition
-                </label>
-                <label id="search-in-etymology-label">
-                    <input type="checkbox" id="search-in-etymology" checked /> Etymology
-                </label>
-                <br/>
-                <label id="exact-match-label">
-                    <input type="checkbox" id="exact-match" /> Exact Match
-                </label>
-                <br/>
-                <button id="apply-search-button" class="btn">Apply</button>
-                <button id="close-popup-button" class="btn">Close</button>
-            </div>
-
-            <!-- Popup for statistics -->
-            <div class="popup-overlay" id="statistics-popup-overlay"></div>
-            <div class="popup statistics-popup" id="statistics">
-                <!-- Content will be added dynamically -->
-            </div>
-
-            <!-- Error Message Container -->
-            <div id="error-message" class="error-message" style="display: none;"></div>
+                <input type="checkbox" id="search-in-word" name="search-in-word" value="Word">
+                <label class="container" id="search-in-word-label" for="search-in-word"> Word</label>
+                <br>
+                <input type="checkbox" id="search-in-root" name="search-in-root" value="Root">
+                <label class="container" id="search-in-root-label" for="search-in-root"> Root</label>
+                <br>
+                <input type="checkbox" id="search-in-definition" name="search-in-definition" value="Definition">
+                <label class="container" id="search-in-definition-label" for="search-in-definition"> Definition</label>
+                <br>
+                <input type="checkbox" id="search-in-etymology" name="search-in-etymology" value="Etymology">
+                <label class="container" id="search-in-etymology-label" for="search-in-etymology"> Etymology</label>
+                <br>
+                <input type="checkbox" id="exact-match" name="exact-match" value="Exact Match">
+                <label class="container" id="exact-match-label" for="exact-match"> Exact Match</label>
+                <br>
+                <button type="button" id="apply-search-button" class="btn">Apply</button>
+                <button type="button" id="close-popup-button" class="btn">Close</button>
+            </form>
         </div>
+
+        <!-- Popup for statistics -->
+        <div class="popup-overlay" id="statistics-popup-overlay"></div>
+        <div class="popup statistics-popup" id="statistics">
+            <!-- Content will be added dynamically -->
+        </div>
+
+        <!-- Error Message Container -->
+        <div id="error-message" class="error-message" style="display: none;"></div>
     </main>
 </body>
-</html>
+</html

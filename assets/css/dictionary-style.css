@@ -53,6 +53,15 @@ header {
     margin: 20px 0;
 }
 
+#filter-dropdown label {
+    margin-right: 10px;
+}
+
+#word-filter {
+    padding: 5px;
+    font-size: 16px;
+}
+
 /* Pagination Container */
 .pagination-container {
     text-align: center;
@@ -102,53 +111,39 @@ header {
 
 /* Dictionary Box */
 .dictionary-box {
-    position: relative; /* Ensure the dictionary box is relatively positioned */
+    position: relative;
     padding: 15px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #004d00; /* Dark green */
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.5s ease; /* Transition for fade-in effect */
+    background-color: #f9f9f9;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .dictionary-box.fade-in {
-    opacity: 1; /* Visible when the fade-in class is added */
+    opacity: 1;
 }
 
 /* Root Word Box */
 .root-word {
-    background-color: #003366; /* Dark blue */
+    background-color: #d8eaff;
 }
 
-/* Selected Box */
-.selected-word, .selected-root {
-    background-color: #669999; /* Lighter shade of the default color */
+/* Word Box */
+.word {
+    background-color: #e9ffd8;
 }
 
+/* Meaning Box */
 .meaning-box {
     padding: 10px;
     margin-top: 10px;
-    background-color: #008000; /* Slightly lighter green for word meaning box */
+    background-color: #fff;
     border-radius: 5px;
 }
 
-.root-word .meaning-box {
-    background-color: #99ccff; /* Lighter blue for root meaning box */
-}
-
-.type-tag {
-    position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
-    padding: 5px 10px;
-    background-color: #0078d4;
-    color: #fff;
-    border-radius: 3px;
-    font-size: 0.85em;
-    font-weight: bold;
-}
-
+/* Part of Speech */
 .part-of-speech {
     font-size: 0.85em;
     font-weight: bold;
@@ -156,10 +151,13 @@ header {
     margin-top: 5px;
 }
 
-/* Scrollable Box */
-.scrollable-box {
-    max-height: 150px;
-    overflow-y: auto;
+/* ID Display */
+.id-display {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.85em;
+    color: #aaa;
 }
 
 /* Popup Styles */
@@ -181,13 +179,13 @@ header {
 .popup {
     display: none;
     position: fixed;
-    top: 10%; /* Reduce top position */
+    top: 10%;
     left: 50%;
     transform: translate(-50%, 0%);
-    padding: 40px; /* Increase padding */
-    width: 80%; /* Increase width */
-    max-height: 80%; /* Add max-height */
-    overflow-y: auto; /* Enable scrolling */
+    padding: 40px;
+    width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -199,25 +197,90 @@ header {
 }
 
 .popup label {
-    display: block;
+    display: inline-block;
     margin-bottom: 10px;
+    vertical-align: middle;
 }
 
-.popup h3 {
-    margin-top: 0;
+.popup input[type="checkbox"] {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Advanced Search Custom Checkboxes */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #0078d4;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
 }
 
 /* Statistics Popup */
 .statistics-popup {
     display: none;
     position: fixed;
-    top: 10%; /* Reduce top position */
+    top: 10%;
     left: 50%;
     transform: translate(-50%, 0%);
-    padding: 40px; /* Increase padding */
-    width: 80%; /* Increase width */
-    max-height: 80%; /* Add max-height */
-    overflow-y: auto; /* Enable scrolling */
+    padding: 40px;
+    width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

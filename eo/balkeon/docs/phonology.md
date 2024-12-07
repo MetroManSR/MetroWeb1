@@ -19,9 +19,11 @@ Ne estas tiel malfacila pronunci kaj paroli Balkeon-on; la vortoj elparolatas ki
 
 ### Vokaloj
 
-Incluyendo la manera escrita y la manera hablada hay 5 vocales: `a, e, i, o, u`, todas pronunciables como se hace en el Español, al hablar se incluye una vocal secreta, el [*schwa*](https://eo.wikipedia.org/wiki/%C5%9Cvao). Su pronunciación es similar al del Inglés, siendo para Balkeon un comodín cuando no eres capaz de pronunciar alguna palabra.
 
-**Ejemplos de uso:**
+la [*ŝvao*](https://eo.wikipedia.org/wiki/%C5%9Cvao).
+Su pronunciación es similar al del Inglés, siendo para Balkeon un comodín cuando no eres capaz de pronunciar alguna palabra.
+
+**Ekzemploj de l' uzado de l' ŝvao:**
 
 - Tutfosin, tutfaum
 - Siempre, de todas formas
@@ -40,7 +42,7 @@ Estas 15 konsonantoj:
 
 Inter la konsonantoj la nura specialaĵo estas ke C neniam aperas sole, sed kun la H (kiel Esperanta H-skribo). Ĉiu sono estas jam bone konata al vi, krom la Y, kiun eblas elparoli kiel la Esperanta J sen estigi konfuzon.
 
-Se necesas kia estas la preciza IFA por la Y: [ʝ](https://eo.wikipedia.org/wiki/Vo%C4%89a_palatala_frikativo). *Tio estus via ll/y hispana mezuma. Ankaŭ akcepteblas la *
+Se necesas ekscii kia estas la preciza IFA por la Y: [ʝ](https://eo.wikipedia.org/wiki/Vo%C4%89a_palatala_frikativo). *Tio estus via ll/y hispana mezuma. Ankaŭ akcepteblas la J do Esperanto.*
 
 ### Africadas
 
