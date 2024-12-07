@@ -171,11 +171,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('popup-overlay').classList.add('active');
     });
 
-    document.getElementById('close-popup-button').addEventListener('click', () => {
-        document.getElementById('advanced-search-popup').classList.remove('active');
-        document.getElementById('popup-overlay').classList.remove('active');
-    });
-
     document.getElementById('apply-search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
         filterAndDisplayWord(searchTerm, '', '');
