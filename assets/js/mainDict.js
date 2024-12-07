@@ -96,13 +96,13 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     function filterAndDisplayWord(searchTerm, wordID, rootID) {
         const searchIn = {
-            word: document.getElementById('search-in-word').checked,
-            root: document.getElementById('search-in-root').checked,
-            definition: document.getElementById('search-in-definition').checked,
-            etymology: document.getElementById('search-in-etymology').checked
+            word: document.getElementById('search-in-word')?.checked || false,
+            root: document.getElementById('search-in-root')?.checked || false,
+            definition: document.getElementById('search-in-definition')?.checked || false,
+            etymology: document.getElementById('search-in-etymology')?.checked || false
         };
 
-        const exactMatch = document.getElementById('exact-match').checked;
+        const exactMatch = document.getElementById('exact-match')?.checked || false;
         const selectedFilters = Array.from(document.getElementById('word-filter').selectedOptions).map(option => option.value);
 
         // If no filters are selected, show all
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
                 const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
                 const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
-                return showAll || selectedFilters.includes(row.type) || selectedFilters.includes(row.partOfSpeech.toLowerCase()) || wordMatch || rootMatch || definitionMatch || etymologyMatch;
+                return showAll || selectedFilters.includes(row.type) || selectedFilters.includes(row.partOfSpeech?.toLowerCase()) || wordMatch || rootMatch || definitionMatch || etymologyMatch;
             });
 
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
@@ -194,6 +194,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Ensure all checkboxes are checked by default
     document.getElementById('search-in-word').checked = true;
     document.getElementById('search-in-root').checked = true;
-    document.getElementById('search-in-definition').checked = true;
+    document.getElementId('search-in-definition').checked = true;
     document.getElementById('search-in-etymology').checked = true;
 });
