@@ -24,16 +24,16 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     wordElement.innerHTML = highlight(row.word || '', searchTerm);
 
     const definitionElement = document.createElement('div');
-    definitionElement.classList.add('meaning');
-    definitionElement.innerHTML = highlight(row.definition || '', searchTerm);
+    definitionElement.classList.add('meaning-box');
+    definitionElement.innerHTML = `
+        <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
+        <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
+        <div class="root">${highlight(row.etymology || '', searchTerm)}</div>
+    `;
 
-    const notesElement = document.createElement('div');
-    notesElement.classList.add('explanation');
-    notesElement.innerHTML = highlight(row.notes || '', searchTerm);
-
-    const originElement = document.createElement('div');
-    originElement.classList.add('root');
-    originElement.innerHTML = `Etymology: ${highlight(row.etymology || '', searchTerm)}`;
+    const typeElement = document.createElement('div');
+    typeElement.classList.add('part-of-speech');
+    typeElement.textContent = getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en');
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
@@ -47,8 +47,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     box.appendChild(typeTag);
     box.appendChild(wordElement);
     box.appendChild(definitionElement);
-    box.appendChild(notesElement);
-    box.appendChild(originElement);
+    if (row.type !== 'root') box.appendChild(typeElement);
 
     console.log('Created box:', box);
 
@@ -94,4 +93,31 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     }, 100);
 
     return box;
+}
+
+function getPartOfSpeechAbbreviation(partOfSpeech, language) {
+    const abbreviations = {
+        en: {
+            noun: 'n.',
+            verb: 'v.',
+            adjective: 'adj.',
+            adverb: 'adv.',
+            conjunction: 'conj.',
+            interjection: 'int.',
+            preposition: 'prep.',
+            expression: 'expr.'
+        },
+        es: {
+            noun: 's.',
+            verb: 'v.',
+            adjective: 'adj.',
+            adverb: 'adv.',
+            conjunction: 'conj.',
+            interjection: 'interj.',
+            preposition: 'prep.',
+            expression: 'expr.'
+        }
+    };
+
+    return abbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
 }
