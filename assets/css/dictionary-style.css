@@ -107,7 +107,7 @@ header {
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #004d00; /* Dark green */
+    background-color: #f9f9f9; /* Light gray background for better readability */
     opacity: 0; /* Initially hidden */
     transition: opacity 0.5s ease; /* Transition for fade-in effect */
 }
@@ -118,37 +118,23 @@ header {
 
 /* Root Word Box */
 .root-word {
-    background-color: #003366; /* Dark blue */
+    background-color: #d8eaff; /* Light blue */
 }
 
-/* Selected Box */
-.selected-word, .selected-root {
-    background-color: #669999; /* Lighter shade of the default color */
+/* Word Box */
+.word {
+    background-color: #e9ffd8; /* Light green */
 }
 
+/* Meaning Box */
 .meaning-box {
     padding: 10px;
     margin-top: 10px;
-    background-color: #008000; /* Slightly lighter green for word meaning box */
+    background-color: #fff; /* White for better readability */
     border-radius: 5px;
 }
 
-.root-word .meaning-box {
-    background-color: #99ccff; /* Lighter blue for root meaning box */
-}
-
-.type-tag {
-    position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
-    padding: 5px 10px;
-    background-color: #0078d4;
-    color: #fff;
-    border-radius: 3px;
-    font-size: 0.85em;
-    font-weight: bold;
-}
-
+/* Part of Speech */
 .part-of-speech {
     font-size: 0.85em;
     font-weight: bold;
@@ -156,10 +142,13 @@ header {
     margin-top: 5px;
 }
 
-/* Scrollable Box */
-.scrollable-box {
-    max-height: 150px;
-    overflow-y: auto;
+/* ID Display */
+.id-display {
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    font-size: 0.85em;
+    color: #aaa;
 }
 
 /* Popup Styles */
@@ -199,8 +188,14 @@ header {
 }
 
 .popup label {
-    display: block;
+    display: inline-block; /* Inline-block to align with checkboxes */
     margin-bottom: 10px;
+    vertical-align: middle; /* Vertical align with checkboxes */
+}
+
+.popup input[type="checkbox"] {
+    margin-right: 5px; /* Space between checkbox and label */
+    vertical-align: middle; /* Vertical align with labels */
 }
 
 .popup h3 {
@@ -247,13 +242,4 @@ header {
     padding: 20px;
     font-size: 18px;
     color: #0078d4;
-}
-
-/* ID Display */
-.id-display {
-    position: absolute;
-    bottom: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
-    font-size: 0.85em;
-    color: #aaa;
 }
