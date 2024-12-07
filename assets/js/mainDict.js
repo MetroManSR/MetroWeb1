@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordID, rootID);
         }
 
-        displayStatistics(allRows);  // Display statistics popup
+        // Ensure to remove duplicates before displaying statistics
+        displayStatistics([...new Set(allRows.map(row => row.word))]); 
     } catch (error) {
         console.error('Error loading data:', error);
         displayError('Failed to load dictionary data. Please try again later.');
@@ -197,10 +198,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Statistics popup functionality
     function displayStatistics(rows) {
-        const totalWords = rows.filter(row => row.type === 'word').length;
-        const totalRoots = rows.filter(row => row.type === 'root').length;
+        const uniqueRows = [...new Set(rows)];
+        const totalWords = uniqueRows.filter(row => row.type === 'word').length;
+        const totalRoots = uniqueRows.filter(row => row.type === 'root').length;
 
-        const partOfSpeechCounts = rows.reduce((counts, row) => {
+        const partOfSpeechCounts = uniqueRows.reduce((counts, row) => {
             if (row.type === 'word' && row.partOfSpeech) {
                 counts[row.partOfSpeech] = (counts[row.partOfSpeech] || 0) + 1;
             }
