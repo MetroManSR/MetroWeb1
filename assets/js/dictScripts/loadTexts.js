@@ -1,14 +1,3 @@
-async function loadTexts(language) {
-    try {
-        const response = await fetch('../../assets/data/defaultTexts.json');
-        const data = await response.json();
-        return data[language];
-    } catch (error) {
-        console.error('Error loading texts:', error);
-        return null;
-    }
-}
-
 export async function setTexts(language) {
     const texts = await loadTexts(language);
     if (texts) {
@@ -27,3 +16,14 @@ export async function setTexts(language) {
         document.getElementById('exact-match-label').textContent = texts.exactMatch;
     }
 }
+
+async function loadTexts(language) {
+    try {
+        const response = await fetch('../../assets/data/defaultTexts.json');
+        const data = await response.json();
+        return data[language];
+    } catch (error) {
+        console.error('Error loading texts:', error);
+        return null;
+    }
+} 
