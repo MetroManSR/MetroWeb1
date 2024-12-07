@@ -7,7 +7,7 @@ layout: default
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="language" content="{{ page.language }}">
+    <meta name="language" content="en">
     <title>Your Dictionary</title>
     <link rel="stylesheet" href="../../assets/css/dictionary-style.css">
     <script src="../../assets/js/dictScripts/loadTexts.js"></script>
@@ -60,23 +60,26 @@ layout: default
         <div class="popup-overlay" id="popup-overlay"></div>
         <div class="popup" id="advanced-search-popup">
             <h3>Advanced Search</h3>
-            <div class="checkbox-group">
-                <label for="search-in-word">
-                    <input type="checkbox" id="search-in-word" checked /> Word
-                </label>
-                <label for="search-in-root">
-                    <input type="checkbox" id="search-in-root" checked /> Root
-                </label>
-                <label for="search-in-definition">
-                    <input type="checkbox" id="search-in-definition" checked /> Definition
-                </label>
-                <label for="search-in-etymology">
-                    <input type="checkbox" id="search-in-etymology" checked /> Etymology
-                </label>
-            </div>
+            <label class="container" id="search-in-word-label" for="search-in-word">
+                <input type="checkbox" id="search-in-word" checked />
+                <span class="checkmark"></span> Word
+            </label>
+            <label class="container" id="search-in-root-label" for="search-in-root">
+                <input type="checkbox" id="search-in-root" checked />
+                <span class="checkmark"></span> Root
+            </label>
+            <label class="container" id="search-in-definition-label" for="search-in-definition">
+                <input type="checkbox" id="search-in-definition" checked />
+                <span class="checkmark"></span> Definition
+            </label>
+            <label class="container" id="search-in-etymology-label" for="search-in-etymology">
+                <input type="checkbox" id="search-in-etymology" checked />
+                <span class="checkmark"></span> Etymology
+            </label>
             <br/>
-            <label for="exact-match">
-                <input type="checkbox" id="exact-match" /> Exact Match
+            <label class="container" id="exact-match-label" for="exact-match">
+                <input type="checkbox" id="exact-match" />
+                <span class="checkmark"></span> Exact Match
             </label>
             <br/>
             <button id="apply-search-button" class="btn">Apply</button>
@@ -93,4 +96,4 @@ layout: default
         <div id="error-message" class="error-message" style="display: none;"></div>
     </main>
 </body>
-</html>
+</html> 
