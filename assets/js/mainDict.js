@@ -5,6 +5,7 @@ import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { createDictionaryBox } from './dictScripts/boxes.js';
 import { cleanData, sanitizeHTML } from './dictScripts/csvUtils.js';
+import { setTexts } from './dictScripts/loadTexts.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     let currentPage = 1;
 
     // Fetch the frontmatter to determine the language
-    const language = document.querySelector('meta[name="lang"]').content || 'en'; // Assume 'en' if not specified
+    const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
     await setTexts(language);
 
