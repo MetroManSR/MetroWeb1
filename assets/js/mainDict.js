@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     });
 
-    // Popup window functionality
+// Popup window functionality
     document.getElementById('advanced-search-button').addEventListener('click', () => {
         document.getElementById('advanced-search-popup').classList.add('active');
         document.getElementById('popup-overlay').classList.add('active');
@@ -194,6 +194,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Ensure all checkboxes are checked by default
     document.getElementById('search-in-word').checked = true;
     document.getElementById('search-in-root').checked = true;
-    document.getElementId('search-in-definition').checked = true;
+    document.getElementById('search-in-definition').checked = true;
     document.getElementById('search-in-etymology').checked = true;
 });
