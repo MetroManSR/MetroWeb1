@@ -165,7 +165,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         const searchTerm = document.getElementById('search-input').value.trim();
         filterAndDisplayWord(searchTerm, '', '');
     });
-    
+
+    // Add event listener to clear the search
+    document.getElementById('clear-search-button').addEventListener('click', () => {
+        document.getElementById('search-input').value = '';
+        window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
+        displayPage(1);
+    });
+
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
         const value = parseInt(document.getElementById('rows-per-page-input').value, 10);
         if (value >= 5 && value <= 500) {
@@ -181,4 +188,4 @@ document.addEventListener('DOMContentLoaded', async function() {
     initAdvancedSearchPopup();
     initStatisticsPopup(allRows);
     console.log('Initialization complete');
-});
+}); 
