@@ -91,11 +91,11 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
     });
 
     if (currentPage > 1) {
-        buttons[0].classList.add('active');
+        buttons[1].classList.add('active'); // Previous button
     }
 
     if (currentPage < totalPages) {
-        buttons[buttons.length - 1].classList.add('active');
+        buttons[buttons.length - 2].classList.add('active'); // Next button
     }
 
     buttons[currentPage - 1].classList.add('active');
