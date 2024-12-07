@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
     let currentPage = 1;
+    let filteredRows = [];
+    let allRows = [];
+    let allRowsById = {};
 
     // Function to display error messages
     function displayError(message) {
@@ -28,9 +31,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
     const rootsFile = location.pathname.includes('/en/') ? '../../assets/data/english-roots.csv' : '../../assets/data/balkeon-roots-es.csv';
-    let allRows = [];
-    let filteredRows = [];
-    let allRowsById = {};
 
     try {
         console.log('Fetching data...');
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(currentPage);
+        displayPage(currentPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
 
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
