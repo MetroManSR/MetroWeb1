@@ -21,7 +21,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('title');
-    wordElement.innerHTML = highlight(row.word || '', searchTerm) + ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})`;
+    wordElement.innerHTML = highlight(row.word || '', searchTerm) + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
 
     const definitionElement = document.createElement('div');
     definitionElement.classList.add('meaning-box');
