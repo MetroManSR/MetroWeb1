@@ -1,4 +1,5 @@
 import { fetchData } from './dictScripts/fetchData.js';
+import { createPaginationControls } from './dictScripts/pagination.js';
 import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
 import { filterAndDisplayWord, displayPage } from './dictScripts/dictSearch.js';
