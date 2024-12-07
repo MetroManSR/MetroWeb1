@@ -3,6 +3,38 @@ import { sanitizeHTML } from './csvUtils.js';
 
 let previouslySelectedBox = null;
 
+function getPartOfSpeechAbbreviation(partOfSpeech, language) {
+    if (!partOfSpeech) return ''; // Return an empty string if partOfSpeech is undefined
+
+    const abbreviations = {
+        en: {
+            noun: 'n.',
+            verb: 'v.',
+            adjective: 'adj.',
+            adverb: 'adv.',
+            conjunction: 'conj.',
+            interjection: 'int.',
+            preposition: 'prep.',
+            expression: 'expr.',
+            pronoun: 'pron.'
+        },
+        es: {
+            noun: 's.',
+            verb: 'v.',
+            adjective: 'adj.',
+            adverb: 'adv.',
+            conjunction: 'conj.',
+            interjection: 'interj.',
+            preposition: 'prep.',
+            expression: 'expr.',
+            pronoun: 'pron.'
+        }
+    };
+
+    return abbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
+}
+
+// Function to create a dictionary box
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
     console.log('Creating box for:', row);
 
