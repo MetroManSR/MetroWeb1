@@ -1,10 +1,8 @@
 import { fetchData } from './dictScripts/fetchData.js';
-import { createPaginationControls } from './dictScripts/pagination.js';
 import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
 import { filterAndDisplayWord, displayPage } from './dictScripts/dictSearch.js';
 import { initializeEventListeners } from './dictScripts/init.js';
-import { cleanData } from './dictScripts/csvUtils.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOMContentLoaded event triggered');
@@ -56,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(currentPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
+        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
 
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
