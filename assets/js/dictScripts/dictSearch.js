@@ -1,4 +1,5 @@
 import { createPaginationControls } from './pagination.js';
+import { createDictionaryBox } from './boxes.js';
 
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows, allRows) {
     console.log('Displaying page:', page);
