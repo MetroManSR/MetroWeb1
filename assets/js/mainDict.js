@@ -4,21 +4,23 @@ import { createPaginationControls, updatePagination } from './dictScripts/pagina
 import { displayWarning } from './dictScripts/warnings.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { createDictionaryBox } from './dictScripts/boxes.js';
-import { setTexts } from './dictScripts/loadTexts.js';
 import { cleanData, sanitizeHTML } from './dictScripts/csvUtils.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
     let currentPage = 1;
+
+    // Fetch the frontmatter to determine the language
+    const language = document.querySelector('meta[name="lang"]').content || 'en'; // Assume 'en' if not specified
+
+    await setTexts(language);
+
     const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
     const rootsFile = location.pathname.includes('/en/') ? '../../assets/data/english-roots.csv' : '../../assets/data/balkeon-roots-es.csv';
     let allRows = [];
     let filteredRows = [];
     let allRowsById = {};
-
-    const language = location.pathname.includes('/en/') ? 'en' : 'es';
-    await setTexts(language);
 
     try {
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
