@@ -153,7 +153,20 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    // Add event listener to clear the search
+    // Add event listener to the search input
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const searchTerm = e.target.value.trim();
+            filterAndDisplayWord(searchTerm, '', '');
+        }
+    });
+
+    document.getElementById('search-button').addEventListener('click', () => {
+        const searchTerm = document.getElementById('search-input').value.trim();
+        filterAndDisplayWord(searchTerm, '', '');
+    });
+
+ // Add event listener to clear the search
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
