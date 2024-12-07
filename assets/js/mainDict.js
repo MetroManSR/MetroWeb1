@@ -71,22 +71,25 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         dictionaryContainer.innerHTML = ''; // Clear previous entries
 
-        rowsToDisplay.forEach((row, index) => {
-         if (!row.word || !row.definition) {
-        console.error('Invalid row data:', row);
-        return; // Skip invalid rows
-    }
+        const rowsToDisplay = filteredRows.slice(start, end); // Ensure rowsToDisplay is defined
+        console.log('Rows to display:', rowsToDisplay);
 
-    const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-    if (box) {
-        setTimeout(() => {
-            dictionaryContainer.appendChild(box);
-            console.log('Appended box:', box);
-        }, index * 100); // Delay each box by 100ms for fade-in effect
-    } else {
-        console.error('Failed to create a valid object for:', row);
-    }
-});
+        rowsToDisplay.forEach((row, index) => {
+            if (!row.word || !row.definition) {
+                console.error('Invalid row data:', row);
+                return; // Skip invalid rows
+            }
+
+            const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+            if (box) {
+                setTimeout(() => {
+                    dictionaryContainer.appendChild(box);
+                    console.log('Appended box:', box);
+                }, index * 100); // Delay each box by 100ms for fade-in effect
+            } else {
+                console.error('Failed to create a valid object for:', row);
+            }
+        });
 
         updatePagination(currentPage, filteredRows, rowsPerPage);
     }
