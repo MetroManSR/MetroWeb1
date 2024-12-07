@@ -5,7 +5,7 @@ export function getRelatedWordsByRoot(word, etymology, allRows) {
         return etymologyRoots.every(root => rowRoots.includes(root)) && row.word.toLowerCase() !== word.toLowerCase();
     });
 
-    const relatedWordsList = relatedWords.map(row => `<a href="?dictionaryid=${row.id}">${row.word}</a>`).join(', ');
+    const relatedWordsList = relatedWords.map(row => `<a href="?wordid=${row.id}">${row.word}</a>`).join(', ');
     const relatedWordsCount = relatedWords.length;
 
     return {
