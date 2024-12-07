@@ -30,6 +30,24 @@ layout: default
             <button id="rows-per-page-button">Submit</button>
             <div id="rows-warning"></div>
         </div>
+        <!-- Filter Dropdown -->
+        <div id="filter-dropdown">
+            <label>Filter by:</label>
+            <select id="word-filter" multiple>
+                <option value="word">Word</option>
+                <option value="root">Root</option>
+                <option value="noun">Noun</option>
+                <option value="verb">Verb</option>
+                <option value="adjective">Adjective</option>
+                <option value="adverb">Adverb</option>
+                <option value="conjunction">Conjunction</option>
+                <option value="interjection">Interjection</option>
+                <option value="preposition">Preposition</option>
+                <option value="expression">Expression</option>
+                <option value="pronoun">Pronoun</option>
+            </select>
+            <button id="apply-filter-button">Apply</button>
+        </div>
         <div id="dictionary"></div>
         <div id="pagination" class="pagination"></div>
 
