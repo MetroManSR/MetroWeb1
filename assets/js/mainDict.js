@@ -222,8 +222,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             <button id="close-statistics-button" class="btn">Close</button>
         `;
 
-        statisticsContainer.classList.add('active');
-        document.getElementById('popup-overlay').classList.add('active');
+        statisticsContainer.classList.remove('active');
+        document.getElementById('popup-overlay').classList.remove('active');
 
         document.getElementById('close-statistics-button').addEventListener('click', () => {
             statisticsContainer.classList.remove('active');
