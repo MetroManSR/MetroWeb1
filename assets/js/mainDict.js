@@ -40,8 +40,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
 
+        // Assign unique IDs to roots and words
+        const processedDictionaryData = cleanData(dictionaryData, 'word');
+        const processedRootsData = cleanData(rootsData, 'root').map((root, index) => ({ ...root, id: index + processedDictionaryData.length + 1 }));
+
         // Combine and clean data, then sort it alphabetically
-        allRows = [...cleanData(dictionaryData, 'word'), ...cleanData(rootsData, 'root')].sort((a, b) => a.word.localeCompare(b.word));
+        allRows = [...processedDictionaryData, ...processedRootsData].sort((a, b) => a.word.localeCompare(b.word));
         filteredRows = allRows.filter(row => row.word && row.definition);
 
         filteredRows.forEach(row => {
@@ -125,6 +129,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 return showAll || selectedFilters.includes(row.type) || selectedFilters.includes(row.partOfSpeech?.toLowerCase()) || wordMatch || rootMatch || definitionMatch || etymologyMatch;
             });
 
+            filteredRows.sort((a, b) => a.word.localeCompare(b.word));
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
             displayPage(1, searchTerm, searchIn, exactMatch);
         } else if (wordID && parseInt(wordID) > 0) {
@@ -157,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         filterAndDisplayWord(searchTerm, '', '');
     });
 
-    // Add event listener to clear the search
+// Add event listener to clear the search
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
