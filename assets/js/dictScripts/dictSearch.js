@@ -1,6 +1,6 @@
-//last updated 08/12/24 17:28
+//last updated 08/12/24 17:50
 import { createPaginationControls, updatePagination } from './pagination.js';
-import { renderBox } from './boxes.js';
+import { renderBox, createNoMatchBox, createLoadingBox } from './boxes.js';
 
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
     console.log('Displaying page:', page);
@@ -86,3 +86,4 @@ export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
     renderBox(filteredRows, allRows, params.searchTerm, params.exactMatch, searchIn, rowsPerPage, 1);
 }
+
