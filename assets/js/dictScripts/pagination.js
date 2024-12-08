@@ -36,7 +36,8 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     // Add go to beginning button
     const beginButton = createPageButton('⏮️', () => {
         if (currentPage > 1) {
-            displayPage(1, rowsPerPage, '', {}, false, filteredRows, []);
+            currentPage = 1;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
         }
     });
     paginationContainer.appendChild(beginButton);
@@ -44,7 +45,8 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     // Add previous button
     const prevButton = createPageButton('⬅️', () => {
         if (currentPage > 1) {
-            displayPage(currentPage - 1, rowsPerPage, '', {}, false, filteredRows, []);
+            currentPage -= 1;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
         }
     });
     paginationContainer.appendChild(prevButton);
@@ -60,7 +62,8 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     currentPageInput.addEventListener('change', () => {
         let pageNumber = parseInt(currentPageInput.value, 10);
         if (pageNumber >= 1 && pageNumber <= totalPages) {
-            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []);
+            currentPage = pageNumber;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
         } else {
             currentPageInput.value = currentPage;
         }
@@ -80,7 +83,8 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     // Add next button
     const nextButton = createPageButton('➡️', () => {
         if (currentPage < totalPages) {
-            displayPage(currentPage + 1, rowsPerPage, '', {}, false, filteredRows, []);
+            currentPage += 1;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
         }
     });
     paginationContainer.appendChild(nextButton);
@@ -88,7 +92,8 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     // Add go to last button
     const endButton = createPageButton('⏭️', () => {
         if (currentPage < totalPages) {
-            displayPage(totalPages, rowsPerPage, '', {}, false, filteredRows, []);
+            currentPage = totalPages;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
         }
     });
     paginationContainer.appendChild(endButton);
