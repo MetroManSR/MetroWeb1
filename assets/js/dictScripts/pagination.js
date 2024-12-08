@@ -7,6 +7,10 @@
  * @param {Function} displayPage - Function to display the given page.
  */
 export function createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage) {
+    console.log(`Rows per page: ${rowsPerPag0} `);
+    console.log(`Filtered Rows: ${filteredRows} `);
+    console.log(`Current Page: ${currentPage} `);
+    console.log(`Display page: ${displayPage} `);
     const paginationContainer = document.getElementById('pagination');
     paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
@@ -80,6 +84,9 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
  * @param {number} rowsPerPage - The number of rows to display per page.
  */
 export function updatePagination(currentPage, filteredRows, rowsPerPage) {
+    console.log(`Rows per page: ${rowsPerPag0} `);
+    console.log(`Filtered Rows: ${filteredRows} `);
+    console.log(`Rows per Page: ${rowsPerPage} `);
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
     const paginationContainer = document.getElementById('pagination');
     const buttons = paginationContainer.querySelectorAll('.pagination-button');
