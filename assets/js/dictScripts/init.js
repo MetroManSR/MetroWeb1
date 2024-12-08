@@ -38,13 +38,13 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     document.getElementById('advanced-search-form').addEventListener('submit', (e) => {
         e.preventDefault();
         const params = {
+            searchTerm: document.getElementById('advanced-search-input').value.trim(),
             word: document.getElementById('advanced-search-word').checked,
             root: document.getElementById('advanced-search-root').checked,
             definition: document.getElementById('advanced-search-definition').checked,
-            etymology: document.getElementById('advanced-search-etymology').checked
+            etymology: document.getElementById('advanced-search-etymology').checked,
+            exactMatch: document.getElementById('exact-match').checked
         };
-
-        const searchTerm = document.getElementById('advanced-search-input').value.trim();
 
         if (!params.word && !params.root && !params.definition && !params.etymology) {
             alert('Please select at least one search option.');
