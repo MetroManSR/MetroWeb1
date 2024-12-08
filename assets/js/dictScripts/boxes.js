@@ -151,7 +151,7 @@ export function createLoadingBox() {
 // Function to update the floating text
 export function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams) {
     let floatingTextContent = `${filteredRows.length} words found`;
-    
+
     if (searchTerm) {
         floatingTextContent += ` when looking for "${searchTerm}"`;
     }
