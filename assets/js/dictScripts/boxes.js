@@ -36,7 +36,6 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
 
 // Function to create a dictionary box
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
-    console.log('Creating box for:', row);
 
     if (!row || !row.word) {
         console.error('Invalid row data:', row);
@@ -89,8 +88,6 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     idElement.className = 'id-display';
     idElement.textContent = 'ID: ' + row.id;
     box.appendChild(idElement);
-
-    console.log('Created box:', box);
 
     box.addEventListener('click', function() {
         if (previouslySelectedBox) {
