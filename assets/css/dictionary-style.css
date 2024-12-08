@@ -127,12 +127,32 @@ header {
 
 /* Root Word Box */
 .root-word {
-    background-color: #d8eaff;
+    background-color: #2a572a; /* Dark green */
+    border: 2px solid #2a572a;
+}
+
+.root-word .meaning-box {
+    background-color: #c7e0c7; /* Lighter shade of green */
+}
+
+.root-word .dictionary-box.selected {
+    background-color: #dff2df; /* Another lighter shade of green */
+    border: 3px solid #1c391c;
 }
 
 /* Word Box */
 .word {
-    background-color: #e9ffd8;
+    background-color: #003366; /* Dark blue */
+    border: 2px solid #003366;
+}
+
+.word .meaning-box {
+    background-color: #9fc3e9; /* Lighter shade of blue */
+}
+
+.word .dictionary-box.selected {
+    background-color: #b5d2f2; /* Another lighter shade of blue */
+    border: 3px solid #002244;
 }
 
 /* Meaning Box */
