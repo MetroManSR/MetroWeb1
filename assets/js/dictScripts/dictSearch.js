@@ -133,16 +133,14 @@ export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
     // Advanced search filters can be implemented based on params
     // Example: Search in specific fields or match exact phrases
     filteredRows = allRows.filter(row => {
-        const matches = [];
-        for (let key in params) {
-            if (row[key] && row[key].toLowerCase().includes(params[key].toLowerCase())) {
-                matches.push(true);
-            }
-        }
-        return matches.length === Object.keys(params).length;
+        const wordMatch = searchIn.word && (params.exactMatch ? row.word === params.searchTerm : row.word.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        const rootMatch = searchIn.root && (params.exactMatch ? row.root === params.searchTerm : row.root.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        const definitionMatch = searchIn.definition && (params.exactMatch ? row.definition === params.searchTerm : row.definition.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        const etymologyMatch = searchIn.etymology && (params.exactMatch ? row.etymology === params.searchTerm : row.etymology.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        return wordMatch || rootMatch || definitionMatch || etymologyMatch;
     });
 
     filteredRows.sort((a, b) => a.word.localeCompare(b.word));
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
-    displayPage(1, rowsPerPage, '', {}, false, filteredRows, allRows);
+    displayPage(1, rowsPerPage, params.searchTerm, searchIn, params.exactMatch, filteredRows, allRows);
 }
