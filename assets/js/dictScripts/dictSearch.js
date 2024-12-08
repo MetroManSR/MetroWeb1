@@ -17,15 +17,23 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
     const validRows = filteredRows.filter(row => row.word && row.definition);
     const rowsToDisplay = validRows.slice(start, end); // Ensure rowsToDisplay is defined
 
+    // Create empty boxes based on rowsPerPage
+    for (let i = 0; i < rowsPerPage; i++) {
+        const emptyBox = document.createElement('div');
+        emptyBox.className = 'dictionary-box empty';
+        dictionaryContainer.appendChild(emptyBox);
+    }
+
+    // Fill the boxes with information one by one
     rowsToDisplay.forEach((row, index) => {
         const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-        if (box) {
-            setTimeout(() => {
-                dictionaryContainer.appendChild(box);
-            }, index * 100); // Delay each box by 100ms for fade-in effect
-        } else {
-            console.error('Failed to create a valid object for:', row);
-        }
+        setTimeout(() => {
+            if (dictionaryContainer.children[index]) {
+                dictionaryContainer.children[index].replaceWith(box);
+            } else {
+                console.error('Box not found for:', row);
+            }
+        }, index * 100); // Delay each box by 100ms for fade-in effect
     });
 
     updatePagination(page, filteredRows, rowsPerPage);
