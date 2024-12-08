@@ -99,12 +99,14 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
 
     if (currentPageInput) {
         currentPageInput.value = currentPage;
+        console.log('CurrentPageInput Check')
     } else {
         console.error('currentPageInput is undefined');
     }
 
     if (currentPageDisplay) {
         currentPageDisplay.textContent = ` / ${totalPages}`;
+        console.log('CurrentPageDisplay Check')
     } else {
         console.error('currentPageDisplay is undefined');
     }
