@@ -1,6 +1,5 @@
 export function cleanData(data, type) {
     return data.map((row, index) => {
-        console.log(`Cleaning row ${index + 1}:`, row);
 
         if (type === 'root') {
             const r = row.word || '';
@@ -19,7 +18,6 @@ export function cleanData(data, type) {
                 type: 'root'
             };
 
-            console.log('Cleaned root row:', cleanedRow);
             return cleanedRow;
         } else {
             const cleanedRow = {
@@ -33,7 +31,6 @@ export function cleanData(data, type) {
                 type: 'word'
             };
 
-            console.log('Cleaned word row:', cleanedRow);
             return cleanedRow;
         }
     });
