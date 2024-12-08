@@ -67,6 +67,11 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     // Add next button
     if (currentPage < totalPages) {
         const nextButton = createPageButton(currentPage + 1, '&rsaquo;');
+        nextButton.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                displayPage(currentPage + 1, rowsPerPage, '', {}, false, filteredRows, []);
+            }
+        });
         paginationContainer.appendChild(nextButton);
     }
 
