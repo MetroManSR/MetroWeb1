@@ -39,7 +39,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     });
     paginationContainer.appendChild(prevButton);
 
-    // Add current page input
+    // Add current page input and total pages display
     const currentPageInput = document.createElement('input');
     currentPageInput.type = 'number';
     currentPageInput.value = currentPage;
@@ -56,13 +56,16 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
         }
     });
 
-    paginationContainer.appendChild(currentPageInput);
-
-    // Add total pages display
     const totalPagesDisplay = document.createElement('span');
     totalPagesDisplay.textContent = ` / ${totalPages}`;
     totalPagesDisplay.classList.add('pagination-display');
-    paginationContainer.appendChild(totalPagesDisplay);
+
+    const pageContainer = document.createElement('div');
+    pageContainer.classList.add('pagination-page-display');
+    pageContainer.appendChild(currentPageInput);
+    pageContainer.appendChild(totalPagesDisplay);
+
+    paginationContainer.appendChild(pageContainer);
 
     // Add next button
     const nextButton = createPageButton('➡️', () => {
@@ -114,4 +117,10 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
     } else {
         console.error('totalPagesDisplay is undefined');
     }
+
+    buttons.forEach((button) => {
+        if (parseInt(button.innerHTML) === currentPage) {
+            button.classList.add('active');
+        }
+    });
 }
