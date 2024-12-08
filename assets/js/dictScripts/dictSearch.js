@@ -1,6 +1,6 @@
-//last updated 08/12/24 17:50
+//last updated 08/12/24 18:03
 import { createPaginationControls, updatePagination } from './pagination.js';
-import { renderBox, createNoMatchBox, createLoadingBox } from './boxes.js';
+import { renderBox, createNoMatchBox, createLoadingBox, updateFloatingText } from './boxes.js';
 
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
     console.log('Displaying page:', page);
@@ -34,12 +34,14 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
         filteredRows.sort((a, b) => a.word.localeCompare(b.word));
         createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
         renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, 1);
+        updateFloatingText(filteredRows, searchTerm, selectedFilters, searchIn);
     } else if (wordID && parseInt(wordID) > 0) {
         const row = allRowsById[parseInt(wordID)];
         if (row) {
             filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
             renderBox(filteredRows, allRows, '', exactMatch, searchIn, rowsPerPage, 1);
+            updateFloatingText(filteredRows, searchTerm, selectedFilters, searchIn);
         }
     } else if (rootID && parseInt(rootID) > 0) {
         const row = allRowsById[parseInt(rootID)];
@@ -47,6 +49,7 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
             filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
             renderBox(filteredRows, allRows, '', exactMatch, searchIn, rowsPerPage, 1);
+            updateFloatingText(filteredRows, searchTerm, selectedFilters, searchIn);
         }
     } else {
         filteredRows = allRows.filter(row => {
@@ -56,6 +59,7 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
 
         createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
         renderBox(filteredRows, allRows, '', exactMatch, searchIn, rowsPerPage, 1);
+        updateFloatingText(filteredRows, '', selectedFilters, searchIn);
     }
 }
 
@@ -85,5 +89,6 @@ export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
     filteredRows.sort((a, b) => a.word.localeCompare(b.word));
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
     renderBox(filteredRows, allRows, params.searchTerm, params.exactMatch, searchIn, rowsPerPage, 1);
+    updateFloatingText(filteredRows, params.searchTerm, [], searchIn);
 }
 
