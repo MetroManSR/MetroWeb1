@@ -1,3 +1,4 @@
+//last updated 8/12/24 17:22
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox } from './boxes.js';
 
@@ -48,15 +49,17 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
             renderBox(filteredRows, allRows, '', exactMatch, searchIn, rowsPerPage, 1);
         }
     } else {
-        // If no valid search term or ID, reset to show all rows
-        filteredRows = allRows;
+        filteredRows = allRows.filter(row => {
+            const filterMatch = selectedFilters.includes(row.type) || selectedFilters.includes(row.partOfSpeech?.toLowerCase());
+            return showAll || filterMatch;
+        });
+
         createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
         renderBox(filteredRows, allRows, '', exactMatch, searchIn, rowsPerPage, 1);
     }
 }
 
 export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
-    // Ensure at least one search option is selected
     const searchIn = {
         word: params.word || false,
         root: params.root || false,
@@ -71,8 +74,6 @@ export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
 
     let filteredRows = [];
 
-    // Advanced search filters can be implemented based on params
-    // Example: Search in specific fields or match exact phrases
     filteredRows = allRows.filter(row => {
         const wordMatch = searchIn.word && (params.exactMatch ? row.word === params.searchTerm : row.word.toLowerCase().includes(params.searchTerm.toLowerCase()));
         const rootMatch = searchIn.root && (params.exactMatch ? row.word === params.searchTerm : row.word.toLowerCase().includes(params.searchTerm.toLowerCase()));
