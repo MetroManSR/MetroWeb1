@@ -1,6 +1,14 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { createDictionaryBox } from './boxes.js';
 
+// Function to create an empty box with gray tones
+function createEmptyBox() {
+    const emptyBox = document.createElement('div');
+    emptyBox.className = 'dictionary-box empty';
+    emptyBox.style.backgroundColor = 'lightgray';
+    return emptyBox;
+}
+
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
     console.log('Displaying page:', page);
     const start = (page - 1) * rowsPerPage;
@@ -19,14 +27,14 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
 
     // Create empty boxes based on rowsPerPage
     for (let i = 0; i < rowsPerPage; i++) {
-        const emptyBox = document.createElement('div');
-        emptyBox.className = 'dictionary-box empty';
+        const emptyBox = createEmptyBox();
         dictionaryContainer.appendChild(emptyBox);
     }
 
     // Fill the boxes with information one by one
     rowsToDisplay.forEach((row, index) => {
         const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        box.style.backgroundColor = row.type === 'word' ? 'lightblue' : 'lightgreen'; // Change color based on type
         setTimeout(() => {
             if (dictionaryContainer.children[index]) {
                 dictionaryContainer.children[index].replaceWith(box);
@@ -105,4 +113,4 @@ export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
     filteredRows.sort((a, b) => a.word.localeCompare(b.word));
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
     displayPage(1, rowsPerPage, '', {}, false, filteredRows, allRows);
-}
+} 
