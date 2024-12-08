@@ -7,7 +7,7 @@
  * @param {Function} displayPage - Function to display the given page.
  */
 export function createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage) {
-    console.log(`Rows per page: ${rowsPerPag0} `);
+    console.log(`Rows per page: ${rowsPerPage} `);
     console.log(`Filtered Rows: ${filteredRows} `);
     console.log(`Current Page: ${currentPage} `);
     console.log(`Display page: ${displayPage} `);
