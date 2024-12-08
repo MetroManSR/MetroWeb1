@@ -15,24 +15,16 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
 
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
 
-    const createPageButton = (pageNumber, label) => {
+    const createPageButton = (label, onClick) => {
         const button = document.createElement('button');
         button.innerHTML = label;
         button.classList.add('pagination-button');
-        if (pageNumber === currentPage) {
-            button.classList.add('active');
-        }
-
-        button.addEventListener('click', () => {
-            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []);
-        });
-
+        button.addEventListener('click', onClick);
         return button;
     };
 
     // Add go to beginning button
-    const beginButton = createPageButton(1, '&laquo;');
-    beginButton.addEventListener('click', () => {
+    const beginButton = createPageButton('⏮️', () => {
         if (currentPage > 1) {
             displayPage(1, rowsPerPage, '', {}, false, filteredRows, []);
         }
@@ -40,37 +32,12 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     paginationContainer.appendChild(beginButton);
 
     // Add previous button
-    const prevButton = createPageButton(currentPage - 1, '&lsaquo;');
-    prevButton.addEventListener('click', () => {
+    const prevButton = createPageButton('⬅️', () => {
         if (currentPage > 1) {
             displayPage(currentPage - 1, rowsPerPage, '', {}, false, filteredRows, []);
         }
     });
     paginationContainer.appendChild(prevButton);
-
-    // Add page number buttons
-    for (let i = 1; i <= totalPages; i++) {
-        const pageButton = createPageButton(i, i.toString());
-        paginationContainer.appendChild(pageButton);
-    }
-
-    // Add next button
-    const nextButton = createPageButton(currentPage + 1, '&rsaquo;');
-    nextButton.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-            displayPage(currentPage + 1, rowsPerPage, '', {}, false, filteredRows, []);
-        }
-    });
-    paginationContainer.appendChild(nextButton);
-
-    // Add go to last button
-    const endButton = createPageButton(totalPages, '&raquo;');
-    endButton.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-            displayPage(totalPages, rowsPerPage, '', {}, false, filteredRows, []);
-        }
-    });
-    paginationContainer.appendChild(endButton);
 
     // Add current page input
     const currentPageInput = document.createElement('input');
@@ -89,12 +56,29 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
         }
     });
 
-    const currentPageDisplay = document.createElement('span');
-    currentPageDisplay.textContent = ` / ${totalPages}`;
-    currentPageDisplay.classList.add('pagination-display');
-
     paginationContainer.appendChild(currentPageInput);
-    paginationContainer.appendChild(currentPageDisplay);
+
+    // Add total pages display
+    const totalPagesDisplay = document.createElement('span');
+    totalPagesDisplay.textContent = ` / ${totalPages}`;
+    totalPagesDisplay.classList.add('pagination-display');
+    paginationContainer.appendChild(totalPagesDisplay);
+
+    // Add next button
+    const nextButton = createPageButton('➡️', () => {
+        if (currentPage < totalPages) {
+            displayPage(currentPage + 1, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
+    paginationContainer.appendChild(nextButton);
+
+    // Add go to last button
+    const endButton = createPageButton('⏭️', () => {
+        if (currentPage < totalPages) {
+            displayPage(totalPages, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
+    paginationContainer.appendChild(endButton);
 }
 
 /**
@@ -111,7 +95,7 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
     const paginationContainer = document.getElementById('pagination');
     const buttons = paginationContainer.querySelectorAll('.pagination-button');
     const currentPageInput = paginationContainer.querySelector('.pagination-input');
-    const currentPageDisplay = paginationContainer.querySelector('.pagination-display');
+    const totalPagesDisplay = paginationContainer.querySelector('.pagination-display');
 
     buttons.forEach((button) => {
         button.classList.remove('active');
@@ -124,11 +108,11 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
         console.error('currentPageInput is undefined');
     }
 
-    if (currentPageDisplay) {
-        currentPageDisplay.textContent = ` / ${totalPages}`;
-        console.log('CurrentPageDisplay Check');
+    if (totalPagesDisplay) {
+        totalPagesDisplay.textContent = ` / ${totalPages}`;
+        console.log('TotalPagesDisplay Check');
     } else {
-        console.error('currentPageDisplay is undefined');
+        console.error('totalPagesDisplay is undefined');
     }
 
     buttons.forEach((button) => {
