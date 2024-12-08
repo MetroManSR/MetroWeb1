@@ -32,7 +32,7 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
 }
 
 export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage) {
-     const searchIn = {
+    const searchIn = {
         word: document.getElementById('search-in-word')?.checked || false,
         root: document.getElementById('search-in-root')?.checked || false,
         definition: document.getElementById('search-in-definition')?.checked || false,
