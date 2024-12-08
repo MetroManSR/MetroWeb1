@@ -28,12 +28,11 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
         }
     });
 
-    updatePagination(currentPage, validRows, rowsPerPage);
+    updatePagination(page, validRows, rowsPerPage);
 }
 
 export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage) {
-    console.log('Filtering and displaying word:', searchTerm || wordID || rootID);
-    const searchIn = {
+     const searchIn = {
         word: document.getElementById('search-in-word')?.checked || false,
         root: document.getElementById('search-in-root')?.checked || false,
         definition: document.getElementById('search-in-definition')?.checked || false,
