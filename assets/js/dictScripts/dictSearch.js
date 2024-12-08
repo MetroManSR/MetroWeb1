@@ -28,7 +28,7 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
         }
     });
 
-    updatePagination(page, validRows, rowsPerPage);
+    updatePagination(page, filteredRows, rowsPerPage);
 }
 
 export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage) {
