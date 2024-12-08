@@ -114,10 +114,4 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
     } else {
         console.error('totalPagesDisplay is undefined');
     }
-
-    buttons.forEach((button) => {
-        if (parseInt(button.innerHTML) === currentPage) {
-            button.classList.add('active');
-        }
-    });
 }
