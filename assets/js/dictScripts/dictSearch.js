@@ -49,6 +49,8 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
 
     let filteredRows = [];
 
+    console.log{'DictSearch: 52 - 80'}
+
     if (searchTerm && searchTerm.trim()) {
         filteredRows = allRows.filter(row => {
             const wordMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -59,12 +61,18 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
         });
 
         filteredRows.sort((a, b) => a.word.localeCompare(b.word));
+        console.log(`Rows per page: ${rowsPerPage} `);
+        console.log(`Filtered Rows: ${filteredRows} `);
+        console.log(`Display page: ${displayPage} `);
         createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
         displayPage(1, rowsPerPage, searchTerm, searchIn, exactMatch, filteredRows, allRows);
     } else if (wordID && parseInt(wordID) > 0) {
         const row = allRowsById[parseInt(wordID)];
         if (row) {
             filteredRows = [row];
+            console.log(`Rows per page: ${rowsPerPage} `);
+            console.log(`Filtered Rows: ${filteredRows} `);
+            console.log(`Display page: ${displayPage} `);
             createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
             displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
         }
@@ -72,6 +80,9 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
         const row = allRowsById[parseInt(rootID)];
         if (row) {
             filteredRows = [row];
+            console.log(`Rows per page: ${rowsPerPage} `);
+            console.log(`Filtered Rows: ${filteredRows} `);
+            console.log(`Display page: ${displayPage} `);
             createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
             displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
         }
