@@ -95,7 +95,19 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
 }
 
 export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
-    // Implement advanced search logic here
+    // Ensure at least one search option is selected
+    const searchIn = {
+        word: params.word || false,
+        root: params.root || false,
+        definition: params.definition || false,
+        etymology: params.etymology || false
+    };
+
+    if (!searchIn.word && !searchIn.root && !searchIn.definition && !searchIn.etymology) {
+        alert('Please select at least one search option.');
+        return;
+    }
+
     let filteredRows = [];
 
     // Advanced search filters can be implemented based on params
@@ -113,4 +125,4 @@ export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
     filteredRows.sort((a, b) => a.word.localeCompare(b.word));
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
     displayPage(1, rowsPerPage, '', {}, false, filteredRows, allRows);
-            }
+}
