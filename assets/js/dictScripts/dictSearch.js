@@ -66,6 +66,7 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
         console.log(`Display page: ${displayPage} `);
         createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
         displayPage(1, rowsPerPage, searchTerm, searchIn, exactMatch, filteredRows, allRows);
+        
     } else if (wordID && parseInt(wordID) > 0) {
         const row = allRowsById[parseInt(wordID)];
         if (row) {
