@@ -180,6 +180,26 @@ header {
     color: #aaa;
 }
 
+/* No Match Box */
+.dictionary-box.no-match {
+    background-color: lightyellow;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Loading Box */
+.dictionary-box.loading {
+    background-color: #d3d3d3;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
 /* Popup Styles */
 .popup-overlay {
     display: none;
