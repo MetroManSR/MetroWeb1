@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Combine the cleaned and sorted data for display
         allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.word.localeCompare(b.word));
         filteredRows = allRows.filter(row => row.word && row.definition);
-        console.log(length(allRows))
-        console.log(length(filteredRows))
+        console.log(allRows.length)
+        console.log(filteredRows.length)
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
