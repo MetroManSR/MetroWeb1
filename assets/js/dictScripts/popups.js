@@ -1,4 +1,4 @@
-import { createDictionaryBox } from './dictSearch.js';
+import { filterAndDisplayWord } from './dictSearch.js';
 
 export function initAdvancedSearchPopup() {
     // Popup window functionality for advanced search
