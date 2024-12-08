@@ -14,9 +14,9 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
 
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
-    console.log('Filtered Rows:', filteredRows, ' - ', rowsToDisplay)
     const validRows = filteredRows.filter(row => row.word && row.definition);
     const rowsToDisplay = validRows.slice(start, end); // Ensure rowsToDisplay is defined
+    console.log('Filtered Rows:', filteredRows, ' - ', rowsToDisplay)
 
     rowsToDisplay.forEach((row, index) => {
         const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
@@ -31,7 +31,7 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
 
     console.log('Updating Pagination')
 
-    updatePagination(page, filteredRows, rowsPerPage);
+    updatePagination(page, rowsToDisplay, rowsPerPage);
 }
 
 export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage) {
