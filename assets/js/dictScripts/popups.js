@@ -1,6 +1,6 @@
-import { filterAndDisplayWord } from './dictSearch.js';
+import { processRows } from './processRows.js';
 
-export function initAdvancedSearchPopup() {
+export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage) {
     // Popup window functionality for advanced search
     document.getElementById('advanced-search-button').addEventListener('click', () => {
         document.getElementById('advanced-search-popup').classList.add('active');
@@ -14,7 +14,25 @@ export function initAdvancedSearchPopup() {
 
     document.getElementById('apply-search-button').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, '', '');
+        const searchIn = {
+            word: document.getElementById('search-in-word')?.checked || false,
+            root: document.getElementById('search-in-root')?.checked || false,
+            definition: document.getElementById('search-in-definition')?.checked || false,
+            etymology: document.getElementById('search-in-etymology')?.checked || false
+        };
+
+        const exactMatch = document.getElementById('exact-match')?.checked || false;
+        const selectedFilters = Array.from(document.getElementById('word-filter').selectedOptions).map(option => option.value);
+
+        const criteria = {
+            searchTerm: searchTerm,
+            exactMatch: exactMatch,
+            searchIn: searchIn,
+            filters: selectedFilters
+        };
+
+        processRows(allRows, criteria, rowsPerPage, displayPage);
+
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
