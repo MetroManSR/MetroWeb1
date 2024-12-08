@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Clean and sort data alphabetically
         const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.word.localeCompare(b.word));
         const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.word.localeCompare(b.word));
-
+        // ESTO FUNCIONA 
         // Assign unique IDs to roots and words separately, starting at 1
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
@@ -50,10 +50,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Combine the cleaned and sorted data for display
         allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.word.localeCompare(b.word));
         filteredRows = allRows.filter(row => row.word && row.definition);
+        console.log(length(allRows))
+        console.log(length(filteredRows))
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
         });
+        console.log(length(filteredRows))
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
