@@ -77,3 +77,24 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
         }
     }
 }
+
+export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
+    // Implement advanced search logic here
+    let filteredRows = [];
+
+    // Advanced search filters can be implemented based on params
+    // Example: Search in specific fields or match exact phrases
+    filteredRows = allRows.filter(row => {
+        const matches = [];
+        for (let key in params) {
+            if (row[key] && row[key].toLowerCase().includes(params[key].toLowerCase())) {
+                matches.push(true);
+            }
+        }
+        return matches.length === Object.keys(params).length;
+    });
+
+    filteredRows.sort((a, b) => a.word.localeCompare(b.word));
+    createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
+    displayPage(1, rowsPerPage, '', {}, false, filteredRows, allRows);
+}
