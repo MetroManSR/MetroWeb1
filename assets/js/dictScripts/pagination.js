@@ -25,7 +25,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
         }
 
         button.addEventListener('click', () => {
-            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []);
+            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []); // Pass filteredRows
         });
 
         return button;
@@ -52,7 +52,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     currentPageInput.addEventListener('change', () => {
         let pageNumber = parseInt(currentPageInput.value, 10);
         if (pageNumber >= 1 && pageNumber <= totalPages) {
-            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []);
+            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []); // Pass filteredRows
         } else {
             currentPageInput.value = currentPage;
         }
@@ -116,4 +116,4 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
             button.classList.add('active');
         }
     });
-}
+} 
