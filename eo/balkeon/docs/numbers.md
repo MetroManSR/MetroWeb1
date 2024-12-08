@@ -9,45 +9,82 @@ language: es
 # Números
 
 <table style="width:100%">
+
   <theader>
+
   <tr>
+
     <th>Número</th>
+
     <th>Escrito</th>
+
     <th>Número</th>
+
     <th>Escrito</th>
+
   </tr>
+
   </theader>
+
   <tbody>
+
   <tr>
+
     <td>0</td>
+
     <td>Naul</td>
+
     <td>5</td>
+
     <td>Sink</td>
+
   </tr>
+
    <tr>
+
     <td>1</td>
+
     <td>Uan</td>
+
     <td>6</td>
+
     <td>Sis</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Chos</td>
-    <td>7</td>
-    <td>Seti</td>
+
   </tr>
 
   <tr>
+
+    <td>2</td>
+
+    <td>Chos</td>
+
+    <td>7</td>
+
+    <td>Seti</td>
+
+  </tr>
+
+  <tr>
+
     <td>3</td>
+
     <td>Tre</td>
+
     <td>8</td>
+
     <td>Oich</td>
+
   </tr>
   <tr>
+
     <td>4</td>
+
     <td>Kuar</td>
+
     <td>9</td>
+
     <td>Nuef</td>
+
   </tr>
   </tbody>
   </table>
