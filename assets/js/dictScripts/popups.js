@@ -1,3 +1,5 @@
+import { createDictionaryBox } from './dictSearch.js';
+
 export function initAdvancedSearchPopup() {
     // Popup window functionality for advanced search
     document.getElementById('advanced-search-button').addEventListener('click', () => {
