@@ -14,12 +14,22 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    console.log(`Total Pages: ${totalPages}`);
 
     const createPageButton = (label, onClick) => {
         const button = document.createElement('button');
         button.innerHTML = label;
         button.classList.add('pagination-button');
-        button.addEventListener('click', onClick);
+        let isCooldown = false;
+        button.addEventListener('click', () => {
+            if (!isCooldown) {
+                isCooldown = true;
+                onClick();
+                setTimeout(() => {
+                    isCooldown = false;
+                }, 500); // 0.5 seconds cooldown
+            }
+        });
         return button;
     };
 
@@ -95,6 +105,7 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    console.log(`Total Pages: ${totalPages}`);
     const paginationContainer = document.getElementById('pagination');
     const buttons = paginationContainer.querySelectorAll('.pagination-button');
     const currentPageInput = paginationContainer.querySelector('.pagination-input');
