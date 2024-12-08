@@ -1,11 +1,10 @@
 import { fetchData } from './dictScripts/fetchData.js';
 import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
-import { filterAndDisplayWord, displayPage } from './dictScripts/dictSearch.js';
 import { initializeEventListeners } from './dictScripts/init.js';
-import { cleanData, sanitizeHTML } from './dictScripts/csvUtils.js';
-import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
-import { createDictionaryBox } from './dictScripts/boxes.js';
+import { cleanData } from './dictScripts/csvUtils.js';
+import { createPaginationControls } from './dictScripts/pagination.js';
+import { processRows } from './dictScripts/processRows.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOMContentLoaded event triggered');
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Clean and sort data alphabetically
         const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.word.localeCompare(b.word));
         const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.word.localeCompare(b.word));
-        // ESTO FUNCIONA 
+
         // Assign unique IDs to roots and words separately, starting at 1
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
@@ -50,24 +49,26 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Combine the cleaned and sorted data for display
         allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.word.localeCompare(b.word));
         filteredRows = allRows.filter(row => row.word && row.definition);
-        console.log(allRows.length)
-        console.log(filteredRows.length)
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
         });
-        console.log(filteredRows.length)
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows, currentPage);
+        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
 
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
         const wordID = params.get('wordid');
         const rootID = params.get('rootid');
         if ((searchTerm && searchTerm.trim()) || (wordID && parseInt(wordID) > 0) || (rootID && parseInt(rootID) > 0)) {
-            filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage, currentPage);
+            const criteria = {
+                searchTerm: searchTerm ? searchTerm.trim() : '',
+                wordID: wordID,
+                rootID: rootID
+            };
+            processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
         }
 
         // Hide the loading message after JS is ready
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     initializeEventListeners(allRows, allRowsById, rowsPerPage);
 
     // Initialize popup systems
-    initAdvancedSearchPopup();
+    initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
     initStatisticsPopup(allRows);
     console.log('Initialization complete');
 });
