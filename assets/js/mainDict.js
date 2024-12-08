@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
         });
-        console.log(length(filteredRows))
+        console.log(filteredRows.length)
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
