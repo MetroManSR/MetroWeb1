@@ -3,6 +3,8 @@ import { filterAndDisplayWord, displayPage } from './dictSearch.js';
 import { displayWarning } from './warnings.js';
 
 export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filteredRows) {
+    let currentPage = 1; // Define currentPage
+
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const searchTerm = e.target.value.trim();
@@ -18,7 +20,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
-        displayPage(1, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
+        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
     });
 
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
@@ -26,7 +28,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         if (value >= 5 && value <= 500) {
             rowsPerPage = value;
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(1, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
+            displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
         } else {
             displayWarning('rows-warning', 'Please enter a value between 5 and 500');
         }
