@@ -32,13 +32,45 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
 
     // Add go to beginning button
     const beginButton = createPageButton(1, '&laquo;');
+    beginButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            displayPage(1, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
     paginationContainer.appendChild(beginButton);
 
     // Add previous button
-    if (currentPage > 1) {
-        const prevButton = createPageButton(currentPage - 1, '&lsaquo;');
-        paginationContainer.appendChild(prevButton);
+    const prevButton = createPageButton(currentPage - 1, '&lsaquo;');
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            displayPage(currentPage - 1, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
+    paginationContainer.appendChild(prevButton);
+
+    // Add page number buttons
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = createPageButton(i, i.toString());
+        paginationContainer.appendChild(pageButton);
     }
+
+    // Add next button
+    const nextButton = createPageButton(currentPage + 1, '&rsaquo;');
+    nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            displayPage(currentPage + 1, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
+    paginationContainer.appendChild(nextButton);
+
+    // Add go to last button
+    const endButton = createPageButton(totalPages, '&raquo;');
+    endButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            displayPage(totalPages, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
+    paginationContainer.appendChild(endButton);
 
     // Add current page input
     const currentPageInput = document.createElement('input');
@@ -63,21 +95,6 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
 
     paginationContainer.appendChild(currentPageInput);
     paginationContainer.appendChild(currentPageDisplay);
-
-    // Add next button
-    if (currentPage < totalPages) {
-        const nextButton = createPageButton(currentPage + 1, '&rsaquo;');
-        nextButton.addEventListener('click', () => {
-            if (currentPage < totalPages) {
-                displayPage(currentPage + 1, rowsPerPage, '', {}, false, filteredRows, []);
-            }
-        });
-        paginationContainer.appendChild(nextButton);
-    }
-
-    // Add go to last button
-    const endButton = createPageButton(totalPages, '&raquo;');
-    paginationContainer.appendChild(endButton);
 }
 
 /**
