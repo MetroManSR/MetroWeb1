@@ -1,49 +1,56 @@
 ---
 layout: default
-title: "Balkeon Oraciones Complejas"
-language: es
+title: "Balkeon Frazoj kompleksaj"
+language: eo
 ---
 
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Gramatiko</button>
 
 # Frazoj kompleksaj
 
-Una oración compleja está compuesta por dos frases, la dependiente y la independiente, en Balkeon es de uso habitual la conjunción `Kua` y hay más alternativas.
+Frazon kompleksan oni kreas el du aŭ pli frazetoj - la dependa kaj la nedependa; en Balkeon estas kutima uzi la konjunkcion `kua` sed estas alternativoj.
 
-`Puedo considerar que no has hecho nada, por lo que me has dicho`
+- Hispane `Puedo considerar que no has hecho nada, por lo que me has dicho`
+- Angle `I can consider that you have done nothing, from what you have told me`
+- Esperantlingve `Mi povas konsideri, ke vi nenion faris, pro tio kion vi diris al mi`
 
-Siempre se debe dividir esta oración en tres partes 1 [Puedo considerar]2 [que no has hecho nada] 3 [por lo que me has dicho]
+Endas dividi ĉi tiun frazon en tri frazetojn:
+
+1. Mi povas konsideri (angle "I can consider", hispane "(Yo) puedo considerar"), ... pro ...
+2. ke vi nenion faris (angle "that you have done nothing", hispane "que (tú) no has hecho nada")
+3. pro tio kion vi diris al mi (angle "from what you have told me", hispane "por lo que (tú) me has dicho")
 
 **Kua**
 
-Forma 1: `Kadir inmabian, pofrok emseon yu seyip ayestan, kua yu agdiro nemeon`
+Formo 1: `Kadir inmabian, pofrok emseon yu seyip ayestan, kua yu agdiro nemeon`
 
-Forma 2: `Inmabir, pofrok emseon yu seyip ayestan, kad, kua yu agdiro nemeon`
+Formo 2: `Inmabir, pofrok emseon yu seyip ayestan, kad, kua yu agdiro nemeon`
 
 - La más simple, la tercera parte es una razón directa de la primera parte así que se debe ubicar de esta forma [1, 3, 2], separando siempre cada parte con una coma.
+- La plej simpla
 
 - En la Forma 2 se mueve el verbo modal al final quedando en `kad`. Considerando que la Parte 3 es un componente directamente relacionado a la Parte 1, se mueve ese verbo modal posterior a la parte 3.
 
-**Sin Conjunción Kua**
+**Sen la konjunkcio Kua**
 
-Forma 1: `Kadir inmabian, pofrok emseon yu seyip ayestan, yu agdiro nemeon`
+Formo 1: `Kadir inmabian, pofrok emseon yu seyip ayestan, yu agdiro nemeon`
 
-Forma 2: `Inmabir, pofrok emseon yu seyip ayestan, kad, yu agdiro nemeon`
+Formo 2: `Inmabir, pofrok emseon yu seyip ayestan, kad, yu agdiro nemeon`
 
 - Este caso es similar al anterior, solo que en Balkeon la conjunción `kua` es omisible.
 
-**Sustantivación de la segunda frase**
+**Substantivigo de l' dua frazo**
 
-Forma 1: `Kadir inmabian yuos nemagdiroyeon, pofrok emseon yu seyip ayestan`
+Formo 1: `Kadir inmabian yuos nemagdiroyeon, pofrok emseon yu seyip ayestan`
 
-Forma 2: `Kadir inmabian yuos nemagdiroreon, pofrok emseon yu seyip ayestan`
+Formo 2: `Kadir inmabian yuos nemagdiroreon, pofrok emseon yu seyip ayestan`
 
 - Haciendo caso a las grandes posibilidades que ofrece Balkeon para componer palabras de otras, tomamos la segunda parte de la oración y la convertimos en Sustantivo, [acá](#fusión-oracional) más información.
 
-**Infinitivo Pasado de la Segunda Frase**
+**Pasinta nefinitivo de l' dua frazo**
 
-Forma 1: `Kadir inmabian yu nemagdipian, pofrok emseon (kua) yu seyip ayestan`
-Forma 2: `Pofrok emseon (kua) yu seyip ayestan, inmabir yu nemagdipian kad`
+Formo 1: `Kadir inmabian yu nemagdipian, pofrok emseon (kua) yu seyip ayestan`
+Formo 2: `Pofrok emseon (kua) yu seyip ayestan, inmabir yu nemagdipian kad`
 
 - En este caso, hacemos lo mismo, pero mantenemos una segunda oración fusionada sin genitivo, dejando en su lugar un Infinitivo Pasado `yu nemagdipian`
 

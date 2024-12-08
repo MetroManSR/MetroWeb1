@@ -1,3 +1,9 @@
+---
+layout: default
+title: Balkeon Oftaj Vortoj
+language: eo
+---
+
 📂 <button class="button-16" role="button" onclick="location.href='../../index'">Balkeon</button>/<button class="button-16" role="button" onclick="location.href='../index'">Docs</button>
 
 # Índice 
@@ -6,62 +12,63 @@
 <a class="top-link hide" href="#top">⏫️</a>
 
 - [Piezas de Oraciones](#piezas-de-oraciones)
-  - [Copulativos](#copulativos)
-  - [Vi y Me dijeron](#vi-y-me-dijeron)
-- [Pronombres](#pronombres)
-  - [Personales](#pronombres-personales)
-    - [Correlación Directa](#correlación-directa)
-    - [Tabla](#tabla)
+  - [Konjunkcioj](#konjunkcioj)
+  - [Mi vidis, al mi iu diris](#mi-vidis-al-mi-iu-diris)
+- [Pronomoj](#pronomoj)
+  - [Personaj](#pronomoj-personaj)
+    - [Listo](#listo)
+    - [Tabelo](#tabelo)
   - [Interrogativos](#pronombres-interrogativos)
   - [Relativos](#pronombres-relativos)
   - [Demostrativos](#pronombres-demostrativos)
   - [Indefinidos](#pronombres-indefinidos)
   - [Recíprocos](#elf-pronombre-recíproco)
 
-# Piezas de oraciones
+# Frazpartoj
 
-## Copulativos
-- Y = Ara
-- O = Oro
-- Ni ni = Nek [palabra] ara nek [palabra]...
+## Konjunkcioj
+- Kaj = Ara
+- Aŭ = Oro
+- Nek, nek, .../Ne, kaj ankaŭ ne ... = Nek [palabra] ara nek [palabra]...
 
-## Vi y me dijeron
-- Lo vi = Bi
-- Me lo dijeron = Sei
+## Mi vidis, al mi iu diris
+- Mi vidis = Bi
+- Al mi iu diris = Sei
 
-# Pronombres
+# Pronomoj
 
-## Pronombres personales
+## Pronomoj personaj
 
-### Correlación directa
+### Listo
 
-- Yo = Aye
-- Tú = Yu
-- Él = O
-- Ella = A
-- Ello = Eo
-- Él y ella = Oara
-- Nosotros = Saye / Sayo
-- Nosotras = Saya
-- Ustedes / Vosotros = Siyu (Plural)
-- Vosotras = Siyu
-- Ellos = Se / So
-- Ellas = Sa
+- Mi (1) = Aye
+- Vi (1) = Yu
+- Li = O
+- Ŝi = A
+- Ĝi = Eo
+- Li kaj ŝi = Oara
+- Ni = Saye
+- Ni (viroj nure) = Sayo
+- Ni (inoj nure) = Saya
+- Viaj Moŝtoj/Vi (multenombra) = Siyu
+- Ili = Se
+- Ili (viroj nure) = So
+- Ili (inoj nure) = Sa
 
-### Tabla
+### Tabelo
 
-👉 Recordatorio que esto no es totalmente necesario, para más información revisar la [Guía de Formalidad](../../grammar/formalityguide).
+👉 Recordatorio que esto no es totalmente necesario, por pli da informoj kontrolu la [gvidilon pri formaleco](../../grammar/formalityguide).
 
 <div class="table-wrapper" markdown="block">
   
-| **Número**    | **General** | **Masculino** | **Femenino** | **Masculino y/o Femenino** | **Inanimado / Animal Macho** | **Animal Hembra** |
+| **Número**    | **General** | **Vira** | **Ina** | **Vira kaj/aŭ ina** | **Neanima/besto iĉa** | **Besto ina** |
 | ------------- | ----------- | ------------- | ------------ | -------------------------- | ---------------------------- | ----------------- |
-| **1°**        | Aye         | Ayo           | Aya          | Ayao                       | Ayeo                         | Ayea              |
-| **2°**        | Yu          |
-| **3°**        | \-          | O             | A            | Ao                         | Eo                           | Ea                |
-| **1° Plural** | Saye        | Sayo          | Saya         | Sayao                      | Sayeo                        | Sayea             |
-| **2° Plural** | Siyu        |
-| **3° Plural** | \-          | So            | Sa           | Sao                        | Seo                          | Sea               |
+| **1a**        | Aye         | Ayo           | Aya          | Ayao                       | Ayeo                         | Ayea              |
+| **2a**        | Yu          |
+| **3a**        | \-          | O             | A            | Ao                         | Eo                           | Ea                |
+| **1a multenombra** | Saye        | Sayo          | Saya         | Sayao                      | Sayeo                        | Sayea             |
+| **2a multenombra** | Siyu        |
+| **3a multenombra** | \-          | So            | Sa           | Sao                        | Seo                          | Sea               |
 
 </div>
 
@@ -84,22 +91,22 @@
 
 </div>
 
-### Pronombres Relativos
+### Pronomoj relativaj
 
-| Español         | Balkeon   |
-| --------------- | --------- |
-| Quien           | Konem     |
-| El que, el cual | Kual      |
-| Que             | Kua       |
-| Cuyo            | Emos      |
-| Quien           | Konemstan |
+| Esperanto | Balkeon   |
+| --------- | --------- |
+| , kiu (ulo)     | Konem     |
+| , kiu, kio | Kual      |
+| , kio, kiu, ke | Kua       |
+| , kies | Emos      |
+| , al kiu | Konemstan |
 
-### Pronombres Demostrativos
+### Pronomoj montraj
 
-| Español               | Balkeon     |
+| Esperanto               | Balkeon     |
 | --------------------- | ----------- |
-| Ese, eso, esas, esos… | Atsel |
-| Este, estos, estas…   | Astel |
+| Tio, tiu; tio for, tiu for | Atsel |
+| Ĉi tio, ĉi tiu  | Astel |
 
 ### Pronombres Indefinidos
 

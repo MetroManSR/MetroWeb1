@@ -5,8 +5,8 @@ title: Unidad 01 Menú
 description: Test
 ---
 
-# Unidad 01: Introducción
-## Menú de Lecciones
+# Lecionaro 01: Enkonduko
+## Menuo de Lecionoj
 
 <ul>
   {% for lesson in site.pages %}

@@ -9,7 +9,7 @@ language: eo
 
 # Bonvenon en la menuon pri la gramatiko
 
-### 🧐 <button class="button-16" role="button" onclick="location.href='./formalityguide'">Gvidido al formaleco</button>
+### 🧐 <button class="button-16" role="button" onclick="location.href='./formalityguide'">Gvidilo al formaleco</button>
 
 ### 🗣 <button class="button-16" role="button" onclick="location.href='./sentences'">Fraz-konstruado</button>
 

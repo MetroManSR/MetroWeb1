@@ -70,7 +70,21 @@
         "searchInRoot": "Radiko",
         "searchInDefinition": "Difino",
         "searchInEtymology": "Etimologio",
-        "exactMatch": "Nur trafojn ekzaktajn"
+        "exactMatch": "Nur trafojn ekzaktajn",
+        "viewStatisticsButton": "Vidi statistikojn",
+        "filterByLabel": "Filtri per:",
+        "applyFilterButton": "Apliki",
+        "noun": "Substantivo",
+        "verb": "Verbo",
+        "adjective": "Adjektivo",
+        "adverb": "Adverbo",
+        "conjunction": "Konjunkcio",
+        "interjection": "Interjekcio",
+        "preposition": "Prepozicio",
+        "expression": "Esprimaĵo",
+        "pronoun": "Pronomo",
+        "loadingMessage": "Nun ŝarĝas la vortaro-datumon, bonvole atendu...",
+        "errorLoadingData": "Malsukcesis ŝarĝi la vortaro-datumon. Bonvole reprovu poste."
     },
     "bk": {
         "searchPlaceholder": "Tansakirian...",
@@ -85,6 +99,20 @@
         "searchInRoot": "Beiseon",
         "searchInDefinition": "Defineon",
         "searchInEtymology": "Baklufrokeon",
-        "exactMatch": "Ol eksaktidseon samemseon"
+        "exactMatch": "Ol eksaktidseon samemseon",
+        "viewStatisticsButton": "Birian estatistik-seon",
+        "filterByLabel": "Filter by:",
+        "applyFilterButton": "Apply",
+        "noun": "Bakleon maksa emseon",
+        "verb": "Agd-bakleon",
+        "adjective": "Id-bakleon",
+        "adverb": "Adverb",
+        "conjunction": "Kelasnemidu bakleon",
+        "interjection": "Interjection",
+        "preposition": "Preposition",
+        "expression": "Seyoftemeon",
+        "pronoun": "Pronoun",
+        "loadingMessage": "Lodir baklubukeon, please wait...",
+        "errorLoadingData": "Nekokasiro lodirian baklubukeon. Please try again later."
     }
 }
