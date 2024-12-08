@@ -132,3 +132,27 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     return box;
 }
+
+export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
+    const dictionaryContainer = document.getElementById('dictionary');
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+    if (filteredRows.length === 0) {
+        dictionaryContainer.appendChild(createNoMatchBox());
+        updatePagination(currentPage, filteredRows, rowsPerPage);
+        return;
+    }
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const rowsToDisplay = filteredRows.slice(start, end);
+
+    rowsToDisplay.forEach((row) => {
+        const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        if (box) {
+            dictionaryContainer.appendChild(box);
+        }
+    });
+
+    updatePagination(currentPage, filteredRows, rowsPerPage);
+}
