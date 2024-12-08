@@ -5,20 +5,56 @@ import { displayWarning } from './warnings.js';
 export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filteredRows) {
     let currentPage = 1; // Define currentPage
 
+    const triggerSearch = () => {
+        const searchTerm = document.getElementById('search-input').value.trim();
+        const searchIn = {
+            word: document.getElementById('search-in-word')?.checked || false,
+            root: document.getElementById('search-in-root')?.checked || false,
+            definition: document.getElementById('search-in-definition')?.checked || false,
+            etymology: document.getElementById('search-in-etymology')?.checked || false
+        };
+
+        const exactMatch = document.getElementById('exact-match')?.checked || false;
+        const advancedSearchParams = {
+            searchTerm: searchTerm,
+            word: searchIn.word,
+            root: searchIn.root,
+            definition: searchIn.definition,
+            etymology: searchIn.etymology,
+            exactMatch: exactMatch
+        };
+
+        const selectedFilters = Array.from(document.getElementById('word-filter').selectedOptions).map(option => option.value);
+
+        if (!searchTerm && selectedFilters.length === 0) {
+            // No search term and no filters selected, show all rows
+            filterAndDisplayWord('', '', '', allRows, allRowsById, rowsPerPage, displayPage);
+        } else if (searchTerm && (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology)) {
+            // Perform advanced search
+            advancedSearch(advancedSearchParams, allRows, rowsPerPage, displayPage);
+        } else {
+            // Perform basic search with filters
+            filterAndDisplayWord(searchTerm, '', '', allRows, allRowsById, rowsPerPage, displayPage);
+        }
+    };
+
     document.getElementById('search-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            const searchTerm = e.target.value.trim();
-            filterAndDisplayWord(searchTerm, '', '', allRows, allRowsById, rowsPerPage, displayPage);
+            triggerSearch();
         }
     });
 
     document.getElementById('search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value.trim();
-        filterAndDisplayWord(searchTerm, '', '', allRows, allRowsById, rowsPerPage, displayPage);
+        triggerSearch();
     });
 
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
+        document.getElementById('search-in-word').checked = false;
+        document.getElementById('search-in-root').checked = false;
+        document.getElementById('search-in-definition').checked = false;
+        document.getElementById('search-in-etymology').checked = false;
+        document.getElementById('exact-match').checked = false;
         window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
         filterAndDisplayWord('', '', '', allRows, allRowsById, rowsPerPage, displayPage);
     });
@@ -37,20 +73,6 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     // Advanced search form submission
     document.getElementById('advanced-search-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const params = {
-            searchTerm: document.getElementById('advanced-search-input').value.trim(),
-            word: document.getElementById('advanced-search-word').checked,
-            root: document.getElementById('advanced-search-root').checked,
-            definition: document.getElementById('advanced-search-definition').checked,
-            etymology: document.getElementById('advanced-search-etymology').checked,
-            exactMatch: document.getElementById('exact-match').checked
-        };
-
-        if (!params.word && !params.root && !params.definition && !params.etymology) {
-            alert('Please select at least one search option.');
-            return;
-        }
-
-        advancedSearch(params, allRows, rowsPerPage, displayPage);
+        triggerSearch();
     });
 }
