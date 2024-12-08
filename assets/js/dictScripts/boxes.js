@@ -148,6 +148,32 @@ export function createLoadingBox() {
     return loadingBox;
 }
 
+// Function to update the floating text
+export function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams) {
+    let floatingTextContent = `${filteredRows.length} words found`;
+    
+    if (searchTerm) {
+        floatingTextContent += ` when looking for "${searchTerm}"`;
+    }
+    if (filters.length > 0) {
+        floatingTextContent += ` with filters: ${filters.join(", ")}`;
+    }
+    if (advancedSearchParams) {
+        floatingTextContent += ` with advanced search applied: ${Object.keys(advancedSearchParams).join(", ")}`;
+    }
+
+    const floatingText = document.getElementById('floating-text');
+    if (floatingText) {
+        floatingText.textContent = floatingTextContent;
+    } else {
+        const newFloatingText = document.createElement('div');
+        newFloatingText.id = 'floating-text';
+        newFloatingText.className = 'floating-text';
+        newFloatingText.textContent = floatingTextContent;
+        document.body.appendChild(newFloatingText);
+    }
+}
+
 export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
     const dictionaryContainer = document.getElementById('dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
@@ -155,6 +181,7 @@ export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchI
     if (filteredRows.length === 0) {
         dictionaryContainer.appendChild(createNoMatchBox());
         updatePagination(currentPage, filteredRows, rowsPerPage);
+        updateFloatingText(filteredRows, searchTerm, [], {});
         return;
     }
 
@@ -170,4 +197,5 @@ export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchI
     });
 
     updatePagination(currentPage, filteredRows, rowsPerPage);
+    updateFloatingText(filteredRows, searchTerm, [], {});
 }
