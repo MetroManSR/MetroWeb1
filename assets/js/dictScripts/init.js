@@ -20,7 +20,9 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
-        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
+        filteredRows = allRows; // Reset filteredRows to allRows
+        displayPage(1, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
+        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
     });
 
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
@@ -28,7 +30,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         if (value >= 5 && value <= 500) {
             rowsPerPage = value;
             createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-            displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
+            displayPage(1, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
         } else {
             displayWarning('rows-warning', 'Please enter a value between 5 and 500');
         }
