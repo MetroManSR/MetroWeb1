@@ -10,7 +10,6 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
     console.log(`Current Page: ${currentPage}`);
-    console.log(`Display page: ${displayPage}`);
     const paginationContainer = document.getElementById('pagination');
     paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
@@ -25,7 +24,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
         }
 
         button.addEventListener('click', () => {
-            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []); // Pass filteredRows
+            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []);
         });
 
         return button;
@@ -52,7 +51,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     currentPageInput.addEventListener('change', () => {
         let pageNumber = parseInt(currentPageInput.value, 10);
         if (pageNumber >= 1 && pageNumber <= totalPages) {
-            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []); // Pass filteredRows
+            displayPage(pageNumber, rowsPerPage, '', {}, false, filteredRows, []);
         } else {
             currentPageInput.value = currentPage;
         }
@@ -86,7 +85,6 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
 export function updatePagination(currentPage, filteredRows, rowsPerPage) {
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
-    console.log(`Rows per Page: ${rowsPerPage}`);
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
     const paginationContainer = document.getElementById('pagination');
     const buttons = paginationContainer.querySelectorAll('.pagination-button');
@@ -111,9 +109,9 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
         console.error('currentPageDisplay is undefined');
     }
 
-    buttons.forEach((button, index) => {
-        if (index + 1 === currentPage) {
+    buttons.forEach((button) => {
+        if (parseInt(button.innerHTML) === currentPage) {
             button.classList.add('active');
         }
     });
-} 
+}
