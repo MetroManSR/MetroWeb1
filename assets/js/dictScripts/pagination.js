@@ -84,7 +84,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
  * @param {number} rowsPerPage - The number of rows to display per page.
  */
 export function updatePagination(currentPage, filteredRows, rowsPerPage) {
-    console.log(`Rows per page: ${rowsPerPag0} `);
+    console.log(`Rows per page: ${rowsPerPage} `);
     console.log(`Filtered Rows: ${filteredRows} `);
     console.log(`Rows per Page: ${rowsPerPage} `);
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
