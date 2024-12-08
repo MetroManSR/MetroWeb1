@@ -1,5 +1,5 @@
 import { createPaginationControls } from './pagination.js';
-import { filterAndDisplayWord, displayPage } from './dictSearch.js';
+import { filterAndDisplayWord, displayPage, advancedSearch } from './dictSearch.js';
 import { displayWarning } from './warnings.js';
 
 export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filteredRows) {
@@ -32,5 +32,25 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         } else {
             displayWarning('rows-warning', 'Please enter a value between 5 and 500');
         }
+    });
+
+    // Advanced search form submission
+    document.getElementById('advanced-search-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const params = {
+            word: document.getElementById('advanced-search-word').checked,
+            root: document.getElementById('advanced-search-root').checked,
+            definition: document.getElementById('advanced-search-definition').checked,
+            etymology: document.getElementById('advanced-search-etymology').checked
+        };
+
+        const searchTerm = document.getElementById('advanced-search-input').value.trim();
+
+        if (!params.word && !params.root && !params.definition && !params.etymology) {
+            alert('Please select at least one search option.');
+            return;
+        }
+
+        advancedSearch(params, allRows, rowsPerPage, displayPage);
     });
 }
