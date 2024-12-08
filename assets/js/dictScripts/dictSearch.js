@@ -18,7 +18,7 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
     renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
 }
 
-export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows = [], allRowsById = {}, rowsPerPage, displayPage) {
+/*export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows = [], allRowsById = {}, rowsPerPage, displayPage) {
     const searchIn = {
         word: document.getElementById('search-in-word')?.checked || false,
         root: document.getElementById('search-in-root')?.checked || false,
@@ -102,4 +102,4 @@ export function advancedSearch(params, allRows = [], rowsPerPage, displayPage) {
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
     renderBox(filteredRows, allRows, params.searchTerm, params.exactMatch, searchIn, rowsPerPage, 1);
     updateFloatingText(filteredRows, params.searchTerm, [], searchIn);
-}
+}*/
