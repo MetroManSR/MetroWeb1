@@ -9,12 +9,12 @@ function createEmptyBox() {
     return emptyBox;
 }
 
-// Function to create a no match box with yellow tones
+// Function to create a no match box
 function createNoMatchBox() {
     const noMatchBox = document.createElement('div');
     noMatchBox.className = 'dictionary-box no-match';
-    noMatchBox.style.backgroundColor = 'yellow';
-    noMatchBox.innerText = 'No match for your search';
+    noMatchBox.textContent = 'No match for your search';
+    noMatchBox.style.backgroundColor = 'lightyellow';
     return noMatchBox;
 }
 
@@ -31,31 +31,33 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
 
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
+    if (filteredRows.length === 0) {
+        dictionaryContainer.appendChild(createNoMatchBox());
+        updatePagination(page, filteredRows, rowsPerPage);
+        return;
+    }
+
     const validRows = filteredRows.filter(row => row.word && row.definition);
     const rowsToDisplay = validRows.slice(start, end); // Ensure rowsToDisplay is defined
 
-    if (rowsToDisplay.length === 0) {
-        dictionaryContainer.appendChild(createNoMatchBox());
-    } else {
-        // Create empty boxes based on rowsPerPage
-        for (let i = 0; i < rowsPerPage; i++) {
-            const emptyBox = createEmptyBox();
-            dictionaryContainer.appendChild(emptyBox);
-        }
-
-        // Fill the boxes with information one by one
-        rowsToDisplay.forEach((row, index) => {
-            const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-            box.style.backgroundColor = row.type === 'word' ? 'lightblue' : 'lightgreen'; // Change color based on type
-            setTimeout(() => {
-                if (dictionaryContainer.children[index]) {
-                    dictionaryContainer.children[index].replaceWith(box);
-                } else {
-                    console.error('Box not found for:', row);
-                }
-            }, index * 100); // Delay each box by 100ms for fade-in effect
-        });
+    // Create empty boxes based on rowsPerPage
+    for (let i = 0; i < rowsPerPage; i++) {
+        const emptyBox = createEmptyBox();
+        dictionaryContainer.appendChild(emptyBox);
     }
+
+    // Fill the boxes with information one by one
+    rowsToDisplay.forEach((row, index) => {
+        const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        box.style.backgroundColor = row.type === 'word' ? 'lightblue' : 'lightgreen'; // Change color based on type
+        setTimeout(() => {
+            if (dictionaryContainer.children[index]) {
+                dictionaryContainer.children[index].replaceWith(box);
+            } else {
+                console.error('Box not found for:', row);
+            }
+        }, index * 100); // Delay each box by 100ms for fade-in effect
+    });
 
     updatePagination(page, filteredRows, rowsPerPage);
 }
@@ -104,6 +106,11 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
             createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
             displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
         }
+    } else {
+        // If no valid search term or ID, reset to show all rows
+        filteredRows = allRows;
+        createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
+        displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
     }
 }
 
