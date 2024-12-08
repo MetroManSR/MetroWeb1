@@ -113,4 +113,4 @@ export function advancedSearch(params, allRows, rowsPerPage, displayPage) {
     filteredRows.sort((a, b) => a.word.localeCompare(b.word));
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
     displayPage(1, rowsPerPage, '', {}, false, filteredRows, allRows);
-}
+            }
