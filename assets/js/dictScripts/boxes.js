@@ -37,7 +37,6 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
 
 // Function to create a dictionary box
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
-
     if (!row || !row.word) {
         console.error('Invalid row data:', row);
         return null;
@@ -132,6 +131,21 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     }, 100);
 
     return box;
+}
+
+// Function to create a no match box
+export function createNoMatchBox() {
+    const noMatchBox = document.createElement('div');
+    noMatchBox.className = 'dictionary-box no-match';
+    noMatchBox.textContent = 'No match for your search';
+    return noMatchBox;
+}
+
+// Function to create a loading box
+export function createLoadingBox() {
+    const loadingBox = document.createElement('div');
+    loadingBox.className = 'dictionary-box loading';
+    return loadingBox;
 }
 
 export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
