@@ -1,4 +1,4 @@
-//last updated 08/12/24 19:30
+//last updated 8/12/24 20:10
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, createNoMatchBox, createLoadingBox, updateFloatingText } from './boxes.js';
 
@@ -57,6 +57,7 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows = [], a
             return showAll || filterMatch;
         });
 
+        filteredRows.sort((a, b) => a.word.localeCompare(b.word));
         createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
         renderBox(filteredRows, allRows, '', exactMatch, searchIn, rowsPerPage, 1);
         updateFloatingText(filteredRows, '', selectedFilters, searchIn);
