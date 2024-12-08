@@ -1,5 +1,6 @@
 import { getRelatedWordsByRoot, highlight } from './utils.js';
 import { sanitizeHTML } from './csvUtils.js';
+import { updatePagination } from './pagination.js';
 
 let previouslySelectedBox = null;
 
