@@ -14,6 +14,7 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
 
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
+    console.log('Filtered Rows:', filteredRows, ' - ', rowsToDisplay)
     const validRows = filteredRows.filter(row => row.word && row.definition);
     const rowsToDisplay = validRows.slice(start, end); // Ensure rowsToDisplay is defined
 
@@ -27,6 +28,8 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
             console.error('Failed to create a valid object for:', row);
         }
     });
+
+    console.log('Updating Pagination')
 
     updatePagination(page, filteredRows, rowsPerPage);
 }
