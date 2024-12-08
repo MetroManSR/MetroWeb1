@@ -21,7 +21,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
         }
 
         button.addEventListener('click', () => {
-            displayPage(pageNumber);
+            displayPage(pageNumber, rowsPerPage);
         });
 
         return button;
@@ -48,7 +48,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     currentPageInput.addEventListener('change', () => {
         let pageNumber = parseInt(currentPageInput.value, 10);
         if (pageNumber >= 1 && pageNumber <= totalPages) {
-            displayPage(pageNumber);
+            displayPage(pageNumber, rowsPerPage);
         } else {
             currentPageInput.value = currentPage;
         }
@@ -90,15 +90,21 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
         button.classList.remove('active');
     });
 
-    if (currentPage > 1) {
-        buttons[1].classList.add('active'); // Previous button
+    if (currentPageInput) {
+        currentPageInput.value = currentPage;
+    } else {
+        console.error('currentPageInput is undefined');
     }
 
-    if (currentPage < totalPages) {
-        buttons[buttons.length - 2].classList.add('active'); // Next button
+    if (currentPageDisplay) {
+        currentPageDisplay.textContent = ` / ${totalPages}`;
+    } else {
+        console.error('currentPageDisplay is undefined');
     }
 
-    buttons[currentPage - 1].classList.add('active');
-    currentPageInput.value = currentPage;
-    currentPageDisplay.textContent = ` / ${totalPages}`;
+    buttons.forEach((button, index) => {
+        if (index + 1 === currentPage) {
+            button.classList.add('active');
+        }
+    });
 }

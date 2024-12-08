@@ -1,4 +1,4 @@
-import { createPaginationControls } from './pagination.js';
+import { createPaginationControls, updatePagination } from './pagination.js';
 import { createDictionaryBox } from './boxes.js';
 
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
@@ -28,11 +28,10 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
         }
     });
 
-    updatePagination(currentPage, validRows, rowsPerPage);
+    updatePagination(page, filteredRows, rowsPerPage);
 }
 
 export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage) {
-    console.log('Filtering and displaying word:', searchTerm || wordID || rootID);
     const searchIn = {
         word: document.getElementById('search-in-word')?.checked || false,
         root: document.getElementById('search-in-root')?.checked || false,
@@ -60,20 +59,20 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
         });
 
         filteredRows.sort((a, b) => a.word.localeCompare(b.word));
-        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+        createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
         displayPage(1, rowsPerPage, searchTerm, searchIn, exactMatch, filteredRows, allRows);
     } else if (wordID && parseInt(wordID) > 0) {
         const row = allRowsById[parseInt(wordID)];
         if (row) {
             filteredRows = [row];
-            createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+            createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
             displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
         }
     } else if (rootID && parseInt(rootID) > 0) {
         const row = allRowsById[parseInt(rootID)];
         if (row) {
             filteredRows = [row];
-            createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+            createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
             displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
         }
     }
