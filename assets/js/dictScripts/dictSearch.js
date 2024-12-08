@@ -59,20 +59,20 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
         });
 
         filteredRows.sort((a, b) => a.word.localeCompare(b.word));
-        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+        createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
         displayPage(1, rowsPerPage, searchTerm, searchIn, exactMatch, filteredRows, allRows);
     } else if (wordID && parseInt(wordID) > 0) {
         const row = allRowsById[parseInt(wordID)];
         if (row) {
             filteredRows = [row];
-            createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+            createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
             displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
         }
     } else if (rootID && parseInt(rootID) > 0) {
         const row = allRowsById[parseInt(rootID)];
         if (row) {
             filteredRows = [row];
-            createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+            createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
             displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
         }
     }
