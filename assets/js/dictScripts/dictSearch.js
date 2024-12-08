@@ -49,7 +49,7 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
 
     let filteredRows = [];
 
-    console.log{'DictSearch: 52 - 80'}
+    console.log('DictSearch: 52 - 80')
 
     if (searchTerm && searchTerm.trim()) {
         filteredRows = allRows.filter(row => {
