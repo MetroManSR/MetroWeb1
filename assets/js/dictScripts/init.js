@@ -20,9 +20,9 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
         window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
-        filteredRows = allRows; // Reset filteredRows to allRows
-        displayPage(1, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
+        filteredRows = allRows.filter(row => row.word && row.definition);
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+        displayPage(1, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
     });
 
     document.getElementById('rows-per-page-button').addEventListener('click', () => {
