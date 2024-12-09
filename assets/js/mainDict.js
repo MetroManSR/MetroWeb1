@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
     let currentPage = 1;
-    let filteredRows = [];
     let allRows = [];
     let allRowsById = {};
 
@@ -67,7 +66,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
         allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.title.localeCompare(b.title));
-        filteredRows = allRows.filter(row => row.title && row.meta);
+        const filteredRows = allRows.filter(row => row.title && row.meta);
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
