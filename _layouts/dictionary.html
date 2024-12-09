@@ -1,5 +1,5 @@
 ---
-layout: default
+layout:default
 ---
 
 <!DOCTYPE html>
@@ -18,10 +18,9 @@ layout: default
         <h1></h1> <!-- Removed static "Your Dictionary" title -->
     </header>
     <main>
+        <!-- Content from Markdown -->
         {{content}} <!-- Add this to include markdown content -->
-        <div id="dict-loading-message" class="dict-loading-message">
-            <p id="dict-loading-message-text">Loading dictionary, please wait...</p>
-        </div>
+
         <div class="dict-search-container">
             <label for="dict-search-input" id="dict-search-label">Search:</label>
             <input type="text" id="dict-search-input" placeholder="Search..." class="dict-search-input"/>
@@ -30,6 +29,7 @@ layout: default
             <button id="dict-advanced-search-button" class="btn">Advanced Search</button>
             <button id="dict-view-statistics-button" class="btn">View Statistics</button>
         </div>
+        
         <div id="dict-pending-changes" class="dict-pending-changes"></div>
 
         <div class="dict-pagination-container">
@@ -37,6 +37,7 @@ layout: default
             <input type="number" id="dict-rows-per-page-input" value="20" min="5" max="500" class="dict-rows-input"/>
             <div id="dict-rows-warning"></div>
         </div>
+
         <!-- Filter Dropdown -->
         <div id="dict-filter-dropdown-container">
             <button id="dict-toggle-filter-button" class="btn">Toggle Filters</button>
@@ -58,6 +59,7 @@ layout: default
                 <button id="dict-apply-filter-button" class="btn">Apply</button>
             </div>
         </div>
+
         <div class="dict-sorting-container">
             <label for="dict-order-by-select" id="dict-order-by-label">Order By:</label>
             <select id="dict-order-by-select" class="dict-order-select">
@@ -69,10 +71,12 @@ layout: default
                 <option value="word-desc">Word (Z to A)</option>
             </select>
         </div>
+
         <button id="dict-apply-settings-button" class="btn">Apply Settings</button>
         <button id="dict-clear-settings-button" class="btn btn-danger">Clear Settings</button>
+        
         <div id="dict-dictionary"></div>
-        <div id="dict-pagination" class="dict-pagination"></div>
+        <div id="dict-pagination" class="dict-pagination"></div> <!-- Ensure this div is present for pagination -->
 
         <!-- Popup for advanced search -->
         <div class="dict-popup-overlay" id="dict-popup-overlay"></div>
