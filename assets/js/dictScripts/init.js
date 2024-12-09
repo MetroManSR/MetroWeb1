@@ -3,23 +3,16 @@ import { displayPage } from './dictSearch.js';
 import { displayWarning } from './warnings.js';
 import { processRows } from './processRows.js';
 import { setTexts } from './loadTexts.js';
-import { initAdvancedSearchPopup } from './popups.js'; // Import the existing function
+import { initAdvancedSearchPopup } from './popups.js';
 import { createDictionaryBox, createNoMatchBox, createLoadingBox, updateFloatingText, renderBox } from './boxes.js';
 
-export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
+export function initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage) {
     let currentPage = 1; // Define currentPage
     let filteredRows = []; // Initialize filteredRows
-    let pendingChanges = {
-        searchTerm: '',
-        exactMatch: false,
-        searchIn: { word: true, root: true, definition: false, etymology: false },
-        filters: [],
-        rowsPerPage: 20
-    };
 
     const updatePendingChangesList = () => {
         const pendingChangesContainer = document.getElementById('dict-pending-changes');
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
+        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage, sortOrder } = pendingChanges;
         let changesList = [];
 
         if (searchTerm) changesList.push(`Search Term: "${searchTerm}"`);
@@ -34,6 +27,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
         }
         if (filters.length > 0) changesList.push(`Filters: ${filters.join(', ')}`);
         if (rowsPerPage !== 20) changesList.push(`Rows Per Page: ${rowsPerPage}`);
+        if (sortOrder) changesList.push(`Sort Order: ${sortOrder}`);
 
         pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No pending changes';
     };
@@ -50,15 +44,15 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
         const exactMatch = document.getElementById('dict-exact-match')?.checked || false;
         const selectedFilters = Array.from(document.getElementById('dict-word-filter').selectedOptions).map(option => option.value);
 
-        pendingChanges = { searchTerm, exactMatch, searchIn, filters: selectedFilters, rowsPerPage };
+        pendingChanges = { ...pendingChanges, searchTerm, exactMatch, searchIn, filters: selectedFilters, rowsPerPage };
         updatePendingChangesList();
     };
 
     const applySettings = () => {
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
+        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage, sortOrder } = pendingChanges;
         const criteria = { searchTerm, exactMatch, searchIn, filters };
-        processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
-        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
+        processRows(allRows, criteria, rowsPerPage, displayPage, currentPage, sortOrder);
+        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20, sortOrder: 'titleup' };
         updatePendingChangesList();
     };
 
@@ -71,9 +65,9 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
         document.getElementById('dict-exact-match').checked = false;
         document.getElementById('dict-word-filter').selectedIndex = -1;
         document.getElementById('dict-rows-per-page-input').value = 20;
-        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
+        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20, sortOrder: 'titleup' };
         updatePendingChangesList();
-        processRows(allRows, {}, 20, displayPage, currentPage);
+        processRows(allRows, {}, 20, displayPage, currentPage, 'titleup');
     };
 
     // Set texts based on the language
@@ -113,10 +107,10 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
             document.getElementById('dict-search-in-definition').checked = false;
             document.getElementById('dict-search-in-etymology').checked = false;
             document.getElementById('dict-exact-match').checked = false;
-            pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
+            pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20, sortOrder: 'titleup' };
             updatePendingChangesList();
             window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
-            processRows(allRows, {}, rowsPerPage, displayPage, currentPage);
+            processRows(allRows, {}, rowsPerPage, displayPage, currentPage, 'titleup');
         });
     }
 
@@ -124,25 +118,9 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
     const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
-            const orderBy = orderBySelect.value;
-            if (filteredRows && filteredRows.length > 0) {
-                if (orderBy === 'id-asc') {
-                    filteredRows.sort((a, b) => a.id - b.id);
-                } else if (orderBy === 'id-desc') {
-                    filteredRows.sort((a, b) => b.id - a.id);
-                } else if (orderBy === 'definition-asc') {
-                    filteredRows.sort((a, b) => a.definition.localeCompare(b.definition));
-                } else if (orderBy === 'definition-desc') {
-                    filteredRows.sort((a, b) => b.definition.localeCompare(a.definition));
-                } else if (orderBy === 'word-asc') {
-                    filteredRows.sort((a, b) => a.word.localeCompare(b.word));
-                } else if (orderBy === 'word-desc') {
-                    filteredRows.sort((a, b) => b.word.localeCompare(a.word));
-                }
-                processRows(allRows, pendingChanges, rowsPerPage, displayPage, currentPage);
-            } else {
-                console.error('filteredRows is undefined or empty');
-            }
+            pendingChanges.sortOrder = orderBySelect.value;
+            console.log('Selected order:', pendingChanges.sortOrder);
+            updatePendingChangesList();
         });
     }
-} 
+}
