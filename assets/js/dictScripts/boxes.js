@@ -4,40 +4,9 @@ import { updatePagination } from './pagination.js';
 
 let previouslySelectedBox = null;
 
-function getPartOfSpeechAbbreviation(partOfSpeech, language) {
-    if (!partOfSpeech) return ''; // Return an empty string if partOfSpeech is undefined
-
-    const abbreviations = {
-        en: {
-            noun: 'n.',
-            verb: 'v.',
-            adjective: 'adj.',
-            adverb: 'adv.',
-            conjunction: 'conj.',
-            interjection: 'int.',
-            preposition: 'prep.',
-            expression: 'expr.',
-            pronoun: 'pron.'
-        },
-        es: {
-            noun: 's.',
-            verb: 'v.',
-            adjective: 'adj.',
-            adverb: 'adv.',
-            conjunction: 'conj.',
-            interjection: 'interj.',
-            preposition: 'prep.',
-            expression: 'expr.',
-            pronoun: 'pron.'
-        }
-    };
-
-    return abbreviations[language] && abbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
-}
-
 // Function to create a dictionary box
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
-    if (!row || !row.word) {
+    if (!row || !row.title) {
         console.error('Invalid row data:', row);
         return null;
     }
@@ -52,26 +21,26 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('dictionary-box-title');
-    wordElement.innerHTML = row.word + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
+    wordElement.innerHTML = row.title + (row.type !== 'root' ? ` (${row.morph})` : '');
 
     const contentBox = document.createElement('div');
     contentBox.classList.add('dictionary-box-content');
 
-    const meaningElement = document.createElement('div');
-    meaningElement.classList.add('dictionary-box-meaning');
-    meaningElement.innerHTML = `<strong>Meaning:</strong> ${row.definition || ''}`;
+    const metaElement = document.createElement('div');
+    metaElement.classList.add('dictionary-box-meta');
+    metaElement.innerHTML = `<strong>Translation:</strong> ${row.meta || ''}`;
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('dictionary-box-notes');
     notesElement.innerHTML = `<strong>Notes:</strong> ${row.notes || ''}`;
 
-    const etymologyElement = document.createElement('div');
-    etymologyElement.classList.add('dictionary-box-etymology');
-    etymologyElement.innerHTML = `<strong>Etymology:</strong> ${row.etymology || ''}`;
+    const morphElement = document.createElement('div');
+    morphElement.classList.add('dictionary-box-morph');
+    morphElement.innerHTML = `<strong>${row.type === 'root' ? 'Etymology' : 'Part of Speech'}:</strong> ${row.morph || ''}`;
 
-    contentBox.appendChild(meaningElement);
+    contentBox.appendChild(metaElement);
     contentBox.appendChild(notesElement);
-    contentBox.appendChild(etymologyElement);
+    contentBox.appendChild(morphElement);
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
@@ -114,7 +83,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
         relatedWordsElement.className = 'related-words';
         relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
 
-        const { count, list } = getRelatedWordsByRoot(row.word, row.etymology, allRows);
+        const { count, list } = getRelatedWordsByRoot(row.title, row.morph, allRows);
         if (list) {
             relatedWordsElement.innerHTML = `${count} words related: ${list}`;
             box.appendChild(relatedWordsElement);
