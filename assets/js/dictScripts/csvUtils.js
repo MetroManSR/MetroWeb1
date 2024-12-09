@@ -9,19 +9,25 @@ export function cleanData(data, type) {
         console.log('Original row:', row);
 
         let cleanedRow = {
-            id: row.id || index, // Assign unique ID if missing
+            id: index, // Assign unique ID
             type: type, // Identification of type (root or word)
-            title: sanitizeHTML(row[0] ? row[0].trim() : ''), // Original word or root
-            meta: sanitizeHTML(row[4] ? row[4].trim() : ''), // Translation (common for both)
-            notes: sanitizeHTML(row[3] ? row[3].trim() : '') // Notes (common for both)
+            title: '', // Initialize title
+            meta: '', // Initialize meta
+            notes: '', // Initialize notes
+            morph: '' // Initialize morph
         };
 
         if (type === 'word') {
+            cleanedRow.title = sanitizeHTML(row[0] ? row[0].trim() : ''); // X title for words
             cleanedRow.partofspeech = sanitizeHTML(row[1] ? row[1].trim() : ''); // Part of Speech for words
             cleanedRow.morph = sanitizeHTML(row[2] ? row[2].trim() : ''); // Definition for words
+            cleanedRow.meta = sanitizeHTML(row[4] ? row[4].trim() : ''); // Y meta for words
+            cleanedRow.notes = sanitizeHTML(row[3] ? row[3].trim() : ''); // A notes for words
         } else if (type === 'root') {
-            cleanedRow.partofspeech = ''; // Empty for roots
-            cleanedRow.morph = sanitizeHTML(row[2] ? row[2].trim() : ''); // Etymology for roots
+            cleanedRow.title = sanitizeHTML(row[0] ? row[0].trim() : ''); // X title for roots
+            cleanedRow.meta = sanitizeHTML(row[1] ? row[1].trim() : ''); // Y meta for roots
+            cleanedRow.notes = sanitizeHTML(row[2] ? row[2].trim() : ''); // A notes for roots
+            cleanedRow.morph = sanitizeHTML(row[3] ? row[3].trim() : ''); // B morph for roots
         }
 
         console.log('Cleaned row:', cleanedRow);
