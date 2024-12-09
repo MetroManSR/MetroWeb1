@@ -41,22 +41,23 @@ function parseCSV(data, type) {
 
             row = {
                 id: i + 1, // Assign a unique ID starting from 1
-                word: sanitizeHTML(root ? root.trim() : ''),
-                translation: sanitizeHTML(translation ? translation.trim() : ''),
+                type: 'root',
+                title: sanitizeHTML(root ? root.trim() : ''),
+                partofspeech: '', // Empty for roots
+                meta: sanitizeHTML(translation ? translation.trim() : ''),
                 notes: sanitizeHTML(notes ? notes.trim() : ''),
-                etymology: sanitizeHTML(origin ? origin.trim() : ''),
-                type: 'root'
+                morph: sanitizeHTML(origin ? origin.trim() : '')
             };
         } else {
             // Process as word
             row = {
                 id: i + 1, // Assign a unique ID starting from 1
-                word: sanitizeHTML(columns[0]),
-                partOfSpeech: sanitizeHTML(columns[1]),
-                definition: sanitizeHTML(columns[2]),
-                explanation: sanitizeHTML(columns[3]),
-                etymology: sanitizeHTML(columns[4]),
-                type: 'word'
+                type: 'word',
+                title: sanitizeHTML(columns[0]),
+                partofspeech: sanitizeHTML(columns[1]), // Part of speech
+                meta: sanitizeHTML(columns[2]), // Translation or definition
+                notes: sanitizeHTML(columns[3]),
+                morph: sanitizeHTML(columns[4]), // Other relevant morphological info
             };
         }
 
