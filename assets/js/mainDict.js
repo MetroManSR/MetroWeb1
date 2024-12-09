@@ -4,7 +4,7 @@ import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popu
 import { initializeEventListeners } from './dictScripts/init.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
-import { processRows, advancedSearch } from './dictScripts/processRows.js';
+import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js'; // Added sortRows import
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
 
 function showLoadingMessage() {
@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     let currentPage = 1;
     let allRows = [];
     let allRowsById = {};
+    let currentSortOrder = 'title'; // Default sort order
 
     function displayError(message) {
         const errorContainer = document.getElementById('dict-error-message');
@@ -65,8 +66,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
-        allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.title.localeCompare(b.title));
-        const filteredRows = allRows.filter(row => row.title && row.meta);
+        allRows = [...cleanedDictionaryData, ...cleanedRootsData];
+        const filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
