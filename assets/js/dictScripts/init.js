@@ -16,7 +16,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     };
 
     const updatePendingChangesList = () => {
-        const pendingChangesContainer = document.getElementById('pending-changes');
+        const pendingChangesContainer = document.getElementById('dict-pending-changes');
         const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
         let changesList = [];
 
@@ -37,16 +37,16 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     };
 
     const addPendingChange = () => {
-        const searchTerm = document.getElementById('search-input').value.trim();
+        const searchTerm = document.getElementById('dict-search-input').value.trim();
         const searchIn = {
-            word: document.getElementById('search-in-word')?.checked || false,
-            root: document.getElementById('search-in-root')?.checked || false,
-            definition: document.getElementById('search-in-definition')?.checked || false,
-            etymology: document.getElementById('search-in-etymology')?.checked || false
+            word: document.getElementById('dict-search-in-word')?.checked || false,
+            root: document.getElementById('dict-search-in-root')?.checked || false,
+            definition: document.getElementById('dict-search-in-definition')?.checked || false,
+            etymology: document.getElementById('dict-search-in-etymology')?.checked || false
         };
 
-        const exactMatch = document.getElementById('exact-match')?.checked || false;
-        const selectedFilters = Array.from(document.getElementById('word-filter').selectedOptions).map(option => option.value);
+        const exactMatch = document.getElementById('dict-exact-match')?.checked || false;
+        const selectedFilters = Array.from(document.getElementById('dict-word-filter').selectedOptions).map(option => option.value);
 
         pendingChanges = { searchTerm, exactMatch, searchIn, filters: selectedFilters, rowsPerPage };
         updatePendingChangesList();
@@ -61,14 +61,14 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     };
 
     const clearSettings = () => {
-        document.getElementById('search-input').value = '';
-        document.getElementById('search-in-word').checked = false;
-        document.getElementById('search-in-root').checked = false;
-        document.getElementById('search-in-definition').checked = false;
-        document.getElementById('search-in-etymology').checked = false;
-        document.getElementById('exact-match').checked = false;
-        document.getElementById('word-filter').selectedIndex = -1;
-        document.getElementById('rows-per-page-input').value = 20;
+        document.getElementById('dict-search-input').value = '';
+        document.getElementById('dict-search-in-word').checked = false;
+        document.getElementById('dict-search-in-root').checked = false;
+        document.getElementById('dict-search-in-definition').checked = false;
+        document.getElementById('dict-search-in-etymology').checked = false;
+        document.getElementById('dict-exact-match').checked = false;
+        document.getElementById('dict-word-filter').selectedIndex = -1;
+        document.getElementById('dict-rows-per-page-input').value = 20;
         pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
         updatePendingChangesList();
         processRows(allRows, {}, 20, displayPage, currentPage);
@@ -78,39 +78,39 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     const language = document.querySelector('meta[name="language"]').content || 'en';
     setTexts(language);
 
-    document.getElementById('search-input').addEventListener('input', addPendingChange);
-    document.getElementById('search-button').addEventListener('click', addPendingChange);
-    document.getElementById('add-search-button-popup').addEventListener('click', addPendingChange);
-    document.getElementById('add-filters-button').addEventListener('click', addPendingChange);
-    document.getElementById('rows-per-page-input').addEventListener('input', (e) => {
+    document.getElementById('dict-search-input').addEventListener('input', addPendingChange);
+    document.getElementById('dict-search-button').addEventListener('click', addPendingChange);
+    document.getElementById('dict-add-search-button-popup').addEventListener('click', addPendingChange);
+    document.getElementById('dict-apply-filter-button').addEventListener('click', addPendingChange);
+    document.getElementById('dict-rows-per-page-input').addEventListener('input', (e) => {
         const value = parseInt(e.target.value, 10);
         if (value >= 5 && value <= 500) {
             pendingChanges.rowsPerPage = value;
             updatePendingChangesList();
         } else {
-            displayWarning('rows-warning', 'Please enter a value between 5 and 500');
+            displayWarning('dict-rows-warning', 'Please enter a value between 5 and 500');
         }
     });
 
-    const applySettingsButton = document.getElementById('apply-settings-button');
+    const applySettingsButton = document.getElementById('dict-apply-settings-button');
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', applySettings);
     }
 
-    const clearSettingsButton = document.getElementById('clear-settings-button');
+    const clearSettingsButton = document.getElementById('dict-clear-settings-button');
     if (clearSettingsButton) {
         clearSettingsButton.addEventListener('click', clearSettings);
     }
 
-    const clearSearchButton = document.getElementById('clear-search-button');
+    const clearSearchButton = document.getElementById('dict-clear-search-button');
     if (clearSearchButton) {
         clearSearchButton.addEventListener('click', () => {
-            document.getElementById('search-input').value = '';
-            document.getElementById('search-in-word').checked = false;
-            document.getElementById('search-in-root').checked = false;
-            document.getElementById('search-in-definition').checked = false;
-            document.getElementById('search-in-etymology').checked = false;
-            document.getElementById('exact-match').checked = false;
+            document.getElementById('dict-search-input').value = '';
+            document.getElementById('dict-search-in-word').checked = false;
+            document.getElementById('dict-search-in-root').checked = false;
+            document.getElementById('dict-search-in-definition').checked = false;
+            document.getElementById('dict-search-in-etymology').checked = false;
+            document.getElementById('dict-exact-match').checked = false;
             pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
             updatePendingChangesList();
             window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
@@ -119,7 +119,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     }
 
     // Sorting functionality
-    const orderBySelect = document.getElementById('order-by-select');
+    const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
             const orderBy = orderBySelect.value;
@@ -142,6 +142,21 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
 
     // Initialize popups
     initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
+
+    // Toggle filter dropdown
+    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
+    const filterDropdown = document.getElementById('dict-filter-dropdown');
+    if (toggleFilterButton && filterDropdown) {
+        toggleFilterButton.addEventListener('click', () => {
+            if (filterDropdown.classList.contains('dict-hidden')) {
+                filterDropdown.classList.remove('dict-hidden');
+                filterDropdown.style.height = `${filterDropdown.scrollHeight}px`;
+            } else {
+                filterDropdown.style.height = '0';
+                filterDropdown.classList.add('dict-hidden');
+            }
+        });
+    }
 
     // Additional popups can be initialized here...
 
