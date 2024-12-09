@@ -52,21 +52,26 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('dictionary-box-title');
-    wordElement.innerHTML = sanitizeHTML(row.word || '') + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
+    wordElement.innerHTML = row.word + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
 
-    const definitionElement = document.createElement('div');
-    definitionElement.classList.add('dictionary-box-meaning');
-    definitionElement.innerHTML = sanitizeHTML(row.definition || '');
+    const contentBox = document.createElement('div');
+    contentBox.classList.add('dictionary-box-content');
+
+    const meaningElement = document.createElement('div');
+    meaningElement.classList.add('dictionary-box-meaning');
+    meaningElement.innerHTML = `<strong>Meaning:</strong> ${row.definition || ''}`;
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('dictionary-box-notes');
-    notesElement.innerHTML = sanitizeHTML(row.notes || '');
+    notesElement.innerHTML = `<strong>Notes:</strong> ${row.notes || ''}`;
 
     const etymologyElement = document.createElement('div');
     etymologyElement.classList.add('dictionary-box-etymology');
-    etymologyElement.innerHTML = row.type === 'root'
-        ? sanitizeHTML(row.etymology || '')
-        : `${document.querySelector('meta[name="language"]').content === 'es' ? 'Raíz: ' : 'Root: '}${sanitizeHTML(row.etymology || '')}`;
+    etymologyElement.innerHTML = `<strong>Etymology:</strong> ${row.etymology || ''}`;
+
+    contentBox.appendChild(meaningElement);
+    contentBox.appendChild(notesElement);
+    contentBox.appendChild(etymologyElement);
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
@@ -79,9 +84,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     box.appendChild(typeTag);
     box.appendChild(wordElement);
-    box.appendChild(definitionElement);
-    if (row.notes) box.appendChild(notesElement); // Add notes only if available
-    if (row.etymology) box.appendChild(etymologyElement); // Add etymology only if available
+    box.appendChild(contentBox);
 
     // Add ID display in bottom right
     const idElement = document.createElement('div');
@@ -198,4 +201,4 @@ export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchI
 
     updatePagination(currentPage, filteredRows, rowsPerPage);
     updateFloatingText(filteredRows, searchTerm, [], {});
-} 
+}
