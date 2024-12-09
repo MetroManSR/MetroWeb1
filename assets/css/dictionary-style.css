@@ -12,12 +12,12 @@ header {
 }
 
 /* Search Container */
-.search-container {
+.dict-search-container {
     text-align: center;
     padding: 20px;
 }
 
-.search-input, .rows-input, .filter-select {
+.dict-search-input, .dict-rows-input, .dict-filter-select {
     padding: 5px;
     margin: 5px;
     font-size: 16px;
@@ -48,22 +48,22 @@ header {
 }
 
 /* Filter Dropdown */
-#filter-dropdown {
+.dict-filter-dropdown-container {
     text-align: center;
     margin: 20px 0;
 }
 
-#filter-dropdown label {
+.dict-filter-dropdown label {
     margin-right: 10px;
 }
 
-#word-filter {
+.dict-filter-select {
     padding: 5px;
     font-size: 16px;
 }
 
 /* Pagination Container */
-.pagination-container {
+.dict-pagination-container {
     text-align: center;
     margin: 20px 0;
 }
@@ -103,7 +103,7 @@ header {
 }
 
 /* Error Message */
-.error-message {
+.dict-error-message {
     text-align: center;
     padding: 20px;
     color: #d9534f;
@@ -201,7 +201,7 @@ header {
 }
 
 /* Popup Styles */
-.popup-overlay {
+.dict-popup-overlay {
     display: none;
     position: fixed;
     top: 0;
@@ -212,11 +212,11 @@ header {
     z-index: 999;
 }
 
-.popup-overlay.active {
+.dict-popup-overlay.active {
     display: block;
 }
 
-.popup {
+.dict-popup {
     display: none;
     position: fixed;
     top: 10%;
@@ -232,17 +232,17 @@ header {
     z-index: 1000;
 }
 
-.popup.active {
+.dict-popup.active {
     display: block;
 }
 
-.popup label {
+.dict-popup label {
     display: inline-block;
     margin-bottom: 10px;
     vertical-align: middle;
 }
 
-.popup input[type="checkbox"] {
+.dict-popup input[type="checkbox"] {
     margin-right: 5px;
     vertical-align: middle;
 }
@@ -311,7 +311,7 @@ header {
 }
 
 /* Statistics Popup */
-.statistics-popup {
+.dict-statistics-popup {
     display: none;
     position: fixed;
     top: 10%;
@@ -327,25 +327,25 @@ header {
     z-index: 1000;
 }
 
-.statistics-popup.active {
+.dict-statistics-popup.active {
     display: block;
 }
 
-.statistics-popup h3 {
+.dict-statistics-popup h3 {
     margin-top: 0;
 }
 
-.statistics-popup ul {
+.dict-statistics-popup ul {
     list-style-type: none;
     padding: 0;
 }
 
-.statistics-popup li {
+.dict-statistics-popup li {
     margin-bottom: 5px;
 }
 
 /* Loading Message */
-.loading-message {
+.dict-loading-message {
     text-align: center;
     padding: 20px;
     font-size: 18px;
@@ -353,7 +353,7 @@ header {
 }
 
 /* Pending Changes */
-.pending-changes {
+.dict-pending-changes {
     margin-bottom: 10px;
     padding: 10px;
     background-color: #f9f9f9;
@@ -361,12 +361,12 @@ header {
     border-radius: 5px;
 }
 
-.pending-changes ul {
+.dict-pending-changes ul {
     list-style-type: disc;
     padding-left: 20px;
 }
 
-.pending-changes li {
+.dict-pending-changes li {
     margin-bottom: 5px;
 }
 
@@ -382,93 +382,4 @@ header {
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease;
-}
-
-.dict-box-empty {
-    background-color: #e0e0e0; /* Gray for non-loaded boxes */
-}
-
-.dict-box-loaded {
-    background-color: #cce5ff; /* Light blue for loaded boxes */
-    border-color: #b3d7ff;
-}
-
-.dict-box-no-match {
-    background-color: #ffebcc; /* Yellow for no match boxes */
-    border-color: #ffd699;
-}
-
-.dict-box-root {
-    background-color: #d4edda; /* Green for root boxes */
-    border-color: #c3e6cb;
-}
-
-.dict-box-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.dict-box-word {
-    font-weight: bold;
-    color: #0056b3;
-    background-color: #d6eaff;
-    padding: 2px 4px;
-    border-radius: 3px;
-}
-
-.dict-box-type {
-    background-color: #cce5ff; /* Light blue for type tag */
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 0.9em;
-    color: #004085;
-}
-
-.dict-box-meaning {
-    font-size: 0.9em;
-    color: #333;
-    background-color: #e6f3ff; /* Blue tones for meaning box */
-    padding: 5px;
-    border-radius: 3px;
-}
-
-/* Floating Text */
-.floating-text {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(0, 120, 212, 0.8);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-/* Related Words Scrollable Box */
-.scrollable-box {
-    max-height: 100px;
-    overflow-y: scroll;
-    margin-top: 10px;
-    padding: 5px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-/* Selected Word and Root Styles */
-.selected-word {
-    border: 2px solid #0056b3; /* Highlight for selected word */
-}
-
-.selected-root {
-    border: 2px solid #2a572a; /* Highlight for selected root */
-}
-
-/* General Box Fade-in Effect */
-.fade-in {
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
-}
+[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/Mario-willian/Wim/tree/a02cfe6b4807326a0b425ec1bb7d2d9feae0115c/public_html%2Finicio%2Fcadastrar.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "1")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/NicholasOliveira/tree-view-checkbox/tree/d22db990b0a1709577d3eebf206f6dee72546136/src%2FComponents%2FCheckbox%2Fstyles.js?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "2")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/DekArik45/ggwpwebsite/tree/8042ebccf39a9338f5726b921e7256a546c9606b/resources%2Fviews%2Ffrontend%2Forder_paket.blade.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "3")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/dwiaji22/tugas-pemweb/tree/e4ab6e9ce12c8b1d47d7039b1f86f44de59f0538/Pemweb%20Tugas%208%2Fmvc%2Fclass%2FVisualView.class.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "4")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/sehirulislamrehi/sscuisineurs/tree/5dd829e70c2e40b4e4d252ea9bf9f91d7801d535/resources%2Fviews%2Fbackend%2Fpages%2Fcategory%2Fadd_food.blade.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "5")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/veadantatwork/SmileAligners/tree/5b23c2a87f5ec3575c02640937ebd8540329c9b6/application%2Fmodules%2Flogin%2Fviews%2Findex.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "6")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/samuelkubai/regle/tree/9efc92a9e6ee3f02bb774d3a5ff0333cbdf8e4f2/src%2Fcomponents%2Fcustom-elements%2FCheckbox%2Findex.js?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "7")
