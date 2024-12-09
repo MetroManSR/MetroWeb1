@@ -42,6 +42,15 @@ document.addEventListener('DOMContentLoaded', async function() {
     let allRowsById = {};
     let currentSortOrder = 'titleup'; // Default sort order
 
+    let pendingChanges = {
+        searchTerm: '',
+        exactMatch: false,
+        searchIn: { word: true, root: true, definition: false, etymology: false },
+        filters: [],
+        rowsPerPage: 20,
+        sortOrder: 'titleup'
+    };
+
     function displayError(message) {
         const errorContainer = document.getElementById('dict-error-message');
         errorContainer.innerHTML = `<p>${message}</p>`;
@@ -114,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     etymology: formData.get('search-in-etymology') === 'on',
                     exactMatch: formData.get('exact-match') === 'on'
                 };
-                advancedSearch(params, allRows, rowsPerPage, displayPage, currentSortOrder);
+                advancedSearch(params, allRows, rowsPerPage, displayPage, pendingChanges.sortOrder);
             });
         }
 
@@ -128,10 +137,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         const orderBySelect = document.getElementById('dict-order-by-select');
         if (orderBySelect) {
             orderBySelect.addEventListener('change', () => {
-                currentSortOrder = orderBySelect.value;
-                console.log('Selected order:', currentSortOrder);
-                filteredRows = sortRows(filteredRows, currentSortOrder);
-                processRows(allRows, {}, rowsPerPage, displayPage, currentPage, currentSortOrder);
+                pendingChanges.sortOrder = orderBySelect.value;
+                console.log('Selected order:', pendingChanges.sortOrder);
             });
         }
 
@@ -144,9 +151,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('dict-loading-message').style.display = 'none';
     }
 
-    // Initialize event listeners
-    initializeEventListeners(allRows, allRowsById, rowsPerPage);
-
+    // Initialize event listeners with apply settings handling
+    initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage);
+    
     // Initialize popup systems
     initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
     initStatisticsPopup(allRows);
