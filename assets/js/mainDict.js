@@ -89,9 +89,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             const criteria = { searchTerm: searchTerm.trim() };
             processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
         } else if (wordID && parseInt(wordID) > 0) {
-            displaySpecificEntry(allRowsById[wordID], allRows);
+            const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
+            displaySpecificEntry(wordEntry, allRows);
         } else if (rootID && parseInt(rootID) > 0) {
-            displaySpecificEntry(allRowsById[rootID], allRows);
+            const rootEntry = allRows.find(row => row.id === parseInt(rootID) && row.type === 'root');
+            displaySpecificEntry(rootEntry, allRows);
         } else if (wordSpecificTerm && wordSpecificTerm.trim()) {
             wordSpecific(wordSpecificTerm, allRows);
         } else if (rootSpecificTerm && rootSpecificTerm.trim()) {
