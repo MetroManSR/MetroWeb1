@@ -1,4 +1,4 @@
-import { createPaginationControls, updatePagination } from './pagination.js';
+import { createPaginationControls } from './pagination.js';
 import { renderBox, updateFloatingText } from './boxes.js';
 
 /**
