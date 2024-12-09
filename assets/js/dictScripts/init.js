@@ -1,178 +1,215 @@
-import { createPaginationControls } from './pagination.js';
-import { displayPage } from './dictSearch.js';
-import { displayWarning } from './warnings.js';
-import { processRows } from './processRows.js';
-import { setTexts } from './loadTexts.js';
-import { initAdvancedSearchPopup } from './popups.js'; // Import the existing function
+import { getRelatedWordsByRoot, highlight } from './utils.js';
+import { sanitizeHTML } from './csvUtils.js';
+import { updatePagination } from './pagination.js';
 
-export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filteredRows) {
-    let currentPage = 1; // Define currentPage
-    let pendingChanges = {
-        searchTerm: '',
-        exactMatch: false,
-        searchIn: { word: true, root: true, definition: false, etymology: false },
-        filters: [],
-        rowsPerPage: 20
-    };
+let previouslySelectedBox = null;
 
-    const updatePendingChangesList = () => {
-        const pendingChangesContainer = document.getElementById('dict-pending-changes');
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
-        let changesList = [];
+function getPartOfSpeechAbbreviation(partOfSpeech, language) {
+    if (!partOfSpeech) return ''; // Return an empty string if partOfSpeech is undefined
 
-        if (searchTerm) changesList.push(`Search Term: "${searchTerm}"`);
-        if (exactMatch) changesList.push(`Exact Match: On`);
-        if (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology) {
-            let searchInFields = [];
-            if (searchIn.word) searchInFields.push('Word');
-            if (searchIn.root) searchInFields.push('Root');
-            if ( searchIn.definition) searchInFields.push('Definition');
-            if (searchIn.etymology) searchInFields.push('Etymology');
-            changesList.push(`Search In: ${searchInFields.join(', ')}`);
+    const abbreviations = {
+        en: {
+            noun: 'n.',
+            verb: 'v.',
+            adjective: 'adj.',
+            adverb: 'adv.',
+            conjunction: 'conj.',
+            interjection: 'int.',
+            preposition: 'prep.',
+            expression: 'expr.',
+            pronoun: 'pron.'
+        },
+        es: {
+            noun: 's.',
+            verb: 'v.',
+            adjective: 'adj.',
+            adverb: 'adv.',
+            conjunction: 'conj.',
+            interjection: 'interj.',
+            preposition: 'prep.',
+            expression: 'expr.',
+            pronoun: 'pron.'
         }
-        if (filters.length > 0) changesList.push(`Filters: ${filters.join(', ')}`);
-        if (rowsPerPage !== 20) changesList.push(`Rows Per Page: ${rowsPerPage}`);
-
-        pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No pending changes';
     };
 
-    const addPendingChange = () => {
-        const searchTerm = document.getElementById('dict-search-input').value.trim();
-        const searchIn = {
-            word: document.getElementById('dict-search-in-word')?.checked || false,
-            root: document.getElementById('dict-search-in-root')?.checked || false,
-            definition: document.getElementById('dict-search-in-definition')?.checked || false,
-            etymology: document.getElementById('dict-search-in-etymology')?.checked || false
-        };
+    return abbreviations[language] && abbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
+}
 
-        const exactMatch = document.getElementById('dict-exact-match')?.checked || false;
-        const selectedFilters = Array.from(document.getElementById('dict-word-filter').selectedOptions).map(option => option.value);
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
+    const filterContainer = document.getElementById('dict-filter-dropdown-container');
+    const orderContainer = document.getElementById('dict-order-container');
+    const rowsContainer = document.getElementById('dict-pagination-container');
+    
+    toggleFilterButton.addEventListener('click', () => {
+        const containers = [filterContainer, orderContainer, rowsContainer];
+        containers.forEach(container => {
+            container.classList.toggle('dict-hidden');
+        });
+    });
+});
 
-        pendingChanges = { searchTerm, exactMatch, searchIn, filters: selectedFilters, rowsPerPage };
-        updatePendingChangesList();
-    };
+// Function to create a dictionary box
+export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
+    if (!row || !row.word) {
+        console.error('Invalid row data:', row);
+        return null;
+    }
 
-    const applySettings = () => {
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
-        const criteria = { searchTerm, exactMatch, searchIn, filters };
-        processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
-        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
-        updatePendingChangesList();
-    };
+    const box = document.createElement('div');
+    box.classList.add('dictionary-box');
+    box.id = `entry-${row.id}`;
 
-    const clearSettings = () => {
-        document.getElementById('dict-search-input').value = '';
-        document.getElementById('dict-search-in-word').checked = false;
-        document.getElementById('dict-search-in-root').checked = false;
-        document.getElementById('dict-search-in-definition').checked = false;
-        document.getElementById('dict-search-in-etymology').checked = false;
-        document.getElementById('dict-exact-match').checked = false;
-        document.getElementById('dict-word-filter').selectedIndex = -1;
-        document.getElementById('dict-rows-per-page-input').value = 20;
-        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
-        updatePendingChangesList();
-        processRows(allRows, {}, 20, displayPage, currentPage);
-    };
+    if (row.type === 'root') {
+        box.classList.add('root-word'); // Apply root word styling
+    }
 
-    // Set texts based on the language
-    const language = document.querySelector('meta[name="language"]').content || 'en';
-    setTexts(language);
+    const wordElement = document.createElement('div');
+    wordElement.classList.add('dictionary-box-title');
+    wordElement.innerHTML = highlight(row.word || '', searchTerm) + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
 
-    document.getElementById('dict-search-input').addEventListener('input', addPendingChange);
-    document.getElementById('dict-search-button').addEventListener('click', addPendingChange);
-    document.getElementById('dict-add-search-button-popup').addEventListener('click', addPendingChange);
-    document.getElementById('dict-apply-filter-button').addEventListener('click', addPendingChange);
-    document.getElementById('dict-rows-per-page-input').addEventListener('input', (e) => {
-        const value = parseInt(e.target.value, 10);
-        if (value >= 5 && value <= 500) {
-            pendingChanges.rowsPerPage = value;
-            updatePendingChangesList();
-        } else {
-            displayWarning('dict-rows-warning', 'Please enter a value between 5 and 500');
+    const definitionElement = document.createElement('div');
+    definitionElement.classList.add('dictionary-box-meaning');
+    if (row.type === 'root') {
+        definitionElement.innerHTML = `
+            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
+            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
+            <div class="etymology">${document.querySelector('meta[name="language"]').content === 'es' ? 'Etimología: ' : 'Etymology: '}${highlight(row.etymology || '', searchTerm)}</div>
+        `;
+    } else {
+        definitionElement.innerHTML = `
+            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
+            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
+            <div class="root">${document.querySelector('meta[name="language"]').content === 'es' ? 'Raíz: ' : 'Root: '}${highlight(row.etymology || '', searchTerm)}</div>
+        `;
+    }
+
+    const typeTag = document.createElement('span');
+    typeTag.classList.add('type-tag');
+    typeTag.textContent = row.type === 'root' ? 'Root' : 'Word';
+    typeTag.style.position = 'absolute';
+    typeTag.style.top = '10px';
+    typeTag.style.right = '10px';
+
+    box.style.position = 'relative';  // Ensure the box is relatively positioned
+
+    box.appendChild(typeTag);
+    box.appendChild(wordElement);
+    box.appendChild(definitionElement);
+
+    // Add ID display in bottom right
+    const idElement = document.createElement('div');
+    idElement.className = 'id-display';
+    idElement.textContent = 'ID: ' + row.id;
+    box.appendChild(idElement);
+
+    box.addEventListener('click', function() {
+        if (previouslySelectedBox) {
+            previouslySelectedBox.classList.remove('selected-word', 'selected-root');
+            const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
+            if (previousRelatedWords) {
+                previouslySelectedBox.removeChild(previousRelatedWords);
+            }
+        }
+
+        if (box === previouslySelectedBox) {
+            previouslySelectedBox = null;
+            return; // Deselect the current box
+        }
+
+        // Highlight the clicked box
+        box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
+
+        // Display related words by root
+        const relatedWordsElement = document.createElement('div');
+        relatedWordsElement.className = 'related-words';
+        relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
+
+        const { count, list } = getRelatedWordsByRoot(row.word, row.etymology, allRows);
+        if (list) {
+            relatedWordsElement.innerHTML = `${count} words related: ${list}`;
+            box.appendChild(relatedWordsElement);
+
+            // Check if the related words exceed 30 and make it scrollable
+            if (count > 30) {
+                relatedWordsElement.classList.add('scrollable-box');
+            }
+        }
+
+        previouslySelectedBox = box; // Set the clicked box as the previously selected one
+    });
+
+    // Add fade-in effect
+    setTimeout(() => {
+        box.classList.add('fade-in');
+    }, 100);
+
+    return box;
+}
+
+// Function to create a no match box
+export function createNoMatchBox() {
+    const noMatchBox = document.createElement('div');
+    noMatchBox.className = 'dictionary-box no-match';
+    noMatchBox.textContent = 'No match for your search';
+    return noMatchBox;
+}
+
+// Function to create a loading box
+export function createLoadingBox() {
+    const loadingBox = document.createElement('div');
+    loadingBox.className = 'dictionary-box loading';
+    return loadingBox;
+}
+
+// Function to update the floating text
+export function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams) {
+    let floatingTextContent = `${filteredRows.length} words found`;
+
+    if (searchTerm) {
+        floatingTextContent += ` when looking for "${searchTerm}"`;
+    }
+    if (filters.length > 0) {
+        floatingTextContent += ` with filters: ${filters.join(", ")}`;
+    }
+    if (advancedSearchParams) {
+        floatingTextContent += ` with advanced search applied: ${Object.keys(advancedSearchParams).join(", ")}`;
+    }
+
+    const floatingText = document.getElementById('floating-text');
+    if (floatingText) {
+        floatingText.textContent = floatingTextContent;
+    } else {
+        const newFloatingText = document.createElement('div');
+        newFloatingText.id = 'floating-text';
+        newFloatingText.className = 'floating-text';
+        newFloatingText.textContent = floatingTextContent;
+        document.body.appendChild(newFloatingText);
+    }
+}
+
+export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
+    const dictionaryContainer = document.getElementById('dict-dictionary');
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+    if (filteredRows.length === 0) {
+        dictionaryContainer.appendChild(createNoMatchBox());
+        updatePagination(currentPage, filteredRows, rowsPerPage);
+        updateFloatingText(filteredRows, searchTerm, [], {});
+        return;
+    }
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const rowsToDisplay = filteredRows.slice(start, end);
+
+    rowsToDisplay.forEach((row) => {
+        const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        if (box) {
+            dictionaryContainer.appendChild(box);
         }
     });
 
-    const applySettingsButton = document.getElementById('dict-apply-settings-button');
-    if (applySettingsButton) {
-        applySettingsButton.addEventListener('click', applySettings);
-    }
-
-    const clearSettingsButton = document.getElementById('dict-clear-settings-button');
-    if (clearSettingsButton) {
-        clearSettingsButton.addEventListener('click', clearSettings);
-    }
-
-    const clearSearchButton = document.getElementById('dict-clear-search-button');
-    if (clearSearchButton) {
-        clearSearchButton.addEventListener('click', () => {
-            document.getElementById('dict-search-input').value = '';
-            document.getElementById('dict-search-in-word').checked = false;
-            document.getElementById('dict-search-in-root').checked = false;
-            document.getElementById('dict-search-in-definition').checked = false;
-            document.getElementById('dict-search-in-etymology').checked = false;
-            document.getElementById('dict-exact-match').checked = false;
-            pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
-            updatePendingChangesList();
-            window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
-            processRows(allRows, {}, rowsPerPage, displayPage, currentPage);
-        });
-    }
-
-    // Sorting functionality
-    const orderBySelect = document.getElementById('dict-order-by-select');
-    if (orderBySelect) {
-        orderBySelect.addEventListener('change', () => {
-            const orderBy = orderBySelect.value;
-            if (filteredRows && filteredRows.length > 0) {
-                if (orderBy === 'id-asc') {
-                    filteredRows.sort((a, b) => a.id - b.id);
-                } else if (orderBy === 'id-desc') {
-                    filteredRows.sort((a, b) => b.id - a.id);
-                } else if (orderBy === 'definition-asc') {
-                    filteredRows.sort((a, b) => a.definition.localeCompare(b.definition));
-                } else if (orderBy === 'definition-desc') {
-                    filteredRows.sort((a, b) => b.definition.localeCompare(a.definition));
-                } else if (orderBy === 'word-asc') {
-                    filteredRows.sort((a, b) => a.word.localeCompare(b.word));
-                } else if (orderBy === 'word-desc') {
-                    filteredRows.sort((a, b) => b.word.localeCompare(a.word));
-                }
-                processRows(allRows, pendingChanges, rowsPerPage, displayPage, currentPage);
-            } else {
-                console.error('filteredRows is undefined or empty');
-            }
-        });
-    }
-
-    // Toggle filters visibility
-    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    if (toggleFilterButton) {
-        toggleFilterButton.addEventListener('click', () => {
-            const filterDropdown = document.getElementById('dict-filter-dropdown');
-            if (filterDropdown) {
-                if (filterDropdown.classList.contains('dict-hidden')) {
-                    filterDropdown.classList.remove('dict-hidden');
-                    filterDropdown.style.height = 'auto';
-                    const height = filterDropdown.clientHeight + 'px';
-                    filterDropdown.style.height = '0px';
-                    setTimeout(() => {
-                        filterDropdown.style.height = height;
-                    }, 10);
-                } else {
-                    filterDropdown.style.height = '0px';
-                    filterDropdown.addEventListener('transitionend', () => {
-                        filterDropdown.classList.add('dict-hidden');
-                    }, { once: true });
-                }
-            }
-        });
-    }
-
-    // Initialize popups
-    initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
-
-    // Additional popups can be initialized here...
-
-    // Additional functionality can be added here...
+    updatePagination(currentPage, filteredRows, rowsPerPage);
+    updateFloatingText(filteredRows, searchTerm, [], {});
 }
- 
