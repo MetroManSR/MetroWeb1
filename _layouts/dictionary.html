@@ -30,11 +30,10 @@ layout: default
             <button id="view-statistics-button" class="btn">View Statistics</button>
         </div>
         <div id="pending-changes" class="pending-changes"></div>
-        
+
         <div class="pagination-container">
             <label id="rows-per-page-label" for="rows-per-page-input">Rows per page:</label>
             <input type="number" id="rows-per-page-input" value="20" min="5" max="500" class="rows-input"/>
-            <button id="rows-per-page-button" class="btn">Submit</button>
             <div id="rows-warning"></div>
         </div>
         <!-- Filter Dropdown -->
@@ -53,19 +52,19 @@ layout: default
                 <option value="expression">Expression</option>
                 <option value="pronoun">Pronoun</option>
             </select>
-            <button id="apply-filter-button" class="btn">Apply</button>
+            <button id="add-filters-button" class="btn">Add Filters</button>
         </div>
         <div class="sorting-container">
-    <label for="order-by-select">Order By:</label>
-      <select id="order-by-select" class="order-select">
-        <option value="id-asc">ID (Ascending)</option>
-        <option value="id-desc">ID (Descending)</option>
-        <option value="definition-asc">Definition (A to Z)</option>
-        <option value="definition-desc">Definition (Z to A)</option>
-        <option value="word-asc">Word (A to Z)</option>
-        <option value="word-desc">Word (Z to A)</option>
-       </select>
-       </div>
+            <label for="order-by-select">Order By:</label>
+            <select id="order-by-select" class="order-select">
+                <option value="id-asc">ID (Ascending)</option>
+                <option value="id-desc">ID (Descending)</option>
+                <option value="definition-asc">Definition (A to Z)</option>
+                <option value="definition-desc">Definition (Z to A)</option>
+                <option value="word-asc">Word (A to Z)</option>
+                <option value="word-desc">Word (Z to A)</option>
+            </select>
+        </div>
         <button id="apply-settings-button" class="btn">Apply Settings</button>
         <div id="dictionary"></div>
         <div id="pagination" class="pagination"></div>
@@ -90,7 +89,8 @@ layout: default
                 <input type="checkbox" id="exact-match" name="exact-match" value="Exact Match">
                 <label class="container" id="exact-match-label" for="exact-match"> Exact Match</label>
                 <br>
-                <button type="button" id="apply-search-button" class="btn">Apply</button>
+                <button type="button" id="add-search-button-popup" class="btn">Add Search</button>
+                <button type="button" id="apply-search-button-popup" class="btn">Apply Search</button>
                 <button type="button" id="close-popup-button" class="btn">Close</button>
             </form>
         </div>
@@ -105,4 +105,4 @@ layout: default
         <div id="error-message" class="error-message" style="display: none;"></div>
     </main>
 </body>
-</html
+</html>
