@@ -2,7 +2,6 @@ import { fetchData } from './dictScripts/fetchData.js';
 import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
 import { initializeEventListeners } from './dictScripts/init.js';
-import { cleanData } from './dictScripts/csvUtils.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js';
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
@@ -87,17 +86,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             fetchWithFallback(rootsFile, 'root')
         ]);
 
-        console.log('Dictionary Data:', dictionaryData);
-        console.log('Roots Data:', rootsData);
-
-        const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.title.localeCompare(b.title));
-        const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.title.localeCompare(b.title));
+        const cleanedDictionaryData = dictionaryData.sort((a, b) => a.title.localeCompare(b.title));
+        const cleanedRootsData = rootsData.sort((a, b) => a.title.localeCompare(b.title));
 
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
-
-        console.log('Cleaned Dictionary Data:', cleanedDictionaryData);
-        console.log('Cleaned Roots Data:', cleanedRootsData);
 
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
         let filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
@@ -105,9 +98,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
         });
-
-        console.log('All Rows:', allRows);
-        console.log('Filtered Rows:', filteredRows);
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
@@ -126,11 +116,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             processRows(allRows, criteria, rowsPerPage, displayPage, currentPage, currentSortOrder);
         } else if (wordID && parseInt(wordID) > 0) {
             const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
-            console.log('Word Entry:', wordEntry);
             displaySpecificEntry(wordEntry, allRows);
         } else if (rootID && parseInt(rootID) > 0) {
             const rootEntry = allRows.find(row => row.id === parseInt(rootID) && row.type === 'root');
-            console.log('Root Entry:', rootEntry);
             displaySpecificEntry(rootEntry, allRows);
         } else if (wordSpecificTerm && wordSpecificTerm.trim()) {
             wordSpecific(wordSpecificTerm, allRows);
