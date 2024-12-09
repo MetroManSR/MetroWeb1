@@ -113,7 +113,7 @@ header {
 
 /* Dictionary Box Styles */
 .dictionary-box {
-    border: 1px solid #ccc;
+    border: 1px solid #0056b3; /* Dark blue border for word boxes */
     border-radius: 4px;
     padding: 10px;
     margin: 5px;
@@ -121,13 +121,15 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align text to the left */
     transition: background-color 0.3s ease;
+    background-color: #0056b3; /* Dark blue background for word boxes */
+    color: #fff;
 }
 
 .root-word {
-    background-color: #d4edda; /* Light green for root boxes */
-    border-color: #c3e6cb;
+    border-color: #2a572a; /* Dark green border for root boxes */
+    background-color: #2a572a; /* Dark green background for root boxes */
 }
 
 .no-match {
@@ -135,45 +137,53 @@ header {
     border-color: #ffd699;
 }
 
-.dictionary-box-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.dictionary-box-title {
-    font-weight: bold;
-    color: #0056b3;
-    background-color: #d6eaff;
-    padding: 2px 4px;
-    border-radius: 3px;
-}
-
-.dictionary-box-type {
+/* Type Tag and ID Display */
+.type-tag {
     background-color: #cce5ff; /* Light blue for type tag */
     padding: 2px 4px;
     border-radius: 3px;
     font-size: 0.9em;
     color: #004085;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.id-display {
+    background-color: #d9534f; /* Red background for ID display */
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: #fff;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.dictionary-box-title {
+    font-weight: bold;
+    background-color: #d6eaff; /* Lighter blue background for title */
+    padding: 2px 4px;
+    border-radius: 3px;
+    margin-bottom: 5px;
 }
 
 .dictionary-box-meaning {
     font-size: 0.9em;
     color: #333;
-    background-color: #e6f3ff; /* Blue tones for meaning box */
+    background-color: #e6f3ff; /* Light blue for meaning box */
     padding: 5px;
     border-radius: 3px;
+    margin-bottom: 5px;
 }
 
 /* Selected Word and Root Styles */
 .selected-word {
-    border: 2px solid #0056b3; /* Highlight for selected word */
+    border: 2px solid #0056b3; /* Wider border for selected word */
 }
 
 .selected-root {
-    border: 2px solid #2a572a; /* Highlight for selected root */
+    border: 2px solid #2a572a; /* Wider border for selected root */
 }
 
 /* General Box Fade-in Effect */
