@@ -64,4 +64,22 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         e.preventDefault();
         triggerSearch();
     });
+
+    // Filter apply button
+    document.getElementById('apply-filters-button').addEventListener('click', () => {
+        triggerSearch();
+    });
+
+    // Advanced search popup form submission
+    document.getElementById('apply-search-button').addEventListener('click', () => {
+        triggerSearch();
+        document.getElementById('advanced-search-popup').classList.remove('active');
+        document.getElementById('popup-overlay').classList.remove('active');
+    });
+
+    // Popup window functionality for closing
+    document.getElementById('close-popup-button').addEventListener('click', () => {
+        document.getElementById('advanced-search-popup').classList.remove('active');
+        document.getElementById('popup-overlay').classList.remove('active');
+    });
 }
