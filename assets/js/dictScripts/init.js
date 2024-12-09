@@ -53,7 +53,11 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     document.getElementById('search-input').addEventListener('input', triggerSearch);
 
     document.getElementById('search-button').addEventListener('click', () => {
-        triggerSearch();
+        const { searchTerm, exactMatch, searchIn, filters } = pendingChanges;
+        const criteria = { searchTerm, exactMatch, searchIn, filters };
+        processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
+        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
+        updatePendingChangesList();
     });
 
     document.getElementById('clear-search-button').addEventListener('click', () => {
@@ -83,6 +87,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
         const criteria = { searchTerm, exactMatch, searchIn, filters };
         processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
+        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
         updatePendingChangesList();
     });
 
@@ -92,20 +97,24 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         triggerSearch();
     });
 
-    // Filter apply button
-    document.getElementById('apply-filters-button').addEventListener('click', () => {
-        triggerSearch();
+    // Remove old apply and submit buttons except for search button
+    document.getElementById('apply-filters-button')?.remove();
+    document.getElementById('apply-search-button')?.remove();
+
+    // Popup window functionality for advanced search
+    document.getElementById('advanced-search-button').addEventListener('click', () => {
+        document.getElementById('advanced-search-popup').classList.add('active');
+        document.getElementById('popup-overlay').classList.add('active');
     });
 
-    // Advanced search popup form submission
-    document.getElementById('apply-search-button').addEventListener('click', () => {
-        triggerSearch();
+    document.getElementById('close-popup-button').addEventListener('click', () => {
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
 
-    // Popup window functionality for closing
-    document.getElementById('close-popup-button').addEventListener('click', () => {
+    // Advanced search popup form submission
+    document.getElementById('apply-search-button-popup').addEventListener('click', () => {
+        triggerSearch();
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
