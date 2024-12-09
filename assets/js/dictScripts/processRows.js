@@ -5,18 +5,24 @@ import { renderBox, updateFloatingText } from './boxes.js';
  * Sorts rows based on the specified sorting manner.
  *
  * @param {Array} rows - The array of rows to sort.
- * @param {String} sortingManner - The manner of sorting (e.g., "title", "meta", "morph").
+ * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
  * @returns {Array} - The sorted array of rows.
  */
 export function sortRows(rows, sortingManner) {
     console.log(`Sorting rows by: ${sortingManner}`);
     switch (sortingManner) {
-        case 'title':
+        case 'titleup':
             return rows.sort((a, b) => a.title.localeCompare(b.title));
-        case 'meta':
+        case 'titledown':
+            return rows.sort((a, b) => b.title.localeCompare(a.title));
+        case 'metaup':
             return rows.sort((a, b) => (a.meta || '').localeCompare(b.meta || ''));
-        case 'morph':
+        case 'metadown':
+            return rows.sort((a, b) => (b.meta || '').localeCompare(a.meta || ''));
+        case 'morphup':
             return rows.sort((a, b) => (a.morph || '').localeCompare(b.morph || ''));
+        case 'morphdown':
+            return rows.sort((a, b) => (b.morph || '').localeCompare(a.morph || ''));
         default:
             return rows.sort((a, b) => a.title.localeCompare(b.title));
     }
@@ -30,9 +36,9 @@ export function sortRows(rows, sortingManner) {
  * @param {number} rowsPerPage - The number of rows to display per page.
  * @param {Function} displayPage - The function to display the page.
  * @param {number} [currentPage=1] - The current page to display.
- * @param {String} sortingManner - The manner of sorting (e.g., "title", "meta", "morph").
+ * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
  */
-export function processRows(allRows, criteria, rowsPerPage, displayPage, currentPage = 1, sortingManner = 'title') {
+export function processRows(allRows, criteria, rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
     const {
         searchTerm = '',
         exactMatch = false,
@@ -69,6 +75,18 @@ export function processRows(allRows, criteria, rowsPerPage, displayPage, current
     createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
     renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
+
+    // Show "Settings Applied" notification
+    const settingsAppliedText = document.createElement('div');
+    settingsAppliedText.id = 'settings-applied-text';
+    settingsAppliedText.innerText = 'Settings Applied';
+    settingsAppliedText.style.color = 'green';
+    settingsAppliedText.style.fontWeight = 'bold';
+    document.body.appendChild(settingsAppliedText);
+
+    setTimeout(() => {
+        settingsAppliedText.remove();
+    }, 1000);
 }
 
 /**
@@ -78,9 +96,9 @@ export function processRows(allRows, criteria, rowsPerPage, displayPage, current
  * @param {Array} allRows - The array of all dictionary rows
  * @param {number} rowsPerPage - The number of rows to display per page
  * @param {Function} displayPage - The function to display the page
- * @param {String} sortingManner - The manner of sorting (e.g., "title", "meta", "morph").
+ * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
  */
-export function advancedSearch(params, allRows = [], rowsPerPage, displayPage, sortingManner = 'title') {
+export function advancedSearch(params, allRows = [], rowsPerPage, displayPage, sortingManner = 'titleup') {
     const searchIn = {
         word: params.word || false,
         root: params.root || false,
@@ -111,4 +129,16 @@ export function advancedSearch(params, allRows = [], rowsPerPage, displayPage, s
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
     renderBox(filteredRows, allRows, params.searchTerm, params.exactMatch, searchIn, rowsPerPage, 1);
     updateFloatingText(filteredRows, params.searchTerm, [], searchIn);
+
+    // Show "Settings Applied" notification
+    const settingsAppliedText = document.createElement('div');
+    settingsAppliedText.id = 'settings-applied-text';
+    settingsAppliedText.innerText = 'Settings Applied';
+    settingsAppliedText.style.color = 'green';
+    settingsAppliedText.style.fontWeight = 'bold';
+    document.body.appendChild(settingsAppliedText);
+
+    setTimeout(() => {
+        settingsAppliedText.remove();
+    }, 1000);
 }
