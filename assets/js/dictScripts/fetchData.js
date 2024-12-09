@@ -37,7 +37,7 @@ function parseCSV(data, type) {
             const raw = columns[0] || '';
             const [root, rest] = raw.split(' = ');
             const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-            const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
+            const [notes, origin] = meta ? meta.slice(0, -1).split(', et ') : ['', ''];
 
             row = {
                 id: i + 1, // Assign a unique ID starting from 1
