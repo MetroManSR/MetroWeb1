@@ -1,3 +1,4 @@
+
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
@@ -168,6 +169,10 @@ header {
     margin-bottom: 5px;
 }
 
+.root-word .dictionary-box-title {
+    background-color: #d4edda; /* Lighter green background for root title */
+}
+
 .dictionary-box-meaning {
     font-size: 0.9em;
     color: #333;
@@ -177,13 +182,17 @@ header {
     margin-bottom: 5px;
 }
 
+.root-word .dictionary-box-meaning {
+    background-color: #e0f2df; /* Light green for root meaning box */
+}
+
 /* Selected Word and Root Styles */
 .selected-word {
-    border: 2px solid #0056b3; /* Wider border for selected word */
+    border: 2px solid #77aaff; /* Lighter blue border for selected word */
 }
 
 .selected-root {
-    border: 2px solid #2a572a; /* Wider border for selected root */
+    border: 2px solid #77dd77; /* Lighter green border for selected root */
 }
 
 /* General Box Fade-in Effect */
