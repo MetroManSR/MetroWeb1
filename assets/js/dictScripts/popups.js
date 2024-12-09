@@ -12,7 +12,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage) {
         document.getElementById('popup-overlay').classList.remove('active');
     });
 
-    document.getElementById('apply-search-button-popup').addEventListener('click', () => {
+    document.getElementById('add-search-button-popup').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
         const searchIn = {
             word: document.getElementById('search-in-word')?.checked || false,
@@ -31,10 +31,8 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage) {
             filters: selectedFilters
         };
 
-        processRows(allRows, criteria, rowsPerPage, displayPage);
-
-        document.getElementById('advanced-search-popup').classList.remove('active');
-        document.getElementById('popup-overlay').classList.remove('active');
+        pendingChanges = { ...pendingChanges, searchTerm, exactMatch, searchIn, filters: selectedFilters };
+        updatePendingChangesList();
     });
 
     // Ensure all checkboxes are checked by default
