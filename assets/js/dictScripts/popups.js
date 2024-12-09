@@ -12,7 +12,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage) {
         document.getElementById('popup-overlay').classList.remove('active');
     });
 
-    document.getElementById('apply-search-button').addEventListener('click', () => {
+    document.getElementById('apply-search-button-popup').addEventListener('click', () => {
         const searchTerm = document.getElementById('search-input').value.trim();
         const searchIn = {
             word: document.getElementById('search-in-word')?.checked || false,
