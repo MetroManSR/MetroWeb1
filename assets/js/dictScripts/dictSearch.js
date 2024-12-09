@@ -1,4 +1,3 @@
-//last updated 8/12/24 20:24
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox } from './boxes.js';
 
@@ -16,6 +15,35 @@ import { renderBox, updateFloatingText, createDictionaryBox } from './boxes.js';
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
     console.log('Displaying page:', page);
     renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
+}
+
+// Function to display a specific word or root entry by ID
+export function displaySpecificEntry(row, allRows) {
+    const dictionaryContainer = document.getElementById('dict-dictionary');
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+    if (!row) {
+        const noMatchBox = createNoMatchBox();
+        dictionaryContainer.appendChild(noMatchBox);
+        return;
+    }
+
+    const box = createDictionaryBox(row, allRows, '', false, {});
+    if (box) {
+        dictionaryContainer.appendChild(box);
+    }
+}
+
+// Function for exact and unique word search
+export function wordSpecific(term, allRows) {
+    const specificWord = allRows.find(row => row.type === 'word' && row.title.toLowerCase() === term.toLowerCase());
+    displaySpecificEntry(specificWord, allRows);
+}
+
+// Function for exact and unique root search
+export function rootSpecific(term, allRows) {
+    const specificRoot = allRows.find(row => row.type === 'root' && row.title.toLowerCase() === term.toLowerCase());
+    displaySpecificEntry(specificRoot, allRows);
 }
 
 /*export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows = [], allRowsById = {}, rowsPerPage, displayPage) {
@@ -102,21 +130,4 @@ export function advancedSearch(params, allRows = [], rowsPerPage, displayPage) {
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
     renderBox(filteredRows, allRows, params.searchTerm, params.exactMatch, searchIn, rowsPerPage, 1);
     updateFloatingText(filteredRows, params.searchTerm, [], searchIn);
-}*/
-
-// Function to display a specific word or root entry by ID
-export function displaySpecificEntry(row, allRows) {
-    const dictionaryContainer = document.getElementById('dict-dictionary');
-    dictionaryContainer.innerHTML = ''; // Clear previous entries
-
-    if (!row) {
-        const noMatchBox = createNoMatchBox();
-        dictionaryContainer.appendChild(noMatchBox);
-        return;
-    }
-
-    const box = createDictionaryBox(row, allRows, '', false, {});
-    if (box) {
-        dictionaryContainer.appendChild(box);
-    }
 }
