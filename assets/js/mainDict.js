@@ -7,10 +7,29 @@ import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows } from './dictScripts/processRows.js';
 import { displayPage } from './dictScripts/dictSearch.js';
 
+    // Function to show the loading message
+function showLoadingMessage() {
+    const loadingMessage = document.getElementById('dict-loading-message');
+    if (loadingMessage) {
+        loadingMessage.style.display = 'block';
+    }
+}
+
+// Function to hide the loading message
+function hideLoadingMessage() {
+    const loadingMessage = document.getElementById('dict-loading-message');
+    if (loadingMessage) {
+        loadingMessage.style.display = 'none';
+    }
+}
+
+// Show the loading message when the dictionary is being loaded
+showLoadingMessage();
+
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOMContentLoaded event triggered');
-    // Display the loading message
-    document.getElementById('dict-loading-message').style.display = 'block';
+
+    hideLoadingMessage();
 
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
