@@ -8,16 +8,17 @@ layout: default
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="language" content="page.language">
-    <title>Your Dictionary</title>
+    <title>{{title}}</title>
     <link rel="stylesheet" href="../../../assets/css/dictionary-style.css">
     <script src="../../../assets/js/dictScripts/loadTexts.js" type="module"></script>
     <script src="../../../assets/js/mainDict.js" type="module"></script>
 </head>
 <body>
     <header>
-        <h1>Your Dictionary</h1>
+        <h1></h1> <!-- Removed static "Your Dictionary" title -->
     </header>
     <main>
+        {{content}} <!-- Add this to include markdown content -->
         <div id="dict-loading-message" class="dict-loading-message">
             <p id="dict-loading-message-text">Loading dictionary, please wait...</p>
         </div>
