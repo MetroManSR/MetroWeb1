@@ -35,7 +35,28 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
-    morphElement.innerHTML = `<strong>${row.type === 'root' ? 'Etymology' : 'Morphology'}:</strong> ${row.type === 'root' ? row.notes || '' : row.morph || ''}`;
+    
+    if (row.type === 'root') {
+        morphElement.innerHTML = `<strong>Etymology:</strong> ${row.notes || ''}`;
+    } else {
+        // Check if the morphology exists and create hyperlinks
+        const morphologies = row.morph.split(',');
+        morphElement.innerHTML = '<strong>Morphology:</strong> ';
+        morphologies.forEach((morph, index) => {
+            const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.trim().toLowerCase() && r.type === 'root');
+            if (matchingRoot) {
+                morphElement.innerHTML += `<a href="?rootid=${matchingRoot.id}">${morph.trim()}</a>`;
+                if (index < morphologies.length - 1) {
+                    morphElement.innerHTML += ', ';
+                }
+            } else {
+                morphElement.innerHTML += `${morph.trim()}`;
+                if (index < morphologies.length - 1) {
+                    morphElement.innerHTML += ', ';
+                }
+            }
+        });
+    }
 
     contentBox.appendChild(metaElement);
     contentBox.appendChild(notesElement);
@@ -60,6 +81,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     idElement.textContent = 'ID: ' + row.id;
     box.appendChild(idElement);
 
+    // Click event for highlighting and showing related words
     box.addEventListener('click', function() {
         if (previouslySelectedBox) {
             previouslySelectedBox.classList.remove('selected-word', 'selected-root');
@@ -84,7 +106,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
         const { count, list } = getRelatedWordsByRoot(row.title, row.morph, allRows);
         if (list) {
-            relatedWordsElement.innerHTML = `${count} words related: ${list}`;
+            relatedWordsElement.innerHTML = `${count > 30 ? 'Related words: ' : ''}${list}`;
             box.appendChild(relatedWordsElement);
 
             // Check if the related words exceed 30 and make it scrollable
