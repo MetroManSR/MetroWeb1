@@ -31,11 +31,11 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('dictionary-box-notes');
-    notesElement.innerHTML = `<strong>Notes:</strong> ${row.notes || ''}`;
+    notesElement.innerHTML = `<strong>Notes:</strong> ${row.type === 'root' ? row.morph || '' : row.notes || ''}`;
 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
-    morphElement.innerHTML = `<strong>${row.type === 'root' ? 'Etymology' : 'Morphology'}:</strong> ${row.morph || ''}`;
+    morphElement.innerHTML = `<strong>${row.type === 'root' ? 'Etymology' : 'Morphology'}:</strong> ${row.type === 'root' ? row.notes || '' : row.morph || ''}`;
 
     contentBox.appendChild(metaElement);
     contentBox.appendChild(notesElement);
