@@ -10,7 +10,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
     console.log(`Current Page: ${currentPage}`);
-    const paginationContainer = document.getElementById('pagination');
+    const paginationContainer = document.getElementById('dict-pagination'); // Correct reference
     paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
@@ -111,7 +111,7 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
     console.log(`Filtered Rows: ${filteredRows.length}`);
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
     console.log(`Total Pages: ${totalPages}`);
-    const paginationContainer = document.getElementById('pagination');
+    const paginationContainer = document.getElementById('dict-pagination'); // Correct reference
     const buttons = paginationContainer.querySelectorAll('.pagination-button');
     const currentPageInput = paginationContainer.querySelector('.pagination-input');
     const totalPagesDisplay = paginationContainer.querySelector('.pagination-display');
