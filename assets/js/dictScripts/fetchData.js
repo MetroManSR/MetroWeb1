@@ -1,10 +1,12 @@
 export async function fetchData(filePath, type) {
     try {
+        console.log(`Fetching data from: ${filePath} as type: ${type}`);
         const response = await fetch(filePath);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
         const data = await response.text();
+        console.log('Raw data fetched:', data);
         return parseCSV(data, type);
     } catch (error) {
         console.error('Error loading CSV file:', error);
@@ -14,6 +16,8 @@ export async function fetchData(filePath, type) {
 function parseCSV(data, type) {
     const rows = [];
     const lines = data.split('\n').slice(1); // Remove the header row
+    console.log('Lines after header removal:', lines);
+    
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         const columns = [];
@@ -30,6 +34,7 @@ function parseCSV(data, type) {
             }
         }
         columns.push(col.trim()); // Push the last column
+        console.log('Parsed columns:', columns);
 
         let row;
         if (type === 'root') {
@@ -61,8 +66,10 @@ function parseCSV(data, type) {
             };
         }
 
+        console.log('Parsed row:', row);
         rows.push(row);
     }
+    console.log('Final parsed rows:', rows);
     return rows;
 }
 
