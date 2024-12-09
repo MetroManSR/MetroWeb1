@@ -2,10 +2,10 @@ import { fetchData } from './dictScripts/fetchData.js';
 import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
 import { initializeEventListeners } from './dictScripts/init.js';
+import { cleanData } from './dictScripts/csvUtils.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js';
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
-import { cleanData } from './dictScripts/csvUtils.js'; // Importing cleanData function
 
 function showLoadingMessage() {
     const loadingMessage = document.getElementById('dict-loading-message');
@@ -87,38 +87,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             fetchWithFallback(rootsFile, 'root')
         ]);
 
-        // Log fetched data for debugging
-        console.log('Fetched Dictionary Data:', dictionaryData);
-        console.log('Fetched Roots Data:', rootsData);
-
         // Clean fetched data
-        const cleanedDictionaryData = cleanData(dictionaryData, 'word');
-        const cleanedRootsData = cleanData(rootsData, 'root');
+        const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.title.localeCompare(b.title));
+        const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.title.localeCompare(b.title));
 
-        // Creating a string list from cleaned data
-        const stringList = [
-            ...cleanedDictionaryData.map(item => item.title || ''),
-            ...cleanedRootsData.map(item => item.title || '')
-        ].filter(Boolean); // Filtering out empty strings
+        cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
+        cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
-        console.log('String List:', stringList);
-
-        const sortedDictionaryData = cleanedDictionaryData.sort((a, b) => {
-            const titleA = a.title || '';
-            const titleB = b.title || '';
-            return titleA.localeCompare(titleB);
-        });
-
-        const sortedRootsData = cleanedRootsData.sort((a, b) => {
-            const titleA = a.title || '';
-            const titleB = b.title || '';
-            return titleA.localeCompare(titleB);
-        });
-
-        sortedDictionaryData.forEach((item, index) => { item.id = index + 1; });
-        sortedRootsData.forEach((item, index) => { item.id = index + 1; });
-
-        allRows = [...sortedDictionaryData, ...sortedRootsData];
+        allRows = [...cleanedDictionaryData, ...cleanedRootsData];
         let filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
 
         filteredRows.forEach(row => {
