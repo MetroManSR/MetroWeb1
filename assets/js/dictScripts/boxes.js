@@ -200,4 +200,5 @@ export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchI
 
     updatePagination(currentPage, filteredRows, rowsPerPage);
     updateFloatingText(filteredRows, searchTerm, [], {});
+           
 }
