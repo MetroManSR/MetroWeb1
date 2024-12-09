@@ -21,6 +21,13 @@ function hideLoadingMessage() {
     }
 }
 
+function toggleFilterOptions() {
+    const advancedFilterOptions = document.getElementById('advanced-filter-options');
+    if (advancedFilterOptions) {
+        advancedFilterOptions.classList.toggle('hidden');
+    }
+}
+
 showLoadingMessage();
 
 document.addEventListener('DOMContentLoaded', async function() {
@@ -107,6 +114,12 @@ document.addEventListener('DOMContentLoaded', async function() {
                 };
                 advancedSearch(params, allRows, rowsPerPage, displayPage);
             });
+        }
+
+        // Toggle filter options
+        const filterToggleButton = document.getElementById('filter-toggle-button');
+        if (filterToggleButton) {
+            filterToggleButton.addEventListener('click', toggleFilterOptions);
         }
 
         // Hide the loading message after JS is ready
