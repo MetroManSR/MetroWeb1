@@ -34,7 +34,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No pending changes';
     };
 
-    const triggerSearch = () => {
+    const addPendingChange = () => {
         const searchTerm = document.getElementById('search-input').value.trim();
         const searchIn = {
             word: document.getElementById('search-in-word')?.checked || false,
@@ -50,15 +50,28 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         updatePendingChangesList();
     };
 
-    document.getElementById('search-input').addEventListener('input', triggerSearch);
-
-    document.getElementById('search-button').addEventListener('click', () => {
-        const { searchTerm, exactMatch, searchIn, filters } = pendingChanges;
+    const applySettings = () => {
+        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
         const criteria = { searchTerm, exactMatch, searchIn, filters };
         processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
         pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
         updatePendingChangesList();
+    };
+
+    document.getElementById('search-input').addEventListener('input', addPendingChange);
+    document.getElementById('add-search-button').addEventListener('click', addPendingChange);
+    document.getElementById('add-filters-button').addEventListener('click', addPendingChange);
+    document.getElementById('rows-per-page-input').addEventListener('input', (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value >= 5 && value <= 500) {
+            pendingChanges.rowsPerPage = value;
+            updatePendingChangesList();
+        } else {
+            displayWarning('rows-warning', 'Please enter a value between 5 and 500');
+        }
     });
+
+    document.getElementById('apply-settings-button').addEventListener('click', applySettings);
 
     document.getElementById('clear-search-button').addEventListener('click', () => {
         document.getElementById('search-input').value = '';
@@ -73,34 +86,6 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         processRows(allRows, {}, rowsPerPage, displayPage, currentPage);
     });
 
-    document.getElementById('rows-per-page-input').addEventListener('input', (e) => {
-        const value = parseInt(e.target.value, 10);
-        if (value >= 5 && value <= 500) {
-            pendingChanges.rowsPerPage = value;
-            updatePendingChangesList();
-        } else {
-            displayWarning('rows-warning', 'Please enter a value between 5 and 500');
-        }
-    });
-
-    document.getElementById('apply-settings-button').addEventListener('click', () => {
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
-        const criteria = { searchTerm, exactMatch, searchIn, filters };
-        processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
-        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
-        updatePendingChangesList();
-    });
-
-    // Advanced search form submission
-    document.getElementById('advanced-search-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        triggerSearch();
-    });
-
-    // Remove old apply and submit buttons except for search button
-    document.getElementById('apply-filters-button')?.remove();
-    document.getElementById('apply-search-button')?.remove();
-
     // Popup window functionality for advanced search
     document.getElementById('advanced-search-button').addEventListener('click', () => {
         document.getElementById('advanced-search-popup').classList.add('active');
@@ -113,9 +98,12 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     });
 
     // Advanced search popup form submission
+    document.getElementById('add-search-button-popup').addEventListener('click', addPendingChange);
     document.getElementById('apply-search-button-popup').addEventListener('click', () => {
-        triggerSearch();
+        applySettings();
         document.getElementById('advanced-search-popup').classList.remove('active');
         document.getElementById('popup-overlay').classList.remove('active');
     });
+
+    document.getElementById('add-statistics-button').addEventListener('click', addPendingChange);
 }
