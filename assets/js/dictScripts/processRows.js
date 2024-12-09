@@ -8,7 +8,7 @@ import { renderBox, updateFloatingText } from './boxes.js';
  * @param {String} sortingManner - The manner of sorting (e.g., "title", "meta", "morph").
  * @returns {Array} - The sorted array of rows.
  */
-function sortRows(rows, sortingManner) {
+export async function sortRows(rows, sortingManner) {
     switch (sortingManner) {
         case 'title':
             return rows.sort((a, b) => a.title.localeCompare(b.title));
