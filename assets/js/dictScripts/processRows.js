@@ -9,7 +9,7 @@ import { renderBox, updateFloatingText } from './boxes.js';
  * @returns {Array} - The sorted array of rows.
  */
 export function sortRows(rows, sortingManner) {
-     console.log(`Sorting Rows ${rows} this way ${sortingManner}`)
+     console.log(`Sorting this way ${sortingManner}`)
     
     switch (sortingManner) {
    
