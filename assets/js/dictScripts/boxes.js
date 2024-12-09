@@ -1,5 +1,4 @@
 import { getRelatedWordsByRoot } from './utils.js';
-import { sanitizeHTML } from './csvUtils.js';
 import { updatePagination } from './pagination.js';
 
 let previouslySelectedBox = null;
@@ -21,7 +20,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('dictionary-box-title');
-    wordElement.innerHTML = row.title + (row.type !== 'root' ? ` (${row.morph})` : '');
+    wordElement.innerHTML = row.title + (row.type !== 'root' ? ` (${row.partofspeech})` : '');
 
     const contentBox = document.createElement('div');
     contentBox.classList.add('dictionary-box-content');
@@ -36,7 +35,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
-    morphElement.innerHTML = `<strong>${row.type === 'root' ? 'Etymology' : 'Part of Speech'}:</strong> ${row.morph || ''}`;
+    morphElement.innerHTML = `<strong>${row.type === 'root' ? 'Etymology' : 'Morphology'}:</strong> ${row.morph || ''}`;
 
     contentBox.appendChild(metaElement);
     contentBox.appendChild(notesElement);
