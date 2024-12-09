@@ -59,8 +59,9 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     };
 
     document.getElementById('search-input').addEventListener('input', addPendingChange);
-    document.getElementById('add-search-button').addEventListener('click', addPendingChange);
-    document.getElementById('add-filters-button').addEventListener('click', addPendingChange);
+    document.getElementById('search-button').addEventListener('click', addPendingChange); // For updating pending changes on search button click
+    document.getElementById('add-search-button').addEventListener('click', addPendingChange); // For updating pending changes on add search button click
+    document.getElementById('add-filters-button').addEventListener('click', addPendingChange); // For updating pending changes on add filters button click
     document.getElementById('rows-per-page-input').addEventListener('input', (e) => {
         const value = parseInt(e.target.value, 10);
         if (value >= 5 && value <= 500) {
@@ -70,11 +71,6 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
             displayWarning('rows-warning', 'Please enter a value between 5 and 500');
         }
     });
-
-    const searchButton = document.getElementById('search-button');
-    if (searchButton) {
-        searchButton.addEventListener('click', applySettings);
-    }
 
     const applySettingsButton = document.getElementById('apply-settings-button');
     if (applySettingsButton) {
