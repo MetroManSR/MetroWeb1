@@ -4,7 +4,7 @@ import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popu
 import { initializeEventListeners } from './dictScripts/init.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
-import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js'; // Added sortRows import
+import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js';
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
 
 function showLoadingMessage() {
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     let currentPage = 1;
     let allRows = [];
     let allRowsById = {};
-    let currentSortOrder = 'title'; // Default sort order
+    let currentSortOrder = 'titleup'; // Default sort order
 
     function displayError(message) {
         const errorContainer = document.getElementById('dict-error-message');
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
-        const filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
+        let filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         if (searchTerm && searchTerm.trim()) {
             const criteria = { searchTerm: searchTerm.trim() };
-            processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
+            processRows(allRows, criteria, rowsPerPage, displayPage, currentPage, currentSortOrder);
         } else if (wordID && parseInt(wordID) > 0) {
             const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
             displaySpecificEntry(wordEntry, allRows);
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     etymology: formData.get('search-in-etymology') === 'on',
                     exactMatch: formData.get('exact-match') === 'on'
                 };
-                advancedSearch(params, allRows, rowsPerPage, displayPage);
+                advancedSearch(params, allRows, rowsPerPage, displayPage, currentSortOrder);
             });
         }
 
@@ -122,6 +122,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         const filterToggleButton = document.getElementById('filter-toggle-button');
         if (filterToggleButton) {
             filterToggleButton.addEventListener('click', toggleFilterOptions);
+        }
+
+        // Sorting functionality
+        const orderBySelect = document.getElementById('dict-order-by-select');
+        if (orderBySelect) {
+            orderBySelect.addEventListener('change', () => {
+                currentSortOrder = orderBySelect.value;
+                console.log('Selected order:', currentSortOrder);
+                filteredRows = sortRows(filteredRows, currentSortOrder);
+                processRows(allRows, {}, rowsPerPage, displayPage, currentPage, currentSortOrder);
+            });
         }
 
         // Hide the loading message after JS is ready
