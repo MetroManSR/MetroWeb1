@@ -1,4 +1,4 @@
-import { getRelatedWordsByRoot, highlight } from './utils.js';
+import { getRelatedWordsByRoot } from './utils.js';
 import { sanitizeHTML } from './csvUtils.js';
 import { updatePagination } from './pagination.js';
 
@@ -52,23 +52,21 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('dictionary-box-title');
-    wordElement.innerHTML = highlight(row.word || '', searchTerm) + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
+    wordElement.innerHTML = sanitizeHTML(row.word || '') + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
 
     const definitionElement = document.createElement('div');
     definitionElement.classList.add('dictionary-box-meaning');
-    if (row.type === 'root') {
-        definitionElement.innerHTML = `
-            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
-            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
-            <div class="etymology">${document.querySelector('meta[name="language"]').content === 'es' ? 'Etimología: ' : 'Etymology: '}${highlight(row.etymology || '', searchTerm)}</div>
-        `;
-    } else {
-        definitionElement.innerHTML = `
-            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
-            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
-            <div class="root">${document.querySelector('meta[name="language"]').content === 'es' ? 'Raíz: ' : 'Root: '}${highlight(row.etymology || '', searchTerm)}</div>
-        `;
-    }
+    definitionElement.innerHTML = sanitizeHTML(row.definition || '');
+
+    const notesElement = document.createElement('div');
+    notesElement.classList.add('dictionary-box-notes');
+    notesElement.innerHTML = sanitizeHTML(row.notes || '');
+
+    const etymologyElement = document.createElement('div');
+    etymologyElement.classList.add('dictionary-box-etymology');
+    etymologyElement.innerHTML = row.type === 'root'
+        ? sanitizeHTML(row.etymology || '')
+        : `${document.querySelector('meta[name="language"]').content === 'es' ? 'Raíz: ' : 'Root: '}${sanitizeHTML(row.etymology || '')}`;
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
@@ -82,6 +80,8 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     box.appendChild(typeTag);
     box.appendChild(wordElement);
     box.appendChild(definitionElement);
+    if (row.notes) box.appendChild(notesElement); // Add notes only if available
+    if (row.etymology) box.appendChild(etymologyElement); // Add etymology only if available
 
     // Add ID display in bottom right
     const idElement = document.createElement('div');
@@ -198,4 +198,4 @@ export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchI
 
     updatePagination(currentPage, filteredRows, rowsPerPage);
     updateFloatingText(filteredRows, searchTerm, [], {});
-}
+} 
