@@ -351,3 +351,19 @@ header {
     font-size: 18px;
     color: #0078d4;
 }
+.pending-changes {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.pending-changes ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.pending-changes li {
+    margin-bottom: 5px;
+}
