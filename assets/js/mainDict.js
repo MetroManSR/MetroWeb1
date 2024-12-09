@@ -5,6 +5,7 @@ import { initializeEventListeners } from './dictScripts/init.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows } from './dictScripts/processRows.js';
+import { displayPage } from './dictScripts/dictSearch.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOMContentLoaded event triggered');
