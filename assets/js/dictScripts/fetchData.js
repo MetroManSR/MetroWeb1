@@ -1,5 +1,3 @@
-import XLSX from 'xlsx';
-
 /**
  * Fetches data from a given URL (supports .xlsx files).
  * @param {string} url - The URL of the file.
