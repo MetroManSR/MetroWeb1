@@ -5,6 +5,7 @@ import { initializeEventListeners } from './dictScripts/init.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js';
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
+import { cleanData } from './dictScripts/csvUtils.js'; // Importing cleanData function
 
 function showLoadingMessage() {
     const loadingMessage = document.getElementById('dict-loading-message');
@@ -86,30 +87,38 @@ document.addEventListener('DOMContentLoaded', async function() {
             fetchWithFallback(rootsFile, 'root')
         ]);
 
-        // Creating a string list from fetched data
+        // Log fetched data for debugging
+        console.log('Fetched Dictionary Data:', dictionaryData);
+        console.log('Fetched Roots Data:', rootsData);
+
+        // Clean fetched data
+        const cleanedDictionaryData = cleanData(dictionaryData, 'word');
+        const cleanedRootsData = cleanData(rootsData, 'root');
+
+        // Creating a string list from cleaned data
         const stringList = [
-            ...dictionaryData.map(item => item.title || ''),
-            ...rootsData.map(item => item.title || '')
+            ...cleanedDictionaryData.map(item => item.title || ''),
+            ...cleanedRootsData.map(item => item.title || '')
         ].filter(Boolean); // Filtering out empty strings
 
         console.log('String List:', stringList);
 
-        const cleanedDictionaryData = dictionaryData.sort((a, b) => {
+        const sortedDictionaryData = cleanedDictionaryData.sort((a, b) => {
             const titleA = a.title || '';
             const titleB = b.title || '';
             return titleA.localeCompare(titleB);
         });
 
-        const cleanedRootsData = rootsData.sort((a, b) => {
+        const sortedRootsData = cleanedRootsData.sort((a, b) => {
             const titleA = a.title || '';
             const titleB = b.title || '';
             return titleA.localeCompare(titleB);
         });
 
-        cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
-        cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
+        sortedDictionaryData.forEach((item, index) => { item.id = index + 1; });
+        sortedRootsData.forEach((item, index) => { item.id = index + 1; });
 
-        allRows = [...cleanedDictionaryData, ...cleanedRootsData];
+        allRows = [...sortedDictionaryData, ...sortedRootsData];
         let filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
 
         filteredRows.forEach(row => {
