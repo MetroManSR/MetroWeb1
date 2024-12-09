@@ -63,10 +63,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     await setTexts(language);
 
     // Define URLs based on language
-    const esDictURL = 'https://docs.google.com/spreadsheets/d/1YngsGd8iuSU7h9j5C4zsE8T0r4MNykJS1chHm0-XuYo/edit?usp=drivesdk';
-    const enDictURL = 'YOUR_GOOGLE_DRIVE_SHAREABLE_LINK_FOR_EN_DICT';
-    const esRootURL = 'https://docs.google.com/spreadsheets/d/1BAaWVCp5QZCxg9Xfm_EvDdlUPeZjE6j005ovmwSEh70/edit?usp=drivesdk';
-    const enRootURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/edit?usp=drivesdk';
+    const esDictURL = 'https://docs.google.com/spreadsheets/d/1ZzYEerR-BTsk5QaOefiWhS3mhQe9YQnY/export?format=xlsx';
+    const enDictURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/export?format=xlsx';
+    const esRootURL = 'https://docs.google.com/spreadsheets/d/1BAaWVCp5QZCxg9Xfm_EvDdlUPeZjE6j005ovmwSEh70/export?format=xlsx';
+    const enRootURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/export?format=xlsx';
 
     const dictionaryFile = language === 'es' ? esDictURL : enDictURL;
     const rootsFile = language === 'es' ? esRootURL : enRootURL;
@@ -87,11 +87,17 @@ document.addEventListener('DOMContentLoaded', async function() {
             fetchWithFallback(rootsFile, 'root')
         ]);
 
+        console.log('Dictionary Data:', dictionaryData);
+        console.log('Roots Data:', rootsData);
+
         const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.title.localeCompare(b.title));
         const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.title.localeCompare(b.title));
 
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
+
+        console.log('Cleaned Dictionary Data:', cleanedDictionaryData);
+        console.log('Cleaned Roots Data:', cleanedRootsData);
 
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
         let filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
@@ -99,6 +105,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
         });
+
+        console.log('All Rows:', allRows);
+        console.log('Filtered Rows:', filteredRows);
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
@@ -117,9 +126,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             processRows(allRows, criteria, rowsPerPage, displayPage, currentPage, currentSortOrder);
         } else if (wordID && parseInt(wordID) > 0) {
             const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
+            console.log('Word Entry:', wordEntry);
             displaySpecificEntry(wordEntry, allRows);
         } else if (rootID && parseInt(rootID) > 0) {
             const rootEntry = allRows.find(row => row.id === parseInt(rootID) && row.type === 'root');
+            console.log('Root Entry:', rootEntry);
             displaySpecificEntry(rootEntry, allRows);
         } else if (wordSpecificTerm && wordSpecificTerm.trim()) {
             wordSpecific(wordSpecificTerm, allRows);
