@@ -9,7 +9,7 @@ import { processRows } from './dictScripts/processRows.js';
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOMContentLoaded event triggered');
     // Display the loading message
-    document.getElementById('loading-message').style.display = 'block';
+    document.getElementById('dict-loading-message').style.display = 'block';
 
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Function to display error messages
     function displayError(message) {
-        const errorContainer = document.getElementById('error-message');
+        const errorContainer = document.getElementById('dict-error-message');
         errorContainer.innerHTML = `<p>${message}</p>`;
         errorContainer.style.display = 'block';
     }
@@ -72,12 +72,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         // Hide the loading message after JS is ready
-        document.getElementById('loading-message').style.display = 'none';
+        document.getElementById('dict-loading-message').style.display = 'none';
     } catch (error) {
         console.error('Error loading data:', error);
         displayError('Failed to load dictionary data. Please try again later.');
         // Hide the loading message in case of an error
-        document.getElementById('loading-message').style.display = 'none';
+        document.getElementById('dict-loading-message').style.display = 'none';
     }
 
     // Initialize event listeners
