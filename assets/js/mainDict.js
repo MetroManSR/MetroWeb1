@@ -62,12 +62,30 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     await setTexts(language);
 
-    const dictionaryFile = location.pathname.includes('/en/') ? '../../assets/data/english-dictionary.csv' : '../../assets/data/spanish-dictionary.csv';
-    const rootsFile = location.pathname.includes('/en/') ? '../../assets/data/english-roots.csv' : '../../assets/data/balkeon-roots-es.csv';
+    // Define URLs based on language
+    const esDictURL = 'https://docs.google.com/spreadsheets/d/1YngsGd8iuSU7h9j5C4zsE8T0r4MNykJS1chHm0-XuYo/edit?usp=drivesdk';
+    const enDictURL = 'YOUR_GOOGLE_DRIVE_SHAREABLE_LINK_FOR_EN_DICT';
+    const esRootURL = 'https://docs.google.com/spreadsheets/d/1BAaWVCp5QZCxg9Xfm_EvDdlUPeZjE6j005ovmwSEh70/edit?usp=drivesdk';
+    const enRootURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/edit?usp=drivesdk';
+
+    const dictionaryFile = language === 'es' ? esDictURL : enDictURL;
+    const rootsFile = language === 'es' ? esRootURL : enRootURL;
+
+    async function fetchWithFallback(url, type) {
+        try {
+            return await fetchData(url, type);
+        } catch (error) {
+            console.error(`Error fetching data from ${url}:`, error);
+            return [];
+        }
+    }
 
     try {
         console.log('Fetching data...');
-        const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
+        const [dictionaryData, rootsData] = await Promise.all([
+            fetchWithFallback(dictionaryFile, 'word'), 
+            fetchWithFallback(rootsFile, 'root')
+        ]);
 
         const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.title.localeCompare(b.title));
         const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.title.localeCompare(b.title));
