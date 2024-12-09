@@ -1,11 +1,11 @@
-export function getRelatedWordsByRoot(word, etymology, allRows) {
-    const etymologyRoots = etymology.split(',').map(root => root.trim().toLowerCase());
+export function getRelatedWordsByRoot(word, morph, allRows) {
+    const morphRoots = morph.split(',').map(root => root.trim().toLowerCase());
     const relatedWords = allRows.filter(row => {
-        const rowRoots = row.etymology.split(',').map(root => root.trim().toLowerCase());
-        return etymologyRoots.every(root => rowRoots.includes(root)) && row.word.toLowerCase() !== word.toLowerCase();
+        const rowMorphs = row.morph.split(',').map(root => root.trim().toLowerCase());
+        return morphRoots.some(root => rowMorphs.includes(root)) && row.title.toLowerCase() !== word.toLowerCase();
     });
 
-    const relatedWordsList = relatedWords.map(row => `<a href="?wordid=${row.id}">${row.word}</a>`).join(', ');
+    const relatedWordsList = relatedWords.map(row => `<a href="?wordid=${row.id}">${row.title}</a>`).join(', ');
     const relatedWordsCount = relatedWords.length;
 
     return {
@@ -56,7 +56,7 @@ function parseCSV(data) {
 }
 
 export function cleanData(data, type) {
-    return data.filter(row => row.word && row.definition).map((row, index) => ({
+    return data.filter(row => row.title && row.meta).map((row, index) => ({
         ...row,
         id: index + 1,
         type

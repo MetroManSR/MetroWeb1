@@ -5,12 +5,28 @@ import { initializeEventListeners } from './dictScripts/init.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows } from './dictScripts/processRows.js';
-import { displayPage } from './dictScripts/dictSearch.js';
+import { displayPage, displaySpecificEntry } from './dictScripts/dictSearch.js'; // Assuming you have this function
+
+function showLoadingMessage() {
+    const loadingMessage = document.getElementById('dict-loading-message');
+    if (loadingMessage) {
+        loadingMessage.style.display = 'block';
+    }
+}
+
+function hideLoadingMessage() {
+    const loadingMessage = document.getElementById('dict-loading-message');
+    if (loadingMessage) {
+        loadingMessage.style.display = 'none';
+    }
+}
+
+showLoadingMessage();
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOMContentLoaded event triggered');
-    // Display the loading message
-    document.getElementById('dict-loading-message').style.display = 'block';
+
+    hideLoadingMessage();
 
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
@@ -19,14 +35,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     let allRows = [];
     let allRowsById = {};
 
-    // Function to display error messages
     function displayError(message) {
         const errorContainer = document.getElementById('dict-error-message');
         errorContainer.innerHTML = `<p>${message}</p>`;
         errorContainer.style.display = 'block';
     }
 
-    // Fetch the frontmatter to determine the language
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
     console.log('Language set to:', language);
 
@@ -39,17 +53,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
 
-        // Clean and sort data alphabetically
-        const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.word.localeCompare(b.word));
-        const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.word.localeCompare(b.word));
+        const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.title.localeCompare(b.title));
+        const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.title.localeCompare(b.title));
 
-        // Assign unique IDs to roots and words separately, starting at 1
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
-        // Combine the cleaned and sorted data for display
-        allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.word.localeCompare(b.word));
-        filteredRows = allRows.filter(row => row.word && row.definition);
+        allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.title.localeCompare(b.title));
+        filteredRows = allRows.filter(row => row.title && row.meta);
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
@@ -59,17 +70,18 @@ document.addEventListener('DOMContentLoaded', async function() {
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
         displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
 
+        // Handle URL parameters
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
         const wordID = params.get('wordid');
         const rootID = params.get('rootid');
-        if ((searchTerm && searchTerm.trim()) || (wordID && parseInt(wordID) > 0) || (rootID && parseInt(rootID) > 0)) {
-            const criteria = {
-                searchTerm: searchTerm ? searchTerm.trim() : '',
-                wordID: wordID,
-                rootID: rootID
-            };
+        if (searchTerm && searchTerm.trim()) {
+            const criteria = { searchTerm: searchTerm.trim() };
             processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
+        } else if (wordID && parseInt(wordID) > 0) {
+            displaySpecificEntry(allRowsById[wordID], allRows); // Display specific word entry
+        } else if (rootID && parseInt(rootID) > 0) {
+            displaySpecificEntry(allRowsById[rootID], allRows); // Display specific root entry
         }
 
         // Hide the loading message after JS is ready

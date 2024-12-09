@@ -1,43 +1,11 @@
-import { getRelatedWordsByRoot, highlight } from './utils.js';
-import { sanitizeHTML } from './csvUtils.js';
+import { getRelatedWordsByRoot } from './utils.js';
 import { updatePagination } from './pagination.js';
 
 let previouslySelectedBox = null;
 
-function getPartOfSpeechAbbreviation(partOfSpeech, language) {
-    if (!partOfSpeech) return ''; // Return an empty string if partOfSpeech is undefined
-
-    const abbreviations = {
-        en: {
-            noun: 'n.',
-            verb: 'v.',
-            adjective: 'adj.',
-            adverb: 'adv.',
-            conjunction: 'conj.',
-            interjection: 'int.',
-            preposition: 'prep.',
-            expression: 'expr.',
-            pronoun: 'pron.'
-        },
-        es: {
-            noun: 's.',
-            verb: 'v.',
-            adjective: 'adj.',
-            adverb: 'adv.',
-            conjunction: 'conj.',
-            interjection: 'interj.',
-            preposition: 'prep.',
-            expression: 'expr.',
-            pronoun: 'pron.'
-        }
-    };
-
-    return abbreviations[language] && abbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
-}
-
 // Function to create a dictionary box
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
-    if (!row || !row.word) {
+    if (!row || !row.title) {
         console.error('Invalid row data:', row);
         return null;
     }
@@ -51,24 +19,48 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     }
 
     const wordElement = document.createElement('div');
-    wordElement.classList.add('title');
-    wordElement.innerHTML = highlight(row.word || '', searchTerm) + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
+    wordElement.classList.add('dictionary-box-title');
+    wordElement.innerHTML = row.title + (row.type !== 'root' ? ` (${row.partofspeech})` : '');
 
-    const definitionElement = document.createElement('div');
-    definitionElement.classList.add('meaning-box');
+    const contentBox = document.createElement('div');
+    contentBox.classList.add('dictionary-box-content');
+
+    const metaElement = document.createElement('div');
+    metaElement.classList.add('dictionary-box-meta');
+    metaElement.innerHTML = `<strong>Translation:</strong> ${row.meta || ''}`;
+
+    const notesElement = document.createElement('div');
+    notesElement.classList.add('dictionary-box-notes');
+    notesElement.innerHTML = `<strong>Notes:</strong> ${row.type === 'root' ? row.morph || '' : row.notes || ''}`;
+
+    const morphElement = document.createElement('div');
+    morphElement.classList.add('dictionary-box-morph');
+    
     if (row.type === 'root') {
-        definitionElement.innerHTML = `
-            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
-            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
-            <div class="etymology">${document.querySelector('meta[name="language"]').content === 'es' ? 'Etimología: ' : 'Etymology: '}${highlight(row.etymology || '', searchTerm)}</div>
-        `;
+        morphElement.innerHTML = `<strong>Etymology:</strong> ${row.notes || ''}`;
     } else {
-        definitionElement.innerHTML = `
-            <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
-            <div class="explanation">${highlight(row.notes || '', searchTerm)}</div>
-            <div class="root">${document.querySelector('meta[name="language"]').content === 'es' ? 'Raíz: ' : 'Root: '}${highlight(row.etymology || '', searchTerm)}</div>
-        `;
+        // Check if the morphology exists and create hyperlinks
+        const morphologies = row.morph.split(',');
+        morphElement.innerHTML = '<strong>Morphology:</strong> ';
+        morphologies.forEach((morph, index) => {
+            const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.trim().toLowerCase() && r.type === 'root');
+            if (matchingRoot) {
+                morphElement.innerHTML += `<a href="?rootid=${matchingRoot.id}">${morph.trim()}</a>`;
+                if (index < morphologies.length - 1) {
+                    morphElement.innerHTML += ', ';
+                }
+            } else {
+                morphElement.innerHTML += `${morph.trim()}`;
+                if (index < morphologies.length - 1) {
+                    morphElement.innerHTML += ', ';
+                }
+            }
+        });
     }
+
+    contentBox.appendChild(metaElement);
+    contentBox.appendChild(notesElement);
+    contentBox.appendChild(morphElement);
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
@@ -81,7 +73,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     box.appendChild(typeTag);
     box.appendChild(wordElement);
-    box.appendChild(definitionElement);
+    box.appendChild(contentBox);
 
     // Add ID display in bottom right
     const idElement = document.createElement('div');
@@ -89,6 +81,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     idElement.textContent = 'ID: ' + row.id;
     box.appendChild(idElement);
 
+    // Click event for highlighting and showing related words
     box.addEventListener('click', function() {
         if (previouslySelectedBox) {
             previouslySelectedBox.classList.remove('selected-word', 'selected-root');
@@ -111,9 +104,9 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
         relatedWordsElement.className = 'related-words';
         relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
 
-        const { count, list } = getRelatedWordsByRoot(row.word, row.etymology, allRows);
+        const { count, list } = getRelatedWordsByRoot(row.title, row.morph, allRows);
         if (list) {
-            relatedWordsElement.innerHTML = `${count} words related: ${list}`;
+            relatedWordsElement.innerHTML = `${count > 30 ? 'Related words: ' : ''}${list}`;
             box.appendChild(relatedWordsElement);
 
             // Check if the related words exceed 30 and make it scrollable
@@ -175,7 +168,7 @@ export function updateFloatingText(filteredRows, searchTerm, filters, advancedSe
 }
 
 export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
-    const dictionaryContainer = document.getElementById('dictionary');
+    const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
     if (filteredRows.length === 0) {

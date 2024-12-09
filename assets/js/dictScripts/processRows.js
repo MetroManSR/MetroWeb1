@@ -23,21 +23,21 @@ export function processRows(allRows, criteria, rowsPerPage, displayPage, current
     // Apply search term filtering
     if (searchTerm) {
         filteredRows = filteredRows.filter(row => {
-            const wordMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-            const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
-            const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
-            const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
-            return wordMatch || rootMatch || definitionMatch || etymologyMatch;
+            const titleMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.title === searchTerm : row.title.toLowerCase().includes(searchTerm.toLowerCase()));
+            const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.title === searchTerm : row.title.toLowerCase().includes(searchTerm.toLowerCase()));
+            const definitionMatch = searchIn.definition && (exactMatch ? row.meta === searchTerm : row.meta.toLowerCase().includes(searchTerm.toLowerCase()));
+            const etymologyMatch = searchIn.etymology && (exactMatch ? row.morph === searchTerm : row.morph.toLowerCase().includes(searchTerm.toLowerCase()));
+            return titleMatch || rootMatch || definitionMatch || etymologyMatch;
         });
     }
 
     // Apply filter criteria
     if (filters.length > 0) {
-        filteredRows = filteredRows.filter(row => filters.includes(row.type) || filters.includes(row.partOfSpeech?.toLowerCase()));
+        filteredRows = filteredRows.filter(row => filters.includes(row.type) || filters.includes(row.partofspeech?.toLowerCase()));
     }
 
-    // Sort filtered rows alphabetically by word
-    filteredRows.sort((a, b) => a.word.localeCompare(b.word));
+    // Sort filtered rows alphabetically by title
+    filteredRows.sort((a, b) => a.title.localeCompare(b.title));
 
     // Update pagination and render boxes
     createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);

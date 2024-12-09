@@ -1,10 +1,12 @@
 export async function fetchData(filePath, type) {
     try {
+        console.log(`Fetching data from: ${filePath} as type: ${type}`);
         const response = await fetch(filePath);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
         const data = await response.text();
+        console.log('Raw data fetched:', data);
         return parseCSV(data, type);
     } catch (error) {
         console.error('Error loading CSV file:', error);
@@ -14,6 +16,8 @@ export async function fetchData(filePath, type) {
 function parseCSV(data, type) {
     const rows = [];
     const lines = data.split('\n').slice(1); // Remove the header row
+    console.log('Lines after header removal:', lines);
+    
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         const columns = [];
@@ -30,6 +34,7 @@ function parseCSV(data, type) {
             }
         }
         columns.push(col.trim()); // Push the last column
+        console.log('Parsed columns:', columns);
 
         let row;
         if (type === 'root') {
@@ -37,31 +42,34 @@ function parseCSV(data, type) {
             const raw = columns[0] || '';
             const [root, rest] = raw.split(' = ');
             const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-            const [notes, origin] = meta ? meta.slice(0, -1).split(', ') : ['', ''];
+            const [notes, origin] = meta ? meta.slice(0, -1).split(', et ') : ['', ''];
 
             row = {
                 id: i + 1, // Assign a unique ID starting from 1
-                word: sanitizeHTML(root ? root.trim() : ''),
-                translation: sanitizeHTML(translation ? translation.trim() : ''),
+                type: 'root',
+                title: sanitizeHTML(root ? root.trim() : ''),
+                partofspeech: '', // Empty for roots
+                meta: sanitizeHTML(translation ? translation.trim() : ''),
                 notes: sanitizeHTML(notes ? notes.trim() : ''),
-                etymology: sanitizeHTML(origin ? origin.trim() : ''),
-                type: 'root'
+                morph: sanitizeHTML(origin ? origin.trim() : '')
             };
         } else {
             // Process as word
             row = {
                 id: i + 1, // Assign a unique ID starting from 1
-                word: sanitizeHTML(columns[0]),
-                partOfSpeech: sanitizeHTML(columns[1]),
-                definition: sanitizeHTML(columns[2]),
-                explanation: sanitizeHTML(columns[3]),
-                etymology: sanitizeHTML(columns[4]),
-                type: 'word'
+                type: 'word',
+                title: sanitizeHTML(columns[0]),
+                partofspeech: sanitizeHTML(columns[1]), // Part of speech
+                meta: sanitizeHTML(columns[2]), // Translation or definition
+                notes: sanitizeHTML(columns[3]),
+                morph: sanitizeHTML(columns[4]), // Other relevant morphological info
             };
         }
 
+        console.log('Parsed row:', row);
         rows.push(row);
     }
+    console.log('Final parsed rows:', rows);
     return rows;
 }
 
