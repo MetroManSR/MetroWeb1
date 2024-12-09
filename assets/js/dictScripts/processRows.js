@@ -9,10 +9,8 @@ import { renderBox, updateFloatingText } from './boxes.js';
  * @returns {Array} - The sorted array of rows.
  */
 export function sortRows(rows, sortingManner) {
-     console.log(`Sorting this way ${sortingManner}`)
-    
+    console.log(`Sorting rows by: ${sortingManner}`);
     switch (sortingManner) {
-   
         case 'title':
             return rows.sort((a, b) => a.title.localeCompare(b.title));
         case 'meta':
@@ -42,6 +40,7 @@ export function processRows(allRows, criteria, rowsPerPage, displayPage, current
         filters = []
     } = criteria;
 
+    console.log('Initial allRows:', allRows);
     let filteredRows = allRows;
 
     // Apply search term filtering
@@ -53,15 +52,18 @@ export function processRows(allRows, criteria, rowsPerPage, displayPage, current
             const etymologyMatch = searchIn.etymology && (exactMatch ? row.morph === searchTerm : row.morph.toLowerCase().includes(searchTerm.toLowerCase()));
             return titleMatch || rootMatch || definitionMatch || etymologyMatch;
         });
+        console.log('After search term filtering:', filteredRows);
     }
 
     // Apply filter criteria
     if (filters.length > 0) {
         filteredRows = filteredRows.filter(row => filters.includes(row.type) || filters.includes(row.partofspeech?.toLowerCase()));
+        console.log('After filter criteria:', filteredRows);
     }
 
     // Sort filtered rows based on the current sorting manner
     filteredRows = sortRows(filteredRows, sortingManner);
+    console.log('After sorting:', filteredRows);
 
     // Update pagination and render boxes
     createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
@@ -100,9 +102,11 @@ export function advancedSearch(params, allRows = [], rowsPerPage, displayPage, s
         const etymologyMatch = searchIn.etymology && (params.exactMatch ? row.morph === params.searchTerm : row.morph.toLowerCase().includes(params.searchTerm.toLowerCase()));
         return wordMatch || rootMatch || definitionMatch || etymologyMatch;
     });
+    console.log('Filtered rows before sorting:', filteredRows);
 
     // Sort filtered rows based on the current sorting manner
     filteredRows = sortRows(filteredRows, sortingManner);
+    console.log('Filtered rows after sorting:', filteredRows);
 
     createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
     renderBox(filteredRows, allRows, params.searchTerm, params.exactMatch, searchIn, rowsPerPage, 1);
