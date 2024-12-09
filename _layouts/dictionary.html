@@ -1,8 +1,6 @@
 ---
 layout: default
----
-
-<!DOCTYPE html>
+---<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,15 +10,6 @@ layout: default
     <link rel="stylesheet" href="../../../assets/css/dictionary-style.css">
     <script src="../../../assets/js/dictScripts/loadTexts.js" type="module"></script>
     <script src="../../../assets/js/mainDict.js" type="module"></script>
-    <script>
-        // Ensure setTexts is defined before using it
-        import { setTexts } from '../../../assets/js/dictScripts/loadTexts.js';
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const language = document.querySelector('meta[name="language"]').content || 'en';
-            setTexts(language);
-        });
-    </script>
 </head>
 <body>
     <header>
@@ -83,15 +72,7 @@ layout: default
 
         <button id="dict-apply-settings-button" class="btn">Apply Settings</button>
         <button id="dict-clear-settings-button" class="btn btn-danger">Clear Settings</button>
-
-        <!-- Loading Message -->
-        <div id="dict-loading-message" class="dict-loading-message">
-            <p id="dict-loading-message-text">Loading dictionary, please wait...</p>
-        </div>
         
-        <div id="dict-dictionary"></div>
-        <div id="dict-pagination" class="dict-pagination"></div> <!-- Ensure this div is present for pagination -->
-
         <!-- Popup for advanced search -->
         <div class="dict-popup-overlay" id="dict-popup-overlay"></div>
         <div class="dict-popup" id="dict-advanced-search-popup">
@@ -126,6 +107,10 @@ layout: default
 
         <!-- Error Message Container -->
         <div id="dict-error-message" class="dict-error-message" style="display: none;"></div>
+   
+        <div id="dict-dictionary"></div>
+        <div id="dict-pagination" class="dict-pagination"></div> <!-- Ensure this div is present for pagination -->
+
     </main>
 </body>
 </html>
