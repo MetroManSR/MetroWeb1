@@ -1,16 +1,16 @@
 import { fetchData } from './dictScripts/fetchData.js';
 import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
-import { filterAndDisplayWord, displayPage } from './dictScripts/dictSearch.js';
 import { initializeEventListeners } from './dictScripts/init.js';
-import { cleanData, sanitizeHTML } from './dictScripts/csvUtils.js';
-import { createPaginationControls, updatePagination } from './dictScripts/pagination.js';
-import { createDictionaryBox } from './dictScripts/boxes.js';
+import { cleanData } from './dictScripts/csvUtils.js';
+import { createPaginationControls } from './dictScripts/pagination.js';
+import { processRows } from './dictScripts/processRows.js';
+import { displayPage } from './dictScripts/dictSearch.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOMContentLoaded event triggered');
     // Display the loading message
-    document.getElementById('loading-message').style.display = 'block';
+    document.getElementById('dict-loading-message').style.display = 'block';
 
     const defaultRowsPerPage = 20;
     let rowsPerPage = defaultRowsPerPage;
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Function to display error messages
     function displayError(message) {
-        const errorContainer = document.getElementById('error-message');
+        const errorContainer = document.getElementById('dict-error-message');
         errorContainer.innerHTML = `<p>${message}</p>`;
         errorContainer.style.display = 'block';
     }
@@ -57,30 +57,35 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows, currentPage);
+        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
 
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
         const wordID = params.get('wordid');
         const rootID = params.get('rootid');
         if ((searchTerm && searchTerm.trim()) || (wordID && parseInt(wordID) > 0) || (rootID && parseInt(rootID) > 0)) {
-            filterAndDisplayWord(searchTerm ? searchTerm.trim() : '', wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage, currentPage);
+            const criteria = {
+                searchTerm: searchTerm ? searchTerm.trim() : '',
+                wordID: wordID,
+                rootID: rootID
+            };
+            processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
         }
 
         // Hide the loading message after JS is ready
-        document.getElementById('loading-message').style.display = 'none';
+        document.getElementById('dict-loading-message').style.display = 'none';
     } catch (error) {
         console.error('Error loading data:', error);
         displayError('Failed to load dictionary data. Please try again later.');
         // Hide the loading message in case of an error
-        document.getElementById('loading-message').style.display = 'none';
+        document.getElementById('dict-loading-message').style.display = 'none';
     }
 
     // Initialize event listeners
     initializeEventListeners(allRows, allRowsById, rowsPerPage);
 
     // Initialize popup systems
-    initAdvancedSearchPopup();
+    initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
     initStatisticsPopup(allRows);
     console.log('Initialization complete');
 });

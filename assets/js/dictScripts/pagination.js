@@ -7,37 +7,51 @@
  * @param {Function} displayPage - Function to display the given page.
  */
 export function createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage) {
-    const paginationContainer = document.getElementById('pagination');
+    console.log(`Rows per page: ${rowsPerPage}`);
+    console.log(`Filtered Rows: ${filteredRows.length}`);
+    console.log(`Current Page: ${currentPage}`);
+    const paginationContainer = document.getElementById('dict-pagination'); // Correct reference
     paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    console.log(`Total Pages: ${totalPages}`);
 
-    const createPageButton = (pageNumber, label) => {
+    const createPageButton = (label, onClick) => {
         const button = document.createElement('button');
         button.innerHTML = label;
         button.classList.add('pagination-button');
-        if (pageNumber === currentPage) {
-            button.classList.add('active');
-        }
-
+        let isCooldown = false;
         button.addEventListener('click', () => {
-            displayPage(pageNumber, rowsPerPage);
+            if (!isCooldown) {
+                isCooldown = true;
+                onClick();
+                setTimeout(() => {
+                    isCooldown = false;
+                }, 500); // 0.5 seconds cooldown
+            }
         });
-
         return button;
     };
 
     // Add go to beginning button
-    const beginButton = createPageButton(1, '&laquo;');
+    const beginButton = createPageButton('⏮️', () => {
+        if (currentPage > 1) {
+            currentPage = 1;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
     paginationContainer.appendChild(beginButton);
 
     // Add previous button
-    if (currentPage > 1) {
-        const prevButton = createPageButton(currentPage - 1, '&lsaquo;');
-        paginationContainer.appendChild(prevButton);
-    }
+    const prevButton = createPageButton('⬅️', () => {
+        if (currentPage > 1) {
+            currentPage -= 1;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
+    paginationContainer.appendChild(prevButton);
 
-    // Add current page input
+    // Add current page input and total pages display
     const currentPageInput = document.createElement('input');
     currentPageInput.type = 'number';
     currentPageInput.value = currentPage;
@@ -48,27 +62,40 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     currentPageInput.addEventListener('change', () => {
         let pageNumber = parseInt(currentPageInput.value, 10);
         if (pageNumber >= 1 && pageNumber <= totalPages) {
-            displayPage(pageNumber, rowsPerPage);
+            currentPage = pageNumber;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
         } else {
             currentPageInput.value = currentPage;
         }
     });
 
-    const currentPageDisplay = document.createElement('span');
-    currentPageDisplay.textContent = ` / ${totalPages}`;
-    currentPageDisplay.classList.add('pagination-display');
+    const totalPagesDisplay = document.createElement('span');
+    totalPagesDisplay.textContent = ` / ${totalPages}`;
+    totalPagesDisplay.classList.add('pagination-display');
 
-    paginationContainer.appendChild(currentPageInput);
-    paginationContainer.appendChild(currentPageDisplay);
+    const pageContainer = document.createElement('div');
+    pageContainer.classList.add('pagination-page-display');
+    pageContainer.appendChild(currentPageInput);
+    pageContainer.appendChild(totalPagesDisplay);
+
+    paginationContainer.appendChild(pageContainer);
 
     // Add next button
-    if (currentPage < totalPages) {
-        const nextButton = createPageButton(currentPage + 1, '&rsaquo;');
-        paginationContainer.appendChild(nextButton);
-    }
+    const nextButton = createPageButton('➡️', () => {
+        if (currentPage < totalPages) {
+            currentPage += 1;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
+    paginationContainer.appendChild(nextButton);
 
     // Add go to last button
-    const endButton = createPageButton(totalPages, '&raquo;');
+    const endButton = createPageButton('⏭️', () => {
+        if (currentPage < totalPages) {
+            currentPage = totalPages;
+            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
+        }
+    });
     paginationContainer.appendChild(endButton);
 }
 
@@ -80,11 +107,14 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
  * @param {number} rowsPerPage - The number of rows to display per page.
  */
 export function updatePagination(currentPage, filteredRows, rowsPerPage) {
+    console.log(`Rows per page: ${rowsPerPage}`);
+    console.log(`Filtered Rows: ${filteredRows.length}`);
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
-    const paginationContainer = document.getElementById('pagination');
+    console.log(`Total Pages: ${totalPages}`);
+    const paginationContainer = document.getElementById('dict-pagination'); // Correct reference
     const buttons = paginationContainer.querySelectorAll('.pagination-button');
     const currentPageInput = paginationContainer.querySelector('.pagination-input');
-    const currentPageDisplay = paginationContainer.querySelector('.pagination-display');
+    const totalPagesDisplay = paginationContainer.querySelector('.pagination-display');
 
     buttons.forEach((button) => {
         button.classList.remove('active');
@@ -92,18 +122,20 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
 
     if (currentPageInput) {
         currentPageInput.value = currentPage;
+        console.log('CurrentPageInput Check');
     } else {
         console.error('currentPageInput is undefined');
     }
 
-    if (currentPageDisplay) {
-        currentPageDisplay.textContent = ` / ${totalPages}`;
+    if (totalPagesDisplay) {
+        totalPagesDisplay.textContent = ` / ${totalPages}`;
+        console.log('TotalPagesDisplay Check');
     } else {
-        console.error('currentPageDisplay is undefined');
+        console.error('totalPagesDisplay is undefined');
     }
 
-    buttons.forEach((button, index) => {
-        if (index + 1 === currentPage) {
+    buttons.forEach((button) => {
+        if (parseInt(button.innerHTML) === currentPage) {
             button.classList.add('active');
         }
     });

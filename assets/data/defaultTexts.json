@@ -26,7 +26,16 @@
         "expression": "Expression",
         "pronoun": "Pronoun",
         "loadingMessage": "Loading dictionary, please wait...",
-        "errorLoadingData": "Failed to load dictionary data. Please try again later."
+        "errorLoadingData": "Failed to load dictionary data. Please try again later.",
+        "applySettingsButton": "Apply Settings",
+        "clearSettingsButton": "Clear Settings",
+        "orderByLabel": "Order By:",
+        "idAsc": "ID (Ascending)",
+        "idDesc": "ID (Descending)",
+        "definitionAsc": "Definition (A to Z)",
+        "definitionDesc": "Definition (Z to A)",
+        "wordAsc": "Word (A to Z)",
+        "wordDesc": "Word (Z to A)"
     },
     "es": {
         "searchPlaceholder": "Buscar...",
@@ -55,11 +64,20 @@
         "expression": "Expresión",
         "pronoun": "Pronombre",
         "loadingMessage": "Cargando diccionario, por favor espera...",
-        "errorLoadingData": "No se pudo cargar los datos del diccionario. Por favor, inténtalo de nuevo más tarde."
+        "errorLoadingData": "No se pudo cargar los datos del diccionario. Por favor, inténtalo de nuevo más tarde.",
+        "applySettingsButton": "Aplicar Configuraciones",
+        "clearSettingsButton": "Limpiar Configuraciones",
+        "orderByLabel": "Ordenar Por:",
+        "idAsc": "ID (Ascendente)",
+        "idDesc": "ID (Descendente)",
+        "definitionAsc": "Definición (A a Z)",
+        "definitionDesc": "Definición (Z a A)",
+        "wordAsc": "Palabra (A a Z)",
+        "wordDesc": "Palabra (Z a A)"
     },
     "eo": {
         "searchPlaceholder": "Serĉi...",
-        "searchButton": "Serĉi?",
+        "searchButton": "Serĉi",
         "clearSearchButton": "Malplenigi serĉejon",
         "rowsPerPageLabel": "Linioj en ĉiu paĝo",
         "rowsPerPageButton": "Sendi",

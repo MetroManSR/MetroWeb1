@@ -12,12 +12,12 @@ header {
 }
 
 /* Search Container */
-.search-container {
+.dict-search-container {
     text-align: center;
     padding: 20px;
 }
 
-.search-input, .rows-input, .filter-select {
+.dict-search-input, .dict-rows-input, .dict-filter-select {
     padding: 5px;
     margin: 5px;
     font-size: 16px;
@@ -48,22 +48,22 @@ header {
 }
 
 /* Filter Dropdown */
-#filter-dropdown {
+.dict-filter-dropdown-container {
     text-align: center;
     margin: 20px 0;
 }
 
-#filter-dropdown label {
+.dict-filter-dropdown label {
     margin-right: 10px;
 }
 
-#word-filter {
+.dict-filter-select {
     padding: 5px;
     font-size: 16px;
 }
 
 /* Pagination Container */
-.pagination-container {
+.dict-pagination-container {
     text-align: center;
     margin: 20px 0;
 }
@@ -103,7 +103,7 @@ header {
 }
 
 /* Error Message */
-.error-message {
+.dict-error-message {
     text-align: center;
     padding: 20px;
     color: #d9534f;
@@ -127,12 +127,32 @@ header {
 
 /* Root Word Box */
 .root-word {
-    background-color: #d8eaff;
+    background-color: #2a572a; /* Dark green */
+    border: 2px solid #2a572a;
+}
+
+.root-word .meaning-box {
+    background-color: #c7e0c7; /* Lighter shade of green */
+}
+
+.root-word .dictionary-box.selected {
+    background-color: #dff2df; /* Another lighter shade of green */
+    border: 3px solid #1c391c;
 }
 
 /* Word Box */
 .word {
-    background-color: #e9ffd8;
+    background-color: #003366; /* Dark blue */
+    border: 2px solid #003366;
+}
+
+.word .meaning-box {
+    background-color: #9fc3e9; /* Lighter shade of blue */
+}
+
+.word .dictionary-box.selected {
+    background-color: #b5d2f2; /* Another lighter shade of blue */
+    border: 3px solid #002244;
 }
 
 /* Meaning Box */
@@ -160,8 +180,28 @@ header {
     color: #aaa;
 }
 
+/* No Match Box */
+.dictionary-box.no-match {
+    background-color: lightyellow;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Loading Box */
+.dictionary-box.loading {
+    background-color: #d3d3d3;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
 /* Popup Styles */
-.popup-overlay {
+.dict-popup-overlay {
     display: none;
     position: fixed;
     top: 0;
@@ -172,11 +212,11 @@ header {
     z-index: 999;
 }
 
-.popup-overlay.active {
+.dict-popup-overlay.active {
     display: block;
 }
 
-.popup {
+.dict-popup {
     display: none;
     position: fixed;
     top: 10%;
@@ -192,17 +232,17 @@ header {
     z-index: 1000;
 }
 
-.popup.active {
+.dict-popup.active {
     display: block;
 }
 
-.popup label {
+.dict-popup label {
     display: inline-block;
     margin-bottom: 10px;
     vertical-align: middle;
 }
 
-.popup input[type="checkbox"] {
+.dict-popup input[type="checkbox"] {
     margin-right: 5px;
     vertical-align: middle;
 }
@@ -271,7 +311,7 @@ header {
 }
 
 /* Statistics Popup */
-.statistics-popup {
+.dict-statistics-popup {
     display: none;
     position: fixed;
     top: 10%;
@@ -287,27 +327,155 @@ header {
     z-index: 1000;
 }
 
-.statistics-popup.active {
+.dict-statistics-popup.active {
     display: block;
 }
 
-.statistics-popup h3 {
+.dict-statistics-popup h3 {
     margin-top: 0;
 }
 
-.statistics-popup ul {
+.dict-statistics-popup ul {
     list-style-type: none;
     padding: 0;
 }
 
-.statistics-popup li {
+.dict-statistics-popup li {
     margin-bottom: 5px;
 }
 
 /* Loading Message */
-.loading-message {
+.dict-loading-message {
     text-align: center;
     padding: 20px;
     font-size: 18px;
     color: #0078d4;
+}
+
+/* Pending Changes */
+.dict-pending-changes {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.dict-pending-changes ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.dict-pending-changes li {
+    margin-bottom: 5px;
+}
+
+
+/* Dictionary Box Styles */
+.dict-box {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 5px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.dict-box-empty {
+    background-color: #e0e0e0; /* Gray for non-loaded boxes */
+}
+
+.dict-box-loaded {
+    background-color: #cce5ff; /* Light blue for loaded boxes */
+    border-color: #b3d7ff;
+}
+
+.dict-box-no-match {
+    background-color: #ffebcc; /* Yellow for no match boxes */
+    border-color: #ffd699;
+}
+
+.dict-box-root {
+    background-color: #d4edda; /* Green for root boxes */
+    border-color: #c3e6cb;
+}
+
+.dict-box-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.dict-box-word {
+    font-weight: bold;
+    color: #0056b3;
+    background-color: #d6eaff;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.dict-box-type {
+    background-color: #cce5ff; /* Light blue for type tag */
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: #004085;
+}
+
+.dict-box-meaning {
+    font-size: 0.9em;
+    color: #333;
+    background-color: #e6f3ff; /* Blue tones for meaning box */
+    padding: 5px;
+    border-radius: 3px;
+}
+
+/* Floating Text */
+.floating-text {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 120, 212, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Related Words Scrollable Box */
+.scrollable-box {
+    max-height: 100px;
+    overflow-y: scroll;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Selected Word and Root Styles */
+.selected-word {
+    border: 2px solid #0056b3; /* Highlight for selected word */
+}
+
+.selected-root {
+    border: 2px solid #2a572a; /* Highlight for selected root */
+}
+
+/* General Box Fade-in Effect */
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.dict-hidden {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
 }

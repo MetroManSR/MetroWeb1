@@ -1,5 +1,6 @@
 import { getRelatedWordsByRoot, highlight } from './utils.js';
 import { sanitizeHTML } from './csvUtils.js';
+import { updatePagination } from './pagination.js';
 
 let previouslySelectedBox = null;
 
@@ -36,8 +37,6 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
 
 // Function to create a dictionary box
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
-    console.log('Creating box for:', row);
-
     if (!row || !row.word) {
         console.error('Invalid row data:', row);
         return null;
@@ -90,8 +89,6 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     idElement.textContent = 'ID: ' + row.id;
     box.appendChild(idElement);
 
-    console.log('Created box:', box);
-
     box.addEventListener('click', function() {
         if (previouslySelectedBox) {
             previouslySelectedBox.classList.remove('selected-word', 'selected-root');
@@ -134,4 +131,71 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     }, 100);
 
     return box;
+}
+
+// Function to create a no match box
+export function createNoMatchBox() {
+    const noMatchBox = document.createElement('div');
+    noMatchBox.className = 'dictionary-box no-match';
+    noMatchBox.textContent = 'No match for your search';
+    return noMatchBox;
+}
+
+// Function to create a loading box
+export function createLoadingBox() {
+    const loadingBox = document.createElement('div');
+    loadingBox.className = 'dictionary-box loading';
+    return loadingBox;
+}
+
+// Function to update the floating text
+export function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams) {
+    let floatingTextContent = `${filteredRows.length} words found`;
+
+    if (searchTerm) {
+        floatingTextContent += ` when looking for "${searchTerm}"`;
+    }
+    if (filters.length > 0) {
+        floatingTextContent += ` with filters: ${filters.join(", ")}`;
+    }
+    if (advancedSearchParams) {
+        floatingTextContent += ` with advanced search applied: ${Object.keys(advancedSearchParams).join(", ")}`;
+    }
+
+    const floatingText = document.getElementById('floating-text');
+    if (floatingText) {
+        floatingText.textContent = floatingTextContent;
+    } else {
+        const newFloatingText = document.createElement('div');
+        newFloatingText.id = 'floating-text';
+        newFloatingText.className = 'floating-text';
+        newFloatingText.textContent = floatingTextContent;
+        document.body.appendChild(newFloatingText);
+    }
+}
+
+export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
+    const dictionaryContainer = document.getElementById('dictionary');
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+    if (filteredRows.length === 0) {
+        dictionaryContainer.appendChild(createNoMatchBox());
+        updatePagination(currentPage, filteredRows, rowsPerPage);
+        updateFloatingText(filteredRows, searchTerm, [], {});
+        return;
+    }
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const rowsToDisplay = filteredRows.slice(start, end);
+
+    rowsToDisplay.forEach((row) => {
+        const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        if (box) {
+            dictionaryContainer.appendChild(box);
+        }
+    });
+
+    updatePagination(currentPage, filteredRows, rowsPerPage);
+    updateFloatingText(filteredRows, searchTerm, [], {});
 }

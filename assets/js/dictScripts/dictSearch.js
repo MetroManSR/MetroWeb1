@@ -1,37 +1,24 @@
+//last updated 8/12/24 20:24
 import { createPaginationControls, updatePagination } from './pagination.js';
-import { createDictionaryBox } from './boxes.js';
+import { renderBox, updateFloatingText } from './boxes.js';
 
+/**
+ * Displays the specified page of results.
+ *
+ * @param {number} page - The page number to display.
+ * @param {number} rowsPerPage - The number of rows to display per page.
+ * @param {string} searchTerm - The search term used to filter results.
+ * @param {Object} searchIn - An object specifying which fields to search in.
+ * @param {boolean} exactMatch - Whether to search for exact matches.
+ * @param {Array} filteredRows - The filtered array of dictionary entries.
+ * @param {Array} allRows - The array of all dictionary entries.
+ */
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
     console.log('Displaying page:', page);
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const dictionaryContainer = document.getElementById('dictionary');
-
-    if (!dictionaryContainer) {
-        console.error('Dictionary container not found');
-        return;
-    }
-
-    dictionaryContainer.innerHTML = ''; // Clear previous entries
-
-    const validRows = filteredRows.filter(row => row.word && row.definition);
-    const rowsToDisplay = validRows.slice(start, end); // Ensure rowsToDisplay is defined
-
-    rowsToDisplay.forEach((row, index) => {
-        const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-        if (box) {
-            setTimeout(() => {
-                dictionaryContainer.appendChild(box);
-            }, index * 100); // Delay each box by 100ms for fade-in effect
-        } else {
-            console.error('Failed to create a valid object for:', row);
-        }
-    });
-
-    updatePagination(page, filteredRows, rowsPerPage);
+    renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
 }
 
-export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRowsById, rowsPerPage, displayPage) {
+/*export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows = [], allRowsById = {}, rowsPerPage, displayPage) {
     const searchIn = {
         word: document.getElementById('search-in-word')?.checked || false,
         root: document.getElementById('search-in-root')?.checked || false,
@@ -42,10 +29,7 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
     const exactMatch = document.getElementById('exact-match')?.checked || false;
     const selectedFilters = Array.from(document.getElementById('word-filter').selectedOptions).map(option => option.value);
 
-    // If no filters are selected, show all
     const showAll = selectedFilters.length === 0;
-
-    if ((!searchTerm.trim() && (!wordID || parseInt(wordID) <= 0) && (!rootID || parseInt(rootID) <= 0))) return;
 
     let filteredRows = [];
 
@@ -55,25 +39,67 @@ export function filterAndDisplayWord(searchTerm, wordID, rootID, allRows, allRow
             const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.word === searchTerm : row.word.toLowerCase().includes(searchTerm.toLowerCase()));
             const definitionMatch = searchIn.definition && (exactMatch ? row.definition === searchTerm : row.definition.toLowerCase().includes(searchTerm.toLowerCase()));
             const etymologyMatch = searchIn.etymology && (exactMatch ? row.etymology === searchTerm : row.etymology.toLowerCase().includes(searchTerm.toLowerCase()));
-            return showAll || selectedFilters.includes(row.type) || selectedFilters.includes(row.partOfSpeech?.toLowerCase()) || wordMatch || rootMatch || definitionMatch || etymologyMatch;
+            return (wordMatch || rootMatch || definitionMatch || etymologyMatch) && (showAll || selectedFilters.includes(row.type) || selectedFilters.includes(row.partOfSpeech?.toLowerCase()));
         });
 
         filteredRows.sort((a, b) => a.word.localeCompare(b.word));
         createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
-        displayPage(1, rowsPerPage, searchTerm, searchIn, exactMatch, filteredRows, allRows);
+        renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, 1);
+        updateFloatingText(filteredRows, searchTerm, selectedFilters, searchIn);
     } else if (wordID && parseInt(wordID) > 0) {
         const row = allRowsById[parseInt(wordID)];
         if (row) {
             filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
-            displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
+            renderBox(filteredRows, allRows, '', exactMatch, searchIn, rowsPerPage, 1);
+            updateFloatingText(filteredRows, searchTerm, selectedFilters, searchIn);
         }
     } else if (rootID && parseInt(rootID) > 0) {
         const row = allRowsById[parseInt(rootID)];
         if (row) {
             filteredRows = [row];
             createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
-            displayPage(1, rowsPerPage, '', searchIn, exactMatch, filteredRows, allRows);
+            renderBox(filteredRows, allRows, '', exactMatch, searchIn, rowsPerPage, 1);
+            updateFloatingText(filteredRows, searchTerm, selectedFilters, searchIn);
         }
+    } else {
+        filteredRows = allRows.filter(row => {
+            const filterMatch = selectedFilters.includes(row.type) || selectedFilters.includes(row.partOfSpeech?.toLowerCase());
+            return showAll || filterMatch;
+        });
+
+        filteredRows.sort((a, b) => a.word.localeCompare(b.word));
+        createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
+        renderBox(filteredRows, allRows, '', exactMatch, searchIn, rowsPerPage, 1);
+        updateFloatingText(filteredRows, '', selectedFilters, searchIn);
     }
 }
+
+export function advancedSearch(params, allRows = [], rowsPerPage, displayPage) {
+    const searchIn = {
+        word: params.word || false,
+        root: params.root || false,
+        definition: params.definition || false,
+        etymology: params.etymology || false
+    };
+
+    if (!searchIn.word && !searchIn.root && !searchIn.definition && !searchIn.etymology) {
+        alert('Please select at least one search option.');
+        return;
+    }
+
+    let filteredRows = [];
+
+    filteredRows = allRows.filter(row => {
+        const wordMatch = searchIn.word && (params.exactMatch ? row.word === params.searchTerm : row.word.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        const rootMatch = searchIn.root && (params.exactMatch ? row.word === params.searchTerm : row.word.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        const definitionMatch = searchIn.definition && (params.exactMatch ? row.definition === params.searchTerm : row.definition.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        const etymologyMatch = searchIn.etymology && (params.exactMatch ? row.etymology === params.searchTerm : row.etymology.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        return wordMatch || rootMatch || definitionMatch || etymologyMatch;
+    });
+
+    filteredRows.sort((a, b) => a.word.localeCompare(b.word));
+    createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
+    renderBox(filteredRows, allRows, params.searchTerm, params.exactMatch, searchIn, rowsPerPage, 1);
+    updateFloatingText(filteredRows, params.searchTerm, [], searchIn);
+}*/
