@@ -90,7 +90,7 @@ export function initStatisticsPopup(allRows) {
             return counts;
         }, {});
 
-        const statisticsContainer = document.getElementById('dict-statistics');
+        const statisticsContainer = document.getElementById('dict-statistics-popup');
         statisticsContainer.innerHTML = `
             <h3>Statistics</h3>
             <p>Total Words: ${totalWords}</p>
