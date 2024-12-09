@@ -175,7 +175,7 @@ export function updateFloatingText(filteredRows, searchTerm, filters, advancedSe
 }
 
 export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
-    const dictionaryContainer = document.getElementById('dictionary');
+    const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
     if (filteredRows.length === 0) {
