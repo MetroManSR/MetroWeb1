@@ -6,6 +6,8 @@
  */
 export function cleanData(data, type) {
     return data.map((row, index) => {
+        console.log('Original row:', row);
+
         let cleanedRow = {
             id: row.id || index, // Assign unique ID if missing
             type: type, // Identification of type (root or word)
@@ -22,6 +24,7 @@ export function cleanData(data, type) {
             cleanedRow.morph = sanitizeHTML(row[2] ? row[2].trim() : ''); // Etymology for roots
         }
 
+        console.log('Cleaned row:', cleanedRow);
         return cleanedRow;
     });
 }
