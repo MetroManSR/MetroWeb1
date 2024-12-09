@@ -228,50 +228,33 @@ header {
 }
 
 /* Popup Overlay and Popup */
-.dict-popup-overlay {
+#dict-popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Ensure it is below the popup but above other content */
     display: none; /* Initially hidden */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
 }
 
-.dict-popup.active, .dict-popup-overlay.active {
-    display: flex; /* Ensure the popup is displayed */
-}
-
-.dict-popup {
-    background: #fff;
+#dict-advanced-search-popup,
+#dict-statistics-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 5px;
-    border: 2px solid #0078d4; /* Added border for the popup */
-    width: 80%; /* Make the popup wider */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1001;
+    z-index: 1001; /* Ensure it is above other content */
+    display: none; /* Initially hidden */
 }
 
-.dict-popup form {
-    display: flex;
-    flex-direction: column;
-}
-
-.dict-popup form input[type="checkbox"] {
-    margin: 5px 0;
-}
-
-.dict-popup form .container {
-    background-color: #ffeb3b; /* Yellow background for checkboxes and labels */
-    border-radius: 5px;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-}
-
-.dict-popup form button {
-    margin-top: 10px;
+.active {
+    display: block !important;
 }
