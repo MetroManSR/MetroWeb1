@@ -1,6 +1,6 @@
 //last updated 8/12/24 20:24
 import { createPaginationControls, updatePagination } from './pagination.js';
-import { renderBox, updateFloatingText } from './boxes.js';
+import { renderBox, updateFloatingText, createDictionaryBox } from './boxes.js';
 
 /**
  * Displays the specified page of results.
