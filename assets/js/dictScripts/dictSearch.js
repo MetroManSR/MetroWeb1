@@ -103,3 +103,20 @@ export function advancedSearch(params, allRows = [], rowsPerPage, displayPage) {
     renderBox(filteredRows, allRows, params.searchTerm, params.exactMatch, searchIn, rowsPerPage, 1);
     updateFloatingText(filteredRows, params.searchTerm, [], searchIn);
 }*/
+
+// Function to display a specific word or root entry by ID
+export function displaySpecificEntry(row, allRows) {
+    const dictionaryContainer = document.getElementById('dict-dictionary');
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+    if (!row) {
+        const noMatchBox = createNoMatchBox();
+        dictionaryContainer.appendChild(noMatchBox);
+        return;
+    }
+
+    const box = createDictionaryBox(row, allRows, '', false, {});
+    if (box) {
+        dictionaryContainer.appendChild(box);
+    }
+}
