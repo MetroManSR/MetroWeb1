@@ -81,7 +81,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     document.getElementById('dict-search-input').addEventListener('input', addPendingChange);
     document.getElementById('dict-search-button').addEventListener('click', addPendingChange);
     document.getElementById('dict-add-search-button-popup').addEventListener('click', addPendingChange);
-    document.getElementById('dict-apply-filter-button').addEventListener('click', addPendingChange);
+    document.getElementById('dict-add-filters-button').addEventListener('click', addPendingChange);
     document.getElementById('dict-rows-per-page-input').addEventListener('input', (e) => {
         const value = parseInt(e.target.value, 10);
         if (value >= 5 && value <= 500) {
@@ -140,23 +140,32 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         });
     }
 
-    // Initialize popups
-    initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
-
-    // Toggle filter dropdown
+    // Toggle filters visibility
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    const filterDropdown = document.getElementById('dict-filter-dropdown');
-    if (toggleFilterButton && filterDropdown) {
+    if (toggleFilterButton) {
         toggleFilterButton.addEventListener('click', () => {
-            if (filterDropdown.classList.contains('dict-hidden')) {
-                filterDropdown.classList.remove('dict-hidden');
-                filterDropdown.style.height = `${filterDropdown.scrollHeight}px`;
-            } else {
-                filterDropdown.style.height = '0';
-                filterDropdown.classList.add('dict-hidden');
+            const filterDropdown = document.getElementById('dict-filter-dropdown');
+            if (filterDropdown) {
+                if (filterDropdown.classList.contains('dict-hidden')) {
+                    filterDropdown.classList.remove('dict-hidden');
+                    filterDropdown.style.height = 'auto';
+                    const height = filterDropdown.clientHeight + 'px';
+                    filterDropdown.style.height = '0px';
+                    setTimeout(() => {
+                        filterDropdown.style.height = height;
+                    }, 10);
+                } else {
+                    filterDropdown.style.height = '0px';
+                    filterDropdown.addEventListener('transitionend', () => {
+                        filterDropdown.classList.add('dict-hidden');
+                    }, { once: true });
+                }
             }
         });
     }
+
+    // Initialize popups
+    initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
 
     // Additional popups can be initialized here...
 
