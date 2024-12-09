@@ -367,3 +367,14 @@ header {
 .pending-changes li {
     margin-bottom: 5px;
 }
+
+.dict-hidden {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+}
+
+.dict-filter-dropdown {
+    transition: height 0.3s ease-in-out;
+    overflow: hidden;
+}
