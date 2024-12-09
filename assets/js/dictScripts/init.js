@@ -58,9 +58,23 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         updatePendingChangesList();
     };
 
+    const clearSettings = () => {
+        document.getElementById('search-input').value = '';
+        document.getElementById('search-in-word').checked = false;
+        document.getElementById('search-in-root').checked = false;
+        document.getElementById('search-in-definition').checked = false;
+        document.getElementById('search-in-etymology').checked = false;
+        document.getElementById('exact-match').checked = false;
+        document.getElementById('word-filter').selectedIndex = -1;
+        document.getElementById('rows-per-page-input').value = 20;
+        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
+        updatePendingChangesList();
+        processRows(allRows, {}, 20, displayPage, currentPage);
+    };
+
     document.getElementById('search-input').addEventListener('input', addPendingChange);
     document.getElementById('search-button').addEventListener('click', addPendingChange); // For updating pending changes on search button click
-    document.getElementById('add-search-button').addEventListener('click', addPendingChange); // For updating pending changes on add search button click
+    document.getElementById('add-search-button-popup').addEventListener('click', addPendingChange); // For updating pending changes on add search button click
     document.getElementById('add-filters-button').addEventListener('click', addPendingChange); // For updating pending changes on add filters button click
     document.getElementById('rows-per-page-input').addEventListener('input', (e) => {
         const value = parseInt(e.target.value, 10);
@@ -75,6 +89,11 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     const applySettingsButton = document.getElementById('apply-settings-button');
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', applySettings);
+    }
+
+    const clearSettingsButton = document.getElementById('clear-settings-button');
+    if (clearSettingsButton) {
+        clearSettingsButton.addEventListener('click', clearSettings);
     }
 
     const clearSearchButton = document.getElementById('clear-search-button');
