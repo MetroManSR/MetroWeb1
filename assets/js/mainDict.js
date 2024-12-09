@@ -5,7 +5,7 @@ import { initializeEventListeners } from './dictScripts/init.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows } from './dictScripts/processRows.js';
-import { displayPage, displaySpecificEntry } from './dictScripts/dictSearch.js'; // Assuming you have this function
+import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry, clearSearch, clearConfiguration } from './dictScripts/dictSearch.js';
 
 function showLoadingMessage() {
     const loadingMessage = document.getElementById('dict-loading-message');
@@ -75,13 +75,20 @@ document.addEventListener('DOMContentLoaded', async function() {
         const searchTerm = params.get('hypersearchterm');
         const wordID = params.get('wordid');
         const rootID = params.get('rootid');
+        const wordSpecificTerm = params.get('wordSpecific');
+        const rootSpecificTerm = params.get('rootSpecific');
+        
         if (searchTerm && searchTerm.trim()) {
             const criteria = { searchTerm: searchTerm.trim() };
             processRows(allRows, criteria, rowsPerPage, displayPage, currentPage);
         } else if (wordID && parseInt(wordID) > 0) {
-            displaySpecificEntry(allRowsById[wordID], allRows); // Display specific word entry
+            displaySpecificEntry(allRowsById[wordID], allRows);
         } else if (rootID && parseInt(rootID) > 0) {
-            displaySpecificEntry(allRowsById[rootID], allRows); // Display specific root entry
+            displaySpecificEntry(allRowsById[rootID], allRows);
+        } else if (wordSpecificTerm && wordSpecificTerm.trim()) {
+            wordSpecific(wordSpecificTerm, allRows);
+        } else if (rootSpecificTerm && rootSpecificTerm.trim()) {
+            rootSpecific(rootSpecificTerm, allRows);
         }
 
         // Hide the loading message after JS is ready
