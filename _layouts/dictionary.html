@@ -86,24 +86,29 @@ layout: default
 
         <!-- Popup for advanced search -->
         <div class="dict-popup-overlay" id="dict-popup-overlay"></div>
-        <div class="dict-popup" id="dict-advanced-search-popup">
+        <div class="dict-popup dict-wider-popup" id="dict-advanced-search-popup">
             <form id="dict-advanced-search-form">
                 <h3>Advanced Search</h3>
-                <input type="checkbox" id="dict-search-in-word" name="dict-search-in-word" value="Word">
-                <label class="container" id="dict-search-in-word-label" for="dict-search-in-word"> Word</label>
-                <br>
-                <input type="checkbox" id="dict-search-in-root" name="dict-search-in-root" value="Root">
-                <label class="container" id="dict-search-in-root-label" for="dict-search-in-root"> Root</label>
-                <br>
-                <input type="checkbox" id="dict-search-in-definition" name="dict-search-in-definition" value="Definition">
-                <label class="container" id="dict-search-in-definition-label" for="dict-search-in-definition"> Definition</label>
-                <br>
-                <input type="checkbox" id="dict-search-in-etymology" name="dict-search-in-etymology" value="Etymology">
-                <label class="container" id="dict-search-in-etymology-label" for="dict-search-in-etymology"> Etymology</label>
-                <br>
-                <input type="checkbox" id="dict-exact-match" name="dict-exact-match" value="Exact Match">
-                <label class="container" id="dict-exact-match-label" for="dict-exact-match"> Exact Match</label>
-                <br>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="dict-search-in-word" name="dict-search-in-word" value="Word">
+                    <label class="container" id="dict-search-in-word-label" for="dict-search-in-word"> Word</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="dict-search-in-root" name="dict-search-in-root" value="Root">
+                    <label class="container" id="dict-search-in-root-label" for="dict-search-in-root"> Root</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="dict-search-in-definition" name="dict-search-in-definition" value="Definition">
+                    <label class="container" id="dict-search-in-definition-label" for="dict-search-in-definition"> Definition</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="dict-search-in-etymology" name="dict-search-in-etymology" value="Etymology">
+                    <label class="container" id="dict-search-in-etymology-label" for="dict-search-in-etymology"> Etymology</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="dict-exact-match" name="dict-exact-match" value="Exact Match">
+                    <label class="container" id="dict-exact-match-label" for="dict-exact-match"> Exact Match</label>
+                </div>
                 <button type="button" id="dict-add-search-button-popup" class="btn">Add Search</button>
                 <button type="button" id="dict-apply-search-button-popup" class="btn">Apply Search</button>
                 <button type="button" id="dict-close-popup-button" class="btn">Close</button>
@@ -112,7 +117,7 @@ layout: default
 
         <!-- Popup for statistics -->
         <div class="dict-popup-overlay" id="dict-statistics-popup-overlay"></div>
-        <div class="dict-popup dict-statistics-popup" id="dict-statistics">
+        <div class="dict-popup dict-wider-popup" id="dict-statistics">
             <!-- Content will be added dynamically -->
         </div>
 
@@ -120,4 +125,4 @@ layout: default
         <div id="dict-error-message" class="dict-error-message" style="display: none;"></div>
     </main>
 </body>
-</html>
+</html> 
