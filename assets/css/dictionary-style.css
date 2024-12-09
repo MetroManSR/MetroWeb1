@@ -110,7 +110,7 @@ header {
 }
 
 /* Dictionary Box Styles */
-.dict-box {
+.dictionary-box {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
@@ -123,12 +123,17 @@ header {
     transition: background-color 0.3s ease;
 }
 
-.dict-box-root {
+.root-word {
     background-color: #d4edda; /* Light green for root boxes */
     border-color: #c3e6cb;
 }
 
-.dict-box-header {
+.no-match {
+    background-color: #ffebcc; /* Yellow for no match boxes */
+    border-color: #ffd699;
+}
+
+.dictionary-box-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -136,7 +141,7 @@ header {
     margin-bottom: 5px;
 }
 
-.dict-box-word {
+.dictionary-box-title {
     font-weight: bold;
     color: #0056b3;
     background-color: #d6eaff;
@@ -144,7 +149,7 @@ header {
     border-radius: 3px;
 }
 
-.dict-box-type {
+.dictionary-box-type {
     background-color: #cce5ff; /* Light blue for type tag */
     padding: 2px 4px;
     border-radius: 3px;
@@ -152,7 +157,7 @@ header {
     color: #004085;
 }
 
-.dict-box-meaning {
+.dictionary-box-meaning {
     font-size: 0.9em;
     color: #333;
     background-color: #e6f3ff; /* Blue tones for meaning box */
@@ -173,4 +178,27 @@ header {
 .fade-in {
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
+}
+
+/* Floating Text */
+.floating-text {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 120, 212, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Related Words Scrollable Box */
+.scrollable-box {
+    max-height: 100px;
+    overflow-y: scroll;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
