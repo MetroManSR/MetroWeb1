@@ -51,11 +51,11 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     }
 
     const wordElement = document.createElement('div');
-    wordElement.classList.add('title');
+    wordElement.classList.add('dictionary-box-title');
     wordElement.innerHTML = highlight(row.word || '', searchTerm) + (row.type !== 'root' ? ` (${getPartOfSpeechAbbreviation(row.partOfSpeech, document.querySelector('meta[name="language"]').content || 'en')})` : '');
 
     const definitionElement = document.createElement('div');
-    definitionElement.classList.add('meaning-box');
+    definitionElement.classList.add('dictionary-box-meaning');
     if (row.type === 'root') {
         definitionElement.innerHTML = `
             <div class="meaning">${highlight(row.definition || '', searchTerm)}</div>
