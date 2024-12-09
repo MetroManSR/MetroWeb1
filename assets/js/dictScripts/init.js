@@ -26,7 +26,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
             let searchInFields = [];
             if (searchIn.word) searchInFields.push('Word');
             if (searchIn.root) searchInFields.push('Root');
-            if (searchIn.definition) searchInFields.push('Definition');
+            if ( searchIn.definition) searchInFields.push('Definition');
             if (searchIn.etymology) searchInFields.push('Etymology');
             changesList.push(`Search In: ${searchInFields.join(', ')}`);
         }
@@ -123,46 +123,50 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
             const orderBy = orderBySelect.value;
-            if (orderBy === 'id-asc') {
-                filteredRows.sort((a, b) => a.id - b.id);
-            } else if (orderBy === 'id-desc') {
-                filteredRows.sort((a, b) => b.id - a.id);
-            } else if (orderBy === 'definition-asc') {
-                filteredRows.sort((a, b) => a.definition.localeCompare(b.definition));
-            } else if (orderBy === 'definition-desc') {
-                filteredRows.sort((a, b) => b.definition.localeCompare(a.definition));
-            } else if (orderBy === 'word-asc') {
-                filteredRows.sort((a, b) => a.word.localeCompare(b.word));
-            } else if (orderBy === 'word-desc') {
-                filteredRows.sort((a, b) => b.word.localeCompare(a.word));
+            if (filteredRows && filteredRows.length > 0) {
+                if (orderBy === 'id-asc') {
+                    filteredRows.sort((a, b) => a.id - b.id);
+                } else if (orderBy === 'id-desc') {
+                    filteredRows.sort((a, b) => b.id - a.id);
+                } else if (orderBy === 'definition-asc') {
+                    filteredRows.sort((a, b) => a.definition.localeCompare(b.definition));
+                } else if (orderBy === 'definition-desc') {
+                    filteredRows.sort((a, b) => b.definition.localeCompare(a.definition));
+                } else if (orderBy === 'word-asc') {
+                    filteredRows.sort((a, b) => a.word.localeCompare(b.word));
+                } else if (orderBy === 'word-desc') {
+                    filteredRows.sort((a, b) => b.word.localeCompare(a.word));
+                }
+                processRows(allRows, pendingChanges, rowsPerPage, displayPage, currentPage);
+            } else {
+                console.error('filteredRows is undefined or empty');
             }
-            processRows(allRows, pendingChanges, rowsPerPage, displayPage, currentPage);
         });
     }
 
     // Toggle filters visibility
-const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-if (toggleFilterButton) {
-    toggleFilterButton.addEventListener('click', () => {
-        const filterDropdown = document.getElementById('dict-filter-dropdown');
-        if (filterDropdown) {
-            if (filterDropdown.classList.contains('dict-hidden')) {
-                filterDropdown.classList.remove('dict-hidden');
-                filterDropdown.style.height = 'auto';
-                const height = filterDropdown.clientHeight + 'px';
-                filterDropdown.style.height = '0px';
-                setTimeout(() => {
-                    filterDropdown.style.height = height;
-                }, 10);
-            } else {
-                filterDropdown.style.height = '0px';
-                filterDropdown.addEventListener('transitionend', () => {
-                    filterDropdown.classList.add('dict-hidden');
-                }, { once: true });
+    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
+    if (toggleFilterButton) {
+        toggleFilterButton.addEventListener('click', () => {
+            const filterDropdown = document.getElementById('dict-filter-dropdown');
+            if (filterDropdown) {
+                if (filterDropdown.classList.contains('dict-hidden')) {
+                    filterDropdown.classList.remove('dict-hidden');
+                    filterDropdown.style.height = 'auto';
+                    const height = filterDropdown.clientHeight + 'px';
+                    filterDropdown.style.height = '0px';
+                    setTimeout(() => {
+                        filterDropdown.style.height = height;
+                    }, 10);
+                } else {
+                    filterDropdown.style.height = '0px';
+                    filterDropdown.addEventListener('transitionend', () => {
+                        filterDropdown.classList.add('dict-hidden');
+                    }, { once: true });
+                }
             }
-        }
-    });
-}
+        });
+    }
 
     // Initialize popups
     initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
@@ -171,3 +175,4 @@ if (toggleFilterButton) {
 
     // Additional functionality can be added here...
 }
+ 
