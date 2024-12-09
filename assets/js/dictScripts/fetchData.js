@@ -17,6 +17,7 @@ export async function fetchData(url, type) {
 
         // Converting the sheet to JSON
         const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
         return jsonData;
     } catch (error) {
         console.error(`Error fetching ${type} data:`, error);
