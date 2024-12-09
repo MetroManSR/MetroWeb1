@@ -17,7 +17,9 @@ header {
     padding: 20px;
 }
 
-.dict-search-input, .dict-rows-input, .dict-filter-select {
+.dict-search-input,
+.dict-rows-input,
+.dict-filter-select {
     padding: 5px;
     margin: 5px;
     font-size: 16px;
