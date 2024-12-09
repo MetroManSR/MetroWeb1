@@ -97,6 +97,28 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         });
     }
 
+    // Sorting functionality
+    const orderBySelect = document.getElementById('order-by-select');
+    if (orderBySelect) {
+        orderBySelect.addEventListener('change', () => {
+            const orderBy = orderBySelect.value;
+            if (orderBy === 'id-asc') {
+                filteredRows.sort((a, b) => a.id - b.id);
+            } else if (orderBy === 'id-desc') {
+                filteredRows.sort((a, b) => b.id - a.id);
+            } else if (orderBy === 'definition-asc') {
+                filteredRows.sort((a, b) => a.definition.localeCompare(b.definition));
+            } else if (orderBy === 'definition-desc') {
+                filteredRows.sort((a, b) => b.definition.localeCompare(a.definition));
+            } else if (orderBy === 'word-asc') {
+                filteredRows.sort((a, b) => a.word.localeCompare(b.word));
+            } else if (orderBy === 'word-desc') {
+                filteredRows.sort((a, b) => b.word.localeCompare(a.word));
+            }
+            processRows(allRows, pendingChanges, rowsPerPage, displayPage, currentPage);
+        });
+    }
+
     // Popup window functionality for advanced search
     const advancedSearchButton = document.getElementById('advanced-search-button');
     if (advancedSearchButton) {
