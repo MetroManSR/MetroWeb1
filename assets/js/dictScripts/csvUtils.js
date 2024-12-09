@@ -1,7 +1,7 @@
 export function cleanData(data, type) {
-    console.log('Cleaning data for type:', type);
+    //console.log('Cleaning data for type:', type);
     return data.map((row, index) => {
-        console.log('Original row:', row);
+        //console.log('Original row:', row);
         
         const cleanedRow = {
             id: row.id || index, // Assign unique ID if missing
@@ -13,7 +13,7 @@ export function cleanData(data, type) {
             morph: sanitizeHTML(row.morph ? row.morph.trim() : '') // Etymology for roots, part of speech for words
         };
 
-        console.log('Cleaned row:', cleanedRow);
+        //console.log('Cleaned row:', cleanedRow);
         return cleanedRow;
     });
 }

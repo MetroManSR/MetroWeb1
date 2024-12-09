@@ -81,7 +81,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     idElement.textContent = 'ID: ' + row.id;
     box.appendChild(idElement);
 
-    // Click event for highlighting and showing related words
+    // Click event for highlighting and showing related words (or derivative words for roots)
     box.addEventListener('click', function() {
         if (previouslySelectedBox) {
             previouslySelectedBox.classList.remove('selected-word', 'selected-root');
@@ -99,21 +99,30 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
         // Highlight the clicked box
         box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
 
-        // Display related words by root
+        // Display related words or derivative words
         const relatedWordsElement = document.createElement('div');
         relatedWordsElement.className = 'related-words';
         relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
 
-        const { count, list } = getRelatedWordsByRoot(row.title, row.morph, allRows);
-        if (list) {
-            relatedWordsElement.innerHTML = `${count > 30 ? 'Related words: ' : ''}${list}`;
-            box.appendChild(relatedWordsElement);
-
-            // Check if the related words exceed 30 and make it scrollable
-            if (count > 30) {
-                relatedWordsElement.classList.add('scrollable-box');
+        if (row.type === 'root') {
+            // Display derivative words for roots
+            const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title));
+            if (derivativeWords.length > 0) {
+                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> ${derivativeWords.map(dw => dw.title).join(', ')}`;
+            } else {
+                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> None found`;
+            }
+        } else {
+            // Display related words for words
+            const relatedWords = getRelatedWordsByRoot(row.morph, allRows);
+            if (relatedWords.length > 0) {
+                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> ${relatedWords.map(rw => rw.title).join(', ')}`;
+            } else {
+                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> None found`;
             }
         }
+
+        box.appendChild(relatedWordsElement);
 
         previouslySelectedBox = box; // Set the clicked box as the previously selected one
     });
@@ -191,4 +200,5 @@ export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchI
 
     updatePagination(currentPage, filteredRows, rowsPerPage);
     updateFloatingText(filteredRows, searchTerm, [], {});
+           
 }

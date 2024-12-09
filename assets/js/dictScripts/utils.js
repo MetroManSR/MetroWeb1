@@ -1,19 +1,25 @@
-export function getRelatedWordsByRoot(word, morph, allRows) {
-    const morphRoots = morph.split(',').map(root => root.trim().toLowerCase());
-    const relatedWords = allRows.filter(row => {
-        const rowMorphs = row.morph.split(',').map(root => root.trim().toLowerCase());
-        return morphRoots.some(root => rowMorphs.includes(root)) && row.title.toLowerCase() !== word.toLowerCase();
+/**
+ * Gets related words by root.
+ *
+ * @param {string} morph - The morph string of the current word.
+ * @param {Array} allRows - The array of all dictionary rows.
+ * @returns {Array} - The array of related words.
+ */
+export function getRelatedWordsByRoot(morph, allRows) {
+    if (typeof morph !== 'string') {
+        return []; // Return an empty array if morph is not a string
+    }
+
+    const morphologies = morph.split(',').map(m => m.trim().toLowerCase());
+
+    return allRows.filter(row => {
+        if (row.type !== 'root' && row.morph) {
+            const rowMorphs = row.morph.split(',').map(m => m.trim().toLowerCase());
+            return morphologies.some(morph => rowMorphs.includes(morph));
+        }
+        return false;
     });
-
-    const relatedWordsList = relatedWords.map(row => `<a href="?wordid=${row.id}">${row.title}</a>`).join(', ');
-    const relatedWordsCount = relatedWords.length;
-
-    return {
-        count: relatedWordsCount,
-        list: relatedWordsList
-    };
 }
-
 export function highlight(text, term) {
     if (!text || !term) return text;
     const regex = new RegExp(`(${term})`, 'gi');
