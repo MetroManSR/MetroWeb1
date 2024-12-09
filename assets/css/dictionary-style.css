@@ -241,6 +241,10 @@ header {
     z-index: 1000;
 }
 
+.dict-popup.active, .dict-popup-overlay.active {
+    display: flex; /* Ensure the popup is displayed */
+}
+
 .dict-popup {
     background: #fff;
     padding: 20px;
@@ -270,4 +274,4 @@ header {
 
 .dict-popup form button {
     margin-top: 10px;
-} 
+}
