@@ -16,21 +16,30 @@ export async function setTexts(language) {
             'search-in-etymology-label': 'innerHTML',
             'exact-match-label': 'innerHTML',
             'view-statistics-button': 'textContent',
-            'filter-dropdown': 'innerHTML',
+            'filter-by-label': 'textContent',
             'apply-filter-button': 'textContent',
-            'loading-message': 'textContent',
+            'apply-settings-button': 'textContent',
+            'clear-settings-button': 'textContent',
+            'order-by-label': 'textContent',
+            'id-asc': 'textContent',
+            'id-desc': 'textContent',
+            'definition-asc': 'textContent',
+            'definition-desc': 'textContent',
+            'word-asc': 'textContent',
+            'word-desc': 'textContent',
+            'loading-message-text': 'textContent',
             'error-message': 'textContent'
         };
 
         Object.keys(elements).forEach(id => {
             const element = document.getElementById(id);
             const prop = elements[id];
-            if (element && texts[id.split('-')[2]]) {
+            if (element && texts[id.split('-').slice(-1)[0]]) {
                 if (prop === 'innerHTML') {
-                    const htmlContent = id.includes('label') ? `<input type="checkbox" id="${id.split('-')[2]}" checked /> <span class="checkmark"></span> ${texts[id.split('-')[2]]}` : texts[id];
+                    const htmlContent = id.includes('label') ? `<input type="checkbox" id="${id.split('-')[2]}" checked /> <span class="checkmark"></span> ${texts[id.split('-').slice(-1)[0]]}` : texts[id];
                     element.innerHTML = htmlContent;
                 } else {
-                    element[prop] = texts[id.split('-')[2]] || element[prop];
+                    element[prop] = texts[id.split('-').slice(-1)[0]] || element[prop];
                 }
             }
         });
