@@ -8,14 +8,14 @@ import { renderBox, updateFloatingText } from './boxes.js';
  * @param {String} sortingManner - The manner of sorting (e.g., "title", "meta", "morph").
  * @returns {Array} - The sorted array of rows.
  */
-export async function sortRows(rows, sortingManner) {
+export function sortRows(rows, sortingManner) {
     switch (sortingManner) {
         case 'title':
             return rows.sort((a, b) => a.title.localeCompare(b.title));
         case 'meta':
-            return rows.sort((a, b) => a.meta.localeCompare(b.meta));
+            return rows.sort((a, b) => (a.meta || '').localeCompare(b.meta || ''));
         case 'morph':
-            return rows.sort((a, b) => a.morph.localeCompare(b.morph));
+            return rows.sort((a, b) => (a.morph || '').localeCompare(b.morph || ''));
         default:
             return rows.sort((a, b) => a.title.localeCompare(b.title));
     }
