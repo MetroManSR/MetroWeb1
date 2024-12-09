@@ -4,8 +4,8 @@ import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popu
 import { initializeEventListeners } from './dictScripts/init.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
-import { processRows } from './dictScripts/processRows.js';
-import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry, clearSearch, clearConfiguration } from './dictScripts/dictSearch.js';
+import { processRows, advancedSearch } from './dictScripts/processRows.js';
+import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
 
 function showLoadingMessage() {
     const loadingMessage = document.getElementById('dict-loading-message');
@@ -89,6 +89,24 @@ document.addEventListener('DOMContentLoaded', async function() {
             wordSpecific(wordSpecificTerm, allRows);
         } else if (rootSpecificTerm && rootSpecificTerm.trim()) {
             rootSpecific(rootSpecificTerm, allRows);
+        }
+
+        // Initialize advanced search form
+        const advancedSearchForm = document.getElementById('advanced-search-form');
+        if (advancedSearchForm) {
+            advancedSearchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(advancedSearchForm);
+                const params = {
+                    searchTerm: formData.get('search-term'),
+                    word: formData.get('search-in-word') === 'on',
+                    root: formData.get('search-in-root') === 'on',
+                    definition: formData.get('search-in-definition') === 'on',
+                    etymology: formData.get('search-in-etymology') === 'on',
+                    exactMatch: formData.get('exact-match') === 'on'
+                };
+                advancedSearch(params, allRows, rowsPerPage, displayPage);
+            });
         }
 
         // Hide the loading message after JS is ready
