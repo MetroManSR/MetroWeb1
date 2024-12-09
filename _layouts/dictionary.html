@@ -29,8 +29,6 @@ layout: default
             <button id="advanced-search-button" class="btn">Advanced Search</button>
             <button id="view-statistics-button" class="btn">View Statistics</button>
         </div>
-        <div id="pending-changes" class="pending-changes"></div>
-
         <div class="pagination-container">
             <label id="rows-per-page-label" for="rows-per-page-input">Rows per page:</label>
             <input type="number" id="rows-per-page-input" value="20" min="5" max="500" class="rows-input"/>
@@ -65,8 +63,8 @@ layout: default
                 <option value="word-desc">Word (Z to A)</option>
             </select>
         </div>
-        <button id="apply-settings-button" class="btn">Apply Settings</button> <button id="apply-settings-button" class="btn">Apply Settings</button>
-<button id="clear-settings-button" class="btn btn-danger">Clear Settings</button>
+        <div id="pending-changes" class="pending-changes"></div>
+        <button id="apply-settings-button" class="btn">Apply Settings</button> <button id="clear-settings-button" class="btn btn-danger">Clear Settings</button>
         <div id="dictionary"></div>
         <div id="pagination" class="pagination"></div>
 
