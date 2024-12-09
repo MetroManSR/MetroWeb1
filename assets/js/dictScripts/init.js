@@ -145,5 +145,4 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage) {
             }
         });
     }
-
-    
+} 
