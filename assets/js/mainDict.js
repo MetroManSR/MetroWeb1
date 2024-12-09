@@ -87,76 +87,76 @@ document.addEventListener('DOMContentLoaded', async function() {
         displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
 
         // Handle URL parameters
-const params = new URLSearchParams(window.location.search);
-const searchTerm = params.get('hypersearchterm');
-const wordID = params.get('wordid');
-const rootID = params.get('rootid');
-const wordSpecificTerm = params.get('wordSpecific');
-const rootSpecificTerm = params.get('rootSpecific');
+        const params = new URLSearchParams(window.location.search);
+        const searchTerm = params.get('hypersearchterm');
+        const wordID = params.get('wordid');
+        const rootID = params.get('rootid');
+        const wordSpecificTerm = params.get('wordSpecific');
+        const rootSpecificTerm = params.get('rootSpecific');
 
-if (searchTerm && searchTerm.trim()) {
-    const criteria = { searchTerm: searchTerm.trim() };
-    processRows(allRows, criteria, rowsPerPage, displayPage, currentPage, currentSortOrder);
-} else if (wordID && parseInt(wordID) > 0) {
-    const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
-    displaySpecificEntry(wordEntry, allRows);
-} else if (rootID && parseInt(rootID) > 0) {
-    const rootEntry = allRows.find(row => row.id === parseInt(rootID) && row.type === 'root');
-    displaySpecificEntry(rootEntry, allRows);
-} else if (wordSpecificTerm && wordSpecificTerm.trim()) {
-    wordSpecific(wordSpecificTerm, allRows);
-} else if (rootSpecificTerm && rootSpecificTerm.trim()) {
-    rootSpecific(rootSpecificTerm, allRows);
-}
+        if (searchTerm && searchTerm.trim()) {
+            const criteria = { searchTerm: searchTerm.trim() };
+            processRows(allRows, criteria, rowsPerPage, displayPage, currentPage, currentSortOrder);
+        } else if (wordID && parseInt(wordID) > 0) {
+            const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
+            displaySpecificEntry(wordEntry, allRows);
+        } else if (rootID && parseInt(rootID) > 0) {
+            const rootEntry = allRows.find(row => row.id === parseInt(rootID) && row.type === 'root');
+            displaySpecificEntry(rootEntry, allRows);
+        } else if (wordSpecificTerm && wordSpecificTerm.trim()) {
+            wordSpecific(wordSpecificTerm, allRows);
+        } else if (rootSpecificTerm && rootSpecificTerm.trim()) {
+            rootSpecific(rootSpecificTerm, allRows);
+        }
 
-// Initialize advanced search form
-const advancedSearchForm = document.getElementById('advanced-search-form');
-if (advancedSearchForm) {
-    advancedSearchForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formData = new FormData(advancedSearchForm);
-        const params = {
-            searchTerm: formData.get('search-term'),
-            word: formData.get('search-in-word') === 'on',
-            root: formData.get('search-in-root') === 'on',
-            definition: formData.get('search-in-definition') === 'on',
-            etymology: formData.get('search-in-etymology') === 'on',
-            exactMatch: formData.get('exact-match') === 'on'
-        };
-        advancedSearch(params, allRows, rowsPerPage, displayPage, pendingChanges.sortOrder);
-    });
-}
+        // Initialize advanced search form
+        const advancedSearchForm = document.getElementById('advanced-search-form');
+        if (advancedSearchForm) {
+            advancedSearchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(advancedSearchForm);
+                const params = {
+                    searchTerm: formData.get('search-term'),
+                    word: formData.get('search-in-word') === 'on',
+                    root: formData.get('search-in-root') === 'on',
+                    definition: formData.get('search-in-definition') === 'on',
+                    etymology: formData.get('search-in-etymology') === 'on',
+                    exactMatch: formData.get('exact-match') === 'on'
+                };
+                advancedSearch(params, allRows, rowsPerPage, displayPage, pendingChanges.sortOrder);
+            });
+        }
 
-// Toggle filter options
-const filterToggleButton = document.getElementById('filter-toggle-button');
-if (filterToggleButton) {
-    filterToggleButton.addEventListener('click', toggleFilterOptions);
-}
+        // Toggle filter options
+        const filterToggleButton = document.getElementById('filter-toggle-button');
+        if (filterToggleButton) {
+            filterToggleButton.addEventListener('click', toggleFilterOptions);
+        }
 
-// Sorting functionality
-const orderBySelect = document.getElementById('dict-order-by-select');
-if (orderBySelect) {
-    orderBySelect.addEventListener('change', () => {
-        pendingChanges.sortOrder = orderBySelect.value;
-        console.log('Selected order:', pendingChanges.sortOrder);
-        updatePendingChangesList();
-    });
-}
+        // Sorting functionality
+        const orderBySelect = document.getElementById('dict-order-by-select');
+        if (orderBySelect) {
+            orderBySelect.addEventListener('change', () => {
+                pendingChanges.sortOrder = orderBySelect.value;
+                console.log('Selected order:', pendingChanges.sortOrder);
+                updatePendingChangesList();
+            });
+        }
 
-// Hide the loading message after JS is ready
-document.getElementById('dict-loading-message').style.display = 'none';
-} catch (error) {
-console.error('Error loading data:', error);
-displayError('Failed to load dictionary data. Please try again later.');
-// Hide the loading message in case of an error
-document.getElementById('dict-loading-message').style.display = 'none';
-}
+        // Hide the loading message after JS is ready
+        document.getElementById('dict-loading-message').style.display = 'none';
+    } catch (error) {
+        console.error('Error loading data:', error);
+        displayError('Failed to load dictionary data. Please try again later.');
+        // Hide the loading message in case of an error
+        document.getElementById('dict-loading-message').style.display = 'none';
+    }
 
-// Initialize event listeners with apply settings handling
-initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage);
+    // Initialize event listeners with apply settings handling
+    initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage);
 
-// Initialize popup systems
-initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
-initStatisticsPopup(allRows);
-console.log('Initialization complete');
-} 
+    // Initialize popup systems
+    initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
+    initStatisticsPopup(allRows);
+    console.log('Initialization complete');
+});
