@@ -172,17 +172,21 @@ header {
     background-color: #d4edda; /* Lighter green background for root title */
 }
 
-.dictionary-box-meaning {
+.dictionary-box-meaning,
+.dictionary-box-notes,
+.dictionary-box-etymology {
     font-size: 0.9em;
     color: #333;
-    background-color: #e6f3ff; /* Light blue for meaning box */
-    padding: 5px;
-    border-radius: 3px;
+    background-color: #004c99; /* Darker blue for words meaning box */
+    border-radius: 5px;
+    padding: 10px;
     margin-bottom: 5px;
 }
 
-.root-word .dictionary-box-meaning {
-    background-color: #e0f2df; /* Light green for root meaning box */
+.root-word .dictionary-box-meaning,
+.root-word .dictionary-box-notes,
+.root-word .dictionary-box-etymology {
+    background-color: #004a33; /* Darker green for root meaning box */
 }
 
 /* Selected Word and Root Styles */
@@ -223,31 +227,47 @@ header {
     border-radius: 5px;
 }
 
-/* Popup Styles */
+/* Popup Overlay and Popup */
+.dict-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
 .dict-popup {
-    border: 2px solid #000; /* Black border */
-    width: 400px; /* Wider popup */
+    background: #fff;
     padding: 20px;
-    border-radius: 10px; /* Rounded corners for the popup */
-    background-color: #fff; /* White background for the popup */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow for better visibility */
+    border-radius: 5px;
+    border: 2px solid #0078d4; /* Added border for the popup */
+    width: 80%; /* Make the popup wider */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1001;
 }
 
-.dict-popup.active {
-    display: block;
+.dict-popup form {
+    display: flex;
+    flex-direction: column;
 }
 
-/* Checkbox Container Styles */
-.checkbox-container {
+.dict-popup form input[type="checkbox"] {
+    margin: 5px 0;
+}
+
+.dict-popup form .container {
+    background-color: #ffeb3b; /* Yellow background for checkboxes and labels */
+    border-radius: 5px;
+    padding: 5px;
     display: flex;
     align-items: center;
-    background-color: yellow;
-    border-radius: 15px; /* Rounded corners for the checkbox container */
-    padding: 5px;
-    margin-bottom: 10px; /* Space between each checkbox container */
 }
 
-.checkbox-container input[type="checkbox"] {
-    margin-right: 10px; /* Space between checkbox and label */
-}
+.dict-popup form button {
+    margin-top: 10px;
+} 
