@@ -44,3 +44,40 @@ export function processRows(allRows, criteria, rowsPerPage, displayPage, current
     renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 }
+
+/**
+ * Handles advanced search functionality
+ *
+ * @param {Object} params - The search parameters
+ * @param {Array} allRows - The array of all dictionary rows
+ * @param {number} rowsPerPage - The number of rows to display per page
+ * @param {Function} displayPage - The function to display the page
+ */
+export function advancedSearch(params, allRows = [], rowsPerPage, displayPage) {
+    const searchIn = {
+        word: params.word || false,
+        root: params.root || false,
+        definition: params.definition || false,
+        etymology: params.etymology || false
+    };
+
+    if (!searchIn.word && !searchIn.root && !searchIn.definition && !searchIn.etymology) {
+        alert('Please select at least one search option.');
+        return;
+    }
+
+    let filteredRows = [];
+
+    filteredRows = allRows.filter(row => {
+        const wordMatch = searchIn.word && (params.exactMatch ? row.title === params.searchTerm : row.title.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        const rootMatch = searchIn.root && (params.exactMatch ? row.title === params.searchTerm : row.title.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        const definitionMatch = searchIn.definition && (params.exactMatch ? row.meta === params.searchTerm : row.meta.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        const etymologyMatch = searchIn.etymology && (params.exactMatch ? row.morph === params.searchTerm : row.morph.toLowerCase().includes(params.searchTerm.toLowerCase()));
+        return wordMatch || rootMatch || definitionMatch || etymologyMatch;
+    });
+
+    filteredRows.sort((a, b) => a.title.localeCompare(b.title));
+    createPaginationControls(rowsPerPage, filteredRows, 1, displayPage);
+    renderBox(filteredRows, allRows, params.searchTerm, params.exactMatch, searchIn, rowsPerPage, 1);
+    updateFloatingText(filteredRows, params.searchTerm, [], searchIn);
+}
