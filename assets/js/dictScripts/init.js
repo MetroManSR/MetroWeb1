@@ -71,39 +71,60 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         }
     });
 
-    document.getElementById('apply-settings-button').addEventListener('click', applySettings);
+    const searchButton = document.getElementById('search-button');
+    if (searchButton) {
+        searchButton.addEventListener('click', applySettings);
+    }
 
-    document.getElementById('clear-search-button').addEventListener('click', () => {
-        document.getElementById('search-input').value = '';
-        document.getElementById('search-in-word').checked = false;
-        document.getElementById('search-in-root').checked = false;
-        document.getElementById('search-in-definition').checked = false;
-        document.getElementById('search-in-etymology').checked = false;
-        document.getElementById('exact-match').checked = false;
-        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
-        updatePendingChangesList();
-        window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
-        processRows(allRows, {}, rowsPerPage, displayPage, currentPage);
-    });
+    const applySettingsButton = document.getElementById('apply-settings-button');
+    if (applySettingsButton) {
+        applySettingsButton.addEventListener('click', applySettings);
+    }
+
+    const clearSearchButton = document.getElementById('clear-search-button');
+    if (clearSearchButton) {
+        clearSearchButton.addEventListener('click', () => {
+            document.getElementById('search-input').value = '';
+            document.getElementById('search-in-word').checked = false;
+            document.getElementById('search-in-root').checked = false;
+            document.getElementById('search-in-definition').checked = false;
+            document.getElementById('search-in-etymology').checked = false;
+            document.getElementById('exact-match').checked = false;
+            pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
+            updatePendingChangesList();
+            window.history.pushState({}, document.title, window.location.pathname); // Clear the URL
+            processRows(allRows, {}, rowsPerPage, displayPage, currentPage);
+        });
+    }
 
     // Popup window functionality for advanced search
-    document.getElementById('advanced-search-button').addEventListener('click', () => {
-        document.getElementById('advanced-search-popup').classList.add('active');
-        document.getElementById('popup-overlay').classList.add('active');
-    });
+    const advancedSearchButton = document.getElementById('advanced-search-button');
+    if (advancedSearchButton) {
+        advancedSearchButton.addEventListener('click', () => {
+            document.getElementById('advanced-search-popup').classList.add('active');
+            document.getElementById('popup-overlay').classList.add('active');
+        });
+    }
 
-    document.getElementById('close-popup-button').addEventListener('click', () => {
-        document.getElementById('advanced-search-popup').classList.remove('active');
-        document.getElementById('popup-overlay').classList.remove('active');
-    });
+    const closePopupButton = document.getElementById('close-popup-button');
+    if (closePopupButton) {
+        closePopupButton.addEventListener('click', () => {
+            document.getElementById('advanced-search-popup').classList.remove('active');
+            document.getElementById('popup-overlay').classList.remove('active');
+        });
+    }
 
-    // Advanced search popup form submission
-    document.getElementById('add-search-button-popup').addEventListener('click', addPendingChange);
-    document.getElementById('apply-search-button-popup').addEventListener('click', () => {
-        applySettings();
-        document.getElementById('advanced-search-popup').classList.remove('active');
-        document.getElementById('popup-overlay').classList.remove('active');
-    });
+    const addSearchButtonPopup = document.getElementById('add-search-button-popup');
+    if (addSearchButtonPopup) {
+        addSearchButtonPopup.addEventListener('click', addPendingChange);
+    }
 
-    document.getElementById('add-statistics-button').addEventListener('click', addPendingChange);
+    const applySearchButtonPopup = document.getElementById('apply-search-button-popup');
+    if (applySearchButtonPopup) {
+        applySearchButtonPopup.addEventListener('click', () => {
+            applySettings();
+            document.getElementById('advanced-search-popup').classList.remove('active');
+            document.getElementById('popup-overlay').classList.remove('active');
+        });
+    }
 }
