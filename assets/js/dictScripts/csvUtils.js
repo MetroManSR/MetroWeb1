@@ -6,15 +6,21 @@
  */
 export function cleanData(data, type) {
     return data.map((row, index) => {
-        const cleanedRow = {
+        let cleanedRow = {
             id: row.id || index, // Assign unique ID if missing
             type: type, // Identification of type (root or word)
-            title: sanitizeHTML(row.title ? row.title.trim() : ''), // Original root or word
-            partofspeech: sanitizeHTML(type === 'root' ? '' : row.partofspeech ? row.partofspeech.trim() : ''), // Empty for roots
-            meta: sanitizeHTML(row.meta ? row.meta.trim() : ''), // Translation to Spanish or English
-            notes: sanitizeHTML(row.notes ? row.notes.trim() : ''), // Any notes left
-            morph: sanitizeHTML(row.morph ? row.morph.trim() : '') // Etymology for roots, part of speech for words
+            title: sanitizeHTML(row[0] ? row[0].trim() : ''), // Original word or root
+            meta: sanitizeHTML(row[4] ? row[4].trim() : ''), // Translation (common for both)
+            notes: sanitizeHTML(row[3] ? row[3].trim() : '') // Notes (common for both)
         };
+
+        if (type === 'word') {
+            cleanedRow.partofspeech = sanitizeHTML(row[1] ? row[1].trim() : ''); // Part of Speech for words
+            cleanedRow.morph = sanitizeHTML(row[2] ? row[2].trim() : ''); // Definition for words
+        } else if (type === 'root') {
+            cleanedRow.partofspeech = ''; // Empty for roots
+            cleanedRow.morph = sanitizeHTML(row[2] ? row[2].trim() : ''); // Etymology for roots
+        }
 
         return cleanedRow;
     });
