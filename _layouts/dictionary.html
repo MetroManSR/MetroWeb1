@@ -23,6 +23,9 @@ layout: default
             <p id="dict-loading-message-text">Loading dictionary, please wait...</p>
         </div>
 
+        <!-- Content from Markdown -->
+        {{content}} <!-- Moved this to be below the loading message -->
+
         <div class="dict-search-container">
             <label for="dict-search-input" id="dict-search-label">Search:</label>
             <input type="text" id="dict-search-input" placeholder="Search..." class="dict-search-input"/>
@@ -80,9 +83,6 @@ layout: default
         <!-- Dictionary Content -->
         <div id="dict-dictionary"></div>
         <div id="dict-pagination" class="dict-pagination"></div> <!-- Ensure this div is present for pagination -->
-
-        <!-- Content from Markdown -->
-        {{content}} <!-- Add this to include markdown content -->
 
         <!-- Popup for advanced search -->
         <div class="dict-popup-overlay" id="dict-popup-overlay"></div>
