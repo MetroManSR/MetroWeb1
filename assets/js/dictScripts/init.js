@@ -2,6 +2,8 @@ import { createPaginationControls } from './pagination.js';
 import { displayPage } from './dictSearch.js';
 import { displayWarning } from './warnings.js';
 import { processRows } from './processRows.js';
+import { setTexts } from './loadTexts.js';
+import { initAdvancedSearchPopup } from './popups.js'; // Import the existing function
 
 export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filteredRows) {
     let currentPage = 1; // Define currentPage
@@ -72,10 +74,14 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         processRows(allRows, {}, 20, displayPage, currentPage);
     };
 
+    // Set texts based on the language
+    const language = document.querySelector('meta[name="language"]').content || 'en';
+    setTexts(language);
+
     document.getElementById('search-input').addEventListener('input', addPendingChange);
-    document.getElementById('search-button').addEventListener('click', addPendingChange); // For updating pending changes on search button click
-    document.getElementById('add-search-button-popup').addEventListener('click', addPendingChange); // For updating pending changes on add search button click
-    document.getElementById('add-filters-button').addEventListener('click', addPendingChange); // For updating pending changes on add filters button click
+    document.getElementById('search-button').addEventListener('click', addPendingChange);
+    document.getElementById('add-search-button-popup').addEventListener('click', addPendingChange);
+    document.getElementById('add-filters-button').addEventListener('click', addPendingChange);
     document.getElementById('rows-per-page-input').addEventListener('input', (e) => {
         const value = parseInt(e.target.value, 10);
         if (value >= 5 && value <= 500) {
@@ -134,34 +140,10 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
         });
     }
 
-    // Popup window functionality for advanced search
-    const advancedSearchButton = document.getElementById('advanced-search-button');
-    if (advancedSearchButton) {
-        advancedSearchButton.addEventListener('click', () => {
-            document.getElementById('advanced-search-popup').classList.add('active');
-            document.getElementById('popup-overlay').classList.add('active');
-        });
-    }
+    // Initialize popups
+    initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
 
-    const closePopupButton = document.getElementById('close-popup-button');
-    if (closePopupButton) {
-        closePopupButton.addEventListener('click', () => {
-            document.getElementById('advanced-search-popup').classList.remove('active');
-            document.getElementById('popup-overlay').classList.remove('active');
-        });
-    }
+    // Additional popups can be initialized here...
 
-    const addSearchButtonPopup = document.getElementById('add-search-button-popup');
-    if (addSearchButtonPopup) {
-        addSearchButtonPopup.addEventListener('click', addPendingChange);
-    }
-
-    const applySearchButtonPopup = document.getElementById('apply-search-button-popup');
-    if (applySearchButtonPopup) {
-        applySearchButtonPopup.addEventListener('click', () => {
-            applySettings();
-            document.getElementById('advanced-search-popup').classList.remove('active');
-            document.getElementById('popup-overlay').classList.remove('active');
-        });
-    }
+    // Additional functionality can be added here...
 }
