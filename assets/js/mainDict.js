@@ -86,6 +86,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             fetchWithFallback(rootsFile, 'root')
         ]);
 
+        // Creating a string list from fetched data
+        const stringList = [
+            ...dictionaryData.map(item => item.title || ''),
+            ...rootsData.map(item => item.title || '')
+        ].filter(Boolean); // Filtering out empty strings
+
+        console.log('String List:', stringList);
+
         const cleanedDictionaryData = dictionaryData.sort((a, b) => a.title.localeCompare(b.title));
         const cleanedRootsData = rootsData.sort((a, b) => a.title.localeCompare(b.title));
 
