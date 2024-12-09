@@ -94,8 +94,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         console.log('String List:', stringList);
 
-        const cleanedDictionaryData = dictionaryData.sort((a, b) => a.title.localeCompare(b.title));
-        const cleanedRootsData = rootsData.sort((a, b) => a.title.localeCompare(b.title));
+        const cleanedDictionaryData = dictionaryData.sort((a, b) => {
+            const titleA = a.title || '';
+            const titleB = b.title || '';
+            return titleA.localeCompare(titleB);
+        });
+
+        const cleanedRootsData = rootsData.sort((a, b) => {
+            const titleA = a.title || '';
+            const titleB = b.title || '';
+            return titleA.localeCompare(titleB);
+        });
 
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
