@@ -7,7 +7,6 @@ import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows } from './dictScripts/processRows.js';
 import { displayPage } from './dictScripts/dictSearch.js';
 
-    // Function to show the loading message
 function showLoadingMessage() {
     const loadingMessage = document.getElementById('dict-loading-message');
     if (loadingMessage) {
@@ -15,7 +14,6 @@ function showLoadingMessage() {
     }
 }
 
-// Function to hide the loading message
 function hideLoadingMessage() {
     const loadingMessage = document.getElementById('dict-loading-message');
     if (loadingMessage) {
@@ -23,7 +21,6 @@ function hideLoadingMessage() {
     }
 }
 
-// Show the loading message when the dictionary is being loaded
 showLoadingMessage();
 
 document.addEventListener('DOMContentLoaded', async function() {
@@ -38,14 +35,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     let allRows = [];
     let allRowsById = {};
 
-    // Function to display error messages
     function displayError(message) {
         const errorContainer = document.getElementById('dict-error-message');
         errorContainer.innerHTML = `<p>${message}</p>`;
         errorContainer.style.display = 'block';
     }
 
-    // Fetch the frontmatter to determine the language
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
     console.log('Language set to:', language);
 
@@ -58,17 +53,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([fetchData(dictionaryFile, 'word'), fetchData(rootsFile, 'root')]);
 
-        // Clean and sort data alphabetically
-        const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.word.localeCompare(b.word));
-        const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.word.localeCompare(b.word));
+        const cleanedDictionaryData = cleanData(dictionaryData, 'word').sort((a, b) => a.title.localeCompare(b.title));
+        const cleanedRootsData = cleanData(rootsData, 'root').sort((a, b) => a.title.localeCompare(b.title));
 
-        // Assign unique IDs to roots and words separately, starting at 1
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
-        // Combine the cleaned and sorted data for display
-        allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.word.localeCompare(b.word));
-        filteredRows = allRows.filter(row => row.word && row.definition);
+        allRows = [...cleanedDictionaryData, ...cleanedRootsData].sort((a, b) => a.title.localeCompare(b.title));
+        filteredRows = allRows.filter(row => row.title && row.meta);
 
         filteredRows.forEach(row => {
             allRowsById[row.id] = row;
