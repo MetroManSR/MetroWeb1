@@ -99,17 +99,26 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
         // Highlight the clicked box
         box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
 
-        // Display derivative words for roots
+        // Display related words or derivative words
         const relatedWordsElement = document.createElement('div');
         relatedWordsElement.className = 'related-words';
         relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
 
         if (row.type === 'root') {
+            // Display derivative words for roots
             const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title));
             if (derivativeWords.length > 0) {
                 relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> ${derivativeWords.map(dw => dw.title).join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> None found`;
+            }
+        } else {
+            // Display related words for words
+            const relatedWords = getRelatedWordsByRoot(row.morph, allRows);
+            if (relatedWords.length > 0) {
+                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> ${relatedWords.map(rw => rw.title).join(', ')}`;
+            } else {
+                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> None found`;
             }
         }
 
