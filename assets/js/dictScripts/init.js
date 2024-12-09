@@ -81,7 +81,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
     document.getElementById('dict-search-input').addEventListener('input', addPendingChange);
     document.getElementById('dict-search-button').addEventListener('click', addPendingChange);
     document.getElementById('dict-add-search-button-popup').addEventListener('click', addPendingChange);
-    document.getElementById('dict-add-filters-button').addEventListener('click', addPendingChange);
+    document.getElementById('dict-apply-filter-button').addEventListener('click', addPendingChange);
     document.getElementById('dict-rows-per-page-input').addEventListener('input', (e) => {
         const value = parseInt(e.target.value, 10);
         if (value >= 5 && value <= 500) {
