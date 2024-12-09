@@ -174,29 +174,5 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, filt
 
     // Additional popups can be initialized here...
 
-    // Toggle filters visibility
-    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    if (toggleFilterButton) {
-        toggleFilterButton.addEventListener('click', () => {
-            const filterDropdown = document.getElementById('dict-filter-dropdown');
-            if (filterDropdown) {
-                if (filterDropdown.classList.contains('dict-hidden')) {
-                    filterDropdown.classList.remove('dict-hidden');
-                    filterDropdown.style.height = 'auto';
-                    const height = filterDropdown.clientHeight + 'px';
-                    filterDropdown.style.height = '0px';
-                    setTimeout(() => {
-                        filterDropdown.style.height = height;
-                    }, 10);
-                } else {
-                    filterDropdown.style.height = '0px';
-                    filterDropdown.addEventListener('transitionend', () => {
-                        filterDropdown.classList.add('dict-hidden');
-                    }, { once: true });
-                }
-            }
-        });
-    }
-
     // Additional functionality can be added here...
 }
