@@ -2,6 +2,7 @@ import { createPaginationControls } from './pagination.js';
 import { displayPage, displaySpecificEntry, wordSpecific, rootSpecific } from './dictSearch.js';
 import { setTexts } from './loadTexts.js';
 import { processRows } from './processRows.js';
+import { getRelatedWordsByRoot, highlight } from './utils.js';
 
 export function initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage) {
     let currentPage = 1; // Define currentPage
