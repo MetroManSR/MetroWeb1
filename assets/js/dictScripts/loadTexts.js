@@ -54,7 +54,9 @@ export async function setTexts(language) {
 
 // Function to get translated text for specific keys
 export function getTranslatedText(key, language) {
-    if (!cachedTexts) return key; // Return the key as fallback
+    if (!cachedTexts) {
+        cachedTexts = await fetchDefaultTexts();
+    }; // Return the key as fallback
     const texts = cachedTexts;
     return texts[language] && texts[language][key] ? texts[language][key] : texts['en'][key];
 }
