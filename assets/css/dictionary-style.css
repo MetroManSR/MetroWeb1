@@ -286,3 +286,11 @@ header {
     line-height: 25px;
     color: #000;
 }
+
+.dict-filter-cont-hidden {
+    display: none;
+}
+
+.dict-filter-cont-visible {
+    display: block;
+}
