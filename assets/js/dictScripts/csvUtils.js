@@ -23,6 +23,7 @@ export async function cleanData(data, type) {
 
     // Real processing with simulated 10% increments
     const cleanedData = [];
+    const anomalies = [];
     const increment = Math.ceil(totalRows / 10); // Calculate increment for 10% steps
 
     for (let index = 0; index < totalRows; index++) {
@@ -56,6 +57,11 @@ export async function cleanData(data, type) {
             cleanedRow.morph = sanitizeHTML(fixEncoding(morph ? morph.trim() : '')); // B morph for roots
         }
 
+        // Check for anomalies (missing title or meta)
+        if (!cleanedRow.title || !cleanedRow.meta) {
+            anomalies.push({ id: cleanedRow.id, title: cleanedRow.title, meta: cleanedRow.meta });
+        }
+
         cleanedData.push(cleanedRow);
 
         // Update real progress bar in whole percentage increments
@@ -71,6 +77,9 @@ export async function cleanData(data, type) {
             // Yield control to render the progress bar
             await new Promise(resolve => requestAnimationFrame(resolve));
         }
+
+        // Add a small delay to allow UI update
+        await new Promise(resolve => setTimeout(resolve, 1));
     }
 
     // Ensure progress bar completes at 100%
