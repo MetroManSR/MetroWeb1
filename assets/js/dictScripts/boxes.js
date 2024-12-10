@@ -33,7 +33,7 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
 }
 
 // Function to create a dictionary box
-export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
+export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
     if (!row || !row.title) {
         console.error('Invalid row data:', row);
         return null;
@@ -59,21 +59,21 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const metaElement = document.createElement('div');
     metaElement.classList.add('dictionary-box-meta');
-    metaElement.innerHTML = `<strong>${getTranslatedText('translation', language)}:</strong> ${highlight(row.meta || '', searchTerm)}`;
+    metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta || '', searchTerm)}`;
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('dictionary-box-notes');
-    notesElement.innerHTML = `<strong>${getTranslatedText('notes', language)}:</strong> ${row.type === 'root' ? highlight(row.morph || '', searchTerm) : highlight(row.notes || '', searchTerm)}`;
+    notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${row.type === 'root' ? highlight(row.morph || '', searchTerm) : highlight(row.notes || '', searchTerm)}`;
 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
     
     if (row.type === 'root') {
-        morphElement.innerHTML = `<strong>${getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
     } else {
         // Check if the morphology exists and create hyperlinks
         const morphologies = row.morph.split(',');
-        morphElement.innerHTML = `<strong>${getTranslatedText('morphology', language)}:</strong> `;
+        morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
         morphologies.forEach((morph, index) => {
             const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.trim().toLowerCase() && r.type === 'root');
             if (matchingRoot) {
@@ -96,7 +96,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
-    typeTag.textContent = row.type === 'root' ? getTranslatedText('root', language) : getTranslatedText('word', language);
+    typeTag.textContent = row.type === 'root' ? await getTranslatedText('root', language) : await getTranslatedText('word', language);
     typeTag.style.position = 'absolute';
     typeTag.style.top = '10px';
     typeTag.style.right = '10px';
@@ -110,7 +110,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     // Add ID display in bottom right
     const idElement = document.createElement('div');
     idElement.className = 'id-display';
-    idElement.textContent = `${getTranslatedText('id', language)}: ${row.id}`;
+    idElement.textContent = `${await getTranslatedText('id', language)}: ${row.id}`;
     idElement.style.position = 'absolute';
     idElement.style.bottom = '10px';
     idElement.style.right = '10px';
@@ -130,10 +130,10 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 }
 
 // Function to create a no match box
-export function createNoMatchBox(language) {
+export async function createNoMatchBox(language) {
     const noMatchBox = document.createElement('div');
     noMatchBox.className = 'dictionary-box no-match';
-    noMatchBox.textContent = getTranslatedText('noMatch', language); // Adjust to be language-sensitive
+    noMatchBox.textContent = await getTranslatedText('noMatch', language); // Adjust to be language-sensitive
     return noMatchBox;
 }
 
@@ -145,17 +145,17 @@ export function createLoadingBox() {
 }
 
 // Function to update the floating text
-export function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams, language) {
-    let floatingTextContent = `${filteredRows.length} ${getTranslatedText('wordsFound', language)}`;
+export async function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams, language) {
+    let floatingTextContent = `${filteredRows.length} ${await getTranslatedText('wordsFound', language)}`;
 
     if (searchTerm) {
-        floatingTextContent += ` ${getTranslatedText('whenLookingFor', language)} "${searchTerm}"`;
+        floatingTextContent += ` ${await getTranslatedText('whenLookingFor', language)} "${searchTerm}"`;
     }
     if (filters.length > 0) {
-        floatingTextContent += ` ${getTranslatedText('withFilters', language)}: ${filters.join(", ")}`;
+        floatingTextContent += ` ${await getTranslatedText('withFilters', language)}: ${filters.join(", ")}`;
     }
     if (advancedSearchParams) {
-        floatingTextContent += ` ${getTranslatedText('withAdvancedSearch', language)}: ${Object.keys(advancedSearchParams).join(", ")}`;
+        floatingTextContent += ` ${await getTranslatedText('withAdvancedSearch', language)}: ${Object.keys(advancedSearchParams).join(", ")}`;
     }
 
     const floatingText = document.getElementById('floating-text');
@@ -170,15 +170,16 @@ export function updateFloatingText(filteredRows, searchTerm, filters, advancedSe
     }
 }
 
-export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
+export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
+    const language = document.querySelector('meta[name="language"]').content || 'en';
+
     if (filteredRows.length === 0) {
-        const language = document.querySelector('meta[name="language"]').content || 'en';
-        dictionaryContainer.appendChild(createNoMatchBox(language));
+        dictionaryContainer.appendChild(await createNoMatchBox(language));
         updatePagination(currentPage, filteredRows, rowsPerPage);
-        updateFloatingText(filteredRows, searchTerm, [], {}, language);
+        await updateFloatingText(filteredRows, searchTerm, [], {}, language);
         return;
     }
 
@@ -186,13 +187,13 @@ export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchI
     const end = start + rowsPerPage;
     const rowsToDisplay = filteredRows.slice(start, end);
 
-    rowsToDisplay.forEach((row) => {
-        const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+    for (const row of rowsToDisplay) {
+        const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
         if (box) {
             dictionaryContainer.appendChild(box);
         }
-    });
+    }
 
     updatePagination(currentPage, filteredRows, rowsPerPage);
-    updateFloatingText(filteredRows, searchTerm, [], {}, language);
+    await updateFloatingText(filteredRows, searchTerm, [], {}, language);
 }
