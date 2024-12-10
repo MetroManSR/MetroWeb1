@@ -28,7 +28,6 @@ export async function cleanData(data, type) {
 
     for (let index = 0; index < totalRows; index++) {
         const row = data[index];
-        console.log(`Original row ${index}:`, row);
 
         let cleanedRow = {
             id: index, // Assign unique ID
@@ -41,39 +40,32 @@ export async function cleanData(data, type) {
         };
 
         if (type === 'word') {
-            console.log(`Processing word row ${index}: col1=${row.col1}, col2=${row.col2}, col3=${row.col3}, col4=${row.col4}, col5=${row.col5}`);
-            cleanedRow.title = sanitizeHTML(tryMultipleEncodings(row.col1 ? row.col1.trim() : '')); // X title for words
-            cleanedRow.partofspeech = sanitizeHTML(tryMultipleEncodings(row.col2 ? row.col2.trim() : '')); // Part of Speech for words
-            cleanedRow.morph = sanitizeHTML(tryMultipleEncodings(row.col3 ? row.col3.trim() : '')); // Morphology for words
-            cleanedRow.notes = sanitizeHTML(tryMultipleEncodings(row.col4 ? row.col4.trim() : '')); // Notes for words
-            cleanedRow.meta = sanitizeHTML(tryMultipleEncodings(row.col5 ? row.col5.trim() : '')); // Meta for words
+            cleanedRow.title = sanitizeHTML(fixEncoding(row.col1 ? row.col1.trim() : '')); // X title for words
+            cleanedRow.partofspeech = sanitizeHTML(fixEncoding(row.col2 ? row.col2.trim() : '')); // Part of Speech for words
+            cleanedRow.morph = sanitizeHTML(fixEncoding(row.col3 ? row.col3.trim() : '')); // Morphology for words
+            cleanedRow.notes = sanitizeHTML(fixEncoding(row.col4 ? row.col4.trim() : '')); // Notes for words
+            cleanedRow.meta = sanitizeHTML(fixEncoding(row.col5 ? row.col5.trim() : '')); // Meta for words
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
-            console.log(`Processing root row ${index}: rawTitle=${rawTitle}`);
             const [root, rest] = rawTitle.split(' = ');
-            console.log(`Split root row ${index}: root=${root}, rest=${rest}`);
             const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-            console.log(`Processed translation and meta for row ${index}: translation=${translation}, meta=${meta}`);
             const [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
-            console.log(`Processed notes and morph for row ${index}: notes=${notes}, morph=${morph}`);
 
-            cleanedRow.title = sanitizeHTML(tryMultipleEncodings(root ? root.trim() : '')); // X title for roots
-            cleanedRow.meta = sanitizeHTML(tryMultipleEncodings(translation ? translation.trim() : '')); // Y meta for roots
-            cleanedRow.notes = sanitizeHTML(tryMultipleEncodings(notes ? notes.trim() : '')); // A notes for roots
-            cleanedRow.morph = sanitizeHTML(tryMultipleEncodings(morph ? morph.trim() : '')); // B morph for roots
+            cleanedRow.title = sanitizeHTML(fixEncoding(root ? root.trim() : '')); // X title for roots
+            cleanedRow.meta = sanitizeHTML(fixEncoding(translation ? translation.trim() : '')); // Y meta for roots
+            cleanedRow.notes = sanitizeHTML(fixEncoding(notes ? notes.trim() : '')); // A notes for roots
+            cleanedRow.morph = sanitizeHTML(fixEncoding(morph ? morph.trim() : '')); // B morph for roots
         }
 
-        console.log(`Cleaned row ${index}:`, cleanedRow);
         cleanedData.push(cleanedRow);
 
         // Update real progress bar in whole percentage increments
         if ((index + 1) % increment === 0 || index === totalRows - 1) { // Update at each 10% step and at the end
             const progress = Math.min(Math.floor(((index + 1) / totalRows) * 100), 100); // Limit progress to 100%
-            console.log(`Updating progress bar: ${progress}%`);
             progressBar.style.width = `${progress}%`;
             progressBar.style.display = 'block'; // Ensure the progress bar is visible
             progressText.textContent = `Parsed ${progress}%`;
-            
+
             // Force reflow to update the progress bar
             progressBar.offsetWidth; // Trigger a reflow
 
@@ -101,30 +93,32 @@ export function sanitizeHTML(str) {
 }
 
 /**
- * Tries multiple encoding methods to preserve special characters.
- * @param {string} str - The string to be encoded.
- * @returns {string} - The encoded string.
+ * Fixes encoding issues for specific cases.
+ * @param {string} str - The string to be fixed.
+ * @returns {string} - The fixed string.
  */
-export function tryMultipleEncodings(str) {
-    let encodedStr = str;
+export function fixEncoding(str) {
+    let fixedStr = str;
 
+    // Handle common encoding issues
+    fixedStr = fixedStr.replace(/Ã¡/g, 'á').replace(/Ã©/g, 'é').replace(/Ã­/g, 'í').replace(/Ã³/g, 'ó').replace(/Ãº/g, 'ú')
+                        .replace(/Ã/g, 'Á').replace(/Ã‰/g, 'É').replace(/Ã/g, 'Í').replace(/Ã“/g, 'Ó').replace(/Ãš/g, 'Ú')
+                        .replace(/Ã±/g, 'ñ').replace(/Ã‘/g, 'Ñ').replace(/Â¿/g, '¿').replace(/Â¡/g, '¡');
+    
+    // Detect if the string is correctly encoded or not
     try {
-        encodedStr = decodeURIComponent(escape(str)); // Attempt 1
+        const decodedStr = decodeURIComponent(escape(str));
+        if (decodedStr !== str) {
+            fixedStr = decodedStr;
+        }
     } catch (e) {
-        console.error('Encoding attempt 1 failed:', e);
-    }
-
-    if (encodedStr === str) {
+        // Attempt to use TextDecoder as a fallback
         try {
-            encodedStr = new TextDecoder('utf-8').decode(new TextEncoder().encode(str)); // Attempt 2
+            fixedStr = new TextDecoder('utf-8').decode(new TextEncoder().encode(str));
         } catch (e) {
-            console.error('Encoding attempt 2 failed:', e);
+            console.warn('All encoding attempts failed, returning original string.');
         }
     }
 
-    if (encodedStr === str) {
-        console.warn('All encoding attempts failed, returning original string.');
-    }
-
-    return encodedStr;
+    return fixedStr;
 }
