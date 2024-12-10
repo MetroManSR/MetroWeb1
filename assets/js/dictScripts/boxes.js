@@ -70,7 +70,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
+        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
     } else {
         // Check if morph exists and is an array
         if (Array.isArray(row.morph) && row.morph.length > 0) {
@@ -144,6 +144,7 @@ export async function createNoMatchBox(language) {
 export function createLoadingBox() {
     const loadingBox = document.createElement('div');
     loadingBox.className = 'dictionary-box loading';
+    loadingBox.textContent = "Loading..."; // Add some loading text or a spinner
     return loadingBox;
 }
 
@@ -179,7 +180,13 @@ export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, s
 
     const language = document.querySelector('meta[name="language"]').content || 'en';
 
+    // Render loading boxes
+    for (let i = 0; i < rowsPerPage; i++) {
+        dictionaryContainer.appendChild(createLoadingBox());
+    }
+
     if (filteredRows.length === 0) {
+        dictionaryContainer.innerHTML = ''; // Clear loading boxes
         dictionaryContainer.appendChild(await createNoMatchBox(language));
         updatePagination(currentPage, filteredRows, rowsPerPage);
         await updateFloatingText(filteredRows, searchTerm, [], {}, language);
@@ -190,6 +197,8 @@ export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, s
     const end = start + rowsPerPage;
     const rowsToDisplay = filteredRows.slice(start, end);
 
+    // Replace loading boxes with actual content
+    dictionaryContainer.innerHTML = ''; // Clear loading boxes
     for (const row of rowsToDisplay) {
         const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
         if (box) {
