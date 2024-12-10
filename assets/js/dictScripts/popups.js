@@ -84,8 +84,8 @@ export function initStatisticsPopup(allRows) {
         const totalRoots = allRows.filter(row => row.type === 'root').length;
 
         const partOfSpeechCounts = allRows.reduce((counts, row) => {
-            if (row.type === 'word' && row.partOfSpeech) {
-                counts[row.partOfSpeech] = (counts[row.partOfSpeech] || 0) + 1;
+            if (row.type === 'word' && row.partofspeech) {
+                counts[row.partofspeech] = (counts[row.partofspeech] || 0) + 1;
             }
             return counts;
         }, {});
