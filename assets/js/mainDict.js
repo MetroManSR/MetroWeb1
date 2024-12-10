@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
     const pendingChanges = document.getElementById('dict-pending-changes');
-    const filterDropdown = document.getElementById('dict-filter-dropdown');
 
+    // Initially hide elements
     if (filterSortingContainer) {
         filterSortingContainer.classList.add('dict-filter-cont-hidden');
     }
@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     showLoadingMessage();
 
+    let allRows = []; // Ensure allRows is defined outside the try-catch block
+    let allRowsById = {};
+
     try {
         console.log('DOMContentLoaded event triggered');
 
@@ -47,8 +50,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         const defaultRowsPerPage = 20;
         let rowsPerPage = defaultRowsPerPage;
         let currentPage = 1;
-        let allRows = [];
-        let allRowsById = {};
         let currentSortOrder = 'titleup'; // Default sort order
 
         let pendingChanges = {
