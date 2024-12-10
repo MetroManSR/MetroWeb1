@@ -1,5 +1,5 @@
 import { getRelatedWordsByRoot, highlight } from './utils.js';
-import { updatePaginationControls } from './pagination.js';
+import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
 
 // Function to initialize event listeners and other functionalities
