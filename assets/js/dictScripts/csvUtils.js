@@ -1,3 +1,4 @@
+
 /**
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
@@ -15,6 +16,13 @@ export async function cleanData(data, type) {
     }
 
     console.log(`Total rows to process: ${totalRows}`);
+
+    // Fake increment
+    for (let i = 0; i <= 100; i++) {
+        progressBar.style.width = `${i}%`;
+        progressText.textContent = `Preparing... ${i}%`;
+        await new Promise(resolve => setTimeout(resolve, 10)); // Adjust time for speed
+    }
 
     const cleanedData = [];
 
@@ -58,19 +66,23 @@ export async function cleanData(data, type) {
         console.log(`Cleaned row ${index}:`, cleanedRow);
         cleanedData.push(cleanedRow);
 
-        // Update progress bar
-        const progress = ((index + 1) / totalRows) * 100;
+        // Update real progress bar
+        const progress = Math.min(((index + 1) / totalRows) * 100, 100).toFixed(2); // Limit progress to 100%
         console.log(`Updating progress bar: ${progress}%`);
         progressBar.style.width = `${progress}%`;
         progressBar.style.display = 'block'; // Ensure the progress bar is visible
-        progressText.textContent = `Parsed ${index + 1} out of ${totalRows}`;
+        progressText.textContent = `Parsed ${progress}%`;
         
         // Force reflow to update the progress bar
         progressBar.offsetWidth; // Trigger a reflow
-        
+
         // Yield control to render the progress bar
         await new Promise(resolve => requestAnimationFrame(resolve));
     }
+
+    // Ensure progress bar completes at 100%
+    progressBar.style.width = `100%`;
+    progressText.textContent = `Parsing complete!`;
 
     return cleanedData;
 }
