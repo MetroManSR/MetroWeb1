@@ -5,6 +5,10 @@
  * @returns {Array} - The cleaned and formatted data.
  */
 export function cleanData(data, type) {
+    const totalRows = data.length;
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+
     return data.map((row, index) => {
         console.log(`Original row ${index}:`, row);
 
@@ -41,6 +45,16 @@ export function cleanData(data, type) {
         }
 
         console.log(`Cleaned row ${index}:`, cleanedRow);
+
+        // Update progress bar
+        if (progressBar) {
+            const progress = ((index + 1) / totalRows) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+        if (progressText) {
+            progressText.textContent = `Parsed ${index + 1} out of ${totalRows}`;
+        }
+
         return cleanedRow;
     });
 }
