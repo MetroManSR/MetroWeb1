@@ -28,11 +28,11 @@ export function cleanData(data, type) {
 
         if (type === 'word') {
             console.log(`Processing word row ${index}: col1=${row.col1}, col2=${row.col2}, col3=${row.col3}, col4=${row.col4}, col5=${row.col5}`);
-            cleanedRow.title = sanitizeHTML(cleanString(row.col1 ? row.col1.trim() : '')); // X title for words
-            cleanedRow.partofspeech = sanitizeHTML(cleanString(row.col2 ? row.col2.trim() : '')); // Part of Speech for words
-            cleanedRow.morph = sanitizeHTML(cleanString(row.col3 ? row.col3.trim() : '')); // Definition for words
-            cleanedRow.meta = sanitizeHTML(cleanString(row.col5 ? row.col5.trim() : '')); // Y meta for words
-            cleanedRow.notes = sanitizeHTML(cleanString(row.col4 ? row.col4.trim() : '')); // A notes for words
+            cleanedRow.title = sanitizeHTML(ensureProperEncoding(row.col1 ? row.col1.trim() : '')); // X title for words
+            cleanedRow.partofspeech = sanitizeHTML(ensureProperEncoding(row.col2 ? row.col2.trim() : '')); // Part of Speech for words
+            cleanedRow.morph = sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')); // Definition for words
+            cleanedRow.meta = sanitizeHTML(ensureProperEncoding(row.col5 ? row.col5.trim() : '')); // Y meta for words
+            cleanedRow.notes = sanitizeHTML(ensureProperEncoding(row.col4 ? row.col4.trim() : '')); // A notes for words
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
             console.log(`Processing root row ${index}: rawTitle=${rawTitle}`);
@@ -43,10 +43,10 @@ export function cleanData(data, type) {
             const [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
             console.log(`Processed notes and morph for row ${index}: notes=${notes}, morph=${morph}`);
 
-            cleanedRow.title = sanitizeHTML(cleanString(root ? root.trim() : '')); // X title for roots
-            cleanedRow.meta = sanitizeHTML(cleanString(translation ? translation.trim() : '')); // Y meta for roots
-            cleanedRow.notes = sanitizeHTML(cleanString(notes ? notes.trim() : '')); // A notes for roots
-            cleanedRow.morph = sanitizeHTML(cleanString(morph ? morph.trim() : '')); // B morph for roots
+            cleanedRow.title = sanitizeHTML(ensureProperEncoding(root ? root.trim() : '')); // X title for roots
+            cleanedRow.meta = sanitizeHTML(ensureProperEncoding(translation ? translation.trim() : '')); // Y meta for roots
+            cleanedRow.notes = sanitizeHTML(ensureProperEncoding(notes ? notes.trim() : '')); // A notes for roots
+            cleanedRow.morph = sanitizeHTML(ensureProperEncoding(morph ? morph.trim() : '')); // B morph for roots
         }
 
         console.log(`Cleaned row ${index}:`, cleanedRow);
@@ -77,10 +77,11 @@ export function sanitizeHTML(str) {
 }
 
 /**
- * Cleans a string to handle special character encoding issues.
- * @param {string} str - The string to be cleaned.
- * @returns {string} - The cleaned string.
+ * Ensures proper encoding to preserve special characters.
+ * @param {string} str - The string to be encoded.
+ * @returns {string} - The encoded string.
  */
-export function cleanString(str) {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+export function ensureProperEncoding(str) {
+    const encodedStr = new TextDecoder().decode(new TextEncoder().encode(str));
+    return encodedStr;
 }
