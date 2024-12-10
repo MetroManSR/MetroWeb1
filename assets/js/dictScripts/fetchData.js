@@ -24,13 +24,13 @@ export async function fetchData(url, type) {
         console.log(`${type} worksheet:`, worksheet);
 
         // Converting the sheet to JSON
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
         console.log(`${type} JSON data:`, jsonData);
 
         // Mapping the sheet data to objects
         return jsonData.map(row => {
             return row.reduce((acc, value, index) => {
-                acc[`col${index + 1}`] = value;
+                acc[`col${index + 1}`] = new TextDecoder("utf-8").decode(new TextEncoder().encode(value));
                 return acc;
             }, {});
         });
