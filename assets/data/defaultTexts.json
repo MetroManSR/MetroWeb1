@@ -51,7 +51,7 @@
         "whenLookingFor": "when looking for",
         "withFilters": "with filters",
         "withAdvancedSearch": "with advanced search applied",
-        "toggleFiltersButton": "Toggle Filters",
+        "toggleFiltersButton": "Toggle Filters"
     },
     "es": {
         "searchPlaceholder": "Buscar...",
@@ -105,7 +105,7 @@
         "whenLookingFor": "al buscar",
         "withFilters": "con filtros",
         "withAdvancedSearch": "con búsqueda avanzada aplicada",
-        "toggleFilterButton": "Mostrar o Esconder Filtros"
+        "toggleFiltersButton": "Mostrar o Esconder Filtros"
     },
     "eo": {},
     "blk": {}
