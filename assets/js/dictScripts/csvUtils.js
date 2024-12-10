@@ -44,7 +44,8 @@ export async function cleanData(data, type) {
             partofspeech: '', // Initialize part of speech
             meta: '', // Initialize meta
             notes: '', // Initialize notes
-            morph: '' // Initialize morph
+            morph: '', // Initialize morph
+            related: ''
         };
 
         if (type === 'word') {
