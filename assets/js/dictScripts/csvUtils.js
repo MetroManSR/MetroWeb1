@@ -14,15 +14,15 @@ export async function cleanData(data, type) {
         return [];
     }
 
-    // Fake increment
-    for (let i = 0; i <= 100; i++) {
+    // Initial fake increment
+    for (let i = 0; i <= 10; i++) {
         progressBar.style.width = `${i}%`;
         progressText.textContent = `Preparing... ${i}%`;
-        await new Promise(resolve => setTimeout(resolve, 10)); // Adjust time for speed
+        await new Promise(resolve => setTimeout(resolve, 5)); // Fast initial fake progress
     }
 
+    // Real processing with simulated 10% increments
     const cleanedData = [];
-    const anomalies = [];
     const increment = Math.ceil(totalRows / 10); // Calculate increment for 10% steps
 
     for (let index = 0; index < totalRows; index++) {
@@ -56,24 +56,21 @@ export async function cleanData(data, type) {
             cleanedRow.morph = sanitizeHTML(fixEncoding(morph ? morph.trim() : '')); // B morph for roots
         }
 
-        // Check for anomalies (missing title or meta)
-        if (!cleanedRow.title || !cleanedRow.meta) {
-            anomalies.push({ id: cleanedRow.id, title: cleanedRow.title, meta: cleanedRow.meta });
-        }
-
         cleanedData.push(cleanedRow);
 
         // Update real progress bar in whole percentage increments
-        const progress = Math.min(Math.floor(((index + 1) / totalRows) * 100), 100); // Limit progress to 100%
-        progressBar.style.width = `${progress}%`;
-        progressBar.style.display = 'block'; // Ensure the progress bar is visible
-        progressText.textContent = `Parsed ${progress}%`;
+        if ((index + 1) % increment === 0 || index === totalRows - 1) { // Update at each 10% step and at the end
+            const progress = Math.min(Math.floor(((index + 1) / totalRows) * 100), 100); // Limit progress to 100%
+            progressBar.style.width = `${progress}%`;
+            progressBar.style.display = 'block'; // Ensure the progress bar is visible
+            progressText.textContent = `Parsed ${progress}%`;
 
-        // Force reflow to update the progress bar
-        progressBar.offsetWidth; // Trigger a reflow
+            // Force reflow to update the progress bar
+            progressBar.offsetWidth; // Trigger a reflow
 
-        // Yield control to render the progress bar
-        await new Promise(resolve => requestAnimationFrame(resolve));
+            // Yield control to render the progress bar
+            await new Promise(resolve => requestAnimationFrame(resolve));
+        }
     }
 
     // Ensure progress bar completes at 100%
