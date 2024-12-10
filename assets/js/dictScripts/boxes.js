@@ -68,13 +68,16 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
 
-    if (row.morph.length > 0) {
+    // Check if morph exists and is a string
+    if (typeof row.morph === 'string' && row.morph.length > 0) {
+        const morphList = row.morph.split(',').map(morph => morph.trim());
         morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-        row.morph.forEach((morph, index) => {
-            morphElement.innerHTML += morph.id 
-                ? `<a href="?rootid=${morph.id}" style="color: green;">${highlight(morph.title, searchTerm)}</a>` 
-                : highlight(morph.title, searchTerm);
-            if (index < row.morph.length - 1) {
+        morphList.forEach((morph, index) => {
+            const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.toLowerCase() && r.type === 'root');
+            morphElement.innerHTML += matchingRoot 
+                ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morph, searchTerm)}</a>` 
+                : highlight(morph, searchTerm);
+            if (index < morphList.length - 1) {
                 morphElement.innerHTML += ', ';
             }
         });
@@ -198,7 +201,3 @@ export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, s
             dictionaryContainer.appendChild(box);
         }
     }
-
-    updatePagination(currentPage, filteredRows, rowsPerPage);
-    await updateFloatingText(filteredRows, searchTerm, [], {}, language);
-}
