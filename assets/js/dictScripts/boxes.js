@@ -67,7 +67,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
-    
+
     if (row.type === 'root') {
         morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
     } else {
@@ -77,7 +77,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
         morphologies.forEach((morph, index) => {
             const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.trim().toLowerCase() && r.type === 'root');
             if (matchingRoot) {
-                morphElement.innerHTML += `<a href="?rootid=${matchingRoot.id}">${highlight(morph.trim(), searchTerm)}</a>`;
+                morphElement.innerHTML += `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morph.trim(), searchTerm)}</a>`;
                 if (index < morphologies.length - 1) {
                     morphElement.innerHTML += ', ';
                 }
