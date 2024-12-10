@@ -61,7 +61,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
 
     currentPageInput.addEventListener('change', () => {
         let pageNumber = parseInt(currentPageInput.value, 10);
-        if (pageNumber >= 1 && pageNumber <= totalPages) {
+        if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
             currentPage = pageNumber;
             displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
         } else {
