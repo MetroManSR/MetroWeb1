@@ -1,7 +1,4 @@
-import { getRelatedWordsByRoot, highlight } from './utils.js';
-import { updatePagination } from './pagination.js';
-
-let previouslySelectedBox = null;
+import { highlight } from './utils.js';
 
 // Function to get part of speech abbreviation based on language
 function getPartOfSpeechAbbreviation(partOfSpeech, language) {
@@ -119,52 +116,6 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     // Ensure text does not overlap with type tag or ID box
     wordElement.style.paddingRight = '50px'; // Adjust padding to avoid type tag
     morphElement.style.paddingBottom = '30px'; // Adjust padding to avoid ID box
-
-    // Click event for highlighting and showing related words (or derivative words for roots)
-    box.addEventListener('click', function() {
-        if (previouslySelectedBox) {
-            previouslySelectedBox.classList.remove('selected-word', 'selected-root');
-            const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
-            if (previousRelatedWords) {
-                previouslySelectedBox.removeChild(previousRelatedWords);
-            }
-        }
-
-        if (box === previouslySelectedBox) {
-            previouslySelectedBox = null;
-            return; // Deselect the current box
-        }
-
-        // Highlight the clicked box
-        box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
-
-        // Display related words or derivative words
-        const relatedWordsElement = document.createElement('div');
-        relatedWordsElement.className = 'related-words';
-        relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
-
-        if (row.type === 'root') {
-            // Display derivative words for roots
-            const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title) && r.id !== row.id);
-            if (derivativeWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> ${derivativeWords.map(dw => highlight(dw.title, searchTerm)).join(', ')}`;
-            } else {
-                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> None found`;
-            }
-        } else {
-            // Display related words for words
-            const relatedWords = getRelatedWordsByRoot(row.morph, allRows).filter(rw => rw.id !== row.id);
-            if (relatedWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> ${relatedWords.map(rw => highlight(rw.title, searchTerm)).join(', ')}`;
-            } else {
-                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> None found`;
-            }
-        }
-
-        box.appendChild(relatedWordsElement);
-
-        previouslySelectedBox = box; // Set the clicked box as the previously selected one
-    });
 
     // Add fade-in effect
     setTimeout(() => {
