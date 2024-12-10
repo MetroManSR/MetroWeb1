@@ -70,18 +70,17 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.morph || '', searchTerm)}`;
+        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.morph.join(', ') || '', searchTerm)}`;
     } else {
-        // Check if morph exists and is a string
-        if (typeof row.morph === 'string' && row.morph.length > 0) {
-            const morphList = row.morph.split(',').map(morph => morph.trim());
+        // Check if morph exists and is an array
+        if (Array.isArray(row.morph) && row.morph.length > 0) {
             morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-            morphList.forEach((morph, index) => {
+            row.morph.forEach((morph, index) => {
                 const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.toLowerCase() && r.type === 'root');
                 morphElement.innerHTML += matchingRoot 
                     ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morph, searchTerm)}</a>` 
                     : highlight(morph, searchTerm);
-                if (index < morphList.length - 1) {
+                if (index < row.morph.length - 1) {
                     morphElement.innerHTML += ', ';
                 }
             });
