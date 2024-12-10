@@ -6,29 +6,33 @@
  */
 export function cleanData(data, type) {
     return data.map((row, index) => {
-        console.log('Original row:', row);
+        console.log(`Original row ${index}:`, row);
 
         let cleanedRow = {
             id: index, // Assign unique ID
             type: type, // Identification of type (root or word)
             title: '', // Initialize title
-            partofspeech: '',
             meta: '', // Initialize meta
             notes: '', // Initialize notes
             morph: '' // Initialize morph
         };
 
         if (type === 'word') {
-            cleanedRow.title = sanitizeHTML(row[0] ? row[0].trim() : ''); // X title for words
-            cleanedRow.partofspeech = sanitizeHTML(row[1] ? row[1].trim() : ''); // Part of Speech for words
-            cleanedRow.morph = sanitizeHTML(row[2] ? row[2].trim() : ''); // Definition for words
-            cleanedRow.meta = sanitizeHTML(row[4] ? row[4].trim() : ''); // Y meta for words
-            cleanedRow.notes = sanitizeHTML(row[3] ? row[3].trim() : ''); // A notes for words
+            console.log(`Processing word row ${index}: col1=${row.col1}, col2=${row.col2}, col3=${row.col3}, col4=${row.col4}, col5=${row.col5}`);
+            cleanedRow.title = sanitizeHTML(row.col1 ? row.col1.trim() : ''); // X title for words
+            cleanedRow.partofspeech = sanitizeHTML(row.col2 ? row.col2.trim() : ''); // Part of Speech for words
+            cleanedRow.morph = sanitizeHTML(row.col3 ? row.col3.trim() : ''); // Definition for words
+            cleanedRow.meta = sanitizeHTML(row.col5 ? row.col5.trim() : ''); // Y meta for words
+            cleanedRow.notes = sanitizeHTML(row.col4 ? row.col4.trim() : ''); // A notes for words
         } else if (type === 'root') {
-            const rawTitle = row[0] ? row[0].trim() : '';
+            const rawTitle = row.col1 ? row.col1.trim() : '';
+            console.log(`Processing root row ${index}: rawTitle=${rawTitle}`);
             const [root, rest] = rawTitle.split(' = ');
+            console.log(`Split root row ${index}: root=${root}, rest=${rest}`);
             const [translation, meta] = rest ? rest.split(' (') : ['', ''];
+            console.log(`Processed translation and meta for row ${index}: translation=${translation}, meta=${meta}`);
             const [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
+            console.log(`Processed notes and morph for row ${index}: notes=${notes}, morph=${morph}`);
 
             cleanedRow.title = sanitizeHTML(root ? root.trim() : ''); // X title for roots
             cleanedRow.meta = sanitizeHTML(translation ? translation.trim() : ''); // Y meta for roots
@@ -36,7 +40,7 @@ export function cleanData(data, type) {
             cleanedRow.morph = sanitizeHTML(morph ? morph.trim() : ''); // B morph for roots
         }
 
-        console.log('Cleaned row:', cleanedRow);
+        console.log(`Cleaned row ${index}:`, cleanedRow);
         return cleanedRow;
     });
 }
