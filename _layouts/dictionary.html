@@ -1,189 +1,126 @@
-import { fetchData } from './dictScripts/fetchData.js';
-import { setTexts } from './dictScripts/loadTexts.js';
-import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
-import { initializeEventListeners } from './dictScripts/init.js';
-import { createPaginationControls } from './dictScripts/pagination.js';
-import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js';
-import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
-import { cleanData } from './dictScripts/csvUtils.js';
+---
+layout: default
+---
 
-document.addEventListener('DOMContentLoaded', async function() {
-    const language = document.querySelector('meta[name="language"]').content || 'en';
-    await setTexts(language);
+<!DOCTYPE html>
+<html lang="{{ page.language }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="{{ page.language }}"> <!-- This will be dynamic based on your markdown front matter -->
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="../../../assets/css/dictionary-style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="../../../assets/js/mainDict.js" type="module"></script>
+</head>
+<body>
+    <header>
+        <h1></h1> <!-- Removed static "Your Dictionary" title -->
+    </header>
+    <main>
+        <div class="dict-loading-message" id="dict-loading-message">
+            <p id="dict-loading-message-text">Loading dictionary, please wait...</p>
+        </div>
 
-    const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
-    const pendingChanges = document.getElementById('dict-pending-changes');
-    const filterDropdown = document.getElementById('dict-filter-dropdown');
+        <!-- Content from Markdown -->
+        {{ content }} <!-- Positioned below the loading message -->
 
-    if (filterSortingContainer) {
-        filterSortingContainer.classList.add('dict-filter-cont-hidden');
-    }
+        <div class="dict-search-container">
+            <label for="dict-search-input" id="dict-search-label">Search:</label>
+            <input type="text" id="dict-search-input" placeholder="Search..." class="dict-search-input"/>
+            <button id="dict-search-button" class="btn">Search</button>
+            <button id="dict-clear-search-button" class="btn btn-danger">Clear Search</button>
+            <button id="dict-advanced-search-button" class="btn">Advanced Search</button>
+            <button id="dict-view-statistics-button" class="btn">View Statistics</button>
+        </div>
+        
+        <div id="dict-pending-changes" class="dict-pending-changes" style="display: none;"></div>
 
-    if (pendingChanges) {
-        pendingChanges.style.display = 'none';
-    }
+        <!-- Filter and Sorting Section -->
+        <div id="dict-filter-sorting-container" class="dict-filter-cont-hidden">
+            <div class="dict-pagination-container">
+                <label id="dict-rows-per-page-label" for="dict-rows-per-page-input">Rows per page:</label>
+                <input type="number" id="dict-rows-per-page-input" value="20" min="5" max="500" class="dict-rows-input"/>
+                <div id="dict-rows-warning"></div>
+            </div>
 
-    function showLoadingMessage() {
-        const loadingMessage = document.getElementById('dict-loading-message');
-        if (loadingMessage) {
-            loadingMessage.style.display = 'block';
-        }
-    }
+            <!-- Filter Dropdown -->
+            <div id="dict-filter-dropdown-container">
+                <label id="dict-filter-by-label" for="dict-word-filter">Filter by:</label>
+                <select id="dict-word-filter" multiple class="dict-filter-select">
+                    <option value="word">Word</option>
+                    <option value="root">Root</option>
+                    <option value="noun">Noun</option>
+                    <option value="verb">Verb</option>
+                    <option value="adjective">Adjective</option>
+                    <option value="adverb">Adverb</option>
+                    <option value="conjunction">Conjunction</option>
+                    <option value="interjection">Interjection</option>
+                    <option value="preposition">Preposition</option>
+                    <option value="expression">Expression</option>
+                    <option value="pronoun">Pronoun</option>
+                </select>
+                <button id="dict-apply-filter-button" class="btn">Apply</button>
+            </div>
 
-    function hideLoadingMessage() {
-        const loadingMessage = document.getElementById('dict-loading-message');
-        if (loadingMessage) {
-            loadingMessage.style.display = 'none';
-        }
-    }
+            <div class="dict-sorting-container">
+                <label for="dict-order-by-select" id="dict-order-by-label">Order By:</label>
+                <select id="dict-order-by-select" class="dict-order-select">
+                  <option value="titleup">Title (Ascending)</option>
+                  <option value="titledown">Title (Descending)</option>
+                  <option value="metaup">Meta (Ascending)</option>
+                  <option value="metadown">Meta (Descending)</option>
+                  <option value="morphup">Morphology (Ascending)</option>
+                  <option value="morphdown">Morphology (Descending)</option>
+                </select>
+            </div>
+        </div>
 
-    showLoadingMessage();
+        <button id="dict-toggle-filter-button" class="btn">Toggle Filters</button>
+        <button id="dict-apply-settings-button" class="btn">Apply Settings</button>
+        <button id="dict-clear-settings-button" class="btn btn-danger">Clear Settings</button>
+        
+        <!-- Dictionary Content -->
+        <div id="dict-dictionary"></div>
+        <div id="dict-pagination" class="dict-pagination"></div> <!-- Ensure this div is present for pagination -->
+        <div id="dict-progress-container">
+          <div id="dict-progress-bar"></div>
+          <div id="dict-progress-text"></div>
+        </div>
+        <!-- Popup for advanced search -->
+        <div id="dict-popup-overlay" class="dict-popup-overlay"></div>
+        <div id="dict-advanced-search-popup" class="dict-popup">
+            <form id="dict-advanced-search-form">
+                <h3>Advanced Search</h3>
+                <input type="checkbox" id="dict-search-in-word" name="dict-search-in-word" value="Word">
+                <label class="container" id="dict-search-in-word-label" for="dict-search-in-word"> Word</label>
+                <br>
+                <input type="checkbox" id="dict-search-in-root" name="dict-search-in-root" value="Root">
+                <label class="container" id="dict-search-in-root-label" for="dict-search-in-root"> Root</label>
+                <br>
+                <input type="checkbox" id="dict-search-in-definition" name="dict-search-in-definition" value="Definition">
+                <label class="container" id="dict-search-in-definition-label" for="dict-search-in-definition"> Definition</label>
+                <br>
+                <input type="checkbox" id="dict-search-in-etymology" name="dict-search-in-etymology" value="Etymology">
+                <label class="container" id="dict-search-in-etymology-label" for="dict-search-in-etymology"> Etymology</label>
+                <br>
+                <input type="checkbox" id="dict-exact-match" name="dict-exact-match" value="Exact Match">
+                <label class="container" id="dict-exact-match-label" for="dict-exact-match"> Exact Match</label>
+                <br>
+                <button type="button" id="dict-add-search-button-popup" class="btn">Add Search</button>
+                <button type="button" id="dict-apply-search-button-popup" class="btn">Apply Search</button>
+                <button type="button" id="dict-close-popup-button" class="btn">Close</button>
+            </form>
+        </div>
 
-    try {
-        console.log('DOMContentLoaded event triggered');
+        <!-- Popup for statistics -->
+        <div class="dict-popup-overlay" id="dict-statistics-popup-overlay"></div>
+        <div class="dict-popup" id="dict-statistics-popup">
+            <!-- Content will be added dynamically -->
+        </div>
 
-        hideLoadingMessage();
-
-        const defaultRowsPerPage = 20;
-        let rowsPerPage = defaultRowsPerPage;
-        let currentPage = 1;
-        let allRows = [];
-        let allRowsById = {};
-        let currentSortOrder = 'titleup'; // Default sort order
-
-        let pendingChanges = {
-            searchTerm: '',
-            exactMatch: false,
-            searchIn: { word: true, root: true, definition: false, etymology: false },
-            filters: [],
-            rowsPerPage: 20,
-            sortOrder: 'titleup'
-        };
-
-        function displayError(message) {
-            const errorContainer = document.getElementById('dict-error-message');
-            errorContainer.innerHTML = `<p>${message}</p>`;
-            errorContainer.style.display = 'block';
-        }
-
-        const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
-        console.log('Language set to:', language);
-
-        await setTexts(language);
-
-        // Define URLs based on language
-        const esDictURL = 'https://docs.google.com/spreadsheets/d/1ZzYEerR-BTsk5QaOefiWhS3mhQe9YQnY/export?format=xlsx';
-        const enDictURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/export?format=xlsx';
-        const esRootURL = 'https://docs.google.com/spreadsheets/d/1BAaWVCp5QZCxg9Xfm_EvDdlUPeZjE6j005ovmwSEh70/export?format=xlsx';
-        const enRootURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/export?format=xlsx';
-
-        const dictionaryFile = language === 'es' ? esDictURL : enDictURL;
-        const rootsFile = language === 'es' ? esRootURL : enRootURL;
-
-        async function fetchWithFallback(url, type) {
-            try {
-                return await fetchData(url, type);
-            } catch (error) {
-                console.error(`Error fetching data from ${url}:`, error);
-                return [];
-            }
-        }
-
-        console.log('Fetching data...');
-        const [dictionaryData, rootsData] = await Promise.all([
-            fetchWithFallback(dictionaryFile, 'word'), 
-            fetchWithFallback(rootsFile, 'root')
-        ]);
-
-        console.log('Dictionary Data:', dictionaryData);
-        console.log('Roots Data:', rootsData);
-
-        // Clean data and wait for completion before proceeding
-        const cleanedDictionaryData = (await cleanData(dictionaryData, 'word')).sort((a, b) => a.title.localeCompare(b.title));
-        const cleanedRootsData = (await cleanData(rootsData, 'root')).sort((a, b) => a.title.localeCompare(b.title));
-
-        cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
-        cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
-
-        console.log('Cleaned Dictionary Data:', cleanedDictionaryData);
-        console.log('Cleaned Roots Data:', cleanedRootsData);
-
-        allRows = [...cleanedDictionaryData, ...cleanedRootsData];
-        let filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
-
-        filteredRows.forEach(row => {
-            allRowsById[row.id] = row;
-        });
-
-        console.log('All Rows:', allRows);
-        console.log('Filtered Rows:', filteredRows);
-
-        console.log('Creating pagination controls...');
-        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
-
-        // Handle URL parameters
-        const params = new URLSearchParams(window.location.search);
-        const searchTerm = params.get('hypersearchterm');
-        const wordID = params.get('wordid');
-        const rootID = params.get('rootid');
-        const wordSpecificTerm = params.get('wordSpecific');
-        const rootSpecificTerm = params.get('rootSpecific');
-
-        if (searchTerm && searchTerm.trim()) {
-            const criteria = { searchTerm: searchTerm.trim() };
-            processRows(allRows, criteria, rowsPerPage, displayPage, currentPage, currentSortOrder);
-        } else if (wordID && parseInt(wordID) > 0) {
-            const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
-            console.log('Word Entry:', wordEntry);
-            displaySpecificEntry(wordEntry, allRows);
-        } else if (rootID && parseInt(rootID) > 0) {
-            const rootEntry = allRows.find(row => row.id === parseInt(rootID) && row.type === 'root');
-            console.log('Root Entry:', rootEntry);
-            displaySpecificEntry(rootEntry, allRows);
-        } else if (wordSpecificTerm && wordSpecificTerm.trim()) {
-            wordSpecific(wordSpecificTerm, allRows);
-        } else if (rootSpecificTerm && rootSpecificTerm.trim()) {
-            rootSpecific(rootSpecificTerm, allRows);
-        }
-
-        // Initialize advanced search form
-        const advancedSearchForm = document.getElementById('advanced-search-form');
-        if (advancedSearchForm) {
-            advancedSearchForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const formData = new FormData(advancedSearchForm);
-                const params = {
-                    searchTerm: formData.get('search-term'),
-                    word: formData.get('search-in-word') === 'on',
-                    root: formData.get('search-in-root') === 'on',
-                    definition: formData.get('search-in-definition') === 'on',
-                    etymology: formData.get('search-in-etymology') === 'on',
-                    exactMatch: formData.get('exact-match') === 'on'
-                };
-                advancedSearch(params, allRows, rowsPerPage, displayPage, pendingChanges.sortOrder);
-            });
-        }
-
-        // Sorting functionality
-        const orderBySelect = document.getElementById('dict-order-by-select');
-        if (orderBySelect) {
-            orderBySelect.addEventListener('change', () => {
-                pendingChanges.sortOrder = orderBySelect.value;
-                console.log('Selected order:', pendingChanges.sortOrder);
-                updatePendingChangesList();
-            });
-        }
-
-        // Hide the loading message after JS is ready
-        document.getElementById('dict-loading-message').style.display = 'none';
-    } catch (error) {
-        console.error('Error loading data:', error);
-        displayError('Failed to load dictionary data. Please try again later.');
-        // Hide the loading message in case of an error
-        document.getElementById('dict-loading-message').style.display = 'none';
-    }
-
-    // Initialize event listeners with apply settings handling
-    initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage);
-});
+        <!-- Error Message Container -->
+        <div id="dict-error-message" class="dict-error-message" style="display: none;"></div>
+    </main>
+</body>
+</html>
