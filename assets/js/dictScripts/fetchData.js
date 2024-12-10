@@ -30,7 +30,7 @@ export async function fetchData(url, type) {
         // Mapping the sheet data to objects
         return jsonData.map(row => {
             return row.reduce((acc, value, index) => {
-                acc[`col${index + 1}`] = new TextDecoder("utf-8").decode(new TextEncoder().encode(value));
+                acc[`col${index + 1}`] = decodeURIComponent(escape(value)); // Ensuring proper encoding
                 return acc;
             }, {});
         });
