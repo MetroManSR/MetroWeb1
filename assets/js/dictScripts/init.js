@@ -135,6 +135,17 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     }
 
     // Initialize popups
-    initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
-    initStatisticsPopup(allRows);
+    let advancedSearchButton = document.getElementById('dict-advanced-search-button');
+    if (advancedSearchButton) {
+        advancedSearchButton.addEventListener('click', () => {
+            initAdvancedSearchPopup();
+        });
+    }
+
+    let viewStatisticsButton = document.getElementById('dict-view-statistics-button');
+    if (viewStatisticsButton) {
+        viewStatisticsButton.addEventListener('click', () => {
+            initStatisticsPopup();
+        });
+    }
 }
