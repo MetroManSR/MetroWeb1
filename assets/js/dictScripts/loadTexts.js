@@ -37,3 +37,7 @@ export async function setTexts(language) {
         console.error('Error loading texts:', error);
     }
 }
+
+export function getTranslatedText(key, language) {
+    return defaultTexts[language] && defaultTexts[language][key] ? defaultTexts[language][key] : defaultTexts['en'][key];
+}
