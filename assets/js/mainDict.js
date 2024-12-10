@@ -64,11 +64,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             errorContainer.style.display = 'block';
         }
 
-        const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
-        console.log('Language set to:', language);
-
-        await setTexts(language);
-
         // Define URLs based on language
         const esDictURL = 'https://docs.google.com/spreadsheets/d/1ZzYEerR-BTsk5QaOefiWhS3mhQe9YQnY/export?format=xlsx';
         const enDictURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/export?format=xlsx';
