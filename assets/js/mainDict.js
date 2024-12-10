@@ -5,7 +5,7 @@ import { initializeEventListeners } from './dictScripts/init.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js';
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
-import { cleanData } from './dictScripts/cleanData.js';
+import { cleanData } from './dictScripts/csvUtils.js';
 
 function showLoadingMessage() {
     const loadingMessage = document.getElementById('dict-loading-message');
