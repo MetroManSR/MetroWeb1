@@ -70,7 +70,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.morph.join(', ') || '', searchTerm)}`;
+        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
     } else {
         // Check if morph exists and is an array
         if (Array.isArray(row.morph) && row.morph.length > 0) {
