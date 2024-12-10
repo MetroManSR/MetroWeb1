@@ -8,19 +8,20 @@ import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from '.
 import { cleanData } from './dictScripts/csvUtils.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
-    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    const filterDropdown = document.getElementById('dict-filter-dropdown');
+    const language = document.querySelector('meta[name="language"]').content || 'en';
+    await setTexts(language);
+
+    const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
     const pendingChanges = document.getElementById('dict-pending-changes');
+    const filterDropdown = document.getElementById('dict-filter-dropdown');
 
-    // Initially hide elements
-    filterDropdown.classList.add('dict-filter-cont-hidden');
-    pendingChanges.style.display = 'none';
+    if (filterSortingContainer) {
+        filterSortingContainer.classList.add('dict-filter-cont-hidden');
+    }
 
-    // Toggle filter dropdown visibility
-    toggleFilterButton.addEventListener('click', () => {
-        filterDropdown.classList.toggle('dict-filter-cont-hidden');
-        filterDropdown.classList.toggle('dict-filter-cont-visible');
-    });
+    if (pendingChanges) {
+        pendingChanges.style.display = 'none';
+    }
 
     function showLoadingMessage() {
         const loadingMessage = document.getElementById('dict-loading-message');
@@ -33,13 +34,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         const loadingMessage = document.getElementById('dict-loading-message');
         if (loadingMessage) {
             loadingMessage.style.display = 'none';
-        }
-    }
-
-    function toggleFilterOptions() {
-        const advancedFilterOptions = document.getElementById('advanced-filter-options');
-        if (advancedFilterOptions) {
-            advancedFilterOptions.classList.toggle('hidden');
         }
     }
 
@@ -171,12 +165,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         }
 
-        // Toggle filter options
-        const filterToggleButton = document.getElementById('filter-toggle-button');
-        if (filterToggleButton) {
-            filterToggleButton.addEventListener('click', toggleFilterOptions);
-        }
-
         // Sorting functionality
         const orderBySelect = document.getElementById('dict-order-by-select');
         if (orderBySelect) {
@@ -198,9 +186,4 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Initialize event listeners with apply settings handling
     initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage);
-
-    // Initialize popup systems
-    initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
-    initStatisticsPopup(allRows);
-    console.log('Initialization complete');
 });
