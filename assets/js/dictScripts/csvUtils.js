@@ -1,3 +1,4 @@
+
 /**
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
@@ -16,7 +17,7 @@ export function cleanData(data, type) {
 
     console.log(`Total rows to process: ${totalRows}`);
 
-    data.forEach((row, index) => {
+    return data.map((row, index) => {
         console.log(`Original row ${index}:`, row);
 
         let cleanedRow = {
@@ -57,25 +58,13 @@ export function cleanData(data, type) {
         const progress = ((index + 1) / totalRows) * 100;
         console.log(`Updating progress bar: ${progress}%`);
         progressBar.style.width = `${progress}%`;
+        progressBar.style.display = 'block'; // Ensure the progress bar is visible
         progressText.textContent = `Parsed ${index + 1} out of ${totalRows}`;
-
+        
         // Force reflow to update the progress bar
         progressBar.offsetWidth; // Trigger a reflow
-        progressBar.style.display = 'block'; // Ensure the progress bar is visible
-        progressText.style.display = 'block'; // Ensure the progress text is visible
-    });
 
-    // Return the cleaned data array
-    return data.map((row, index) => {
-        return {
-            id: index,
-            type: type,
-            title: sanitizeHTML(ensureProperEncoding(row.col1 ? row.col1.trim() : '')),
-            partofspeech: type === 'word' ? sanitizeHTML(ensureProperEncoding(row.col2 ? row.col2.trim() : '')) : '',
-            morph: type === 'word' ? sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')) : sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')),
-            meta: sanitizeHTML(ensureProperEncoding(row.col4 ? row.col4.trim() : '')),
-            notes: sanitizeHTML(ensureProperEncoding(row.col5 ? row.col5.trim() : ''))
-        };
+        return cleanedRow;
     });
 }
 
@@ -96,6 +85,6 @@ export function sanitizeHTML(str) {
  * @returns {string} - The encoded string.
  */
 export function ensureProperEncoding(str) {
-    const encodedStr = new TextDecoder().decode(new TextEncoder().encode(str));
+    const encodedStr = decodeURIComponent(escape(str)); // Ensure proper encoding
     return encodedStr;
 }
