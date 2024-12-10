@@ -7,80 +7,94 @@ import { processRows, advancedSearch, sortRows } from './dictScripts/processRows
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 
-function showLoadingMessage() {
-    const loadingMessage = document.getElementById('dict-loading-message');
-    if (loadingMessage) {
-        loadingMessage.style.display = 'block';
-    }
-}
-
-function hideLoadingMessage() {
-    const loadingMessage = document.getElementById('dict-loading-message');
-    if (loadingMessage) {
-        loadingMessage.style.display = 'none';
-    }
-}
-
-function toggleFilterOptions() {
-    const advancedFilterOptions = document.getElementById('advanced-filter-options');
-    if (advancedFilterOptions) {
-        advancedFilterOptions.classList.toggle('hidden');
-    }
-}
-
-showLoadingMessage();
-
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('DOMContentLoaded event triggered');
+    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
+    const filterDropdown = document.getElementById('dict-filter-dropdown');
+    const pendingChanges = document.getElementById('dict-pending-changes');
 
-    hideLoadingMessage();
+    // Initially hide elements
+    filterDropdown.classList.add('dict-filter-cont-hidden');
+    pendingChanges.style.display = 'none';
 
-    const defaultRowsPerPage = 20;
-    let rowsPerPage = defaultRowsPerPage;
-    let currentPage = 1;
-    let allRows = [];
-    let allRowsById = {};
-    let currentSortOrder = 'titleup'; // Default sort order
+    // Toggle filter dropdown visibility
+    toggleFilterButton.addEventListener('click', () => {
+        filterDropdown.classList.toggle('dict-filter-cont-hidden');
+        filterDropdown.classList.toggle('dict-filter-cont-visible');
+    });
 
-    let pendingChanges = {
-        searchTerm: '',
-        exactMatch: false,
-        searchIn: { word: true, root: true, definition: false, etymology: false },
-        filters: [],
-        rowsPerPage: 20,
-        sortOrder: 'titleup'
-    };
-
-    function displayError(message) {
-        const errorContainer = document.getElementById('dict-error-message');
-        errorContainer.innerHTML = `<p>${message}</p>`;
-        errorContainer.style.display = 'block';
-    }
-
-    const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
-    console.log('Language set to:', language);
-
-    await setTexts(language);
-
-    // Define URLs based on language
-    const esDictURL = 'https://docs.google.com/spreadsheets/d/1ZzYEerR-BTsk5QaOefiWhS3mhQe9YQnY/export?format=xlsx';
-    const enDictURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/export?format=xlsx';
-    const esRootURL = 'https://docs.google.com/spreadsheets/d/1BAaWVCp5QZCxg9Xfm_EvDdlUPeZjE6j005ovmwSEh70/export?format=xlsx';
-    const enRootURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/export?format=xlsx';
-
-    const dictionaryFile = language === 'es' ? esDictURL : enDictURL;
-    const rootsFile = language === 'es' ? esRootURL : enRootURL;
-
-    async function fetchWithFallback(url, type) {
-        try {
-            return await fetchData(url, type);
-        } catch (error) {
-            console.error(`Error fetching data from ${url}:`, error);
-            return [];
+    function showLoadingMessage() {
+        const loadingMessage = document.getElementById('dict-loading-message');
+        if (loadingMessage) {
+            loadingMessage.style.display = 'block';
         }
     }
 
+    function hideLoadingMessage() {
+        const loadingMessage = document.getElementById('dict-loading-message');
+        if (loadingMessage) {
+            loadingMessage.style.display = 'none';
+        }
+    }
+
+    function toggleFilterOptions() {
+        const advancedFilterOptions = document.getElementById('advanced-filter-options');
+        if (advancedFilterOptions) {
+            advancedFilterOptions.classList.toggle('hidden');
+        }
+    }
+
+    showLoadingMessage();
+
     try {
+        console.log('DOMContentLoaded event triggered');
+
+        hideLoadingMessage();
+
+        const defaultRowsPerPage = 20;
+        let rowsPerPage = defaultRowsPerPage;
+        let currentPage = 1;
+        let allRows = [];
+        let allRowsById = {};
+        let currentSortOrder = 'titleup'; // Default sort order
+
+        let pendingChanges = {
+            searchTerm: '',
+            exactMatch: false,
+            searchIn: { word: true, root: true, definition: false, etymology: false },
+            filters: [],
+            rowsPerPage: 20,
+            sortOrder: 'titleup'
+        };
+
+        function displayError(message) {
+            const errorContainer = document.getElementById('dict-error-message');
+            errorContainer.innerHTML = `<p>${message}</p>`;
+            errorContainer.style.display = 'block';
+        }
+
+        const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
+        console.log('Language set to:', language);
+
+        await setTexts(language);
+
+        // Define URLs based on language
+        const esDictURL = 'https://docs.google.com/spreadsheets/d/1ZzYEerR-BTsk5QaOefiWhS3mhQe9YQnY/export?format=xlsx';
+        const enDictURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/export?format=xlsx';
+        const esRootURL = 'https://docs.google.com/spreadsheets/d/1BAaWVCp5QZCxg9Xfm_EvDdlUPeZjE6j005ovmwSEh70/export?format=xlsx';
+        const enRootURL = 'https://docs.google.com/spreadsheets/d/1jkaWrRlTx7BPxs6B4qgz7NzUcyQLhZ7Iit0MXYFD9W4/export?format=xlsx';
+
+        const dictionaryFile = language === 'es' ? esDictURL : enDictURL;
+        const rootsFile = language === 'es' ? esRootURL : enRootURL;
+
+        async function fetchWithFallback(url, type) {
+            try {
+                return await fetchData(url, type);
+            } catch (error) {
+                console.error(`Error fetching data from ${url}:`, error);
+                return [];
+            }
+        }
+
         console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([
             fetchWithFallback(dictionaryFile, 'word'), 
