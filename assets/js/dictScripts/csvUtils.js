@@ -21,15 +21,15 @@ export async function cleanData(data, type) {
         await new Promise(resolve => setTimeout(resolve, 5)); // Fast initial fake progress
     }
 
-    // List of IDs that need character fixing
-    const idsToFix = [];
-    data.forEach((row, index) => {
-        if (containsEncodingIssues(row.col1) || containsEncodingIssues(row.col2) || containsEncodingIssues(row.col3) || containsEncodingIssues(row.col4) || containsEncodingIssues(row.col5)) {
-            idsToFix.push(index);
-        }
-    });
+    // List of IDs needing character fixing
+    const idsNeedingFixing = data
+        .map((row, index) => ({
+            id: index,
+            needsFixing: /Ã|Â/.test(row.col1 || '') || /Ã|Â/.test(row.col2 || '') || /Ã|Â/.test(row.col3 || '') || /Ã|Â/.test(row.col4 || '') || /Ã|Â/.test(row.col5 || '')
+        }))
+        .filter(row => row.needsFixing)
+        .map(row => row.id);
 
-    // Real processing with simulated 10% increments
     const cleanedData = [];
     const anomalies = [];
     const increment = Math.ceil(totalRows / 10); // Calculate increment for 10% steps
@@ -48,21 +48,21 @@ export async function cleanData(data, type) {
         };
 
         if (type === 'word') {
-            cleanedRow.title = sanitizeHTML(idsToFix.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : (row.col1 ? row.col1.trim() : '')); // X title for words
-            cleanedRow.partofspeech = sanitizeHTML(idsToFix.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : (row.col2 ? row.col2.trim() : '')); // Part of Speech for words
-            cleanedRow.morph = sanitizeHTML(idsToFix.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : (row.col3 ? row.col3.trim() : '')); // Morphology for words
-            cleanedRow.notes = sanitizeHTML(idsToFix.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : (row.col4 ? row.col4.trim() : '')); // Notes for words
-            cleanedRow.meta = sanitizeHTML(idsToFix.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : (row.col5 ? row.col5.trim() : '')); // Meta for words
+            cleanedRow.title = sanitizeHTML(fixEncoding(row.col1 ? row.col1.trim() : '')); // X title for words
+            cleanedRow.partofspeech = sanitizeHTML(fixEncoding(row.col2 ? row.col2.trim() : '')); // Part of Speech for words
+            cleanedRow.morph = sanitizeHTML(fixEncoding(row.col3 ? row.col3.trim() : '')); // Morphology for words
+            cleanedRow.notes = sanitizeHTML(fixEncoding(row.col4 ? row.col4.trim() : '')); // Notes for words
+            cleanedRow.meta = sanitizeHTML(fixEncoding(row.col5 ? row.col5.trim() : '')); // Meta for words
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
             const [root, rest] = rawTitle.split(' = ');
             const [translation, meta] = rest ? rest.split(' (') : ['', ''];
             const [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
 
-            cleanedRow.title = sanitizeHTML(idsToFix.includes(index) ? fixEncoding(root ? root.trim() : '') : (root ? root.trim() : '')); // X title for roots
-            cleanedRow.meta = sanitizeHTML(idsToFix.includes(index) ? fixEncoding(translation ? translation.trim() : '') : (translation ? translation.trim() : '')); // Y meta for roots
-            cleanedRow.notes = sanitizeHTML(idsToFix.includes(index) ? fixEncoding(notes ? notes.trim() : '') : (notes ? notes.trim() : '')); // A notes for roots
-            cleanedRow.morph = sanitizeHTML(idsToFix.includes(index) ? fixEncoding(morph ? morph.trim() : '') : (morph ? morph.trim() : '')); // B morph for roots
+            cleanedRow.title = sanitizeHTML(fixEncoding(root ? root.trim() : '')); // X title for roots
+            cleanedRow.meta = sanitizeHTML(fixEncoding(translation ? translation.trim() : '')); // Y meta for roots
+            cleanedRow.notes = sanitizeHTML(fixEncoding(notes ? notes.trim() : '')); // A notes for roots
+            cleanedRow.morph = sanitizeHTML(fixEncoding(morph ? morph.trim() : '')); // B morph for roots
         }
 
         // Check for anomalies (missing title or meta)
@@ -112,16 +112,6 @@ export function sanitizeHTML(str) {
     const temp = document.createElement('div');
     temp.textContent = str;
     return temp.innerHTML;
-}
-
-/**
- * Checks if a string contains encoding issues.
- * @param {string} str - The string to check.
- * @returns {boolean} - True if the string contains encoding issues, false otherwise.
- */
-export function containsEncodingIssues(str) {
-    const encodingPatterns = [/Ã¡/, /Ã©/, /Ã­/, /Ã³/, /Ãº/, /Ã/, /Ã‰/, /Ã/, /Ã“/, /Ãš/, /Ã±/, /Ã‘/, /Â¿/, /Â¡/];
-    return encodingPatterns.some(pattern => pattern.test(str));
 }
 
 /**
