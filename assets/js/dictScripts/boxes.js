@@ -63,24 +63,29 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('dictionary-box-notes');
-    notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${row.type === 'root' ? highlight(row.morph || '', searchTerm) : highlight(row.notes || '', searchTerm)}`;
+    notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
 
-    // Check if morph exists and is a string
-    if (typeof row.morph === 'string' && row.morph.length > 0) {
-        const morphList = row.morph.split(',').map(morph => morph.trim());
-        morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-        morphList.forEach((morph, index) => {
-            const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.toLowerCase() && r.type === 'root');
-            morphElement.innerHTML += matchingRoot 
-                ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morph, searchTerm)}</a>` 
-                : highlight(morph, searchTerm);
-            if (index < morphList.length - 1) {
-                morphElement.innerHTML += ', ';
-            }
-        });
+    // Display morphology for words and etymology for roots
+    if (row.type === 'root') {
+        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.morph || '', searchTerm)}`;
+    } else {
+        // Check if morph exists and is a string
+        if (typeof row.morph === 'string' && row.morph.length > 0) {
+            const morphList = row.morph.split(',').map(morph => morph.trim());
+            morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
+            morphList.forEach((morph, index) => {
+                const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.toLowerCase() && r.type === 'root');
+                morphElement.innerHTML += matchingRoot 
+                    ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morph, searchTerm)}</a>` 
+                    : highlight(morph, searchTerm);
+                if (index < morphList.length - 1) {
+                    morphElement.innerHTML += ', ';
+                }
+            });
+        }
     }
 
     // Related words will be displayed only when a box is clicked
