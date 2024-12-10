@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     await setTexts(language);
 
     const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
-    const pendingChanges = document.getElementById('dict-pending-changes');
+    let pendingChanges = document.getElementById('dict-pending-changes');
 
     // Initially hide elements
     if (filterSortingContainer) {
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     let rowsPerPage = 20; // Default rows per page
     let currentPage = 1;
     let currentSortOrder = 'titleup'; // Default sort order
-    let pendingChanges = {
+    pendingChanges = {
         searchTerm: '',
         exactMatch: false,
         searchIn: { word: true, root: true, definition: false, etymology: false },
