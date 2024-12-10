@@ -48,21 +48,21 @@ export async function cleanData(data, type) {
         };
 
         if (type === 'word') {
-            cleanedRow.title = sanitizeHTML(fixEncoding(row.col1 ? row.col1.trim() : '')); // X title for words
-            cleanedRow.partofspeech = sanitizeHTML(fixEncoding(row.col2 ? row.col2.trim() : '')); // Part of Speech for words
-            cleanedRow.morph = sanitizeHTML(fixEncoding(row.col3 ? row.col3.trim() : '')); // Morphology for words
-            cleanedRow.notes = sanitizeHTML(fixEncoding(row.col4 ? row.col4.trim() : '')); // Notes for words
-            cleanedRow.meta = sanitizeHTML(fixEncoding(row.col5 ? row.col5.trim() : '')); // Meta for words
+            cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // X title for words
+            cleanedRow.partofspeech = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Part of Speech for words
+            cleanedRow.morph = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : row.col3 ? row.col3.trim() : ''); // Morphology for words
+            cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
+            cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : ''); // Meta for words
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
             const [root, rest] = rawTitle.split(' = ');
             const [translation, meta] = rest ? rest.split(' (') : ['', ''];
             const [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
 
-            cleanedRow.title = sanitizeHTML(fixEncoding(root ? root.trim() : '')); // X title for roots
-            cleanedRow.meta = sanitizeHTML(fixEncoding(translation ? translation.trim() : '')); // Y meta for roots
-            cleanedRow.notes = sanitizeHTML(fixEncoding(notes ? notes.trim() : '')); // A notes for roots
-            cleanedRow.morph = sanitizeHTML(fixEncoding(morph ? morph.trim() : '')); // B morph for roots
+            cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(root ? root.trim() : '') : root ? root.trim() : ''); // X title for roots
+            cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(translation ? translation.trim() : '') : translation ? translation.trim() : ''); // Y meta for roots
+            cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(notes ? notes.trim() : '') : notes ? notes.trim() : ''); // A notes for roots
+            cleanedRow.morph = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(morph ? morph.trim() : '') : morph ? morph.trim() : ''); // B morph for roots
         }
 
         // Check for anomalies (missing title or meta)
@@ -83,7 +83,7 @@ export async function cleanData(data, type) {
             progressBar.offsetWidth; // Trigger a reflow
 
             // Yield control to render the progress bar
-            await new Promise(resolve => requestAnimationFrame(resolve));
+            await new Promise(resolve => setTimeout(resolve, 1)); // Add a delay to ensure progress bar update
         }
     }
 
