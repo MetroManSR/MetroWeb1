@@ -39,6 +39,15 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         });
     }
 
+    const applySettingsButton = document.getElementById('dict-apply-settings-button');
+    if (applySettingsButton) {
+        applySettingsButton.addEventListener('click', () => {
+            const { searchTerm, exactMatch, searchIn, filters } = pendingChanges;
+            const criteria = { searchTerm, exactMatch, searchIn, filters };
+            processRows(allRows, criteria, rowsPerPage, displayPage);
+        });
+    }
+
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.addEventListener('click', async (e) => {
         const box = e.target.closest('.dictionary-box');
