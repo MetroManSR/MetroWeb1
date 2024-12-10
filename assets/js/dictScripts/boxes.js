@@ -114,7 +114,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
 
         if (row.type === 'root') {
             // Display derivative words for roots
-            const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title));
+            const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title) && r.id !== row.id);
             if (derivativeWords.length > 0) {
                 relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> ${derivativeWords.map(dw => dw.title).join(', ')}`;
             } else {
@@ -122,7 +122,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
             }
         } else {
             // Display related words for words
-            const relatedWords = getRelatedWordsByRoot(row.morph, allRows);
+            const relatedWords = getRelatedWordsByRoot(row.morph, allRows).filter(rw => rw.id !== row.id);
             if (relatedWords.length > 0) {
                 relatedWordsElement.innerHTML = `<strong>Related Words:</strong> ${relatedWords.map(rw => rw.title).join(', ')}`;
             } else {
@@ -141,4 +141,71 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     }, 100);
 
     return box;
+}
+
+// Function to create a no match box
+export function createNoMatchBox() {
+    const noMatchBox = document.createElement('div');
+    noMatchBox.className = 'dictionary-box no-match';
+    noMatchBox.textContent = 'No match for your search';
+    return noMatchBox;
+}
+
+// Function to create a loading box
+export function createLoadingBox() {
+    const loadingBox = document.createElement('div');
+    loadingBox.className = 'dictionary-box loading';
+    return loadingBox;
+}
+
+// Function to update the floating text
+export function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams) {
+    let floatingTextContent = `${filteredRows.length} words found`;
+
+    if (searchTerm) {
+        floatingTextContent += ` when looking for "${searchTerm}"`;
+    }
+    if (filters.length > 0) {
+        floatingTextContent += ` with filters: ${filters.join(", ")}`;
+    }
+    if (advancedSearchParams) {
+        floatingTextContent += ` with advanced search applied: ${Object.keys(advancedSearchParams).join(", ")}`;
+    }
+
+    const floatingText = document.getElementById('floating-text');
+    if (floatingText) {
+        floatingText.textContent = floatingTextContent;
+    } else {
+        const newFloatingText = document.createElement('div');
+        newFloatingText.id = 'floating-text';
+        newFloatingText.className = 'floating-text';
+        newFloatingText.textContent = floatingTextContent;
+        document.body.appendChild(newFloatingText);
+    }
+}
+
+export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
+    const dictionaryContainer = document.getElementById('dict-dictionary');
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+    if (filteredRows.length === 0) {
+        dictionaryContainer.appendChild(createNoMatchBox());
+        updatePagination(currentPage, filteredRows, rowsPerPage);
+        updateFloatingText(filteredRows, searchTerm, [], {});
+        return;
+    }
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const rowsToDisplay = filteredRows.slice(start, end);
+
+    rowsToDisplay.forEach((row) => {
+        const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        if (box) {
+            dictionaryContainer.appendChild(box);
+        }
+    });
+
+    updatePagination(currentPage, filteredRows, rowsPerPage);
+    updateFloatingText(filteredRows, searchTerm, [], {});
 }
