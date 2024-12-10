@@ -1,4 +1,3 @@
-
 /**
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
@@ -42,11 +41,11 @@ export async function cleanData(data, type) {
 
         if (type === 'word') {
             console.log(`Processing word row ${index}: col1=${row.col1}, col2=${row.col2}, col3=${row.col3}, col4=${row.col4}, col5=${row.col5}`);
-            cleanedRow.title = sanitizeHTML(ensureProperEncoding(row.col1 ? row.col1.trim() : '')); // X title for words
-            cleanedRow.partofspeech = sanitizeHTML(ensureProperEncoding(row.col2 ? row.col2.trim() : '')); // Part of Speech for words
-            cleanedRow.morph = sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')); // Morphology for words
-            cleanedRow.notes = sanitizeHTML(ensureProperEncoding(row.col4 ? row.col4.trim() : '')); // Notes for words
-            cleanedRow.meta = sanitizeHTML(ensureProperEncoding(row.col5 ? row.col5.trim() : '')); // Meta for words
+            cleanedRow.title = sanitizeHTML(tryMultipleEncodings(row.col1 ? row.col1.trim() : '')); // X title for words
+            cleanedRow.partofspeech = sanitizeHTML(tryMultipleEncodings(row.col2 ? row.col2.trim() : '')); // Part of Speech for words
+            cleanedRow.morph = sanitizeHTML(tryMultipleEncodings(row.col3 ? row.col3.trim() : '')); // Morphology for words
+            cleanedRow.notes = sanitizeHTML(tryMultipleEncodings(row.col4 ? row.col4.trim() : '')); // Notes for words
+            cleanedRow.meta = sanitizeHTML(tryMultipleEncodings(row.col5 ? row.col5.trim() : '')); // Meta for words
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
             console.log(`Processing root row ${index}: rawTitle=${rawTitle}`);
@@ -57,10 +56,10 @@ export async function cleanData(data, type) {
             const [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
             console.log(`Processed notes and morph for row ${index}: notes=${notes}, morph=${morph}`);
 
-            cleanedRow.title = sanitizeHTML(ensureProperEncoding(root ? root.trim() : '')); // X title for roots
-            cleanedRow.meta = sanitizeHTML(ensureProperEncoding(translation ? translation.trim() : '')); // Y meta for roots
-            cleanedRow.notes = sanitizeHTML(ensureProperEncoding(notes ? notes.trim() : '')); // A notes for roots
-            cleanedRow.morph = sanitizeHTML(ensureProperEncoding(morph ? morph.trim() : '')); // B morph for roots
+            cleanedRow.title = sanitizeHTML(tryMultipleEncodings(root ? root.trim() : '')); // X title for roots
+            cleanedRow.meta = sanitizeHTML(tryMultipleEncodings(translation ? translation.trim() : '')); // Y meta for roots
+            cleanedRow.notes = sanitizeHTML(tryMultipleEncodings(notes ? notes.trim() : '')); // A notes for roots
+            cleanedRow.morph = sanitizeHTML(tryMultipleEncodings(morph ? morph.trim() : '')); // B morph for roots
         }
 
         console.log(`Cleaned row ${index}:`, cleanedRow);
@@ -99,15 +98,30 @@ export function sanitizeHTML(str) {
 }
 
 /**
- * Ensures proper encoding to preserve special characters.
+ * Tries multiple encoding methods to preserve special characters.
  * @param {string} str - The string to be encoded.
  * @returns {string} - The encoded string.
  */
-export function ensureProperEncoding(str) {
+export function tryMultipleEncodings(str) {
+    let encodedStr = str;
+
     try {
-        return decodeURIComponent(escape(str)); // Ensure proper encoding
+        encodedStr = decodeURIComponent(escape(str)); // Attempt 1
     } catch (e) {
-        console.error('Encoding error:', e);
-        return str;
+        console.error('Encoding attempt 1 failed:', e);
     }
+
+    if (encodedStr === str) {
+        try {
+            encodedStr = new TextDecoder('utf-8').decode(new TextEncoder().encode(str)); // Attempt 2
+        } catch (e) {
+            console.error('Encoding attempt 2 failed:', e);
+        }
+    }
+
+    if (encodedStr === str) {
+        console.warn('All encoding attempts failed, returning original string.');
+    }
+
+    return encodedStr;
 }
