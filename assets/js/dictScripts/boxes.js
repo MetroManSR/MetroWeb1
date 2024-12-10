@@ -83,24 +83,15 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
         });
     }
 
+    // Related words will be displayed only when a box is clicked
     const relatedElement = document.createElement('div');
     relatedElement.classList.add('dictionary-box-related');
-    if (row.related.length > 0) {
-        relatedElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> `;
-        row.related.forEach((relatedWord, index) => {
-            relatedElement.innerHTML += `<a href="?entry-${relatedWord.id}" style="color: green;">${highlight(relatedWord.title, searchTerm)}</a>`;
-            if (index < row.related.length - 1) {
-                relatedElement.innerHTML += ', ';
-            }
-        });
-    } else {
-        relatedElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
-    }
+    relatedElement.style.display = 'none'; // Initially hidden
+    contentBox.appendChild(relatedElement);
 
     contentBox.appendChild(metaElement);
     contentBox.appendChild(notesElement);
     contentBox.appendChild(morphElement);
-    contentBox.appendChild(relatedElement);
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
