@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Roots Data:', rootsData);
 
         // Clean data and wait for completion before proceeding
-        const cleanedDictionaryData = await cleanData(dictionaryData, 'word').sort((a, b) => a.title.localeCompare(b.title));
-        const cleanedRootsData = await cleanData(rootsData, 'root').sort((a, b) => a.title.localeCompare(b.title));
+        const cleanedDictionaryData = (await cleanData(dictionaryData, 'word')).sort((a, b) => a.title.localeCompare(b.title));
+        const cleanedRootsData = (await cleanData(rootsData, 'root')).sort((a, b) => a.title.localeCompare(b.title));
 
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
