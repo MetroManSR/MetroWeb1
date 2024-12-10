@@ -6,8 +6,13 @@
  */
 export function cleanData(data, type) {
     const totalRows = data.length;
-    const progressBar = document.getElementById('progress-bar');
-    const progressText = document.getElementById('progress-text');
+    const progressBar = document.getElementById('dict-progress-bar');
+    const progressText = document.getElementById('dict-progress-text');
+
+    if (!progressBar || !progressText) {
+        console.error("Progress bar or text element not found!");
+        return [];
+    }
 
     return data.map((row, index) => {
         console.log(`Original row ${index}:`, row);
@@ -49,6 +54,7 @@ export function cleanData(data, type) {
         // Update progress bar
         if (progressBar) {
             const progress = ((index + 1) / totalRows) * 100;
+            console.log(`Updating progress bar: ${progress}%`);
             progressBar.style.width = `${progress}%`;
         }
         if (progressText) {
