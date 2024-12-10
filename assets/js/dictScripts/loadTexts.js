@@ -6,7 +6,6 @@ export async function setTexts(language) {
         const currentTexts = texts[language] || texts['en'];
         
         document.getElementById('dict-search-input').placeholder = currentTexts.searchPlaceholder;
-        document.getElementById('dict-search-button').textContent = currentTexts.searchButton;
         document.getElementById('dict-clear-search-button').textContent = currentTexts.clearSearchButton;
         document.getElementById('dict-rows-per-page-label').textContent = currentTexts.rowsPerPageLabel;
         document.getElementById('dict-toggle-filter-button').textContent = currentTexts.toggleFiltersButton;
