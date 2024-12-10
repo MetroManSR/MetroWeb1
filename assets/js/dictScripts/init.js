@@ -1,4 +1,4 @@
-import { createPaginationControls, updatePaginationControls } from './pagination.js';
+import { createPaginationControls, updatePagination } from './pagination.js';
 import { displayPage, displaySpecificEntry, wordSpecific, rootSpecific } from './dictSearch.js';
 import { setTexts } from './loadTexts.js';
 import { processRows } from './processRows.js';
