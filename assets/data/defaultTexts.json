@@ -30,12 +30,12 @@
         "applySettingsButton": "Apply Settings",
         "clearSettingsButton": "Clear Settings",
         "orderByLabel": "Order By:",
-        "idAsc": "ID (Ascending)",
-        "idDesc": "ID (Descending)",
-        "definitionAsc": "Definition (A to Z)",
-        "definitionDesc": "Definition (Z to A)",
-        "wordAsc": "Word (A to Z)",
-        "wordDesc": "Word (Z to A)"
+        "titleAsc": "Title (Ascending)",
+        "titleDesc": "Title (Descending)",
+        "metaAsc": "Meta (Ascending)",
+        "metaDesc": "Meta (Descending)",
+        "morphAsc": "Morphology (Ascending)",
+        "morphDesc": "Morphology (Descending)"
     },
     "es": {
         "searchPlaceholder": "Buscar...",
@@ -68,11 +68,13 @@
         "applySettingsButton": "Aplicar Configuraciones",
         "clearSettingsButton": "Limpiar Configuraciones",
         "orderByLabel": "Ordenar Por:",
-        "idAsc": "ID (Ascendente)",
-        "idDesc": "ID (Descendente)",
-        "definitionAsc": "Definición (A a Z)",
-        "definitionDesc": "Definición (Z a A)",
-        "wordAsc": "Palabra (A a Z)",
-        "wordDesc": "Palabra (Z a A)"
-    }
+        "titleAsc": "Título (Ascendente)",
+        "titleDesc": "Título (Descendente)",
+        "metaAsc": "Meta (Ascendente)",
+        "metaDesc": "Meta (Descendente)",
+        "morphAsc": "Morfología (Ascendente)",
+        "morphDesc": "Morfología (Descendente)"
+    },
+    "eo": {},
+    "blk": {}
 }
