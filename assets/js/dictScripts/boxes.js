@@ -1,7 +1,35 @@
-import { getRelatedWordsByRoot } from './utils.js';
+import { getRelatedWordsByRoot, highlight } from './utils.js';
 import { updatePagination } from './pagination.js';
 
 let previouslySelectedBox = null;
+
+// Function to get part of speech abbreviation based on language
+function getPartOfSpeechAbbreviation(partOfSpeech, language) {
+    const posAbbreviations = {
+        en: {
+            noun: 'n.',
+            verb: 'v.',
+            adjective: 'adj.',
+            adverb: 'adv.',
+            pronoun: 'pron.',
+            preposition: 'prep.',
+            conjunction: 'conj.',
+            interjection: 'int.'
+        },
+        es: {
+            noun: 's.',
+            verb: 'v.',
+            adjective: 'adj.',
+            adverb: 'adv.',
+            pronoun: 'pron.',
+            preposition: 'prep.',
+            conjunction: 'conj.',
+            interjection: 'int.'
+        }
+    };
+
+    return posAbbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
+}
 
 // Function to create a dictionary box
 export function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
@@ -18,26 +46,29 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
         box.classList.add('root-word'); // Apply root word styling
     }
 
+    const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
+    const partOfSpeechAbbr = getPartOfSpeechAbbreviation(row.partofspeech || '', language);
+
     const wordElement = document.createElement('div');
     wordElement.classList.add('dictionary-box-title');
-    wordElement.innerHTML = row.title + (row.type !== 'root' ? ` (${row.partofspeech})` : '');
+    wordElement.innerHTML = highlight(row.title + (row.type !== 'root' ? ` (${partOfSpeechAbbr})` : ''), searchTerm);
 
     const contentBox = document.createElement('div');
     contentBox.classList.add('dictionary-box-content');
 
     const metaElement = document.createElement('div');
     metaElement.classList.add('dictionary-box-meta');
-    metaElement.innerHTML = `<strong>Translation:</strong> ${row.meta || ''}`;
+    metaElement.innerHTML = `<strong>Translation:</strong> ${highlight(row.meta || '', searchTerm)}`;
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('dictionary-box-notes');
-    notesElement.innerHTML = `<strong>Notes:</strong> ${row.type === 'root' ? row.morph || '' : row.notes || ''}`;
+    notesElement.innerHTML = `<strong>Notes:</strong> ${row.type === 'root' ? highlight(row.morph || '', searchTerm) : highlight(row.notes || '', searchTerm)}`;
 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
     
     if (row.type === 'root') {
-        morphElement.innerHTML = `<strong>Etymology:</strong> ${row.notes || ''}`;
+        morphElement.innerHTML = `<strong>Etymology:</strong> ${highlight(row.notes || '', searchTerm)}`;
     } else {
         // Check if the morphology exists and create hyperlinks
         const morphologies = row.morph.split(',');
@@ -45,12 +76,12 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
         morphologies.forEach((morph, index) => {
             const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.trim().toLowerCase() && r.type === 'root');
             if (matchingRoot) {
-                morphElement.innerHTML += `<a href="?rootid=${matchingRoot.id}">${morph.trim()}</a>`;
+                morphElement.innerHTML += `<a href="?rootid=${matchingRoot.id}">${highlight(morph.trim(), searchTerm)}</a>`;
                 if (index < morphologies.length - 1) {
                     morphElement.innerHTML += ', ';
                 }
             } else {
-                morphElement.innerHTML += `${morph.trim()}`;
+                morphElement.innerHTML += highlight(morph.trim(), searchTerm);
                 if (index < morphologies.length - 1) {
                     morphElement.innerHTML += ', ';
                 }
@@ -116,7 +147,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
             // Display derivative words for roots
             const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title) && r.id !== row.id);
             if (derivativeWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> ${derivativeWords.map(dw => dw.title).join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> ${derivativeWords.map(dw => highlight(dw.title, searchTerm)).join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> None found`;
             }
@@ -124,7 +155,7 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
             // Display related words for words
             const relatedWords = getRelatedWordsByRoot(row.morph, allRows).filter(rw => rw.id !== row.id);
             if (relatedWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> ${relatedWords.map(rw => rw.title).join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> ${relatedWords.map(rw => highlight(rw.title, searchTerm)).join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>Related Words:</strong> None found`;
             }
