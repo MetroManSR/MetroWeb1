@@ -22,6 +22,7 @@ export async function cleanData(data, type) {
     }
 
     const cleanedData = [];
+    const anomalies = [];
     const increment = Math.ceil(totalRows / 10); // Calculate increment for 10% steps
 
     for (let index = 0; index < totalRows; index++) {
@@ -55,6 +56,11 @@ export async function cleanData(data, type) {
             cleanedRow.morph = sanitizeHTML(fixEncoding(morph ? morph.trim() : '')); // B morph for roots
         }
 
+        // Check for anomalies (missing title or meta)
+        if (!cleanedRow.title || !cleanedRow.meta) {
+            anomalies.push({ id: cleanedRow.id, title: cleanedRow.title, meta: cleanedRow.meta });
+        }
+
         cleanedData.push(cleanedRow);
 
         // Update real progress bar in whole percentage increments
@@ -73,6 +79,15 @@ export async function cleanData(data, type) {
     // Ensure progress bar completes at 100%
     progressBar.style.width = `100%`;
     progressText.textContent = `Parsing complete!`;
+
+    // After 3 seconds, display anomalies if any
+    setTimeout(() => {
+        if (anomalies.length > 0) {
+            progressText.textContent = `${anomalies.length} anomalies found: ${anomalies.map(anomaly => anomaly.title ? `Title: "${anomaly.title}"` : `Meta: "${anomaly.meta}"`).join(', ')}`;
+        } else {
+            progressText.textContent = `No anomalies found!`;
+        }
+    }, 3000);
 
     return cleanedData;
 }
