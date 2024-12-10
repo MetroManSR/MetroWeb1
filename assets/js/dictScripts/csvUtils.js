@@ -14,8 +14,6 @@ export async function cleanData(data, type) {
         return [];
     }
 
-    console.log(`Total rows to process: ${totalRows}`);
-
     // Fake increment
     for (let i = 0; i <= 100; i++) {
         progressBar.style.width = `${i}%`;
@@ -60,18 +58,16 @@ export async function cleanData(data, type) {
         cleanedData.push(cleanedRow);
 
         // Update real progress bar in whole percentage increments
-        if ((index + 1) % increment === 0 || index === totalRows - 1) { // Update at each 10% step and at the end
-            const progress = Math.min(Math.floor(((index + 1) / totalRows) * 100), 100); // Limit progress to 100%
-            progressBar.style.width = `${progress}%`;
-            progressBar.style.display = 'block'; // Ensure the progress bar is visible
-            progressText.textContent = `Parsed ${progress}%`;
+        const progress = Math.min(Math.floor(((index + 1) / totalRows) * 100), 100); // Limit progress to 100%
+        progressBar.style.width = `${progress}%`;
+        progressBar.style.display = 'block'; // Ensure the progress bar is visible
+        progressText.textContent = `Parsed ${progress}%`;
 
-            // Force reflow to update the progress bar
-            progressBar.offsetWidth; // Trigger a reflow
+        // Force reflow to update the progress bar
+        progressBar.offsetWidth; // Trigger a reflow
 
-            // Yield control to render the progress bar
-            await new Promise(resolve => requestAnimationFrame(resolve));
-        }
+        // Yield control to render the progress bar
+        await new Promise(resolve => requestAnimationFrame(resolve));
     }
 
     // Ensure progress bar completes at 100%
@@ -98,27 +94,18 @@ export function sanitizeHTML(str) {
  * @returns {string} - The fixed string.
  */
 export function fixEncoding(str) {
-    let fixedStr = str;
-
-    // Handle common encoding issues
-    fixedStr = fixedStr.replace(/Ã¡/g, 'á').replace(/Ã©/g, 'é').replace(/Ã­/g, 'í').replace(/Ã³/g, 'ó').replace(/Ãº/g, 'ú')
-                        .replace(/Ã/g, 'Á').replace(/Ã‰/g, 'É').replace(/Ã/g, 'Í').replace(/Ã“/g, 'Ó').replace(/Ãš/g, 'Ú')
-                        .replace(/Ã±/g, 'ñ').replace(/Ã‘/g, 'Ñ').replace(/Â¿/g, '¿').replace(/Â¡/g, '¡');
-    
-    // Detect if the string is correctly encoded or not
-    try {
-        const decodedStr = decodeURIComponent(escape(str));
-        if (decodedStr !== str) {
-            fixedStr = decodedStr;
-        }
-    } catch (e) {
-        // Attempt to use TextDecoder as a fallback
-        try {
-            fixedStr = new TextDecoder('utf-8').decode(new TextEncoder().encode(str));
-        } catch (e) {
-            console.warn('All encoding attempts failed, returning original string.');
-        }
-    }
-
-    return fixedStr;
+    return str.replace(/Ã¡/g, 'á')
+              .replace(/Ã©/g, 'é')
+              .replace(/Ã­/g, 'í')
+              .replace(/Ã³/g, 'ó')
+              .replace(/Ãº/g, 'ú')
+              .replace(/Ã/g, 'Á')
+              .replace(/Ã‰/g, 'É')
+              .replace(/Ã/g, 'Í')
+              .replace(/Ã“/g, 'Ó')
+              .replace(/Ãš/g, 'Ú')
+              .replace(/Ã±/g, 'ñ')
+              .replace(/Ã‘/g, 'Ñ')
+              .replace(/Â¿/g, '¿')
+              .replace(/Â¡/g, '¡');
 }
