@@ -14,6 +14,8 @@ export function cleanData(data, type) {
         return [];
     }
 
+    console.log(`Total rows to process: ${totalRows}`);
+
     return data.map((row, index) => {
         console.log(`Original row ${index}:`, row);
 
@@ -56,6 +58,8 @@ export function cleanData(data, type) {
         console.log(`Updating progress bar: ${progress}%`);
         progressBar.style.width = `${progress}%`;
         progressText.textContent = `Parsed ${index + 1} out of ${totalRows}`;
+        progressBar.style.display = 'block'; // Ensure the progress bar is visible
+        progressText.style.display = 'block'; // Ensure the progress text is visible
 
         return cleanedRow;
     });
