@@ -41,25 +41,22 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     let allRows = []; // Ensure allRows is defined outside the try-catch block
     let allRowsById = {};
+    let rowsPerPage = 20; // Default rows per page
+    let currentPage = 1;
+    let currentSortOrder = 'titleup'; // Default sort order
+    let pendingChanges = {
+        searchTerm: '',
+        exactMatch: false,
+        searchIn: { word: true, root: true, definition: false, etymology: false },
+        filters: [],
+        rowsPerPage: 20,
+        sortOrder: 'titleup'
+    };
 
     try {
         console.log('DOMContentLoaded event triggered');
 
         hideLoadingMessage();
-
-        const defaultRowsPerPage = 20;
-        let rowsPerPage = defaultRowsPerPage;
-        let currentPage = 1;
-        let currentSortOrder = 'titleup'; // Default sort order
-
-        let pendingChanges = {
-            searchTerm: '',
-            exactMatch: false,
-            searchIn: { word: true, root: true, definition: false, etymology: false },
-            filters: [],
-            rowsPerPage: 20,
-            sortOrder: 'titleup'
-        };
 
         function displayError(message) {
             const errorContainer = document.getElementById('dict-error-message');
