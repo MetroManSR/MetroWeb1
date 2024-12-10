@@ -68,31 +68,36 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
 
-    if (row.type === 'root') {
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
-    } else {
-        // Check if the morphology exists and create hyperlinks
-        const morphologies = row.morph.split(',');
+    if (row.morph.length > 0) {
         morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-        morphologies.forEach((morph, index) => {
-            const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.trim().toLowerCase() && r.type === 'root');
-            if (matchingRoot) {
-                morphElement.innerHTML += `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morph.trim(), searchTerm)}</a>`;
-                if (index < morphologies.length - 1) {
-                    morphElement.innerHTML += ', ';
-                }
-            } else {
-                morphElement.innerHTML += highlight(morph.trim(), searchTerm);
-                if (index < morphologies.length - 1) {
-                    morphElement.innerHTML += ', ';
-                }
+        row.morph.forEach((morph, index) => {
+            morphElement.innerHTML += morph.id 
+                ? `<a href="?rootid=${morph.id}" style="color: green;">${highlight(morph.title, searchTerm)}</a>` 
+                : highlight(morph.title, searchTerm);
+            if (index < row.morph.length - 1) {
+                morphElement.innerHTML += ', ';
             }
         });
+    }
+
+    const relatedElement = document.createElement('div');
+    relatedElement.classList.add('dictionary-box-related');
+    if (row.related.length > 0) {
+        relatedElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> `;
+        row.related.forEach((relatedWord, index) => {
+            relatedElement.innerHTML += `<a href="?entry-${relatedWord.id}" style="color: green;">${highlight(relatedWord.title, searchTerm)}</a>`;
+            if (index < row.related.length - 1) {
+                relatedElement.innerHTML += ', ';
+            }
+        });
+    } else {
+        relatedElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
     }
 
     contentBox.appendChild(metaElement);
     contentBox.appendChild(notesElement);
     contentBox.appendChild(morphElement);
+    contentBox.appendChild(relatedElement);
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
