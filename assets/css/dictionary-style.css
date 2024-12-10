@@ -66,13 +66,14 @@ header {
 
 /* Pagination Container */
 .dict-pagination-container {
-    text-align: center;
+    display: flex;
+    justify-content: center;
     margin: 20px 0;
 }
 
 .pagination-button {
     padding: 10px 15px;
-    margin: 5px;
+    margin: 0 5px;
     font-size: 16px;
     color: #fff;
     background-color: #0078d4;
@@ -102,6 +103,14 @@ header {
 .pagination-display {
     font-size: 16px;
     margin-left: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.pagination-page-display {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
 }
 
 /* Error Message */
