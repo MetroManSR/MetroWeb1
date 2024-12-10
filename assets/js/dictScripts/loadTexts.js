@@ -1,35 +1,35 @@
-export function setTexts(language) {
-    const texts = {
-        en: {
-            searchLabel: 'Search',
-            rowsPerPageLabel: 'Rows per page:',
-            toggleFiltersButton: 'Toggle Filters',
-            applySettingsButton: 'Apply Settings',
-            clearSettingsButton: 'Clear Settings',
-            advancedSearchButton: 'Advanced Search',
-            viewStatisticsButton: 'View Statistics',
-            closeButton: 'Close'
-        },
-        es: {
-            searchLabel: 'Buscar',
-            rowsPerPageLabel: 'Filas por página:',
-            toggleFiltersButton: 'Mostrar/Ocultar Filtros',
-            applySettingsButton: 'Aplicar Configuración',
-            clearSettingsButton: 'Borrar Configuración',
-            advancedSearchButton: 'Búsqueda Avanzada',
-            viewStatisticsButton: 'Ver Estadísticas',
-            closeButton: 'Cerrar'
-        }
-    };
+import defaultTexts from '../../data/defaultTexts.json';
 
-    const currentTexts = texts[language] || texts['en'];
+export function setTexts(language) {
+    const texts = defaultTexts[language] || defaultTexts['en'];
     
-    document.getElementById('dict-search-label').textContent = currentTexts.searchLabel;
-    document.getElementById('dict-rows-per-page-label').textContent = currentTexts.rowsPerPageLabel;
-    document.getElementById('dict-toggle-filter-button').textContent = currentTexts.toggleFiltersButton;
-    document.getElementById('dict-apply-settings-button').textContent = currentTexts.applySettingsButton;
-    document.getElementById('dict-clear-settings-button').textContent = currentTexts.clearSettingsButton;
-    document.getElementById('dict-advanced-search-button').textContent = currentTexts.advancedSearchButton;
-    document.getElementById('dict-view-statistics-button').textContent = currentTexts.viewStatisticsButton;
-    document.getElementById('dict-close-popup-button').textContent = currentTexts.closeButton;
+    // Apply texts to various parts of the interface
+    document.getElementById('dict-search-input').placeholder = texts.searchPlaceholder;
+    document.getElementById('dict-search-button').textContent = texts.searchButton;
+    document.getElementById('dict-clear-search-button').textContent = texts.clearSearchButton;
+    document.getElementById('dict-rows-per-page-label').textContent = texts.rowsPerPageLabel;
+    document.getElementById('dict-toggle-filter-button').textContent = texts.toggleFiltersButton;
+    document.getElementById('dict-apply-settings-button').textContent = texts.applySettingsButton;
+    document.getElementById('dict-clear-settings-button').textContent = texts.clearSettingsButton;
+    document.getElementById('dict-advanced-search-button').textContent = texts.advancedSearchButton;
+    document.getElementById('dict-view-statistics-button').textContent = texts.viewStatisticsButton;
+    document.getElementById('dict-close-popup-button').textContent = texts.closeSearchButton;
+    document.getElementById('dict-filter-by-label').textContent = texts.filterByLabel;
+    document.getElementById('dict-apply-filter-button').textContent = texts.applyFilterButton;
+    document.getElementById('dict-order-by-label').textContent = texts.orderByLabel;
+    
+    // Update the order by options text
+    const orderBySelect = document.getElementById('dict-order-by-select');
+    if (orderBySelect) {
+        orderBySelect.options[0].textContent = texts.titleAsc;
+        orderBySelect.options[1].textContent = texts.titleDesc;
+        orderBySelect.options[2].textContent = texts.metaAsc;
+        orderBySelect.options[3].textContent = texts.metaDesc;
+        orderBySelect.options[4].textContent = texts.morphAsc;
+        orderBySelect.options[5].textContent = texts.morphDesc;
+    }
+
+    // Apply other labels as required
+    document.getElementById('dict-loading-message-text').textContent = texts.loadingMessage;
+    document.getElementById('dict-error-message').textContent = texts.errorLoadingData;
 }
