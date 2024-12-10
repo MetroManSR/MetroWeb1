@@ -79,7 +79,15 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     const idElement = document.createElement('div');
     idElement.className = 'id-display';
     idElement.textContent = 'ID: ' + row.id;
+    idElement.style.position = 'absolute';
+    idElement.style.bottom = '10px';
+    idElement.style.right = '10px';
+
     box.appendChild(idElement);
+
+    // Ensure text does not overlap with type tag or ID box
+    wordElement.style.paddingRight = '50px'; // Adjust padding to avoid type tag
+    morphElement.style.paddingBottom = '30px'; // Adjust padding to avoid ID box
 
     // Click event for highlighting and showing related words (or derivative words for roots)
     box.addEventListener('click', function() {
@@ -133,72 +141,4 @@ export function createDictionaryBox(row, allRows, searchTerm, exactMatch, search
     }, 100);
 
     return box;
-}
-
-// Function to create a no match box
-export function createNoMatchBox() {
-    const noMatchBox = document.createElement('div');
-    noMatchBox.className = 'dictionary-box no-match';
-    noMatchBox.textContent = 'No match for your search';
-    return noMatchBox;
-}
-
-// Function to create a loading box
-export function createLoadingBox() {
-    const loadingBox = document.createElement('div');
-    loadingBox.className = 'dictionary-box loading';
-    return loadingBox;
-}
-
-// Function to update the floating text
-export function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams) {
-    let floatingTextContent = `${filteredRows.length} words found`;
-
-    if (searchTerm) {
-        floatingTextContent += ` when looking for "${searchTerm}"`;
-    }
-    if (filters.length > 0) {
-        floatingTextContent += ` with filters: ${filters.join(", ")}`;
-    }
-    if (advancedSearchParams) {
-        floatingTextContent += ` with advanced search applied: ${Object.keys(advancedSearchParams).join(", ")}`;
-    }
-
-    const floatingText = document.getElementById('floating-text');
-    if (floatingText) {
-        floatingText.textContent = floatingTextContent;
-    } else {
-        const newFloatingText = document.createElement('div');
-        newFloatingText.id = 'floating-text';
-        newFloatingText.className = 'floating-text';
-        newFloatingText.textContent = floatingTextContent;
-        document.body.appendChild(newFloatingText);
-    }
-}
-
-export function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
-    const dictionaryContainer = document.getElementById('dict-dictionary');
-    dictionaryContainer.innerHTML = ''; // Clear previous entries
-
-    if (filteredRows.length === 0) {
-        dictionaryContainer.appendChild(createNoMatchBox());
-        updatePagination(currentPage, filteredRows, rowsPerPage);
-        updateFloatingText(filteredRows, searchTerm, [], {});
-        return;
-    }
-
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const rowsToDisplay = filteredRows.slice(start, end);
-
-    rowsToDisplay.forEach((row) => {
-        const box = createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-        if (box) {
-            dictionaryContainer.appendChild(box);
-        }
-    });
-
-    updatePagination(currentPage, filteredRows, rowsPerPage);
-    updateFloatingText(filteredRows, searchTerm, [], {});
-           
 }
