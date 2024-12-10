@@ -2,85 +2,125 @@
 layout: base
 ---
 
+<!DOCTYPE html>
 <html lang="{{ page.language }}">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    // Definir la variable de lenguaje en el contexto de JavaScript
-    const lang = "{{ page.language }}"; // Asegurarse de que lang se establece correctamente
-
-    function knlangRedirect() {
-      // Obtener la ruta actual
-      let path = window.location.pathname;
-      let newPath = "";
-
-      // Agregar "en/" al principio de la ruta
-      if (lang === "es") {
-        newPath = '/en' + path;
-      } else {
-        newPath = path.replace("/en", "");
-      }
-
-      // Construir la nueva URL
-      let newUrl = window.location.origin + newPath;
-
-      // Redirigir a la nueva URL
-      window.location.href = newUrl;
-    }
-
-    // Función para establecer los textos por defecto
-    function setDefaultStrings(language) {
-      const defaultStrings = {
-        en: {
-          back: "Return",
-        },
-        es: {
-          back: "Volver",
-        }
-      };
-      return defaultStrings[language];
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      // Esto debería ser inyectado por tu generador de sitios estáticos
-      const defaultStrings = setDefaultStrings(lang);
-      document.getElementById("backbutton").innerText = defaultStrings.back;
-    });
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="{{ page.language }}"> <!-- This will be dynamic based on your markdown front matter -->
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="../../../assets/css/dictionary-style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="../../../assets/js/mainDict.js" type="module"></script>
 </head>
 <body>
-  <div class="intro-header"></div>
+    <header>
+        <h1></h1> <!-- Removed static "Your Dictionary" title -->
+    </header>
+    <main>
+        <div class="dict-loading-message" id="dict-loading-message">
+            <p id="dict-loading-message-text">Loading dictionary, please wait...</p>
+        </div>
 
-  <main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
-    {% if page.before-content %}
-      <div class="before-content">
-        {% for file in page.before-content %}
-          {% include {{ file }} %}
-        {% endfor %}
-      </div>
-    {% endif %}
+        <!-- Content from Markdown -->
+        {{ content }} <!-- Positioned below the loading message -->
 
-    <!-- Add a dynamic text string here -->
+        <div class="dict-search-container">
+            <label for="dict-search-input" id="dict-search-label">Search:</label>
+            <input type="text" id="dict-search-input" placeholder="Search..." class="dict-search-input"/>
+            <button id="dict-search-button" class="btn">Search</button>
+            <button id="dict-clear-search-button" class="btn btn-danger">Clear Search</button>
+            <button id="dict-advanced-search-button" class="btn">Advanced Search</button>
+            <button id="dict-view-statistics-button" class="btn">View Statistics</button>
+        </div>
+        
+        <div id="dict-pending-changes" class="dict-pending-changes" style="display: none;"></div>
 
-    <button class="button-82-pushable" onclick="history.back()">
-      <span class="button-82-shadow"></span>
-      <span class="button-82-edge"></span>
-      <span class="button-82-front text">
-        <div id="backbutton"></div>
-      </span> 
-    </button>
-    {{ content }}
-    <button class="button-17" role="button" onclick="knlangRedirect()">
-      <img src="https://img.icons8.com/?size=35&id=95094&format=png&color=000000"/>
-    </button> 
-    {% if page.after-content %}
-      <div class="after-content">
-        {% for file in page.after-content %}
-          {% include {{ file }} %}
-        {% endfor %}
-      </div>
-    {% endif %}
-  </main>
+        <!-- Filter and Sorting Section -->
+        <div id="dict-filter-sorting-container" class="dict-filter-cont-hidden">
+            <div class="dict-pagination-container">
+                <label id="dict-rows-per-page-label" for="dict-rows-per-page-input">Rows per page:</label>
+                <input type="number" id="dict-rows-per-page-input" value="20" min="5" max="500" class="dict-rows-input"/>
+                <div id="dict-rows-warning"></div>
+            </div>
+
+            <!-- Filter Dropdown -->
+            <div id="dict-filter-dropdown-container">
+                <label id="dict-filter-by-label" for="dict-word-filter">Filter by:</label>
+                <select id="dict-word-filter" multiple class="dict-filter-select">
+                    <option value="word">Word</option>
+                    <option value="root">Root</option>
+                    <option value="noun">Noun</option>
+                    <option value="verb">Verb</option>
+                    <option value="adjective">Adjective</option>
+                    <option value="adverb">Adverb</option>
+                    <option value="conjunction">Conjunction</option>
+                    <option value="interjection">Interjection</option>
+                    <option value="preposition">Preposition</option>
+                    <option value="expression">Expression</option>
+                    <option value="pronoun">Pronoun</option>
+                </select>
+                <button id="dict-apply-filter-button" class="btn">Apply</button>
+            </div>
+
+            <div class="dict-sorting-container">
+                <label for="dict-order-by-select" id="dict-order-by-label">Order By:</label>
+                <select id="dict-order-by-select" class="dict-order-select">
+                  <option value="titleup">Title (Ascending)</option>
+                  <option value="titledown">Title (Descending)</option>
+                  <option value="metaup">Meta (Ascending)</option>
+                  <option value="metadown">Meta (Descending)</option>
+                  <option value="morphup">Morphology (Ascending)</option>
+                  <option value="morphdown">Morphology (Descending)</option>
+                </select>
+            </div>
+        </div>
+
+        <button id="dict-toggle-filter-button" class="btn">Toggle Filters</button>
+        <button id="dict-apply-settings-button" class="btn">Apply Settings</button>
+        <button id="dict-clear-settings-button" class="btn btn-danger">Clear Settings</button>
+        
+        <!-- Dictionary Content -->
+        <div id="dict-dictionary"></div>
+        <div id="dict-pagination" class="dict-pagination"></div> <!-- Ensure this div is present for pagination -->
+        <div id="dict-progress-container">
+          <div id="dict-progress-bar"></div>
+          <div id="dict-progress-text"></div>
+        </div>
+        <!-- Popup for advanced search -->
+        <div id="dict-popup-overlay" class="dict-popup-overlay"></div>
+        <div id="dict-advanced-search-popup" class="dict-popup">
+            <form id="dict-advanced-search-form">
+                <h3>Advanced Search</h3>
+                <input type="checkbox" id="dict-search-in-word" name="dict-search-in-word" value="Word">
+                <label class="container" id="dict-search-in-word-label" for="dict-search-in-word"> Word</label>
+                <br>
+                <input type="checkbox" id="dict-search-in-root" name="dict-search-in-root" value="Root">
+                <label class="container" id="dict-search-in-root-label" for="dict-search-in-root"> Root</label>
+                <br>
+                <input type="checkbox" id="dict-search-in-definition" name="dict-search-in-definition" value="Definition">
+                <label class="container" id="dict-search-in-definition-label" for="dict-search-in-definition"> Definition</label>
+                <br>
+                <input type="checkbox" id="dict-search-in-etymology" name="dict-search-in-etymology" value="Etymology">
+                <label class="container" id="dict-search-in-etymology-label" for="dict-search-in-etymology"> Etymology</label>
+                <br>
+                <input type="checkbox" id="dict-exact-match" name="dict-exact-match" value="Exact Match">
+                <label class="container" id="dict-exact-match-label" for="dict-exact-match"> Exact Match</label>
+                <br>
+                <button type="button" id="dict-add-search-button-popup" class="btn">Add Search</button>
+                <button type="button" id="dict-apply-search-button-popup" class="btn">Apply Search</button>
+                <button type="button" id="dict-close-popup-button" class="btn">Close</button>
+            </form>
+        </div>
+
+        <!-- Popup for statistics -->
+        <div class="dict-popup-overlay" id="dict-statistics-popup-overlay"></div>
+        <div class="dict-popup" id="dict-statistics-popup">
+            <!-- Content will be added dynamically -->
+        </div>
+
+        <!-- Error Message Container -->
+        <div id="dict-error-message" class="dict-error-message" style="display: none;"></div>
+    </main>
 </body>
 </html>
