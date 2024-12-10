@@ -14,7 +14,7 @@ export function cleanData(data, type) {
         return [];
     }
 
-    return data.map((row, index) => {
+    data.forEach((row, index) => {
         console.log(`Original row ${index}:`, row);
 
         let cleanedRow = {
@@ -52,16 +52,23 @@ export function cleanData(data, type) {
         console.log(`Cleaned row ${index}:`, cleanedRow);
 
         // Update progress bar
-        if (progressBar) {
-            const progress = ((index + 1) / totalRows) * 100;
-            console.log(`Updating progress bar: ${progress}%`);
-            progressBar.style.width = `${progress}%`;
-        }
-        if (progressText) {
-            progressText.textContent = `Parsed ${index + 1} out of ${totalRows}`;
-        }
+        const progress = ((index + 1) / totalRows) * 100;
+        console.log(`Updating progress bar: ${progress}%`);
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `Parsed ${index + 1} out of ${totalRows}`;
+    });
 
-        return cleanedRow;
+    // Return the cleaned data array
+    return data.map((row, index) => {
+        return {
+            id: index,
+            type: type,
+            title: sanitizeHTML(ensureProperEncoding(row.col1 ? row.col1.trim() : '')),
+            partofspeech: type === 'word' ? sanitizeHTML(ensureProperEncoding(row.col2 ? row.col2.trim() : '')) : '',
+            morph: type === 'word' ? sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')) : sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')),
+            meta: sanitizeHTML(ensureProperEncoding(row.col4 ? row.col4.trim() : '')),
+            notes: sanitizeHTML(ensureProperEncoding(row.col5 ? row.col5.trim() : ''))
+        };
     });
 }
 
