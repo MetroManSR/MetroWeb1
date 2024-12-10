@@ -109,7 +109,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     function goToPage(pageNumber) {
         currentPage = pageNumber;
         const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
-        updatePaginationControls(currentPage, totalPages);
+        updatePagination(currentPage, totalPages);
         displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
     }
 
