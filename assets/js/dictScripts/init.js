@@ -102,12 +102,19 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     document.querySelectorAll('.pagination-button').forEach(button => {
         button.addEventListener('click', (e) => {
             const targetPage = parseInt(e.target.dataset.page, 10);
-            goToPage(targetPage);
+            if (!isNaN(targetPage)) {
+                goToPage(targetPage);
+            }
         });
     });
 
     function goToPage(pageNumber) {
-        currentPage = pageNumber;
+        if (!isNaN(pageNumber) && pageNumber >= 1) {
+            currentPage = pageNumber;
+        } else {
+            currentPage = 1; // Default to first page if invalid
+        }
+
         const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
         updatePagination(currentPage, totalPages);
         displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
