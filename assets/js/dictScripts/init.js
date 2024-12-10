@@ -33,24 +33,24 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     };
 
     const addPendingChange = () => {
-        const searchTerm = document.getElementById('dict-search-input').value.trim();
-        const searchIn = {
+        let searchTerm = document.getElementById('dict-search-input').value.trim();
+        let searchIn = {
             word: document.getElementById('dict-search-in-word')?.checked || false,
             root: document.getElementById('dict-search-in-root')?.checked || false,
             definition: document.getElementById('dict-search-in-definition')?.checked || false,
             etymology: document.getElementById('dict-search-in-etymology')?.checked || false
         };
 
-        const exactMatch = document.getElementById('dict-exact-match')?.checked || false;
-        const selectedFilters = Array.from(document.getElementById('dict-word-filter').selectedOptions).map(option => option.value);
+        let exactMatch = document.getElementById('dict-exact-match')?.checked || false;
+        let selectedFilters = Array.from(document.getElementById('dict-word-filter').selectedOptions).map(option => option.value);
 
         pendingChanges = { ...pendingChanges, searchTerm, exactMatch, searchIn, filters: selectedFilters, rowsPerPage };
         updatePendingChangesList();
     };
 
     const applySettings = () => {
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage, sortOrder } = pendingChanges;
-        const criteria = { searchTerm, exactMatch, searchIn, filters };
+        let { searchTerm, exactMatch, searchIn, filters, rowsPerPage, sortOrder } = pendingChanges;
+        let criteria = { searchTerm, exactMatch, searchIn, filters };
         processRows(allRows, criteria, rowsPerPage, displayPage, currentPage, sortOrder);
         pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20, sortOrder: 'titleup' };
         updatePendingChangesList();
@@ -71,7 +71,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     };
 
     // Set texts based on the language
-    const language = document.querySelector('meta[name="language"]').content || 'en';
+    let language = document.querySelector('meta[name="language"]').content || 'en';
     setTexts(language);
 
     document.getElementById('dict-search-input').addEventListener('input', addPendingChange);
@@ -79,7 +79,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     document.getElementById('dict-add-search-button-popup').addEventListener('click', addPendingChange);
     document.getElementById('dict-apply-filter-button').addEventListener('click', addPendingChange);
     document.getElementById('dict-rows-per-page-input').addEventListener('input', (e) => {
-        const value = parseInt(e.target.value, 10);
+        let value = parseInt(e.target.value, 10);
         if (value >= 5 && value <= 500) {
             pendingChanges.rowsPerPage = value;
             updatePendingChangesList();
@@ -88,17 +88,17 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         }
     });
 
-    const applySettingsButton = document.getElementById('dict-apply-settings-button');
+    let applySettingsButton = document.getElementById('dict-apply-settings-button');
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', applySettings);
     }
 
-    const clearSettingsButton = document.getElementById('dict-clear-settings-button');
+    let clearSettingsButton = document.getElementById('dict-clear-settings-button');
     if (clearSettingsButton) {
         clearSettingsButton.addEventListener('click', clearSettings);
     }
 
-    const clearSearchButton = document.getElementById('dict-clear-search-button');
+    let clearSearchButton = document.getElementById('dict-clear-search-button');
     if (clearSearchButton) {
         clearSearchButton.addEventListener('click', () => {
             document.getElementById('dict-search-input').value = '';
@@ -115,7 +115,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     }
 
     // Sorting functionality
-    const orderBySelect = document.getElementById('dict-order-by-select');
+    let orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
             pendingChanges.sortOrder = orderBySelect.value;
@@ -125,10 +125,10 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     }
 
     // Toggle filter options
-    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
+    let toggleFilterButton = document.getElementById('dict-toggle-filter-button');
     if (toggleFilterButton) {
         toggleFilterButton.addEventListener('click', () => {
-            const filterDropdown = document.getElementById('dict-filter-dropdown');
+            let filterDropdown = document.getElementById('dict-filter-sorting-container');
             filterDropdown.classList.toggle('dict-filter-cont-hidden');
             filterDropdown.classList.toggle('dict-filter-cont-visible');
         });
