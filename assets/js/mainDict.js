@@ -104,7 +104,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
         let filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
 
+        // Process related words and morph links
         filteredRows.forEach(row => {
+            row.related = allRows.filter(r => r.morph && r.morph.includes(row.title) && r.id !== row.id).map(r => ({
+                id: r.id,
+                title: r.title,
+                type: r.type
+            }));
+            row.morph = row.morph.split(',').map(morph => {
+                const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.trim().toLowerCase() && r.type === 'root');
+                return matchingRoot ? { id: matchingRoot.id, title: morph.trim() } : { title: morph.trim() };
+            });
             allRowsById[row.id] = row;
         });
 
