@@ -1,11 +1,10 @@
-
 /**
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
  * @param {string} type - The type of data (e.g., 'word', 'root').
- * @returns {Array} - The cleaned and formatted data.
+ * @returns {Promise<Array>} - A promise that resolves to the cleaned and formatted data.
  */
-export function cleanData(data, type) {
+export async function cleanData(data, type) {
     const totalRows = data.length;
     const progressBar = document.getElementById('dict-progress-bar');
     const progressText = document.getElementById('dict-progress-text');
@@ -17,13 +16,17 @@ export function cleanData(data, type) {
 
     console.log(`Total rows to process: ${totalRows}`);
 
-    return data.map((row, index) => {
+    const cleanedData = [];
+
+    for (let index = 0; index < totalRows; index++) {
+        const row = data[index];
         console.log(`Original row ${index}:`, row);
 
         let cleanedRow = {
             id: index, // Assign unique ID
             type: type, // Identification of type (root or word)
             title: '', // Initialize title
+            partofspeech: '', // Initialize part of speech
             meta: '', // Initialize meta
             notes: '', // Initialize notes
             morph: '' // Initialize morph
@@ -33,9 +36,9 @@ export function cleanData(data, type) {
             console.log(`Processing word row ${index}: col1=${row.col1}, col2=${row.col2}, col3=${row.col3}, col4=${row.col4}, col5=${row.col5}`);
             cleanedRow.title = sanitizeHTML(ensureProperEncoding(row.col1 ? row.col1.trim() : '')); // X title for words
             cleanedRow.partofspeech = sanitizeHTML(ensureProperEncoding(row.col2 ? row.col2.trim() : '')); // Part of Speech for words
-            cleanedRow.morph = sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')); // Definition for words
-            cleanedRow.meta = sanitizeHTML(ensureProperEncoding(row.col5 ? row.col5.trim() : '')); // Y meta for words
-            cleanedRow.notes = sanitizeHTML(ensureProperEncoding(row.col4 ? row.col4.trim() : '')); // A notes for words
+            cleanedRow.morph = sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')); // Morphology for words
+            cleanedRow.notes = sanitizeHTML(ensureProperEncoding(row.col4 ? row.col4.trim() : '')); // Notes for words
+            cleanedRow.meta = sanitizeHTML(ensureProperEncoding(row.col5 ? row.col5.trim() : '')); // Meta for words
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
             console.log(`Processing root row ${index}: rawTitle=${rawTitle}`);
@@ -53,6 +56,7 @@ export function cleanData(data, type) {
         }
 
         console.log(`Cleaned row ${index}:`, cleanedRow);
+        cleanedData.push(cleanedRow);
 
         // Update progress bar
         const progress = ((index + 1) / totalRows) * 100;
@@ -63,9 +67,12 @@ export function cleanData(data, type) {
         
         // Force reflow to update the progress bar
         progressBar.offsetWidth; // Trigger a reflow
+        
+        // Yield control to render the progress bar
+        await new Promise(resolve => setTimeout(resolve, 0));
+    }
 
-        return cleanedRow;
-    });
+    return cleanedData;
 }
 
 /**
@@ -85,6 +92,10 @@ export function sanitizeHTML(str) {
  * @returns {string} - The encoded string.
  */
 export function ensureProperEncoding(str) {
-    const encodedStr = decodeURIComponent(escape(str)); // Ensure proper encoding
-    return encodedStr;
+    try {
+        return decodeURIComponent(escape(str)); // Ensure proper encoding
+    } catch (e) {
+        console.error('Encoding error:', e);
+        return str;
+    }
 }
