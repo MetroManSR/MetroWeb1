@@ -20,6 +20,7 @@ export function getRelatedWordsByRoot(morph, allRows) {
         return false;
     });
 }
+
 export function highlight(text, term) {
     if (!text || !term) return text;
     const regex = new RegExp(`(${term})`, 'gi');
