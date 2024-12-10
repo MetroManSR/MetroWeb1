@@ -1,14 +1,12 @@
 import { createPaginationControls } from './pagination.js';
-import { displayPage } from './dictSearch.js';
-import { displayWarning } from './warnings.js';
-import { processRows } from './processRows.js';
+import { displayPage, displaySpecificEntry, wordSpecific, rootSpecific } from './dictSearch.js';
 import { setTexts } from './loadTexts.js';
-import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
-import { createDictionaryBox, createNoMatchBox, createLoadingBox, updateFloatingText, renderBox } from './boxes.js';
+import { processRows } from './processRows.js';
 
 export function initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage) {
     let currentPage = 1; // Define currentPage
     let filteredRows = []; // Initialize filteredRows
+    let previouslySelectedBox = null; // Track previously selected box
 
     const updatePendingChangesList = () => {
         const pendingChangesContainer = document.getElementById('dict-pending-changes');
@@ -30,6 +28,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         if (sortOrder) changesList.push(`Sort Order: ${sortOrder}`);
 
         pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No pending changes';
+        pendingChangesContainer.style.display = changesList.length > 0 ? 'block' : 'none';
     };
 
     const addPendingChange = () => {
@@ -138,14 +137,84 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     let advancedSearchButton = document.getElementById('dict-advanced-search-button');
     if (advancedSearchButton) {
         advancedSearchButton.addEventListener('click', () => {
-            initAdvancedSearchPopup();
+            initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
         });
     }
 
     let viewStatisticsButton = document.getElementById('dict-view-statistics-button');
     if (viewStatisticsButton) {
         viewStatisticsButton.addEventListener('click', () => {
-            initStatisticsPopup();
+            initStatisticsPopup(allRows);
         });
     }
+
+    // Related words event handler
+    const dictionaryContainer = document.getElementById('dict-dictionary');
+    dictionaryContainer.addEventListener('click', (e) => {
+        const box = e.target.closest('.dictionary-box');
+        if (!box) return;
+
+        const rowId = parseInt(box.id.replace('entry-', ''), 10);
+        const row = allRowsById[rowId];
+
+        if (previouslySelectedBox) {
+            previouslySelectedBox.classList.remove('selected-word', 'selected-root');
+            const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
+            if (previousRelatedWords) {
+                previouslySelectedBox.removeChild(previousRelatedWords);
+            }
+        }
+
+        if (box === previouslySelectedBox) {
+            previouslySelectedBox = null;
+            return; // Deselect the current box
+        }
+
+        // Highlight the clicked box
+        box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
+
+        // Display related words or derivative words
+        const relatedWordsElement = document.createElement('div');
+        relatedWordsElement.className = 'related-words';
+        relatedWordsElement.style.fontSize = '0.85em'; // Make the font smaller
+
+        if (row.type === 'root') {
+            // Display derivative words for roots
+            const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title) && r.id !== row.id);
+            if (derivativeWords.length > 0) {
+                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> ${derivativeWords.map(dw => highlight(dw.title, pendingChanges.searchTerm)).join(', ')}`;
+            } else {
+                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> None found`;
+            }
+        } else {
+            // Display related words for words
+            const relatedWords = getRelatedWordsByRoot(row.morph, allRows).filter(rw => rw.id !== row.id);
+            if (relatedWords.length > 0) {
+                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> ${relatedWords.map(rw => highlight(rw.title, pendingChanges.searchTerm)).join(', ')}`;
+            } else {
+                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> None found`;
+            }
+        }
+
+        box.appendChild(relatedWordsElement);
+
+        previouslySelectedBox = box; // Set the clicked box as the previously selected one
+    });
+
+    // Add event listeners for pagination buttons
+    document.querySelectorAll('.pagination-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const targetPage = parseInt(e.target.dataset.page, 10);
+            goToPage(targetPage);
+        });
+    });
+
+    function goToPage(pageNumber) {
+        currentPage = pageNumber;
+        updatePaginationControls();
+        displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
+    }
+
+    // Initialize with the first page
+    goToPage(1);
 }
