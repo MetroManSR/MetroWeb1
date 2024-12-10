@@ -201,3 +201,7 @@ export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, s
             dictionaryContainer.appendChild(box);
         }
     }
+
+    updatePagination(currentPage, filteredRows, rowsPerPage);
+    await updateFloatingText(filteredRows, searchTerm, [], {}, language);
+}
