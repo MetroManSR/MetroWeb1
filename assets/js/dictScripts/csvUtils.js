@@ -69,7 +69,7 @@ export async function cleanData(data, type) {
         progressBar.offsetWidth; // Trigger a reflow
         
         // Yield control to render the progress bar
-        await new Promise(resolve => setTimeout(resolve, 0));
+        await new Promise(resolve => requestAnimationFrame(resolve));
     }
 
     return cleanedData;
