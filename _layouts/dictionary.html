@@ -34,7 +34,7 @@ layout: default
             <button id="dict-view-statistics-button" class="btn">View Statistics</button>
         </div>
         
-        <div id="dict-pending-changes" class="dict-pending-changes"></div>
+        <div id="dict-pending-changes" class="dict-pending-changes" style="display: none;"></div>
 
         <div class="dict-pagination-container">
             <label id="dict-rows-per-page-label" for="dict-rows-per-page-input">Rows per page:</label>
@@ -45,7 +45,7 @@ layout: default
         <!-- Filter Dropdown -->
         <div id="dict-filter-dropdown-container">
             <button id="dict-toggle-filter-button" class="btn">Toggle Filters</button>
-            <div id="dict-filter-dropdown" class="dict-filter-dropdown dict-hidden">
+            <div id="dict-filter-dropdown" class="dict-filter-cont-hidden">
                 <label id="dict-filter-by-label" for="dict-word-filter">Filter by:</label>
                 <select id="dict-word-filter" multiple class="dict-filter-select">
                     <option value="word">Word</option>
