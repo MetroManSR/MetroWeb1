@@ -50,7 +50,8 @@
         "wordsFound": "words found",
         "whenLookingFor": "when looking for",
         "withFilters": "with filters",
-        "withAdvancedSearch": "with advanced search applied"
+        "withAdvancedSearch": "with advanced search applied",
+        "toggleFiltersButton": "Toggle Filters",
     },
     "es": {
         "searchPlaceholder": "Buscar...",
@@ -103,7 +104,8 @@
         "wordsFound": "palabras encontradas",
         "whenLookingFor": "al buscar",
         "withFilters": "con filtros",
-        "withAdvancedSearch": "con búsqueda avanzada aplicada"
+        "withAdvancedSearch": "con búsqueda avanzada aplicada",
+        "toggleFilterButton": "Mostrar o Esconder Filtros"
     },
     "eo": {},
     "blk": {}
