@@ -24,6 +24,7 @@ export async function cleanData(data, type) {
     }
 
     const cleanedData = [];
+    const increment = Math.ceil(totalRows / 10); // Calculate increment for 10% steps
 
     for (let index = 0; index < totalRows; index++) {
         const row = data[index];
@@ -65,18 +66,20 @@ export async function cleanData(data, type) {
         console.log(`Cleaned row ${index}:`, cleanedRow);
         cleanedData.push(cleanedRow);
 
-        // Update real progress bar
-        const progress = Math.min(((index + 1) / totalRows) * 100, 100).toFixed(2); // Limit progress to 100%
-        console.log(`Updating progress bar: ${progress}%`);
-        progressBar.style.width = `${progress}%`;
-        progressBar.style.display = 'block'; // Ensure the progress bar is visible
-        progressText.textContent = `Parsed ${progress}%`;
-        
-        // Force reflow to update the progress bar
-        progressBar.offsetWidth; // Trigger a reflow
+        // Update real progress bar in whole percentage increments
+        if ((index + 1) % increment === 0 || index === totalRows - 1) { // Update at each 10% step and at the end
+            const progress = Math.min(Math.floor(((index + 1) / totalRows) * 100), 100); // Limit progress to 100%
+            console.log(`Updating progress bar: ${progress}%`);
+            progressBar.style.width = `${progress}%`;
+            progressBar.style.display = 'block'; // Ensure the progress bar is visible
+            progressText.textContent = `Parsed ${progress}%`;
+            
+            // Force reflow to update the progress bar
+            progressBar.offsetWidth; // Trigger a reflow
 
-        // Yield control to render the progress bar
-        await new Promise(resolve => requestAnimationFrame(resolve));
+            // Yield control to render the progress bar
+            await new Promise(resolve => requestAnimationFrame(resolve));
+        }
     }
 
     // Ensure progress bar completes at 100%
