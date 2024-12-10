@@ -79,7 +79,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
             // Display derivative words for roots
             const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title) && r.id !== row.id);
             if (derivativeWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${derivativeWords.map(dw => highlight(dw.title, pendingChanges.searchTerm)).join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${derivativeWords.map(dw => `<a href="?entry-${dw.id}" style="color: green;">${highlight(dw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
@@ -87,10 +87,16 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
             // Display related words for words
             const relatedWords = getRelatedWordsByRoot(row.morph, allRows).filter(rw => rw.id !== row.id);
             if (relatedWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${relatedWords.map(rw => highlight(rw.title, pendingChanges.searchTerm)).join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${relatedWords.map(rw => `<a href="?entry-${rw.id}" style="color: green;">${highlight(rw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
+        }
+
+        // Make the list scrollable if it exceeds three lines
+        if (relatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(relatedWordsElement).lineHeight)) {
+            relatedWordsElement.style.maxHeight = '3em';
+            relatedWordsElement.style.overflowY = 'auto';
         }
 
         box.appendChild(relatedWordsElement);
@@ -122,4 +128,4 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
 
     // Initialize with the first page
     goToPage(1);
-}
+} 
