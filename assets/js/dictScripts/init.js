@@ -1,4 +1,4 @@
-import { createPaginationControls } from './pagination.js';
+import { createPaginationControls, updatePaginationControls } from './pagination.js';
 import { displayPage, displaySpecificEntry, wordSpecific, rootSpecific } from './dictSearch.js';
 import { setTexts } from './loadTexts.js';
 import { processRows } from './processRows.js';
@@ -149,7 +149,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         });
     }
 
-    // Related words event handler
+// Related words event handler
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.addEventListener('click', (e) => {
         const box = e.target.closest('.dictionary-box');
@@ -212,7 +212,8 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
 
     function goToPage(pageNumber) {
         currentPage = pageNumber;
-        updatePaginationControls();
+        const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+        updatePaginationControls(currentPage, totalPages);
         displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
     }
 
