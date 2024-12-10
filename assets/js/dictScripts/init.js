@@ -3,7 +3,7 @@ import { displayPage } from './dictSearch.js';
 import { displayWarning } from './warnings.js';
 import { processRows } from './processRows.js';
 import { setTexts } from './loadTexts.js';
-import { initAdvancedSearchPopup } from './popups.js';
+import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
 import { createDictionaryBox, createNoMatchBox, createLoadingBox, updateFloatingText, renderBox } from './boxes.js';
 
 export function initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage) {
@@ -128,9 +128,24 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
     let toggleFilterButton = document.getElementById('dict-toggle-filter-button');
     if (toggleFilterButton) {
         toggleFilterButton.addEventListener('click', () => {
-            let filterDropdown = document.getElementById('dict-filter-sorting-container');
-            filterDropdown.classList.toggle('dict-filter-cont-hidden');
-            filterDropdown.classList.toggle('dict-filter-cont-visible');
+            let filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+            filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
+            filterSortingContainer.classList.toggle('dict-filter-cont-visible');
+        });
+    }
+
+    // Initialize popups
+    let advancedSearchButton = document.getElementById('dict-advanced-search-button');
+    if (advancedSearchButton) {
+        advancedSearchButton.addEventListener('click', () => {
+            initAdvancedSearchPopup();
+        });
+    }
+
+    let viewStatisticsButton = document.getElementById('dict-view-statistics-button');
+    if (viewStatisticsButton) {
+        viewStatisticsButton.addEventListener('click', () => {
+            initStatisticsPopup();
         });
     }
 }
