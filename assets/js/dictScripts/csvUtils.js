@@ -16,7 +16,7 @@ export function cleanData(data, type) {
 
     console.log(`Total rows to process: ${totalRows}`);
 
-    return data.map((row, index) => {
+    data.forEach((row, index) => {
         console.log(`Original row ${index}:`, row);
 
         let cleanedRow = {
@@ -58,10 +58,24 @@ export function cleanData(data, type) {
         console.log(`Updating progress bar: ${progress}%`);
         progressBar.style.width = `${progress}%`;
         progressText.textContent = `Parsed ${index + 1} out of ${totalRows}`;
+
+        // Force reflow to update the progress bar
+        progressBar.offsetWidth; // Trigger a reflow
         progressBar.style.display = 'block'; // Ensure the progress bar is visible
         progressText.style.display = 'block'; // Ensure the progress text is visible
+    });
 
-        return cleanedRow;
+    // Return the cleaned data array
+    return data.map((row, index) => {
+        return {
+            id: index,
+            type: type,
+            title: sanitizeHTML(ensureProperEncoding(row.col1 ? row.col1.trim() : '')),
+            partofspeech: type === 'word' ? sanitizeHTML(ensureProperEncoding(row.col2 ? row.col2.trim() : '')) : '',
+            morph: type === 'word' ? sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')) : sanitizeHTML(ensureProperEncoding(row.col3 ? row.col3.trim() : '')),
+            meta: sanitizeHTML(ensureProperEncoding(row.col4 ? row.col4.trim() : '')),
+            notes: sanitizeHTML(ensureProperEncoding(row.col5 ? row.col5.trim() : ''))
+        };
     });
 }
 
