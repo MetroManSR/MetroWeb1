@@ -30,6 +30,12 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage) {
         pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No pending changes';
     };
 
+    document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
+        const { searchTerm, exactMatch, searchIn, filters } = pendingChanges;
+        const criteria = { searchTerm, exactMatch, searchIn, filters };
+        processRows(allRows, criteria, rowsPerPage, displayPage);
+    });
+
     document.getElementById('dict-advanced-search-button').addEventListener('click', () => {
         document.getElementById('dict-advanced-search-popup').classList.add('active');
         document.getElementById('dict-popup-overlay').classList.add('active');
