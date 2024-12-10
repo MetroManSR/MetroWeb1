@@ -1,4 +1,4 @@
-import { createPaginationControls, updatePagination } from './pagination.js';
+import { createPaginationControls, updatePaginationControls } from './pagination.js';
 import { displayPage, displaySpecificEntry, wordSpecific, rootSpecific } from './dictSearch.js';
 import { setTexts } from './loadTexts.js';
 import { processRows } from './processRows.js';
@@ -149,7 +149,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         });
     }
 
-// Related words event handler
+    // Related words event handler
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.addEventListener('click', (e) => {
         const box = e.target.closest('.dictionary-box');
@@ -183,17 +183,17 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
             // Display derivative words for roots
             const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title) && r.id !== row.id);
             if (derivativeWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> ${derivativeWords.map(dw => highlight(dw.title, pendingChanges.searchTerm)).join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>${getTranslatedText('derivativeWords', language)}:</strong> ${derivativeWords.map(dw => highlight(dw.title, pendingChanges.searchTerm)).join(', ')}`;
             } else {
-                relatedWordsElement.innerHTML = `<strong>Derivative Words:</strong> None found`;
+                relatedWordsElement.innerHTML = `<strong>${getTranslatedText('derivativeWords', language)}:</strong> ${getTranslatedText('noneFound', language)}`;
             }
         } else {
             // Display related words for words
             const relatedWords = getRelatedWordsByRoot(row.morph, allRows).filter(rw => rw.id !== row.id);
             if (relatedWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> ${relatedWords.map(rw => highlight(rw.title, pendingChanges.searchTerm)).join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>${getTranslatedText('relatedWords', language)}:</strong> ${relatedWords.map(rw => highlight(rw.title, pendingChanges.searchTerm)).join(', ')}`;
             } else {
-                relatedWordsElement.innerHTML = `<strong>Related Words:</strong> None found`;
+                relatedWordsElement.innerHTML = `<strong>${getTranslatedText('relatedWords', language)}:</strong> ${getTranslatedText('noneFound', language)}`;
             }
         }
 
