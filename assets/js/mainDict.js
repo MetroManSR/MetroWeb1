@@ -7,6 +7,7 @@ import { processRows, advancedSearch, sortRows } from './dictScripts/processRows
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 
+import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 document.addEventListener('DOMContentLoaded', async function() {
     const language = document.querySelector('meta[name="language"]').content || 'en';
     await setTexts(language);
@@ -102,10 +103,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Cleaned Roots Data:', cleanedRootsData);
 
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
-        let filteredRows = sortRows(allRows, currentSortOrder); // Sorting rows initially
+        let filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)) ; // Sorting rows initially
 
+        
         // Process related words and morph links
-        filteredRows.forEach(row => {
+        /*filteredRows.forEach(row => {
             row.related = allRows.filter(r => r.morph && r.morph.includes(row.title) && r.id !== row.id).map(r => ({
                 id: r.id,
                 title: r.title,
@@ -116,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 return matchingRoot ? { id: matchingRoot.id, title: morph.trim() } : { title: morph.trim() };
             });
             allRowsById[row.id] = row;
-        });
+        });*/
 
         console.log('All Rows:', allRows);
         console.log('Filtered Rows:', filteredRows);
