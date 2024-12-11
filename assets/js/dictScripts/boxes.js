@@ -94,7 +94,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
                 morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
                 row.morph.forEach((morphItem, index) => {
                     const morphTitle = morphItem.title;
-                    const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
+                    const matchingRoot = allRows.find(r => r.meta.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
                     morphElement.innerHTML += matchingRoot 
                         ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphTitle, searchTerm)}</a>` 
                         : highlight(morphTitle, searchTerm);
