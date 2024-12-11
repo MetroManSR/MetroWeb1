@@ -179,4 +179,5 @@ export function fixEncoding(str) {
               .replace(/Ã‘/g, 'Ñ')
               .replace(/Â¿/g, '¿')
               .replace(/Â¡/g, '¡');
+}
                                           }
