@@ -101,7 +101,7 @@ export async function cleanData(data, type) {
         }
     }, 3000);
 
-    test = cleanedData.forEach(cleanedRow => {
+    let test = cleanedData.forEach(cleanedRow => {
     let relatedWords = [];
 
     if (cleanedRow.morph && Array.isArray(cleanedRow.morph)) {
