@@ -110,8 +110,8 @@ export async function cleanData(data, type) {
         
         if (clnrow.morph && typeof clnrow.morph !== 'string') {
             clnrow.morph.forEach(mrphIt => {
-                console.log(mrphIt.morph)
-                if (mrphIt && mrphIt.title) {
+                console.log(mrphIt)
+                if (mrphIt) {
                     // Logic for root type
                     if (clnrow.type === 'root') {
                         const matchingRoots = cleanedData.filter(r => {
