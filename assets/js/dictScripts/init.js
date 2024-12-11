@@ -3,8 +3,8 @@ import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js'; // Ensure this is imported if used
 
-export function initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage) {
-    allRows = await getRelatedWordsByRoot(allRows);
+export function initializeEventListeners(rawAllRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage) {
+    let allRows = await getRelatedWordsByRoot(rawAllRows);
     let currentPage = 1;
     let filteredRows = [];
     let previouslySelectedBox = null;
