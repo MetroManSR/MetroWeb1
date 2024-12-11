@@ -93,13 +93,9 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
                 
                  relatedWords.push(getRelatedWordsByRoot(morphItem, allRows).filter(rw => rw.id !== row.id));
             
-            });
-         }
-        }
- 
-            
-            
-            
+                 });
+         
+            }        
             
             if (relatedWords.length > 0) {
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${relatedWords.map(rw => `<a href="?entry-${rw.id}" style="color: green;">${highlight(rw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
