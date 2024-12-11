@@ -77,7 +77,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
         contentBox.appendChild(metaElement);
-        notesElement.innerHTML = `${highlight(row.morph.title[0] || '', searchTerm)}`;
+        notesElement.innerHTML = `${highlight(row.morph[0]?.title || '', searchTerm)}`;
         contentBox.appendChild(notesElement)
         morphElement = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
         contentBox.appendChild(morphElement);
