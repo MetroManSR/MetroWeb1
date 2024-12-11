@@ -107,7 +107,7 @@ export async function cleanData(data, type) {
         cleanedData.morph = JSON.parse(cleanedData.morph);
     } catch (error) {
         console.error("Parsing error:", error);
-        return null;
+        
     }
     }
    
