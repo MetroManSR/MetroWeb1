@@ -24,30 +24,9 @@ export async function cleanData(data, type) {
         return [];
     }
 
-    // Initial fake increment
-    for (let i = 0; i <= 10; i++) {
-        progressBar.style.width = `${i}%`;
-        progressText.textContent = `Preparing... ${i}%`;
-        await new Promise(resolve => setTimeout(resolve, 5)); // Fast initial fake progress
-    }
-
-    
     const cleanedData = [];
     const anomalies = [];
     const increment = Math.ceil(totalRows / 10); // Calculate increment for 10% steps
-
-    
-    if (!progressBar || !progressText) {
-        console.error("Progress bar or text element not found!");
-        return [];
-    }
-
-    // Initial fake increment
-    for (let i = 0; i <= 10; i++) {
-        progressBar.style.width = `${i}%`;
-        progressText.textContent = `Preparing... ${i}%`;
-        await new Promise(resolve => setTimeout(resolve, 5)); // Fast initial fake progress
-    }
 
     // List of IDs needing character fixing
     const idsNeedingFixing = data
