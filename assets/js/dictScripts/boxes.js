@@ -90,8 +90,8 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
         box.appendChild(metaElement);
         contentBox.appendChild(notesElement);
 
-        if (row.morph && typeof row.morph === 'object' && row.morph.title) {
-            const morphArray = row.morph.title;
+        if (row.morph && typeof row.morph === 'object' && row.morph[0]?.title) {
+            const morphArray = row.morph[0]?.title;
             if (Array.isArray(morphArray) && morphArray.length > 0) {
         
                 morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
