@@ -3,7 +3,7 @@ function safeJSONParse(input) {
         return JSON.parse(input);
     } catch (error) {
         console.error("Error parsing JSON:", error);
-        return null; // Return null if parsing fails
+        return input; // Return null if parsing fails
     }
 }
 /**
@@ -71,7 +71,7 @@ export async function cleanData(data, type) {
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(root ? root.trim() : '') : root ? root.trim() : ''); // X title for roots
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(translation ? translation.trim() : '') : translation ? translation.trim() : ''); // Y meta for roots
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(notes ? notes.trim() : '') : notes ? notes.trim() : ''); // A notes for roots
-            cleanedRow.morph = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(morph ? morph.trim() : '') : morph ? morph.trim() : ''); // B morph for roots
+            cleanedRow.morph = safeJSONParse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(morph ? morph.trim() : '') : morph ? morph.trim() : '')); // B morph for roots
         }
 
         // Check for anomalies (missing title or meta)
@@ -109,8 +109,6 @@ export async function cleanData(data, type) {
         }
     }, 3000);
     console.log(cleanedData)
-
-    cleanedData.morph = safeJSONParse(cleanedData.morph)
    
     // Calculate related words and derivative roots
     cleanedData.forEach(clnrow => {
