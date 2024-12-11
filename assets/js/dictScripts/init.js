@@ -77,6 +77,8 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
 
         const language = document.querySelector('meta[name="language"]').content || 'en';
 
+        let relatedWords = [];
+
         if (row.type === 'root') {
             const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title) && r.id !== row.id);
             if (derivativeWords.length > 0) {
@@ -85,26 +87,20 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
         } else {
-            
             if (row.morph && Array.isArray(row.morph)) {
-              let morphArray = row.morph.map(item => item.title);
+                let morphArray = row.morph.map(item => item.title);
 
-              if (Array.isArray(morphArray) && morphArray.length > 0) {
-  
-				  morphArray.forEach(morphItem => {
-  			 
-					  relatedWords.push(
-            
-						  getRelatedWordsByRoot(morphItem, allRows).filter(rw => rw.id !== row.id)       
-					  );
-				  });
-			  }
-			}
+                if (Array.isArray(morphArray) && morphArray.length > 0) {
+                    morphArray.forEach(morphItem => {
+                        relatedWords.push(
+                            ...getRelatedWordsByRoot(morphItem, allRows).filter(rw => rw.id !== row.id)
+                        );
+                    });
+                }
+            }
 
-console.log('Related words:', relatedWords);
-         
-            }        
-            
+            console.log('Related words:', relatedWords);
+
             if (relatedWords.length > 0) {
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${relatedWords.map(rw => `<a href="?entry-${rw.id}" style="color: green;">${highlight(rw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
             } else {
