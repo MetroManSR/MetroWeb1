@@ -100,29 +100,35 @@ export async function cleanData(data, type) {
             progressText.textContent = `No anomalies found!`;
         }
     }, 3000);
-
-    let test = cleanedData.forEach(cleanedRow => {
-    let relatedWords = [];
-
-    if (cleanedRow.morph && Array.isArray(cleanedRow.morph)) {
+    
+    
+    cleanedData.forEach(cleanedRow => {     
+      
+        let relatedWords = [];
+    
+        if (cleanedRow.morph && cleanedRow.morph[0]?title) {
         cleanedRow.morph.forEach(morphItem => {
             if (morphItem && morphItem.title) {
                 // Logic for root type
                 if (cleanedRow.type === 'root') {
-                    const matchingWords = data.filter(r => {
-                        if (r.morph && Array.isArray(r.morph) && r.type !== 'root') {
-                            return r.morph.some(item => item.title.toLowerCase() === cleanedRow.title.toLowerCase());
+                    const matchingRoots = cleanedData.filter(r => {
+                        if (r.morph && r.type !== 'root') {
+                            return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
                         }
                         return false;
                     });
-                    relatedWords.push(...matchingWords.map(r => r.title));
+                    relatedWords.push(...matchingRoots.map(r => r.title));
                 }
                 // Logic for word type
                 else if (cleanedRow.type === 'word') {
-                    const matchingWords = data.filter(r => {
-                        if (r.morph && Array.isArray(r.morph) && r.type === 'word') {
-                            return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
-                        }
+                    const matchingWords = cleanedData.filter(r => {
+                        if (r.notes && r.type === 'root') {
+                            if (r.notes == morphItem.title.toLowerCase){      return r.notes
+                               return r.notes
+                                                                       }
+                        }                       
+
+
                         return false;
                     });
                     relatedWords.push(...matchingWords.map(r => r.title));
@@ -132,9 +138,10 @@ export async function cleanData(data, type) {
     }
 
     cleanedRow.related = relatedWords.join(', ');
-});
+    console.log('Test: ', relatedWords) 
+    });
     
-    console.log('Test: ', test) 
+    
 
     return cleanedData;
 }
