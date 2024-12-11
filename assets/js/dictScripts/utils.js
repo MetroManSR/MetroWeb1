@@ -5,6 +5,7 @@
  * @param {Array} allRows - The array of all dictionary rows.
  * @returns {Array} - The array of related words.
  */
+
 export async function getRelatedWordsByRoot(allRows) {
         // Calculate related words and derivative roots
     
