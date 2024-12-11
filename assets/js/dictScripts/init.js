@@ -86,14 +86,22 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
             }
         } else {
             
-            let morphArray = row.morph[0]?.title;
+            if (row.morph && Array.isArray(row.morph)) {
+              let morphArray = row.morph.map(item => item.title);
 
-            if (Array.isArray(morphArray) && morphArray.length > 0) {
-                 morphArray.forEach(morphItem => {
-                
-                 relatedWords.push(getRelatedWordsByRoot(morphItem, allRows).filter(rw => rw.id !== row.id));
+              if (Array.isArray(morphArray) && morphArray.length > 0) {
+  
+				  morphArray.forEach(morphItem => {
+  			 
+					  relatedWords.push(
             
-                 });
+						  getRelatedWordsByRoot(morphItem, allRows).filter(rw => rw.id !== row.id)       
+					  );
+				  });
+			  }
+			}
+
+console.log('Related words:', relatedWords);
          
             }        
             
