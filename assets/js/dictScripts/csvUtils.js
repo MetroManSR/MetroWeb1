@@ -103,12 +103,12 @@ export async function cleanData(data, type) {
     console.log(cleanedData)
    
     // Calculate related words and derivative roots
-    cleanedData.forEach(cleanedRow => {
+    cleanedData.forEach(clnrow => {
         let relatedWords = [];
-        console.log(typeof cleanedRow.morph);
-        console.log(cleanedRow)
+        console.log(typeof clnrow.morph);
+        console.log(clnrow)
         
-        if (cleanedRow.morph && typeof cleanedRow.morph !== 'string') {
+        if (cleanedRow.morph && typeof clnrow.morph !== 'string') {
             cleanedRow.morph.forEach(morphItem => {
                 console.log(morphItem.morph)
                 if (morphItem && morphItem.title) {
@@ -123,7 +123,7 @@ export async function cleanData(data, type) {
                         relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
                     }
                     // Logic for word type
-                    else if (cleanedRow.type === 'word') {
+                    else if (clnrow.type === 'word') {
                         const matchingWords = cleanedData.filter(r => {
                             if (r.morph && r.type === 'root') {
                                 return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
