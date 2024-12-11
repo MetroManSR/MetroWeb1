@@ -87,7 +87,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
         } else {
-            if (row.morph && Array.isArray(row.morph)) {
+            
                 let morphArray = row.morph.map(item => item.title);
 
                 if (Array.isArray(morphArray) && morphArray.length > 0) {
@@ -97,7 +97,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
                         );
                     });
                 }
-            }
+            
 
             console.log('Related words:', relatedWords);
 
