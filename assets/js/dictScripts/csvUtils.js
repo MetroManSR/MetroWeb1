@@ -108,48 +108,7 @@ export async function cleanData(data, type) {
             progressText.textContent = `No anomalies found!`;
         }
     }, 3000);
-    console.log(cleanedData)
-   
-    // Calculate related words and derivative roots
-    cleanedData.forEach(clnrow => {
-        let relatedWords = [];
-        console.log(typeof clnrow.morph);
-        console.log(clnrow)
-        
-        if (clnrow.morph && typeof clnrow.morph !== 'string') {
-            clnrow.morph.forEach(mrphIt => {
-                console.log(mrphIt)
-                if (mrphIt) {
-                    // Logic for root type
-                    if (clnrow.type === 'root') {
-                        const matchingRoots = cleanedData.filter(r => {
-                            if (r.morph && r.type !== 'root') {
-                                return r.morph.some(item => item.title.toLowerCase() === mrphIt.title.toLowerCase());
-                            }
-                            return false;
-                        });
-                        console.log(`Matching Roots for: ${clnrow.title} - ${matchingRoots}`)
-                        relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
-                    }
-                    // Logic for word type
-                    else if (clnrow.type === 'word') {
-                        const matchingWords = cleanedData.filter(r => {
-                            if (r.morph && r.type === 'root') {
-                                return r.morph.some(item => item.title.toLowerCase() === mrphIt.title.toLowerCase());
-                            }
-                            return false;
-                        });
-
-                        console.log(`Matching Words for: ${clnrow.title} - ${matchingWords}`)
-                        relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
-                    }
-                }
-            });
-        }
-
-        clnrow.related = relatedWords.join(', ');
-        
-    });
+    console.log(cleanedData);
 
     // Ensure progress bar completes at 100%
     progressBar.style.width = `100%`;
