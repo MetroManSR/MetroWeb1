@@ -85,7 +85,22 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
         } else {
-            const relatedWords = getRelatedWordsByRoot(row.morph, allRows).filter(rw => rw.id !== row.id);
+            
+            let morphArray = row.morph[0]?.title;
+
+            if (Array.isArray(morphArray) && morphArray.length > 0) {
+                 morphArray.forEach(morphItem => {
+                
+                 relatedWords.push(getRelatedWordsByRoot(morphItem, allRows).filter(rw => rw.id !== row.id));
+            
+            });
+         }
+        }
+ 
+            
+            
+            
+            
             if (relatedWords.length > 0) {
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${relatedWords.map(rw => `<a href="?entry-${rw.id}" style="color: green;">${highlight(rw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
             } else {
