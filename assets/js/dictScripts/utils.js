@@ -12,13 +12,10 @@ export async function getRelatedWordsByRoot(allRows) {
         
     allRows.forEach(clnrow => {
         let relatedWords = [];
-        console.log(typeof clnrow.morph);
-        console.log(clnrow)
+        
+        clnrow.morph = clnrow.morph.split(clnrow.morph, ", ").map(i => i.trim());
 
-        if (clnrow.morph) {
-            clnrow.morph = clnrow.morph.split(clnrow.morph, ", ").map(i => i.trim());
-        } 
-        if (clnrow.morph) {
+        if (clnrow.morph.length>0) {
             clnrow.morph.forEach(mrphIt => {
                 console.log(mrphIt)
                 if (mrphIt) {
