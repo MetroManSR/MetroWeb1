@@ -112,9 +112,13 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
             }
         });
         contentBox.appendChild(morphElement);
-      }
+    }
+ 
+            }
         
-    
+        }
+ 
+    }
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
