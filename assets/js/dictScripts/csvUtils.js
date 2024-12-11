@@ -101,6 +101,41 @@ export async function cleanData(data, type) {
         }
     }, 3000);
 
+    test = cleanedData.forEach(cleanedRow => {
+    let relatedWords = [];
+
+    if (cleanedRow.morph && Array.isArray(cleanedRow.morph)) {
+        cleanedRow.morph.forEach(morphItem => {
+            if (morphItem && morphItem.title) {
+                // Logic for root type
+                if (cleanedRow.type === 'root') {
+                    const matchingWords = data.filter(r => {
+                        if (r.morph && Array.isArray(r.morph) && r.type !== 'root') {
+                            return r.morph.some(item => item.title.toLowerCase() === cleanedRow.title.toLowerCase());
+                        }
+                        return false;
+                    });
+                    relatedWords.push(...matchingWords.map(r => r.title));
+                }
+                // Logic for word type
+                else if (cleanedRow.type === 'word') {
+                    const matchingWords = data.filter(r => {
+                        if (r.morph && Array.isArray(r.morph) && r.type === 'word') {
+                            return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
+                        }
+                        return false;
+                    });
+                    relatedWords.push(...matchingWords.map(r => r.title));
+                }
+            }
+        });
+    }
+
+    cleanedRow.related = relatedWords.join(', ');
+});
+    
+    console.log('Test: ', test) 
+
     return cleanedData;
 }
 
