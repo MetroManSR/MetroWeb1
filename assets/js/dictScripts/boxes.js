@@ -55,13 +55,14 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     wordElement.innerHTML = highlight(row.title + (row.type !== 'root' ? ` (${partOfSpeechAbbr})` : ''), searchTerm);
 
     const hrElement = document.createElement('hr');
-    
-    const contentBox = document.createElement('div');
-    contentBox.classList.add('dictionary-box-content');
 
     const metaElement = document.createElement('div');
     metaElement.classList.add('dictionary-box-meta');
     metaElement.innerHTML = highlight(row.meta, searchTerm);
+
+    
+    const contentBox = document.createElement('div');
+    contentBox.classList.add('dictionary-box-content');
 
     const notesElement = document.createElement('div');
     metaElement.classList.add('dictionary-box-notes');
