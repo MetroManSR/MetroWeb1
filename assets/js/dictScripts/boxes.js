@@ -63,57 +63,38 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
-
+    console.log('Notes type: ',typeof row.notes)
+    console.log(row.notes)
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
+        const notesArray = row.notes.notes || [];
         const notesElement = document.createElement('div');
         notesElement.classList.add('dictionary-box-notes');
-        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(notesArray.join(', '), searchTerm)}`;
         contentBox.appendChild(notesElement);
     } else {
+        const notesArray = row.notes.notes || [];
         const notesElement = document.createElement('div');
         notesElement.classList.add('dictionary-box-notes');
-        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(notesArray.join(', '), searchTerm)}`;
         contentBox.appendChild(notesElement);
 
-        console.log('Type of morph:', typeof row.morph);
-        console.log('Morph value:', row.morph);
-
-        if (typeof row.morph === 'object' && !Array.isArray(row.morph)) {
-            Object.keys(row.morph).forEach((key, index) => {
-                const morphItem = row.morph[key];
-                console.log('Type of morphItem:', typeof morphItem);
-                console.log('MorphItem value:', morphItem);
-
-                const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
-                morphElement.innerHTML += matchingRoot 
-                    ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphItem, searchTerm)}</a>` 
-                    : highlight(morphItem, searchTerm);
-                if (index < Object.keys(row.morph).length - 1) {
-                    morphElement.innerHTML += ', ';
-                }
-            });
-        } else if (Array.isArray(row.morph)) {
-            row.morph.forEach((morphItem, index) => {
-                console.log('Type of morphItem:', typeof morphItem);
-                console.log('MorphItem value:', morphItem);
-
-                const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
-                morphElement.innerHTML += matchingRoot 
-                    ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphItem, searchTerm)}</a>` 
-                    : highlight(morphItem, searchTerm);
-                if (index < row.morph.length - 1) {
-                    morphElement.innerHTML += ', ';
-                }
-            });
+        if (row.morph && typeof row.morph === 'object' && row.morph.morph) {
+            const morphArray = row.morph.morph;
+            if (Array.isArray(morphArray) && morphArray.length > 0) {
+                morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
+                morphArray.forEach((morphItem, index) => {
+                    const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
+                    morphElement.innerHTML += matchingRoot 
+                        ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphItem, searchTerm)}</a>` 
+                        : highlight(morphItem, searchTerm);
+                    if (index < morphArray.length - 1) {
+                        morphElement.innerHTML += ', ';
+                    }
+                });
+            }
         }
     }
-
-    // Related words will be displayed only when a box is clicked
-    const relatedElement = document.createElement('div');
-    relatedElement.classList.add('dictionary-box-related');
-    relatedElement.style.display = 'none'; // Initially hidden
-    contentBox.appendChild(relatedElement);
 
     contentBox.appendChild(metaElement);
     contentBox.appendChild(morphElement);
@@ -209,8 +190,24 @@ export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, s
     if (filteredRows.length === 0) {
         dictionaryContainer.innerHTML = ''; // Clear loading boxes
         dictionaryContainer.appendChild(await createNoMatchBox(language));
+        updatePagination(currentPage, filteredRows, rowsPerPage);
+        await updateFloatingText(filteredRows, searchTerm, [], {}, language);
+        return;
+    }
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const rowsToDisplay = filteredRows.slice(start, end);
+
+    // Replace loading boxes with actual content
+    dictionaryContainer.innerHTML = ''; // Clear loading boxes
+    for (const row of rowsToDisplay) {
+        const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        if (box) {
+            dictionaryContainer.appendChild(box);
+        }
+    }
 
     updatePagination(currentPage, filteredRows, rowsPerPage);
     await updateFloatingText(filteredRows, searchTerm, [], {}, language);
-} 
- 
+}
