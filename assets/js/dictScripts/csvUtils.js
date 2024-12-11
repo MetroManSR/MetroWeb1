@@ -106,7 +106,7 @@ export async function cleanData(data, type) {
         let relatedWords = [];
         console.log(typeof cleanedRow.morph)
         console.log(cleanedRow.morph)
-        if (cleanedRow.morph) {
+        if (cleanedRow.morph && typeof cleanedRow.morph !== 'string') {
             cleanedRow.morph.forEach(morphItem => {
                 console.log(morphItem.morph)
                 if (morphItem && morphItem.title) {
