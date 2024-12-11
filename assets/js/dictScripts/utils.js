@@ -5,20 +5,50 @@
  * @param {Array} allRows - The array of all dictionary rows.
  * @returns {Array} - The array of related words.
  */
-export function getRelatedWordsByRoot(morph, allRows) {
-    if (typeof morph !== 'string') {
-        return []; // Return an empty array if morph is not a string
-    }
+export async function getRelatedWordsByRoot(allRows) {
+        // Calculate related words and derivative roots
+    allRows.forEach(clnrow => {
+        let relatedWords = [];
+        console.log(typeof clnrow.morph);
+        console.log(clnrow)
+        
+        if (clnrow.morph) {
+            clnrow.morph.forEach(mrphIt => {
+                console.log(mrphIt)
+                if (mrphIt) {
+                    // Logic for root type
+                    if (clnrow.type === 'root') {
+                        const matchingRoots = allRows.filter(r => {
+                            if (r.morph && r.type !== 'root') {
+                                return r.morph.some(item => item.title.toLowerCase() === mrphIt.title.toLowerCase());
+                            }
+                            return false;
+                        });
+                        console.log(`Matching Roots for: ${clnrow.title} - ${matchingRoots}`)
+                        relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
+                    }
+                    // Logic for word type
+                    else if (clnrow.type === 'word') {
+                        const matchingWords = allRows.filter(r => {
+                            if (r.morph && r.type === 'root') {
+                                return r.morph.some(item => item.title.toLowerCase() === mrphIt.title.toLowerCase());
+                            }
+                            return false;
+                        });
 
-    const morphologies = morph.split(',').map(m => m.trim().toLowerCase());
-
-    return allRows.filter(row => {
-        if (row.type !== 'root' && row.morph) {
-            const rowMorphs = row.morph.split(',').map(m => m.trim().toLowerCase());
-            return morphologies.some(morph => rowMorphs.includes(morph));
+                        console.log(`Matching Words for: ${clnrow.title} - ${matchingWords}`)
+                        relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
+                    }
+                }
+            });
         }
-        return false;
+
+        allRows.related = relatedWords.join(', ');
+        
     });
+
+    return allRows;
+
 }
 
 export function highlight(text, term) {
