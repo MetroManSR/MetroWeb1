@@ -63,14 +63,14 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('dictionary-box-notes');
-    notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+    notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
 
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
     } else {
         // Check if morph exists and is an array
         if (Array.isArray(row.morph) && row.morph.length > 0) {
