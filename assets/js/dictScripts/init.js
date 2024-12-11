@@ -111,7 +111,6 @@ if (Array.isArray(morphArray) && morphArray.length > 0) {
         }
     });
 }
-            let relatedWords = []
 
             console.log('Related words:', relatedWords);
 
