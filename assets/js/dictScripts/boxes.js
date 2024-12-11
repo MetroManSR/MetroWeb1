@@ -77,10 +77,10 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
         contentBox.appendChild(metaElement);
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.morph || '', searchTerm)}`;
-        contentBox.appendChild(morphElement)
-        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
-        contentBox.appendChild(notesElement);
+        notesElement.innerHTML = `${highlight(row.morph.title[0] || '', searchTerm)}`;
+        contentBox.appendChild(notesElement)
+        morphElement = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        contentBox.appendChild(morphElement);
     } else {
         notesElement.innerHTML = `${highlight(row.notes || '', searchTerm)}`;
         contentBox.appendChild(metaElement);
