@@ -108,8 +108,8 @@ export async function cleanData(data, type) {
         console.log(typeof clnrow.morph);
         console.log(clnrow)
         
-        if (cleanedRow.morph && typeof clnrow.morph !== 'string') {
-            cleanedRow.morph.forEach(morphItem => {
+        if (clnrow.morph && typeof clnrow.morph !== 'string') {
+            clnrow.morph.forEach(morphItem => {
                 console.log(morphItem.morph)
                 if (morphItem && morphItem.title) {
                     // Logic for root type
