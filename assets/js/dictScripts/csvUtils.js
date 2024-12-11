@@ -109,27 +109,30 @@ export async function cleanData(data, type) {
         console.log(clnrow)
         
         if (clnrow.morph && typeof clnrow.morph !== 'string') {
-            clnrow.morph.forEach(morphItem => {
-                console.log(morphItem.morph)
-                if (morphItem && morphItem.title) {
+            clnrow.morph.forEach(mrphIt => {
+                console.log(mrphIt.morph)
+                if (mrphIt && mrphIt.title) {
                     // Logic for root type
-                    if (cleanedRow.type === 'root') {
+                    if (clnrow.type === 'root') {
                         const matchingRoots = cleanedData.filter(r => {
                             if (r.morph && r.type !== 'root') {
-                                return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
+                                return r.morph.some(item => item.title.toLowerCase() === mrphIt.title.toLowerCase());
                             }
                             return false;
                         });
+                        console.log(`Matching Roots for: ${clnrow.title} - ${matchingRoots}`)
                         relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
                     }
                     // Logic for word type
                     else if (clnrow.type === 'word') {
                         const matchingWords = cleanedData.filter(r => {
                             if (r.morph && r.type === 'root') {
-                                return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
+                                return r.morph.some(item => item.title.toLowerCase() === mrphIt.title.toLowerCase());
                             }
                             return false;
                         });
+
+                        console.log(`Matching Words for: ${clnrow.title} - ${matchingWords}`)
                         relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
                     }
                 }
@@ -137,7 +140,7 @@ export async function cleanData(data, type) {
         }
 
         clnrow.related = relatedWords.join(', ');
-        console.log(relatedWords)
+        
     });
 
     // Ensure progress bar completes at 100%
