@@ -61,27 +61,28 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     metaElement.classList.add('dictionary-box-meta');
     metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta || '', searchTerm)}`;
 
-    const morphElement = document.createElement('div');
-    morphElement.classList.add('dictionary-box-morph');
-    console.log('Notes type: ',typeof row.notes)
-    console.log(row.notes)
+    // Log and handle morph correctly
+    console.log('Type of morph:', typeof row.morph);
+    console.log('Morph value:', row.morph);
+
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        const notesArray = row.notes.notes || [];
         const notesElement = document.createElement('div');
         notesElement.classList.add('dictionary-box-notes');
-        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(notesArray.join(', '), searchTerm)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
         contentBox.appendChild(notesElement);
     } else {
-        const notesArray = row.notes.notes || [];
         const notesElement = document.createElement('div');
         notesElement.classList.add('dictionary-box-notes');
-        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(notesArray.join(', '), searchTerm)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
 
-        if (row.morph && typeof row.morph === 'object' && row.morph.morph) {
-            const morphArray = row.morph.morph;
+        if (row.morph && typeof row.morph === 'object' && row.morph.title) {
+            const morphArray = row.morph.title;
             if (Array.isArray(morphArray) && morphArray.length > 0) {
+                const morphElement = document.createElement('div');
+                morphElement.classList.add('dictionary-box-morph');
                 morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
                 morphArray.forEach((morphItem, index) => {
                     const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
@@ -92,12 +93,10 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
                         morphElement.innerHTML += ', ';
                     }
                 });
+                contentBox.appendChild(morphElement);
             }
         }
     }
-
-    contentBox.appendChild(metaElement);
-    contentBox.appendChild(morphElement);
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
