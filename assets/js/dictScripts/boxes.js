@@ -80,7 +80,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
         contentBox.appendChild(metaElement);
         notesElement.innerHTML = `${highlight(row.morph[0]?.title || '', searchTerm)}`;
         contentBox.appendChild(notesElement)
-        morphElement = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
         contentBox.appendChild(morphElement);
     } else {
         notesElement.innerHTML = `${highlight(row.notes || '', searchTerm)}`;
