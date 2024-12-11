@@ -104,8 +104,9 @@ export async function cleanData(data, type) {
     // Calculate related words and derivative roots
     cleanedData.forEach(cleanedRow => {
         let relatedWords = [];
-        console.log(typeof cleanedRow.morph)
-        console.log(cleanedRow.morph)
+        console.log(typeof cleanedRow.morph);
+        console.log(cleanedRow)
+        
         if (cleanedRow.morph && typeof cleanedRow.morph !== 'string') {
             cleanedRow.morph.forEach(morphItem => {
                 console.log(morphItem.morph)
