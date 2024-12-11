@@ -135,7 +135,7 @@ export async function cleanData(data, type) {
     }
 
     cleanedRow.related = relatedWords.join(', ');
-    console.log(relatedWords)
+    console.log(relatedWords);
     });
     
     
