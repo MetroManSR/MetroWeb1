@@ -60,16 +60,14 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     metaElement.classList.add('dictionary-box-meta');
     metaElement.innerHTML = highlight(row.meta, searchTerm);
 
-    
     const contentBox = document.createElement('div');
     contentBox.classList.add('dictionary-box-content');
 
     const notesElement = document.createElement('div');
-    metaElement.classList.add('dictionary-box-notes');
+    notesElement.classList.add('dictionary-box-notes');
     
-    let morphElement = document.createElement('div');
-    metaElement.classList.add('dictionary-box-morph');
-    
+    const morphElement = document.createElement('div');
+    morphElement.classList.add('dictionary-box-morph');
     
     // Log and handle notes and morph correctly
     console.log('Type of notes:', typeof row.notes);
@@ -80,44 +78,33 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        box.appendChild(metaElement);
-        notesElement.innerHTML = `${highlight(row.morph[0]?.title || '', searchTerm)}`;
-        contentBox.appendChild(notesElement)
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
-        contentBox.appendChild(morphElement);
+        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        contentBox.appendChild(metaElement);
+        contentBox.appendChild(notesElement);
     } else {
-        notesElement.innerHTML = `${highlight(row.notes || '', searchTerm)}`;
-        box.appendChild(metaElement);
+        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
 
         if (row.morph && typeof row.morph === 'object' && row.morph[0]?.title) {
             const morphArray = row.morph[0]?.title;
-            if (row.morph && Array.isArray(row.morph)) {
-    const morphArray = row.morph;
-
-    if (morphArray.length > 0) {
-        morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-        morphArray.forEach((morphItem, index) => {
-            // Extract title and id from morphItem
-            const morphTitle = morphItem.title;
-            const morphId = morphItem.id;
-
-            // Assuming you want to link based on the title and highlight the text
-            const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
-            morphElement.innerHTML += matchingRoot 
-                ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphTitle, searchTerm)}</a>` 
-                : highlight(morphTitle, searchTerm);
-            if (index < morphArray.length - 1) {
-                morphElement.innerHTML += ', ';
+            if (Array.isArray(row.morph) && row.morph.length > 0) {
+                morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
+                row.morph.forEach((morphItem, index) => {
+                    const morphTitle = morphItem.title;
+                    const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
+                    morphElement.innerHTML += matchingRoot 
+                        ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphTitle, searchTerm)}</a>` 
+                        : highlight(morphTitle, searchTerm);
+                    if (index < row.morph.length - 1) {
+                        morphElement.innerHTML += ', ';
+                    }
+                });
+                contentBox.appendChild(morphElement);
             }
-        });
-        contentBox.appendChild(morphElement);
-    }
- 
-            }
-        
         }
- 
     }
 
     const typeTag = document.createElement('span');
