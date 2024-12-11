@@ -1,3 +1,11 @@
+function safeJSONParse(input) {
+    try {
+        return JSON.parse(input);
+    } catch (error) {
+        console.error("Error parsing JSON:", error);
+        return null; // Return null if parsing fails
+    }
+}
 /**
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
@@ -102,14 +110,7 @@ export async function cleanData(data, type) {
     }, 3000);
     console.log(cleanedData)
 
-    if (typeof cleanedData.morph === 'string') {
-    try {
-        cleanedData.morph = JSON.parse(cleanedData.morph);
-    } catch (error) {
-        console.error("Parsing error:", error);
-        
-    }
-    }
+    cleanedData.morph = safeJSONParse(cleanedData.morph)
    
     // Calculate related words and derivative roots
     cleanedData.forEach(clnrow => {
