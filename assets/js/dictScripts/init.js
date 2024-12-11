@@ -80,8 +80,16 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         let relatedWords = [];
 
         if (row.type === 'root') {
-            const derivativeWords = allRows.filter(r => r.type !== 'root' && r.morph && r.morph.includes(row.title) && r.id !== row.id);
-            if (derivativeWords.length > 0) {
+            
+            const derivativeWords = allRows.filter(r => {
+               if (r.type !== 'root' && r.morph && Array.isArray(r.morph)) {
+                  return r.morph.some((morphItem, index) => morphItem?.title.toLowerCase() === row.title.toLowerCase());
+               }
+               return false;
+             });
+
+  
+            if (derivativeWords) {
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${derivativeWords.map(dw => `<a href="?entry-${dw.id}" style="color: green;">${highlight(dw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
