@@ -31,10 +31,33 @@ export async function cleanData(data, type) {
         await new Promise(resolve => setTimeout(resolve, 5)); // Fast initial fake progress
     }
 
+    
     const cleanedData = [];
     const anomalies = [];
     const increment = Math.ceil(totalRows / 10); // Calculate increment for 10% steps
 
+    
+    if (!progressBar || !progressText) {
+        console.error("Progress bar or text element not found!");
+        return [];
+    }
+
+    // Initial fake increment
+    for (let i = 0; i <= 10; i++) {
+        progressBar.style.width = `${i}%`;
+        progressText.textContent = `Preparing... ${i}%`;
+        await new Promise(resolve => setTimeout(resolve, 5)); // Fast initial fake progress
+    }
+
+    // List of IDs needing character fixing
+    const idsNeedingFixing = data
+        .map((row, index) => ({
+            id: index,
+            needsFixing: /Ã|Â/.test(row.col1 || '') || /Ã|Â/.test(row.col2 || '') || /Ã|Â/.test(row.col3 || '') || /Ã|Â/.test(row.col4 || '') || /Ã|Â/.test(row.col5 || '')
+        }))
+        .filter(row => row.needsFixing)
+        .map(row => row.id);
+    
     for (let index = 0; index < totalRows; index++) {
         const row = data[index];
 
