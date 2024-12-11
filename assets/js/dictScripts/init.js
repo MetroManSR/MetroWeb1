@@ -77,8 +77,6 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
 
         const language = document.querySelector('meta[name="language"]').content || 'en';
 
-        let relatedWords = [];
-
         if (row.type === 'root') {
             
             const derivativeWords = allRows.filter(r => {
@@ -96,16 +94,24 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
             }
         } else {
             
-                let morphArray = row.morph.map(item => item.title);
+            let morphArray = row.morph.map(item => item.title);
 
-                if (Array.isArray(morphArray) && morphArray.length > 0) {
-                    morphArray.forEach(morphItem => {
-                        relatedWords.push(
-                            ...getRelatedWordsByRoot(morphItem, allRows).filter(rw => rw.id !== row.id)
-                        );
-                    });
+let relatedWords = [];
+
+if (Array.isArray(morphArray) && morphArray.length > 0) {
+    morphArray.forEach(morphItem => {
+        if (morphItem && morphItem.title) {
+            const matchingWords = allRows.filter(r => {
+                if (r.morph && Array.isArray(r.morph)) {
+                    return r.morph.some((item, index) => item?.title.toLowerCase() === morphItem.title.toLowerCase());
                 }
-            
+                return false;
+            });
+            relatedWords.push(...matchingWords);
+        }
+    });
+}
+            let relatedWords = []
 
             console.log('Related words:', relatedWords);
 
