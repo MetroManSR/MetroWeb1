@@ -68,17 +68,23 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     if (row.type === 'root') {
         const notesElement = document.createElement('div');
         notesElement.classList.add('dictionary-box-notes');
-        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
         contentBox.appendChild(notesElement);
     } else {
         const notesElement = document.createElement('div');
         notesElement.classList.add('dictionary-box-notes');
-        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
         contentBox.appendChild(notesElement);
+
+        console.log('Type of morph:', typeof row.morph);
+        console.log('Morph value:', row.morph);
 
         if (Array.isArray(row.morph) && row.morph.length > 0) {
             morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
             row.morph.forEach((morphItem, index) => {
+                console.log('Type of morphItem:', typeof morphItem);
+                console.log('MorphItem value:', morphItem);
+
                 const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
                 morphElement.innerHTML += matchingRoot 
                     ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphItem, searchTerm)}</a>` 
@@ -210,4 +216,5 @@ export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, s
 
     updatePagination(currentPage, filteredRows, rowsPerPage);
     await updateFloatingText(filteredRows, searchTerm, [], {}, language);
-}
+} 
+ 
