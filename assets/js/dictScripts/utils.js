@@ -7,11 +7,16 @@
  */
 export async function getRelatedWordsByRoot(allRows) {
         // Calculate related words and derivative roots
+    
+        
     allRows.forEach(clnrow => {
         let relatedWords = [];
         console.log(typeof clnrow.morph);
         console.log(clnrow)
-        
+
+        if (clnrow.morph) {
+            clnrow.morph = split(clnrow.morph, ", ").map(i => i.trim());
+        } 
         if (clnrow.morph) {
             clnrow.morph.forEach(mrphIt => {
                 console.log(mrphIt)
