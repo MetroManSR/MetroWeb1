@@ -100,7 +100,8 @@ export async function cleanData(data, type) {
             progressText.textContent = `No anomalies found!`;
         }
     }, 3000);
-
+    console.log(cleanedData)
+   
     // Calculate related words and derivative roots
     cleanedData.forEach(cleanedRow => {
         let relatedWords = [];
