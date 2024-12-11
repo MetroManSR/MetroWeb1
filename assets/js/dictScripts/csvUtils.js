@@ -105,13 +105,14 @@ export async function cleanData(data, type) {
     cleanedData.forEach(cleanedRow => {
         let relatedWords = [];
 
-        if (cleanedRow.morph &&  typeof cleanedRow.morph === "object") {
+        if (cleanedRow.morph) {
             cleanedRow.morph.forEach(morphItem => {
+                console.log(morphItem.morph)
                 if (morphItem && morphItem.title) {
                     // Logic for root type
                     if (cleanedRow.type === 'root') {
                         const matchingRoots = cleanedData.filter(r => {
-                            if (r.morph &&  typeof r.morph === "object"  && r.type !== 'root') {
+                            if (r.morph && r.type !== 'root') {
                                 return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
                             }
                             return false;
@@ -121,7 +122,7 @@ export async function cleanData(data, type) {
                     // Logic for word type
                     else if (cleanedRow.type === 'word') {
                         const matchingWords = cleanedData.filter(r => {
-                            if (r.morph && typeof r.morph === "object" && r.type === 'root') {
+                            if (r.morph && r.type === 'root') {
                                 return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
                             }
                             return false;
