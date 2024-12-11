@@ -54,6 +54,8 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     wordElement.classList.add('dictionary-box-title');
     wordElement.innerHTML = highlight(row.title + (row.type !== 'root' ? ` (${partOfSpeechAbbr})` : ''), searchTerm);
 
+    const hrElement = document.createElement('hr');
+    
     const contentBox = document.createElement('div');
     contentBox.classList.add('dictionary-box-content');
 
