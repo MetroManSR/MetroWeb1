@@ -101,6 +101,15 @@ export async function cleanData(data, type) {
         }
     }, 3000);
     console.log(cleanedData)
+
+    if (typeof cleanedData.morph === 'string') {
+    try {
+        cleanedData.morph = JSON.parse(cleanedData.morph);
+    } catch (error) {
+        console.error("Parsing error:", error);
+        return null;
+    }
+    }
    
     // Calculate related words and derivative roots
     cleanedData.forEach(clnrow => {
