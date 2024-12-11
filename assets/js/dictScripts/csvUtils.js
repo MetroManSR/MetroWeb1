@@ -44,7 +44,7 @@ export async function cleanData(data, type) {
             partofspeech: '', // Initialize part of speech
             meta: '', // Initialize meta
             notes: '', // Initialize notes
-            morph: '', // Initialize morph
+            morph: [], // Initialize morph as an array
             related: ''
         };
 
@@ -53,7 +53,7 @@ export async function cleanData(data, type) {
             cleanedRow.partofspeech = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Part of Speech for words
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : row.col3 ? row.col3.trim() : ''); // Meta for words
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
-            cleanedRow.morph = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : ''); // Morph for words
+            cleanedRow.morph = JSON.parse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : '')); // Morph for words
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
             const [root, rest] = rawTitle.split(' = ');
@@ -63,7 +63,7 @@ export async function cleanData(data, type) {
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(root ? root.trim() : '') : root ? root.trim() : ''); // X title for roots
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(translation ? translation.trim() : '') : translation ? translation.trim() : ''); // Y meta for roots
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(notes ? notes.trim() : '') : notes ? notes.trim() : ''); // A notes for roots
-            cleanedRow.morph = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(morph ? morph.trim() : '') : morph ? morph.trim() : ''); // B morph for roots
+            cleanedRow.morph = JSON.parse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(morph ? morph.trim() : '') : morph ? morph.trim() : '')); // B morph for roots
         }
 
         // Check for anomalies (missing title or meta)
@@ -88,6 +88,40 @@ export async function cleanData(data, type) {
         }
     }
 
+    // Calculate related words and derivative roots
+    cleanedData.forEach(cleanedRow => {
+        let relatedWords = [];
+
+        if (cleanedRow.morph && Array.isArray(cleanedRow.morph)) {
+            cleanedRow.morph.forEach(morphItem => {
+                if (morphItem && morphItem.title) {
+                    // Logic for root type
+                    if (cleanedRow.type === 'root') {
+                        const matchingRoots = cleanedData.filter(r => {
+                            if (r.morph && Array.isArray(r.morph) && r.type !== 'root') {
+                                return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
+                            }
+                            return false;
+                        });
+                        relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
+                    }
+                    // Logic for word type
+                    else if (cleanedRow.type === 'word') {
+                        const matchingWords = cleanedData.filter(r => {
+                            if (r.morph && Array.isArray(r.morph) && r.type === 'root') {
+                                return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
+                            }
+                            return false;
+                        });
+                        relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
+                    }
+                }
+            });
+        }
+
+        cleanedRow.related = relatedWords.join(', ');
+    });
+
     // Ensure progress bar completes at 100%
     progressBar.style.width = `100%`;
     progressText.textContent = `Parsing complete!`;
@@ -100,45 +134,6 @@ export async function cleanData(data, type) {
             progressText.textContent = `No anomalies found!`;
         }
     }, 3000);
-    
-    
-    cleanedData.forEach(cleanedRow => {     
-    cleanedData.forEach(cleanedRow => {
-    let relatedWords = [];
-
-    if (cleanedRow.morph && typeof cleanedRow.morph === 'object') {
-        const morphArray = cleanedRow.morph; // Assuming morph is an object containing an array of morph items
-        Object.values(morphArray).forEach(morphItem => {
-            if (morphItem && morphItem.title) {
-                // Logic for root type
-                if (cleanedRow.type === 'root') {
-                    const matchingRoots = cleanedData.filter(r => {
-                        if (r.morph && typeof r.morph === 'object' && r.type !== 'root') {
-                            return Object.values(r.morph).some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
-                        }
-                        return false;
-                    });
-                    relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
-                }
-                // Logic for word type
-                else if (cleanedRow.type === 'word') {
-                    const matchingWords = cleanedData.filter(r => {
-                        if (r.morph && typeof r.morph === 'object' && r.type === 'root') {
-                            return Object.values(r.morph).some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
-                        }
-                        return false;
-                    });
-                    relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
-                }
-            }
-        });
-    }
-
-    cleanedRow.related = relatedWords.join(', ');
-    console.log(relatedWords);
-    });
-    
-    
 
     return cleanedData;
 }
@@ -174,4 +169,4 @@ export function fixEncoding(str) {
               .replace(/Ã‘/g, 'Ñ')
               .replace(/Â¿/g, '¿')
               .replace(/Â¡/g, '¡');
-}
+                                          }
