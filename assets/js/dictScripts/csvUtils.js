@@ -105,13 +105,13 @@ export async function cleanData(data, type) {
     cleanedData.forEach(cleanedRow => {
         let relatedWords = [];
 
-        if (cleanedRow.morph && Array.isArray(cleanedRow.morph)) {
+        if (cleanedRow.morph &&  typeof cleanedRow.morph === "object") {
             cleanedRow.morph.forEach(morphItem => {
                 if (morphItem && morphItem.title) {
                     // Logic for root type
                     if (cleanedRow.type === 'root') {
                         const matchingRoots = cleanedData.filter(r => {
-                            if (r.morph && Array.isArray(r.morph) && r.type !== 'root') {
+                            if (r.morph &&  typeof r.morph === "object"  && r.type !== 'root') {
                                 return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
                             }
                             return false;
@@ -121,7 +121,7 @@ export async function cleanData(data, type) {
                     // Logic for word type
                     else if (cleanedRow.type === 'word') {
                         const matchingWords = cleanedData.filter(r => {
-                            if (r.morph && Array.isArray(r.morph) && r.type === 'root') {
+                            if (r.morph && typeof r.morph === "object" && r.type === 'root') {
                                 return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
                             }
                             return false;
@@ -133,6 +133,7 @@ export async function cleanData(data, type) {
         }
 
         cleanedRow.related = relatedWords.join(', ');
+        console.log(relatedWords)
     });
 
     // Ensure progress bar completes at 100%
