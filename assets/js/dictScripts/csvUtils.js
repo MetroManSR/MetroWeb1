@@ -180,4 +180,3 @@ export function fixEncoding(str) {
               .replace(/Â¿/g, '¿')
               .replace(/Â¡/g, '¡');
 }
-                                          }
