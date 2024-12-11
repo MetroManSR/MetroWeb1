@@ -53,7 +53,12 @@ export async function cleanData(data, type) {
             cleanedRow.partofspeech = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Part of Speech for words
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : row.col3 ? row.col3.trim() : ''); // Meta for words
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
-            cleanedRow.morph = JSON.parse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : '')); // Morph for words
+            try {
+                cleanedRow.morph = JSON.parse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : '')); // Morph for words
+            } catch (e) {
+                console.error(`Error parsing JSON for morph in row ${index}:`, e);
+                continue; // Skip this row if there's an error parsing JSON
+            }
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
             const [root, rest] = rawTitle.split(' = ');
@@ -63,7 +68,12 @@ export async function cleanData(data, type) {
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(root ? root.trim() : '') : root ? root.trim() : ''); // X title for roots
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(translation ? translation.trim() : '') : translation ? translation.trim() : ''); // Y meta for roots
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(notes ? notes.trim() : '') : notes ? notes.trim() : ''); // A notes for roots
-            cleanedRow.morph = JSON.parse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(morph ? morph.trim() : '') : morph ? morph.trim() : '')); // B morph for roots
+            try {
+                cleanedRow.morph = JSON.parse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(morph ? morph.trim() : '') : morph ? morph.trim() : '')); // B morph for roots
+            } catch (e) {
+                console.error(`Error parsing JSON for morph in row ${index}:`, e);
+                continue; // Skip this row if there's an error parsing JSON
+            }
         }
 
         // Check for anomalies (missing title or meta)
