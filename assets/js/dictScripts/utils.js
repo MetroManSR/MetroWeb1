@@ -7,51 +7,49 @@
  */
 
 export async function getRelatedWordsByRoot(allRows) {
-        // Calculate related words and derivative roots
-    
-        
+    // Calculate related words and derivative roots
     allRows.forEach(clnrow => {
         let relatedWords = [];
         
-        clnrow.morph = clnrow.morph.split(clnrow.morph, ", ").map(i => i.trim());
+        // Ensure morph is an array
+        if (typeof clnrow.morph === 'string') {
+            clnrow.morph = clnrow.morph.split(',').map(i => i.trim());
+        }
 
-        if (clnrow.morph.length>0) {
+        if (clnrow.morph.length > 0) {
             clnrow.morph.forEach(mrphIt => {
-                console.log(mrphIt)
                 if (mrphIt) {
                     // Logic for root type
                     if (clnrow.type === 'root') {
                         const matchingRoots = allRows.filter(r => {
-                            if (r.morph && r.type !== 'root') {
-                                return r.morph.some(item => item.title.toLowerCase() === mrphIt.title.toLowerCase());
+                            if (Array.isArray(r.morph) && r.type !== 'root') {
+                                return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
                             }
                             return false;
                         });
-                        console.log(`Matching Roots for: ${clnrow.title} - ${matchingRoots}`)
+                        console.log(`Matching Roots for: ${clnrow.title} - ${matchingRoots}`);
                         relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
                     }
                     // Logic for word type
                     else if (clnrow.type === 'word') {
                         const matchingWords = allRows.filter(r => {
-                            if (r.morph && r.type === 'root') {
-                                return r.morph.some(item => item.title.toLowerCase() === mrphIt.title.toLowerCase());
+                            if (Array.isArray(r.morph) && r.type === 'root') {
+                                return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
                             }
                             return false;
                         });
 
-                        console.log(`Matching Words for: ${clnrow.title} - ${matchingWords}`)
+                        console.log(`Matching Words for: ${clnrow.title} - ${matchingWords}`);
                         relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
                     }
                 }
             });
         }
 
-        allRows.related = relatedWords.join(', ');
-        
+        clnrow.related = relatedWords.join(', ');
     });
 
     return allRows;
-
 }
 
 export function highlight(text, term) {
