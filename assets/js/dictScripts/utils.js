@@ -15,7 +15,7 @@ export async function getRelatedWordsByRoot(allRows) {
         console.log(clnrow)
 
         if (clnrow.morph) {
-            clnrow.morph = clnwrow.morph.split(clnrow.morph, ", ").map(i => i.trim());
+            clnrow.morph = clnrow.morph.split(clnrow.morph, ", ").map(i => i.trim());
         } 
         if (clnrow.morph) {
             clnrow.morph.forEach(mrphIt => {
