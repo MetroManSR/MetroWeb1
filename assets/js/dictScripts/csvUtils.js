@@ -103,42 +103,39 @@ export async function cleanData(data, type) {
     
     
     cleanedData.forEach(cleanedRow => {     
-      
-        let relatedWords = [];
-    
-        if (cleanedRow.morph && cleanedRow.morph[0]?.title) {
-        cleanedRow.morph.forEach(morphItem => {
+    cleanedData.forEach(cleanedRow => {
+    let relatedWords = [];
+
+    if (cleanedRow.morph && typeof cleanedRow.morph === 'object') {
+        const morphArray = cleanedRow.morph; // Assuming morph is an object containing an array of morph items
+        Object.values(morphArray).forEach(morphItem => {
             if (morphItem && morphItem.title) {
                 // Logic for root type
                 if (cleanedRow.type === 'root') {
                     const matchingRoots = cleanedData.filter(r => {
-                        if (r.morph && r.type !== 'root') {
-                            return r.morph.some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
+                        if (r.morph && typeof r.morph === 'object' && r.type !== 'root') {
+                            return Object.values(r.morph).some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
                         }
                         return false;
                     });
-                    relatedWords.push(...matchingRoots.map(r => r.title));
+                    relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
                 }
                 // Logic for word type
                 else if (cleanedRow.type === 'word') {
                     const matchingWords = cleanedData.filter(r => {
-                        if (r.notes && r.type === 'root') {
-                            if (r.notes == morphItem.title.toLowerCase){      return r.notes
-                               return r.notes
-                                                                       }
-                        }                       
-
-
+                        if (r.morph && typeof r.morph === 'object' && r.type === 'root') {
+                            return Object.values(r.morph).some(item => item.title.toLowerCase() === morphItem.title.toLowerCase());
+                        }
                         return false;
                     });
-                    relatedWords.push(...matchingWords.map(r => r.title));
+                    relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
                 }
             }
         });
     }
 
     cleanedRow.related = relatedWords.join(', ');
-    console.log('Test: ', relatedWords) 
+    console.log(relatedWords)
     });
     
     
