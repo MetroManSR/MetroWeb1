@@ -106,7 +106,7 @@ export async function cleanData(data, type) {
       
         let relatedWords = [];
     
-        if (cleanedRow.morph && cleanedRow.morph[0]?title) {
+        if (cleanedRow.morph && cleanedRow.morph[0]?.title) {
         cleanedRow.morph.forEach(morphItem => {
             if (morphItem && morphItem.title) {
                 // Logic for root type
