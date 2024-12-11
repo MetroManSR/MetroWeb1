@@ -136,7 +136,7 @@ export async function cleanData(data, type) {
             });
         }
 
-        cleanedRow.related = relatedWords.join(', ');
+        clnrow.related = relatedWords.join(', ');
         console.log(relatedWords)
     });
 
