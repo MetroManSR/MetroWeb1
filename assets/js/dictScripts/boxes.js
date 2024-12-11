@@ -63,7 +63,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     const notesElement = document.createElement('div');
     metaElement.classList.add('dictionary-box-notes');
     
-    const morphElement = document.createElement('div');
+    let morphElement = document.createElement('div');
     metaElement.classList.add('dictionary-box-morph');
     
     
