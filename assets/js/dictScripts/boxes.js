@@ -92,22 +92,29 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
         if (row.morph && typeof row.morph === 'object' && row.morph[0]?.title) {
             const morphArray = row.morph[0]?.title;
-            if (Array.isArray(morphArray) && morphArray.length > 0) {
-        
-                morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-                morphArray.forEach((morphItem, index) => {
-                    const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
-                    morphElement.innerHTML += matchingRoot 
-                        ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphItem, searchTerm)}</a>` 
-                        : highlight(morphItem, searchTerm);
-                    if (index < morphArray.length - 1) {
-                        morphElement.innerHTML += ', ';
-                    }
-                });
-                contentBox.appendChild(morphElement);
+            if (row.morph && Array.isArray(row.morph)) {
+    const morphArray = row.morph;
+
+    if (morphArray.length > 0) {
+        morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
+        morphArray.forEach((morphItem, index) => {
+            // Extract title and id from morphItem
+            const morphTitle = morphItem.title;
+            const morphId = morphItem.id;
+
+            // Assuming you want to link based on the title and highlight the text
+            const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
+            morphElement.innerHTML += matchingRoot 
+                ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphTitle, searchTerm)}</a>` 
+                : highlight(morphTitle, searchTerm);
+            if (index < morphArray.length - 1) {
+                morphElement.innerHTML += ', ';
             }
-        }
-    }
+        });
+        contentBox.appendChild(morphElement);
+      }
+        
+    
 
     const typeTag = document.createElement('span');
     typeTag.classList.add('type-tag');
