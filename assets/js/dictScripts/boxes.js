@@ -79,8 +79,21 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
         console.log('Type of morph:', typeof row.morph);
         console.log('Morph value:', row.morph);
 
-        if (Array.isArray(row.morph) && row.morph.length > 0) {
-            morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
+        if (typeof row.morph === 'object' && !Array.isArray(row.morph)) {
+            Object.keys(row.morph).forEach((key, index) => {
+                const morphItem = row.morph[key];
+                console.log('Type of morphItem:', typeof morphItem);
+                console.log('MorphItem value:', morphItem);
+
+                const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
+                morphElement.innerHTML += matchingRoot 
+                    ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphItem, searchTerm)}</a>` 
+                    : highlight(morphItem, searchTerm);
+                if (index < Object.keys(row.morph).length - 1) {
+                    morphElement.innerHTML += ', ';
+                }
+            });
+        } else if (Array.isArray(row.morph)) {
             row.morph.forEach((morphItem, index) => {
                 console.log('Type of morphItem:', typeof morphItem);
                 console.log('MorphItem value:', morphItem);
@@ -196,23 +209,6 @@ export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, s
     if (filteredRows.length === 0) {
         dictionaryContainer.innerHTML = ''; // Clear loading boxes
         dictionaryContainer.appendChild(await createNoMatchBox(language));
-        updatePagination(currentPage, filteredRows, rowsPerPage);
-        await updateFloatingText(filteredRows, searchTerm, [], {}, language);
-        return;
-    }
-
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const rowsToDisplay = filteredRows.slice(start, end);
-
-    // Replace loading boxes with actual content
-    dictionaryContainer.innerHTML = ''; // Clear loading boxes
-    for (const row of rowsToDisplay) {
-        const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-        if (box) {
-            dictionaryContainer.appendChild(box);
-        }
-    }
 
     updatePagination(currentPage, filteredRows, rowsPerPage);
     await updateFloatingText(filteredRows, searchTerm, [], {}, language);
