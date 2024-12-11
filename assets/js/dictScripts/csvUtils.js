@@ -14,54 +14,6 @@ function safeJSONParse(input) {
  */
 export async function cleanData(data, type) {
     const totalRows = data.length;
-    const progressBar = document.getElementById('dict-progress-bar');
-    const progressText = document.getElementById('dict-progress-text');
-
-    if (!progressBar || !progressText) {
-        console.error("Progress bar or text element not found!");
-        return [];
-    }
-
-    // Initial fake increment
-    for (let i = 0; i <= 10; i++) {
-        progressBar.style.width = `${i}%`;
-        progressText.textContent = `Preparing... ${i}%`;
-        await new Promise(resolve => setTimeout(resolve, 5)); // Fast initial fake progress
-    }
-
-    // List of IDs needing character fixing
-    const idsNeedingFixing = data
-        .map((row, index) => ({
-            id: index,
-            needsFixing: /Ã|Â/.test(row.col1 || '') || /Ã|Â/.test(row.col2 || '') || /Ã|Â/.test(row.col3 || '') || /Ã|Â/.test(row.col4 || '') || /Ã|Â/.test(row.col5 || '')
-        }))
-        .filter(row => row.needsFixing)
-        .map(row => row.id);
-
-    const cleanedData = [];
-    const anomalies = [];
-    const increment = Math.ceil(totalRows / 10); // Calculate increment for 10% steps
-
-    for (let index = 0; index < totalRows; index++) {
-        const row = data[index];
-
-        let cleanedRow = {
-            id: index, // Assign unique ID
-            type: type, // Identification of type (root or word)
-            title: '', // Initialize title
-            partofspeech: '', // Initialize part of speech
-            meta: '', // Initialize meta
-            notes: '', // Initialize notes
-            morph: [], // Initialize morph
-            related: []
-        };
-
-        if (type === 'word') {
-            cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // X title for words
-            cleanedRow.partofspeech = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Part of Speech for words
-            cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : row.col3 ? row.col3.trim() : ''); // Meta for words
-export async function cleanData(data, type) {
-    const totalRows = data.length;
 
     // Progress bar elements
     const progressBar = document.getElementById('dict-progress-bar');
