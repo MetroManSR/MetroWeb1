@@ -61,25 +61,28 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     metaElement.classList.add('dictionary-box-meta');
     metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta || '', searchTerm)}`;
 
-    const notesElement = document.createElement('div');
-    notesElement.classList.add('dictionary-box-notes');
-    notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
-
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
 
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(Array.isArray(row.notes) ? row.notes.join(', ') : row.notes || '', searchTerm)}`;
+        const notesElement = document.createElement('div');
+        notesElement.classList.add('dictionary-box-notes');
+        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        contentBox.appendChild(notesElement);
     } else {
-        // Check if morph exists and is an array
+        const notesElement = document.createElement('div');
+        notesElement.classList.add('dictionary-box-notes');
+        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm)}`;
+        contentBox.appendChild(notesElement);
+
         if (Array.isArray(row.morph) && row.morph.length > 0) {
             morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-            row.morph.forEach((morph, index) => {
-                const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.toLowerCase() && r.type === 'root');
+            row.morph.forEach((morphItem, index) => {
+                const matchingRoot = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
                 morphElement.innerHTML += matchingRoot 
-                    ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morph, searchTerm)}</a>` 
-                    : highlight(morph, searchTerm);
+                    ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphItem, searchTerm)}</a>` 
+                    : highlight(morphItem, searchTerm);
                 if (index < row.morph.length - 1) {
                     morphElement.innerHTML += ', ';
                 }
@@ -94,7 +97,6 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     contentBox.appendChild(relatedElement);
 
     contentBox.appendChild(metaElement);
-    contentBox.appendChild(notesElement);
     contentBox.appendChild(morphElement);
 
     const typeTag = document.createElement('span');
