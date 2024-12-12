@@ -1,4 +1,4 @@
-import { createHyperlink } from './utils.js';
+import { createHyperlink, sanitizeHTML, fixEncoding } from './utils.js';
 
 /**
  * Cleans and formats the data for the dictionary.
@@ -50,8 +50,8 @@ export async function cleanData(data, type) {
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : row.col3 ? row.col3.trim() : ''); // Meta for words
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
 
-            let morphData = row.col5 ? row.col5.trim() : '';
-            cleanedRow.morph = morphData.split(',').map(item => {
+            let morphData = Array.isArray(row.col5) ? row.col5.map(item => item.trim()) : [];
+            cleanedRow.morph = morphData.map(item => {
                 // Create hyperlink if the root exists in the dictionary
                 const root = data.find(rootRow => rootRow.col1 && rootRow.col1.trim().toLowerCase() === item.trim().toLowerCase());
                 return root ? createHyperlink({ ...root, title: item.trim() }) : sanitizeHTML(item.trim());
