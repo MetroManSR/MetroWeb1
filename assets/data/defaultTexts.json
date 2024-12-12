@@ -1,15 +1,12 @@
 {
     "en": {
-        // Search Section
         "searchPlaceholder": "Search...",
         "searchButton": "Search",
         "clearSearchButton": "Clear Search",
 
-        // Pagination Section
         "rowsPerPageLabel": "Rows per page:",
         "rowsPerPageButton": "Submit",
 
-        // Advanced Search Section
         "advancedSearchButton": "Advanced Search",
         "applySearchButton": "Apply",
         "closeSearchButton": "Close",
@@ -19,10 +16,8 @@
         "searchInEtymology": "Etymology",
         "exactMatch": "Exact Match",
 
-        // Statistics Section
         "viewStatisticsButton": "View Statistics",
 
-        // Filters Section
         "filterByLabel": "Filter by:",
         "applyFilterButton": "Apply",
         "noun": "Noun",
@@ -35,15 +30,12 @@
         "expression": "Expression",
         "pronoun": "Pronoun",
 
-        // Loading and Error Messages
         "loadingMessage": "Loading dictionary, please wait...",
         "errorLoadingData": "Failed to load dictionary data. Please try again later.",
 
-        // Settings Section
         "applySettingsButton": "Apply Settings",
         "clearSettingsButton": "Clear Settings",
 
-        // Sorting Section
         "orderByLabel": "Order By:",
         "titleAsc": "Title (Ascending)",
         "titleDesc": "Title (Descending)",
@@ -52,7 +44,6 @@
         "morphAsc": "Morphology (Ascending)",
         "morphDesc": "Morphology (Descending)",
 
-        // Dictionary Entries
         "translation": "Translation",
         "notes": "Notes",
         "morphology": "Morphology",
@@ -71,16 +62,15 @@
         "toggleFiltersButton": "Toggle Filters"
     },
     "es": {
-        // Sección de Búsqueda
+
         "searchPlaceholder": "Buscar...",
         "searchButton": "Buscar",
         "clearSearchButton": "Limpiar Búsqueda",
 
-        // Sección de Paginación
+    
         "rowsPerPageLabel": "Filas por página:",
         "rowsPerPageButton": "Enviar",
 
-        // Sección de Búsqueda Avanzada
         "advancedSearchButton": "Búsqueda Avanzada",
         "applySearchButton": "Aplicar",
         "closeSearchButton": "Cerrar",
@@ -90,10 +80,8 @@
         "searchInEtymology": "Etimología",
         "exactMatch": "Coincidencia Exacta",
 
-        // Sección de Estadísticas
         "viewStatisticsButton": "Ver Estadísticas",
 
-        // Sección de Filtros
         "filterByLabel": "Filtrar por:",
         "applyFilterButton": "Aplicar",
         "noun": "Sustantivo",
@@ -106,15 +94,12 @@
         "expression": "Expresión",
         "pronoun": "Pronombre",
 
-        // Mensajes de Carga y Error
         "loadingMessage": "Cargando diccionario, por favor espera...",
         "errorLoadingData": "No se pudo cargar los datos del diccionario. Por favor, inténtalo de nuevo más tarde.",
 
-        // Sección de Configuración
         "applySettingsButton": "Aplicar Configuraciones",
         "clearSettingsButton": "Limpiar Configuraciones",
 
-        // Sección de Ordenamiento
         "orderByLabel": "Ordenar Por:",
         "titleAsc": "Título (Ascendente)",
         "titleDesc": "Título (Descendente)",
@@ -123,7 +108,6 @@
         "morphAsc": "Morfología (Ascendente)",
         "morphDesc": "Morfología (Descendente)",
 
-        // Entradas del Diccionario
         "translation": "Traducción",
         "notes": "Notas",
         "morphology": "Morfología",
