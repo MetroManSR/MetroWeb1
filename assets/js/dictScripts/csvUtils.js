@@ -1,18 +1,4 @@
 /**
- * Parses JSON safely, returning the input itself if parsing fails.
- * @param {string} input - The JSON string to parse.
- * @returns {any} - The parsed object or the original input.
- */
-function safeJSONParse(input) {
-    try {
-        return JSON.parse(input);
-    } catch (error) {
-        console.error("Error parsing JSON:", error);
-        return input; // Return input if parsing fails
-    }
-}
-
-/**
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
  * @param {string} type - The type of data (e.g., 'word', 'root').
@@ -50,11 +36,10 @@ export async function cleanData(data, type) {
             id: index, // Assign unique ID
             type: type, // Identification of type (root or word)
             title: '', // Initialize title
-            partofspeech: '', // Initialize part of speech
+            partofspeech: '', // Initialize part of speech for words
             meta: '', // Initialize meta
             notes: '', // Initialize notes
-            morph: [], // Initialize morph as an array
-            related: ''
+            morph: [] // Initialize morph as an array
         };
 
         if (type === 'word') {
@@ -63,47 +48,28 @@ export async function cleanData(data, type) {
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : row.col3 ? row.col3.trim() : ''); // Meta for words
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
 
-            let morphData = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : '');
-            console.log(`Initial morph data (row ${index}):`, morphData);
-            cleanedRow.morph = Array.isArray(morphData) ? morphData : safeJSONParse(morphData);
-
-            console.log(`Parsed morph data (row ${index}):`, cleanedRow.morph);
-
-            if (typeof cleanedRow.morph === 'string') {
-                cleanedRow.morph = cleanedRow.morph.split(', ').map(item => item.trim());
-            } else if (!Array.isArray(cleanedRow.morph)) {
-                cleanedRow.morph = [];
-            }
+            let morphData = row.col5 ? row.col5.trim() : '';
+            cleanedRow.morph = Array.isArray(morphData) ? morphData : morphData.split(',').map(item => sanitizeHTML(item.trim()));
 
             console.log(`Final morph array (row ${index}):`, cleanedRow.morph);
         } else if (type === 'root') {
-            const rawTitle = row.col1 ? row.col1.trim() : '';
-            console.log(`Raw title (row ${index}):`, rawTitle);
-            const [root, rest] = rawTitle.split(' = ');
-            console.log(`Root (row ${index}):`, root, `Rest (row ${index}):`, rest);
-            const [translation, notesAndEtimologyRaw] = rest ? rest.split(' (') : ['', ''];
-            let notes = '', etimology = '';
+            cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // Word title for roots
+            cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Meta for roots
 
-            // Process notes and etimology
-            if (notesAndEtimologyRaw) {
-                const notesAndEtimology = notesAndEtimologyRaw.slice(0, -1); // remove the closing parenthesis
-                if (notesAndEtimology.includes('|')) {
-                    const parts = notesAndEtimology.split('|');
-                    notes = parts[0].trim();
-                    etimology = parts[1].trim();
+            const notesAndEtimology = row.col3 ? row.col3.trim() : '';
+            if (notesAndEtimology.includes('|')) {
+                const parts = notesAndEtimology.split('|');
+                cleanedRow.notes = sanitizeHTML(parts[0].trim());
+                cleanedRow.morph = parts[1] ? parts[1].split(',').map(item => sanitizeHTML(item.trim())) : [];
+            } else {
+                if (!notesAndEtimology.startsWith("et") && !notesAndEtimology.startsWith("del")) {
+                    cleanedRow.notes = sanitizeHTML(notesAndEtimology);
+                    cleanedRow.morph = [];
                 } else {
-                    if (!notesAndEtimology.startsWith("et") && !notesAndEtimology.startsWith("del")) {
-                        notes = notesAndEtimology;
-                    } else {
-                        etimology = notesAndEtimology;
-                    }
+                    cleanedRow.notes = '';
+                    cleanedRow.morph = notesAndEtimology.split(',').map(item => sanitizeHTML(item.trim()));
                 }
             }
-
-            cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(root ? root.trim() : '') : root ? root.trim() : ''); // X title for roots
-            cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(translation ? translation.trim() : '') : translation ? translation.trim() : ''); // Y meta for roots
-            cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(notes ? notes.trim() : '') : notes ? notes.trim() : ''); // Notes for roots
-            cleanedRow.morph = etimology ? etimology.split(' | ').map(e => sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(e.trim()) : e.trim())) : []; // Etimology for roots
 
             // Ensure morph is always an array
             if (!Array.isArray(cleanedRow.morph)) {
