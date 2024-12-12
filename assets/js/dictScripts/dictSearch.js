@@ -45,4 +45,3 @@ export function rootSpecific(term, allRows) {
     const specificRoot = allRows.find(row => row.type === 'root' && row.title.toLowerCase() === term.toLowerCase());
     displaySpecificEntry(specificRoot, allRows);
 }
-
