@@ -6,8 +6,8 @@ import { createPaginationControls } from './dictScripts/pagination.js';
 import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js';
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
 import { cleanData } from './dictScripts/csvUtils.js';
-
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
+
 document.addEventListener('DOMContentLoaded', async function() {
     const language = document.querySelector('meta[name="language"]').content || 'en';
     await setTexts(language);
@@ -105,29 +105,15 @@ document.addEventListener('DOMContentLoaded', async function() {
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
         let filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)) ; // Sorting rows initially
 
-        
-        // Process related words and morph links
-        /*filteredRows.forEach(row => {
-            row.related = allRows.filter(r => r.morph && r.morph.includes(row.title) && r.id !== row.id).map(r => ({
-                id: r.id,
-                title: r.title,
-                type: r.type
-            }));
-            row.morph = row.morph.split(',').map(morph => {
-                const matchingRoot = allRows.find(r => r.title.toLowerCase() === morph.trim().toLowerCase() && r.type === 'root');
-                return matchingRoot ? { id: matchingRoot.id, title: morph.trim() } : { title: morph.trim() };
-            });
-            allRowsById[row.id] = row;
-        });*/
-
         console.log('All Rows:', allRows);
         console.log('Filtered Rows:', filteredRows);
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+        
         displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
 
-        // Handle URL parameters
+    // Handle URL parameters
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
         const wordID = params.get('wordid');
