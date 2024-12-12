@@ -85,7 +85,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
-    }
+    };
 
     const cleanSearchButton = document.getElementById('dict-clear-search-button');
     if (cleanSearchButton) {
