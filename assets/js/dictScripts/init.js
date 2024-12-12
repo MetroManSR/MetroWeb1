@@ -78,47 +78,15 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         const language = document.querySelector('meta[name="language"]').content || 'en';
 
         if (row.type === 'root') {
-            
-            const derivativeWords = allRows.filter(r => {
-               if (r.type !== 'root' && r.morph && Array.isArray(r.morph)) {
-                  return r.morph.some((morphItem, index) => morphItem?.title.toLowerCase() === row.title.toLowerCase());
-               }
-               return false;
-             });
-
-  
-            if (derivativeWords) {
-                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${derivativeWords.map(dw => `<a href="?entry-${dw.id}" style="color: green;">${highlight(dw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
+            if (row.related && row.related.length > 0) {
+                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${row.related.map(dw => `<a href="?entry-${dw.id}" style="color: green;">${highlight(dw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
         } else {
-            
-            let morphArray = row.morph.map(item => item.title);
+            const relatedWords = row.related || [];
 
-let relatedWords = [];
-
-if (Array.isArray(morphArray) && morphArray.length > 0) {
-    morphArray.forEach(morphItem => {
-        if (morphItem && morphItem.title) {
-            const matchingWords = allRows.filter(r => {
-                if (r.morph && Array.isArray(r.morph)) {
-                    return r.morph.some((item, index) => item?.title.toLowerCase() === morphItem.title.toLowerCase());
-                }
-                return false;
-            });
-            relatedWords.push(...matchingWords);
-        }
-    });
-}
-
-            console.log('Related words:', relatedWords);
-
-            if (relatedWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${relatedWords.map(rw => `<a href="?entry-${rw.id}" style="color: green;">${highlight(rw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
-            } else {
-                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
-            }
+            relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${relatedWords.length > 0 ? relatedWords.map(rw => `<a href="?entry-${rw.id}" style="color: green;">${highlight(rw.title, pendingChanges.searchTerm)}</a>`).join(', ') : await getTranslatedText('noneFound', language)}`;
         }
 
         if (relatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(relatedWordsElement).lineHeight)) {
