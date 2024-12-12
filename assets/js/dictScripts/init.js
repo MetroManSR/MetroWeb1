@@ -114,16 +114,22 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             updatePendingChangesList();
         });
     }
-
-    async function handleClickEvent(e) {
+}
+async function handleClickEvent(e) {
         const now = Date.now();
         if (now - lastClickTime < 250) return; // 0.25 second cooldown
         lastClickTime = now;
 
+        const target = e.target;
+        if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('.icon-container')) {
+            // Ignore clicks on links, buttons, and the icon container
+            return;
+        }
+
         e.stopPropagation(); // Stop event propagation to avoid duplicate events
         e.preventDefault();  // Prevent default action to ensure correct handling
 
-        const box = e.target.closest('.dictionary-box');
+        const box = target.closest('.dictionary-box');
         if (!box) return;
 
         const rowId = parseInt(box.id.replace('entry-', ''), 10);
@@ -207,12 +213,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     }
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
-    dictionaryContainer.addEventListener('pointerdown', handleClickEvent);
-
-    document.querySelectorAll('.pagination-button').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const targetPage = parseInt(e.target.dataset.page, 10);
-            if', handleClickEvent);
+    dictionaryContainer.addEventListener('click', handleClickEvent, true); // Use capturing phase
 
     document.querySelectorAll('.pagination-button').forEach(button => {
         button.addEventListener('click', (e) => {
