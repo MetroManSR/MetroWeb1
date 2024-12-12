@@ -71,14 +71,20 @@ export function sanitizeHTML(html) {
 }
 
 /**
- * Creates a hyperlink for dictionary entries.
+ * Creates a hyperlink for dictionary entries if they exist.
  *
- * @param {Object} row - The dictionary row object.
+ * @param {string} word - The related word string.
  * @param {string} searchTerm - The search term to highlight in the title.
- * @returns {string} - The HTML string of the hyperlink.
+ * @param {Array} allRows - The array of all dictionary rows.
+ * @returns {string} - The HTML string of the hyperlink if found, otherwise the original string.
  */
-export function createHyperlink(row, searchTerm = '') {
-    const idParam = row.type === 'root' ? 'rootid' : 'wordid';
-    const highlightedTitle = highlight(row.title, searchTerm);
-    return `<a href="?${idParam}=${row.id}" style="color: green;">${highlightedTitle}</a>`;
+export function createHyperlink(word, searchTerm = '', allRows = []) {
+    const relatedRow = allRows.find(r => r.title.trim().toLowerCase() === word.trim().toLowerCase());
+    if (relatedRow) {
+        const idParam = relatedRow.type === 'root' ? 'rootid' : 'wordid';
+        const highlightedTitle = highlight(word, searchTerm);
+        return `<a href="?${idParam}=${relatedRow.id}" style="color: green;">${highlightedTitle}</a>`;
+    } else {
+        return sanitizeHTML(word);
+    }
 }
