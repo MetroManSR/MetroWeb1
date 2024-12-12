@@ -1,9 +1,10 @@
 import { getRelatedWordsByRoot, highlight, createHyperlink } from './utils.js';
 import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
-import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js'; // Ensure this is imported if used
+import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
+import { processRows } from './processRows.js';
 
-export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage) {
+export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     let currentPage = 1;
     let filteredRows = [];
     let previouslySelectedBox = null;
@@ -69,6 +70,35 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
         });
     }
 
+    const cleanSettingsButton = document.getElementById('dict-clear-settings-button');
+    if (cleanSettingsButton) {
+        cleanSettingsButton.addEventListener('click', () => {
+            pendingChanges = {
+                searchTerm: '',
+                exactMatch: false,
+                searchIn: { word: true, root: true, definition: false, etymology: false },
+                filters: [],
+                rowsPerPage: 20
+            };
+            updatePendingChangesList();
+            processRows(allRows, pendingChanges, rowsPerPage, displayPage);
+            // Remove URL parameters without reloading the page
+            history.pushState({}, document.title, window.location.pathname);
+        });
+    }
+
+    const cleanSearchButton = document.getElementById('dict-clear-search-button');
+    if (cleanSearchButton) {
+        cleanSearchButton.addEventListener('click', () => {
+            pendingChanges.searchTerm = '';
+            document.getElementById('dict-search-input').value = '';
+            updatePendingChangesList();
+            processRows(allRows, pendingChanges, rowsPerPage, displayPage);
+            // Remove URL parameters without reloading the page
+            history.pushState({}, document.title, window.location.pathname);
+        });
+    }
+
     const searchInput = document.getElementById('dict-search-input');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -77,7 +107,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
         });
     }
 
-    const rowsPerPageSelect = document.getElementById('dict-rows-per-page-select');
+    const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
     if (rowsPerPageSelect) {
         rowsPerPageSelect.addEventListener('change', () => {
             pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
