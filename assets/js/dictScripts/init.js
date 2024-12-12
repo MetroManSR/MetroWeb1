@@ -85,7 +85,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
-    };
+    }
 
     const cleanSearchButton = document.getElementById('dict-clear-search-button');
     if (cleanSearchButton) {
@@ -114,7 +114,6 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             updatePendingChangesList();
         });
     }
-
 async function handleClickEvent(e) {
         const now = Date.now();
         if (now - lastClickTime < 250) return; // 0.25 second cooldown
