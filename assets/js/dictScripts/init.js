@@ -114,7 +114,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             updatePendingChangesList();
         });
     }
-}
+
 async function handleClickEvent(e) {
         const now = Date.now();
         if (now - lastClickTime < 250) return; // 0.25 second cooldown
