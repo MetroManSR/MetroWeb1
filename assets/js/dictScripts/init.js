@@ -95,7 +95,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
         if (row.type === 'root') {
             derivativeWordsLabel = await getTranslatedText('derivativeWords', language);
             if (row.related && row.related.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${row.related.map(dw => createHyperlink(dw, pendingChanges.searchTerm)).join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${row.related.map(dw => createHyperlink({ ...dw, type: 'word' }, pendingChanges.searchTerm)).join(', ')}`;
             } else if (pendingChanges.searchTerm) {
                 relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
@@ -104,7 +104,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             const relatedWords = row.related || [];
 
             if (relatedWords.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWords.map(rw => createHyperlink(rw, pendingChanges.searchTerm)).join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWords.map(rw => createHyperlink({ ...rw, type: 'root' }, pendingChanges.searchTerm)).join(', ')}`;
             } else if (pendingChanges.searchTerm) {
                 relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
