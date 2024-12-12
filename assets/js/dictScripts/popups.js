@@ -115,30 +115,29 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
         });
     }
 }
-
 async function handleClickEvent(e) {
-        const now = Date.now();
-        if (now - lastClickTime < 250) return; // 0.25 second cooldown
-        lastClickTime = now;
+    const now = Date.now();
+    if (now - lastClickTime < 250) return; // 0.25 second cooldown
+    lastClickTime = now;
 
-        e.stopPropagation(); // Stop event propagation to avoid duplicate events
-        e.preventDefault();  // Prevent default action to ensure correct handling
+    e.stopPropagation(); // Stop event propagation to avoid duplicate events
+    e.preventDefault();  // Prevent default action to ensure correct handling
 
-        const box = e.target.closest('.dictionary-box');
-        if (!box) return;
+    const box = e.target.closest('.dictionary-box');
+    if (!box) return;
 
-        const rowId = parseInt(box.id.replace('entry-', ''), 10);
-        const row = allRows.find(r => r.id === rowId);
+    const rowId = parseInt(box.id.replace('entry-', ''), 10);
+    const row = allRows.find(r => r.id === rowId);
 
-        if (!row) {
-            console.error(`Row with id ${rowId} not found.`);
-            return;
-        }
+    if (!row) {
+        console.error(`Row with id ${rowId} not found.`);
+        return;
+    }
 
-        if (previouslySelectedBox) {
-            previouslySelectedBox.classList.remove('selected-word', 'selected-root');
-            const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
-            if (previousRelatedWords) {
+    if (previouslySelectedBox) {
+        previouslySelectedBox.classList.remove('selected-word', 'selected-root');
+        const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
+        if (previousRelatedWords) {
                 previouslySelectedBox.removeChild(previousRelatedWords);
             }
         }
