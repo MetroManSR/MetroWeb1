@@ -27,7 +27,7 @@ export function getRelatedWordsByRoot(allRows) {
                 }
                 return false;
             });
-            relatedWords.push(...matchingWords.map(r => r.title));
+            relatedWords.push(...matchingWords.map(r => `${r.title} <a href="?entry-${r.id}" style="color: green;">${highlight(r.title, '')}</a>`));
         }
         // Logic for word type
         else if (clnrow.type === 'word') {
@@ -39,7 +39,7 @@ export function getRelatedWordsByRoot(allRows) {
                         }
                         return false;
                     });
-                    relatedWords.push(...matchingRoots.map(r => r.title));
+                    relatedWords.push(...matchingRoots.map(r => `${r.title} <a href="?entry-${r.id}" style="color: green;">${highlight(r.title, '')}</a>`));
                 }
             });
         }
