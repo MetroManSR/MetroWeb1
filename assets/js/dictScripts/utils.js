@@ -1,14 +1,15 @@
+
 /**
  * Gets related words by root.
  *
  * @param {Array} allRows - The array of all dictionary rows.
  * @returns {Array} - The array of related words.
  */
-export async function getRelatedWordsByRoot(allRows) {
+export function getRelatedWordsByRoot(allRows) {
     // Calculate related words and derivative roots
     allRows.forEach(clnrow => {
         let relatedWords = [];
-
+        
         // Ensure morph is an array
         if (typeof clnrow.morph === 'string') {
             clnrow.morph = clnrow.morph.split(',').map(i => i.trim());
