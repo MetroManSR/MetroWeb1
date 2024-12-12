@@ -51,7 +51,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
 
     async function handleClickEvent(e) {
         const now = Date.now();
-        if (now - lastClickTime < 250) return; // 0.25 millisecond cooldown
+        if (now - lastClickTime < 250) return; // 0.25 second cooldown
         lastClickTime = now;
 
         e.stopPropagation(); // Stop event propagation to avoid duplicate events
@@ -117,9 +117,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     }
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
-    dictionaryContainer.addEventListener('click', handleClickEvent);
-    dictionaryContainer.addEventListener('touchstart', handleClickEvent);
-    dictionaryContainer.addEventListener('touchend', handleClickEvent);
+    dictionaryContainer.addEventListener('pointerdown', handleClickEvent);
 
     document.querySelectorAll('.pagination-button').forEach(button => {
         button.addEventListener('click', (e) => {
