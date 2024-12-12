@@ -45,16 +45,18 @@ export async function cleanData(data, type) {
         };
 
         if (type === 'word') {
-            cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // X title for words
+            cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // Title for words
             cleanedRow.partofspeech = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Part of Speech for words
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : row.col3 ? row.col3.trim() : ''); // Meta for words
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
 
             let morphData = row.col5 ? row.col5.trim() : '';
-            cleanedRow.morph = Array.isArray(morphData) ? morphData : morphData.split(',').map(item => {
-                // Create hyperlink if the root exists in the dictionary
-                const root = data.find(rootRow => rootRow.col1 && rootRow.col1.trim().toLowerCase() === item.trim().toLowerCase());
-                return root ? createHyperlink(root) : sanitizeHTML(item.trim());
+            cleanedRow.morph = morphData.split(',').map(item => item.trim());
+
+            // Create hyperlinks if the root exists in the dictionary
+            cleanedRow.morph = cleanedRow.morph.map(item => {
+                const root = data.find(rootRow => rootRow.col1 && rootRow.col1.trim().toLowerCase() === item.toLowerCase());
+                return root ? createHyperlink(root) : sanitizeHTML(item);
             });
 
         } else if (type === 'root') {
