@@ -1,4 +1,4 @@
-import { processRows } from './processRows.js';
+import { processAllSettings } from './processRows.js';
 
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges) {
     const updatePendingChangesList = () => {
@@ -23,9 +23,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
     };
 
     document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
-        const { searchTerm, exactMatch, searchIn, filters } = pendingChanges;
-        const criteria = { searchTerm, exactMatch, searchIn, filters };
-        processRows(allRows, criteria, rowsPerPage, displayPage);
+        processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage);
     });
 
     document.getElementById('dict-advanced-search-button').addEventListener('click', () => {
@@ -76,7 +74,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
     document.getElementById('dict-apply-search-button-popup').addEventListener('click', () => {
         const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
         const criteria = { searchTerm, exactMatch, searchIn, filters };
-        processRows(allRows, criteria, rowsPerPage, displayPage);
+        processAllSettings(criteria, allRows, rowsPerPage, displayPage);
         pendingChanges.searchTerm = '';
         pendingChanges.exactMatch = false;
         pendingChanges.searchIn = { word: true, root: true, definition: false, etymology: false };
