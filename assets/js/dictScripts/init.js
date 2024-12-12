@@ -1,4 +1,4 @@
-import { getRelatedWordsByRoot, highlight } from './utils.js';
+import { getRelatedWordsByRoot, highlight, createHyperlink } from './utils.js';
 import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js'; // Ensure this is imported if used
@@ -95,15 +95,19 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
         if (row.type === 'root') {
             derivativeWordsLabel = await getTranslatedText('derivativeWords', language);
             if (row.related && row.related.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${row.related.map(dw => `<a href="?entry-${dw.id}" style="color: green;">${highlight(dw, pendingChanges.searchTerm)}</a>`).join(', ')}`;
-            } else {
+                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${row.related.map(dw => createHyperlink(dw, pendingChanges.searchTerm)).join(', ')}`;
+            } else if (pendingChanges.searchTerm) {
                 relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
         } else {
             relatedWordsLabel = await getTranslatedText('relatedWords', language);
             const relatedWords = row.related || [];
 
-            relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWords.length > 0 ? relatedWords.map(rw => `<a href="?entry-${rw.id}" style="color: green;">${highlight(rw, pendingChanges.searchTerm)}</a>`).join(', ') : await getTranslatedText('noneFound', language)}`;
+            if (relatedWords.length > 0) {
+                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWords.map(rw => createHyperlink(rw, pendingChanges.searchTerm)).join(', ')}`;
+            } else if (pendingChanges.searchTerm) {
+                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
+            }
         }
 
         if (relatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(relatedWordsElement).lineHeight)) {
