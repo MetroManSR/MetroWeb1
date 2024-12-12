@@ -1,5 +1,8 @@
 import { processAllSettings } from './processRows.js';
-import { initStatisticsPopup, initAdvancedSearchPopup } from './popups.js'
+import { getRelatedWordsByRoot, highlight, createHyperlink } from './utils.js';
+import { updatePagination } from './pagination.js';
+import { getTranslatedText } from './loadTexts.js';
+import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
 
 export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     let currentPage = 1;
