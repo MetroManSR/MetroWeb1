@@ -71,21 +71,28 @@ export function sanitizeHTML(html) {
 }
 
 /**
+/**
  * Creates a hyperlink for dictionary entries if they exist.
  *
- * @param {string} word - The related word string.
  * @param {string} searchTerm - The search term to highlight in the title.
+ * @param {string} title - The title of the related word.
  * @param {Array} allRows - The array of all dictionary rows.
  * @returns {string} - The HTML string of the hyperlink if found, otherwise the original string.
  */
-export function createHyperlink(word, searchTerm = '', allRows = []) {
-    const relatedRow = allRows.find(r => r.title.trim().toLowerCase() === word.trim().toLowerCase());
+export function createHyperlink(title, searchTerm = '', allRows = []) {
+    const relatedRow = allRows.find(r => r.title.trim().toLowerCase() === title.trim().toLowerCase());
+    console.log('Title:', title);
+    console.log('Related Row:', relatedRow);
+
     if (relatedRow) {
         const idParam = relatedRow.type === 'root' ? 'rootid' : 'wordid';
-        const highlightedTitle = highlight(word, searchTerm);
-        return `<a href="?${idParam}=${relatedRow.id}" style="color: green;">${highlightedTitle}</a>`;
+        const highlightedTitle = highlight(title, searchTerm);
+        const hyperlink = `<a href="?${idParam}=${relatedRow.id}" style="color: green;">${highlightedTitle}</a>`;
+        console.log('Hyperlink:', hyperlink);
+        return hyperlink;
     } else {
-        return sanitizeHTML(word);
+        console.log('Title not found, returning original title:', title);
+        return title;
     }
 }
 
