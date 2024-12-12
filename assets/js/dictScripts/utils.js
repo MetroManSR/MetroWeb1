@@ -71,7 +71,6 @@ export function sanitizeHTML(html) {
 }
 
 /**
-/**
  * Creates a hyperlink for dictionary entries if they exist.
  *
  * @param {string} searchTerm - The search term to highlight in the title.
@@ -80,7 +79,12 @@ export function sanitizeHTML(html) {
  * @returns {string} - The HTML string of the hyperlink if found, otherwise the original string.
  */
 export function createHyperlink(title, searchTerm = '', allRows = []) {
-    const relatedRow = allRows.find(r => r.title.trim().toLowerCase() === title.trim().toLowerCase());
+    console.log('Searching for title:', title);
+    const relatedRow = allRows.find(r => {
+        const isMatch = r.title.trim().toLowerCase() === title.trim().toLowerCase();
+        console.log('Comparing with row title:', r.title, 'Match:', isMatch);
+        return isMatch;
+    });
     console.log('Title:', title);
     console.log('Related Row:', relatedRow);
 
@@ -95,7 +99,6 @@ export function createHyperlink(title, searchTerm = '', allRows = []) {
         return title;
     }
 }
-
 /**
  * Copies text to the clipboard.
  *
