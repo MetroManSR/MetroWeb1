@@ -1,12 +1,13 @@
-import { createHyperlink } from './utils.js';
+import { createHyperlink, sanitizeHTML, fixEncoding } from './utils.js';
 
 /**
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
  * @param {string} type - The type of data (e.g., 'word', 'root').
+ * @param {Array} allRows - The array of all dictionary rows.
  * @returns {Promise<Array>} - A promise that resolves to the cleaned and formatted data.
  */
-export async function cleanData(data, type) {
+export async function cleanData(data, type, allRows) {
     const totalRows = data.length;
 
     // Progress bar elements
@@ -51,11 +52,7 @@ export async function cleanData(data, type) {
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
 
             let morphData = row.col5 ? row.col5.trim().split(',').map(item => item.trim()) : [];
-            cleanedRow.morph = morphData.map(item => {
-                // Create hyperlink if the root exists in the dictionary
-                const root = data.find(rootRow => rootRow.col1 && rootRow.col1.trim().toLowerCase() === item.trim().toLowerCase());
-                return root ? createHyperlink({ ...root, title: item.trim() }) : sanitizeHTML(item.trim());
-            });
+            cleanedRow.morph = morphData.map(item => createHyperlink(item, '', allRows));
 
         } else if (type === 'root') {
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // Word title for roots
