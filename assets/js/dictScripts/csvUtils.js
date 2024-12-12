@@ -4,10 +4,15 @@
  * @returns {any} - The parsed object or the original input.
  */
 function safeJSONParse(input) {
+    if (typeof input !== 'string') {
+        console.error("Input is not a string:", input);
+        return input;
+    }
+
     try {
         return JSON.parse(input);
     } catch (error) {
-        console.error("Error parsing JSON:", error);
+        console.error("Error parsing JSON:", error, "Input:", input);
         return input; // Return input if parsing fails
     }
 }
@@ -42,7 +47,7 @@ export async function cleanData(data, type) {
         }))
         .filter(row => row.needsFixing)
         .map(row => row.id);
-    
+
     for (let index = 0; index < totalRows; index++) {
         const row = data[index];
 
@@ -148,8 +153,7 @@ export function sanitizeHTML(str) {
     temp.textContent = str;
     return temp.innerHTML;
 }
-
-/**
+/*
  * Fixes encoding issues for specific cases.
  * @param {string} str - The string to be fixed.
  * @returns {string} - The fixed string.
