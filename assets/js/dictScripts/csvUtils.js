@@ -51,12 +51,10 @@ export async function cleanData(data, type) {
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
 
             let morphData = row.col5 ? row.col5.trim() : '';
-            cleanedRow.morph = morphData.split(',').map(item => item.trim());
-
-            // Create hyperlinks if the root exists in the dictionary
-            cleanedRow.morph = cleanedRow.morph.map(item => {
-                const root = data.find(rootRow => rootRow.col1 && rootRow.col1.trim().toLowerCase() === item.toLowerCase());
-                return root ? createHyperlink(root) : sanitizeHTML(item);
+            cleanedRow.morph = morphData.split(',').map(item => {
+                // Create hyperlink if the root exists in the dictionary
+                const root = data.find(rootRow => rootRow.col1 && rootRow.col1.trim().toLowerCase() === item.trim().toLowerCase());
+                return root ? createHyperlink({ ...root, title: item.trim() }) : sanitizeHTML(item.trim());
             });
 
         } else if (type === 'root') {
