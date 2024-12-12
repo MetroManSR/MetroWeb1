@@ -56,6 +56,11 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         const rowId = parseInt(box.id.replace('entry-', ''), 10);
         const row = allRowsById[rowId];
 
+        if (!row) {
+            console.error(`Row with id ${rowId} not found.`);
+            return;
+        }
+
         if (previouslySelectedBox) {
             previouslySelectedBox.classList.remove('selected-word', 'selected-root');
             const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
