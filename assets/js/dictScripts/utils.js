@@ -1,4 +1,3 @@
-
 /**
  * Gets related words by root.
  *
@@ -9,7 +8,7 @@ export function getRelatedWordsByRoot(allRows) {
     // Calculate related words and derivative roots
     allRows.forEach(clnrow => {
         let relatedWords = [];
-        
+
         // Ensure morph is an array
         if (typeof clnrow.morph === 'string') {
             clnrow.morph = clnrow.morph.split(',').map(i => i.trim());
@@ -20,32 +19,32 @@ export function getRelatedWordsByRoot(allRows) {
             clnrow.morph = [];
         }
 
-        clnrow.morph.forEach(mrphIt => {
-            if (mrphIt) {
-                // Logic for root type
-                if (clnrow.type === 'root') {
-                    const matchingRoots = allRows.filter(r => {
-                        if (Array.isArray(r.morph) && r.type !== 'root') {
-                            return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
-                        }
-                        return false;
-                    });
-                    relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
+        // Logic for root type
+        if (clnrow.type === 'root') {
+            const matchingWords = allRows.filter(r => {
+                if (Array.isArray(r.morph) && r.type === 'word') {
+                    return r.morph.some(item => item.toLowerCase() === clnrow.title.toLowerCase());
                 }
-                // Logic for word type
-                else if (clnrow.type === 'word') {
-                    const matchingWords = allRows.filter(r => {
+                return false;
+            });
+            relatedWords.push(...matchingWords.map(r => r.title));
+        }
+        // Logic for word type
+        else if (clnrow.type === 'word') {
+            clnrow.morph.forEach(mrphIt => {
+                if (mrphIt) {
+                    const matchingRoots = allRows.filter(r => {
                         if (Array.isArray(r.morph) && r.type === 'root') {
                             return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
                         }
                         return false;
                     });
-                    relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
+                    relatedWords.push(...matchingRoots.map(r => r.title));
                 }
-            }
-        });
+            });
+        }
 
-        clnrow.related = relatedWords|| ['No related words found'] ;
+        clnrow.related = relatedWords.length > 0 ? relatedWords : ['No related words found'];
     });
 
     return allRows;
