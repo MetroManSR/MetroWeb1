@@ -27,19 +27,19 @@ export function getRelatedWordsByRoot(allRows) {
                 }
                 return false;
             });
-            relatedWords.push(...matchingWords.map(r => `${r.title} <a href="?entry-${r.id}" style="color: green;">${highlight(r.title, '')}</a>`));
+            relatedWords.push(...matchingWords.map(r => r.title));
         }
         // Logic for word type
         else if (clnrow.type === 'word') {
             clnrow.morph.forEach(mrphIt => {
                 if (mrphIt) {
-                    const matchingRoots = allRows.filter(r => {
-                        if (Array.isArray(r.morph) && r.type === 'root') {
+                    const matchingWords = allRows.filter(r => {
+                        if (Array.isArray(r.morph) && r.type === 'word') {
                             return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
                         }
                         return false;
                     });
-                    relatedWords.push(...matchingRoots.map(r => `${r.title} <a href="?entry-${r.id}" style="color: green;">${highlight(r.title, '')}</a>`));
+                    relatedWords.push(...matchingWords.map(r => r.title));
                 }
             });
         }
