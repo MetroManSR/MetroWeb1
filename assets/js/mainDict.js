@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     showLoadingMessage();
 
     let allRows = []; // Ensure allRows is defined outside the try-catch block
-    let allRowsById = {};
     let rowsPerPage = 20; // Default rows per page
     let currentPage = 1;
     let currentSortOrder = 'titleup'; // Default sort order
@@ -103,17 +102,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Cleaned Roots Data:', cleanedRootsData);
 
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
-        let filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)) ; // Sorting rows initially
+        let filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)); // Sorting rows initially
 
         console.log('All Rows:', allRows);
         console.log('Filtered Rows:', filteredRows);
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        
         displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
 
-    // Handle URL parameters
+        // Handle URL parameters
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
         const wordID = params.get('wordid');
@@ -176,5 +174,5 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Initialize event listeners with apply settings handling
-    initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage);
+    initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage);
 });
