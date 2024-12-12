@@ -87,7 +87,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
             row.morph.forEach((morphTitle, index) => {
                 const matchingRoot = allRows.find(r => r.meta.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
                 morphElement.innerHTML += matchingRoot 
-                    ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphTitle, searchTerm)}</a>` 
+                    ? createHyperlink(morphTitle, searchTerm, allRows) 
                     : highlight(morphTitle, searchTerm);
                 if (index < row.morph.length - 1) {
                     morphElement.innerHTML += ', ';
