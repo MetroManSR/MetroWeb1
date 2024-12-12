@@ -69,13 +69,6 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
     
-    // Log and handle notes and morph correctly
-    console.log('Type of notes:', typeof row.notes);
-    console.log('Notes value:', row.notes);
-
-    console.log('Type of morph:', typeof row.morph);
-    console.log('Morph value:', row.morph);
-
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
         metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm)}`;
@@ -90,8 +83,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
         if (Array.isArray(row.morph) && row.morph.length > 0) {
             morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-            row.morph.forEach((morphItem, index) => {
-                const morphTitle = morphItem.title || morphItem;
+            row.morph.forEach((morphTitle, index) => {
                 const matchingRoot = allRows.find(r => r.meta.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
                 morphElement.innerHTML += matchingRoot 
                     ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphTitle, searchTerm)}</a>` 
@@ -138,6 +130,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     return box;
 }
+
 // Function to create a no match box
 export async function createNoMatchBox(language) {
     const noMatchBox = document.createElement('div');
