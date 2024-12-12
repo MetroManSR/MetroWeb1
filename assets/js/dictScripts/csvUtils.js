@@ -7,7 +7,6 @@ function safeJSONParse(input) {
     try {
         return JSON.parse(input);
     } catch (error) {
-        console.error("Error parsing JSON:", error);
         return input; // Return input if parsing fails
     }
 }
