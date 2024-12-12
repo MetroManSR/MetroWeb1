@@ -210,7 +210,9 @@ async function handleClickEvent(e) {
                         .map(r => `${r.title} [${r.id}]: ${createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`)
                         .join(', ');
 
-                    relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${rootRelatedWords}`;
+                    
+                    relatedWordsLabel = await getTranslatedText('relatedWords', language);
+                                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${rootRelatedWords}`;
                 });
                 rootButtonsElement.appendChild(rootButton);
             });
