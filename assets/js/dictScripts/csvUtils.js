@@ -62,25 +62,40 @@ export async function cleanData(data, type) {
             cleanedRow.partofspeech = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Part of Speech for words
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : row.col3 ? row.col3.trim() : ''); // Meta for words
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
-            let morph = safeJSONParse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : ''));
-            if (typeof morph === 'string') {
-                morph = morph.split(', ').map(item => item.trim());
+
+            let morphData = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : '');
+            console.log(`Initial morph data (row ${index}):`, morphData);
+            cleanedRow.morph = Array.isArray(morphData) ? morphData : safeJSONParse(morphData);
+
+            console.log(`Parsed morph data (row ${index}):`, cleanedRow.morph);
+
+            if (typeof cleanedRow.morph === 'string') {
+                cleanedRow.morph = cleanedRow.morph.split(', ').map(item => item.trim());
+            } else if (!Array.isArray(cleanedRow.morph)) {
+                cleanedRow.morph = [];
             }
-            cleanedRow.morph = Array.isArray(morph) ? morph : [];
+
+            console.log(`Final morph array (row ${index}):`, cleanedRow.morph);
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
+            console.log(`Raw title (row ${index}):`, rawTitle);
             const [root, rest] = rawTitle.split(' = ');
+            console.log(`Root (row ${index}):`, root, `Rest (row ${index}):`, rest);
             const [translation, meta] = rest ? rest.split(' (') : ['', ''];
             let [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
-            
+
             if (typeof morph === 'string') {
                 morph = morph.split(', ').map(item => item.trim());
+            } else if (!Array.isArray(morph)) {
+                morph = [];
             }
+
+            console.log(`Final morph array for root (row ${index}):`, morph);
 
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(root ? root.trim() : '') : root ? root.trim() : ''); // X title for roots
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(translation ? translation.trim() : '') : translation ? translation.trim() : ''); // Y meta for roots
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(notes ? notes.trim() : '') : notes ? notes.trim() : ''); // A notes for roots
-            cleanedRow.morph = Array.isArray(morph) ? morph : [];
+            cleanedRow.morph = morph.map(m => sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(m.trim()) : m.trim())); // B morph for roots
         }
 
         // Check for anomalies (missing title or meta)
@@ -118,7 +133,7 @@ export async function cleanData(data, type) {
         }
     }, 3000);
 
-    console.log(cleanedData);
+    console.log("Cleaned Data:", cleanedData);
 
     return cleanedData;
 }
