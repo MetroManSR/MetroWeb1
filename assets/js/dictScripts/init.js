@@ -1,4 +1,5 @@
 import { processAllSettings } from './processRows.js';
+import { initStatisticsPopup, initAdvancedSearchPopup } from './popups.js'
 
 export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     let currentPage = 1;
