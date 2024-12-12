@@ -206,7 +206,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     }
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
-    dictionaryContainer.addEventListener('click', handleClickEvent, true); // Use capturing phase    
+    dictionaryContainer.addEventListener('click', handleClickEvent, true); // Use capturing phase
 
     document.querySelectorAll('.pagination-button').forEach(button => {
         button.addEventListener('click', (e) => {
