@@ -112,102 +112,122 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
         });
     }
 
-    async function handleClickEvent(e) {
-        const now = Date.now();
-        if (now - lastClickTime < 250) return; // 0.25 second cooldown
-        lastClickTime = now;
+async function handleClickEvent(e) {
+    const now = Date.now();
+    if (now - lastClickTime < 250) return; // 0.25 second cooldown
+    lastClickTime = now;
 
-        const target = e.target;
-        if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('.icon-container')) {
-            // Ignore clicks on links, buttons, and the icon container
-            return;
-        }
-
-        e.stopPropagation(); // Stop event propagation to avoid duplicate events
-        e.preventDefault();  // Prevent default action to ensure correct handling
-
-        const box = target.closest('.dictionary-box');
-        if (!box) return;
-
-        const rowId = parseInt(box.id.replace('entry-', ''), 10);
-        const row = allRows.find(r => r.id === rowId);
-
-        if (!row) {
-            console.error(`Row with id ${rowId} not found.`);
-            return;
-        }
-
-        if (previouslySelectedBox) {
-            previouslySelectedBox.classList.remove('selected-word', 'selected-root');
-            const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
-            if (previousRelatedWords) {
-                previouslySelectedBox.removeChild(previousRelatedWords);
-            }
-        }
-
-        if (box === previouslySelectedBox) {
-            previouslySelectedBox = null;
-            return;
-        }
-
-        box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
-
-        const relatedWordsElement = document.createElement('div');
-        relatedWordsElement.className = 'related-words';
-        relatedWordsElement.style.fontSize = '0.85em';
-
-        const language = document.querySelector('meta[name="language"]').content || 'en';
-
-        let derivativeWordsLabel = '';
-        let relatedWordsLabel = '';
-
-        if (row.type === 'root') {
-            derivativeWordsLabel = await getTranslatedText('derivativeWords', language);
-            if (row.related && row.related.length > 0) {
-                console.log('Derivatives:', row.related); // Debugging
-                const relatedWordsHtml = row.related.map(dw => {
-                    if (typeof dw === 'string') {
-                        const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === dw.trim().toLowerCase());
-                        console.log('Related word from string:', dw, 'Related word:', relatedWord);
-                        return relatedWord ? `${dw} [${relatedWord.id}]: ${createHyperlink(dw, pendingChanges.searchTerm, allRows)}` : dw;
-                    }
-                    console.log('Derivative word:', dw);
-                    return `${dw.title} [${dw.id}]: ${createHyperlink(dw.title, pendingChanges.searchTerm, allRows)}`;
-                }).join(', ');
-                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${relatedWordsHtml}`;
-            } else {
-                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
-            }
-        } else {
-            relatedWordsLabel = await getTranslatedText('relatedWords', language);
-            const relatedWords = row.related || [];
-
-            if (relatedWords.length > 0) {
-                console.log('Related Words:', relatedWords); // Debugging
-                const relatedWordsHtml = relatedWords.map(rw => {
-                    if (typeof rw === 'string') {
-                        const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === rw.trim().toLowerCase());
-                        console.log('Related word from string:', rw, 'Related word:', relatedWord);
-                        return relatedWord ? `${rw} [${relatedWord.id}]: ${createHyperlink(rw, pendingChanges.searchTerm, allRows)}` : rw;
-                    }
-                    console.log('Related word:', rw);
-                    return `${rw.title} [${rw.id}]: ${createHyperlink(rw.title, pendingChanges.searchTerm, allRows)}`;
-                }).join(', ');
-                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWordsHtml}`;
-            } else {
-                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
-            }
-        }
-
-        if (relatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(relatedWordsElement).lineHeight)) {
-            relatedWordsElement.style.maxHeight = '3em';
-            relatedWordsElement.style.overflowY = 'auto';
-        }
-
-        box.appendChild(relatedWordsElement);
-
-        previouslySelectedBox = box;
+    const target = e.target;
+    if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('.icon-container')) {
+        // Ignore clicks on links, buttons, and the icon container
+        return;
     }
+
+    e.stopPropagation(); // Stop event propagation to avoid duplicate events
+    e.preventDefault();  // Prevent default action to ensure correct handling
+
+    const box = target.closest('.dictionary-box');
+    if (!box) return;
+
+    const rowId = parseInt(box.id.replace('entry-', ''), 10);
+    const row = allRows.find(r => r.id === rowId);
+
+    if (!row) {
+        console.error(`Row with id ${rowId} not found.`);
+        return;
+    }
+
+    if (previouslySelectedBox) {
+        previouslySelectedBox.classList.remove('selected-word', 'selected-root');
+        const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
+        if (previousRelatedWords) {
+            previouslySelectedBox.removeChild(previousRelatedWords);
+        }
+    }
+
+    if (box === previouslySelectedBox) {
+        previouslySelectedBox = null;
+        return;
+    }
+
+    box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
+
+    const relatedWordsElement = document.createElement('div');
+    relatedWordsElement.className = 'related-words';
+    relatedWordsElement.style.fontSize = '0.85em';
+
+    const language = document.querySelector('meta[name="language"]').content || 'en';
+
+    let derivativeWordsLabel = '';
+    let relatedWordsLabel = '';
+
+    if (row.type === 'root') {
+        derivativeWordsLabel = await getTranslatedText('derivativeWords', language);
+        if (row.related && row.related.length > 0) {
+            console.log('Derivatives:', row.related); // Debugging
+
+            // Ensure the displayed word is not shown as a related word
+            const relatedWordsHtml = row.related
+                .filter(dw => dw.toLowerCase() !== row.title.toLowerCase())
+                .map(dw => {
+                    const relatedWord = typeof dw === 'string' ? allRows.find(r => r.title.trim().toLowerCase() === dw.trim().toLowerCase()) : dw;
+                    console.log('Derivative word:', dw, 'Related word:', relatedWord);
+                    return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : dw;
+                }).join(', ');
+
+            relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${relatedWordsHtml}`;
+        } else {
+            relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
+        }
+    } else {
+        relatedWordsLabel = await getTranslatedText('relatedWords', language);
+        const relatedWords = row.related || [];
+
+        if (relatedWords.length > 0) {
+            console.log('Related Words:', relatedWords); // Debugging
+            const relatedWordsHtml = relatedWords
+                .filter(rw => rw.toLowerCase() !== row.title.toLowerCase())
+                .map(rw => {
+                    const relatedWord = typeof rw === 'string' ? allRows.find(r => r.title.trim().toLowerCase() === rw.trim().toLowerCase()) : rw;
+                    console.log('Related word:', rw, 'Related word:', relatedWord);
+                    return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : rw;
+                }).join(', ');
+
+            relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWordsHtml}`;
+        } else {
+            relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
+        }
+
+        // Create buttons for each root if morph length is greater than 1
+        if (row.morph.length > 1) {
+            const rootButtonsElement = document.createElement('div');
+            rootButtonsElement.className = 'root-buttons';
+            row.morph.forEach(root => {
+                const rootButton = document.createElement('button');
+                rootButton.innerText = root;
+                rootButton.addEventListener('click', () => {
+                    const rootRelatedWords = allRows.filter(r => r.root === root && r.title.toLowerCase() !== row.title.toLowerCase())
+                        .map(r => `${r.title} [${r.id}]: ${createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`)
+                        .join(', ');
+
+                    relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${rootRelatedWords}`;
+                });
+                rootButtonsElement.appendChild(rootButton);
+            });
+            relatedWordsElement.appendChild(rootButtonsElement);
+        }
+    }
+
+    if (relatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(relatedWordsElement).lineHeight)) {
+        relatedWordsElement.style.maxHeight = '3em';
+        relatedWordsElement.style.overflowY = 'auto';
+    }
+
+    box.appendChild(relatedWordsElement);
+
+    previouslySelectedBox = box;
+            
+}
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.addEventListener('click', handleClickEvent, true); // Use capturing phase
