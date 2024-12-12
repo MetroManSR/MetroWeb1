@@ -126,9 +126,11 @@ async function handleClickEvent(e) {
     e.stopPropagation(); // Stop event propagation to avoid duplicate events
     e.preventDefault();  // Prevent default action to ensure correct handling
 
+    // Find the closest .dictionary-box element
     const box = target.closest('.dictionary-box');
     if (!box) return;
 
+    // Extract the row ID from the box's ID attribute
     const rowId = parseInt(box.id.replace('entry-', ''), 10);
     const row = allRows.find(r => r.id === rowId);
 
@@ -164,14 +166,19 @@ async function handleClickEvent(e) {
     if (row.type === 'root') {
         derivativeWordsLabel = await getTranslatedText('derivativeWords', language);
         if (row.related && row.related.length > 0) {
-            //console.log('Derivatives:', row.related); // Debugging
+            console.log('Derivatives:', row.related); // Debugging
 
             // Ensure the displayed word is not shown as a related word
             const relatedWordsHtml = row.related
                 .filter(dw => dw.toLowerCase() !== row.title.toLowerCase())
                 .map(dw => {
+                    // Find the related word in the allRows array
                     const relatedWord = typeof dw === 'string' ? allRows.find(r => r.title.trim().toLowerCase() === dw.trim().toLowerCase()) : dw;
+
+                    // Log for debugging
                     console.log('Derivative word:', dw, 'Related word:', relatedWord);
+
+                    // Return a string with the title and ID, formatted with a hyperlink
                     return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : dw;
                 }).join(', ');
 
