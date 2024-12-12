@@ -48,8 +48,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         });
     }
 
-    const dictionaryContainer = document.getElementById('dict-dictionary');
-    dictionaryContainer.addEventListener('click', async (e) => {
+    function handleClickEvent(e) {
         const box = e.target.closest('.dictionary-box');
         if (!box) return;
 
@@ -102,7 +101,12 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         box.appendChild(relatedWordsElement);
 
         previouslySelectedBox = box;
-    });
+    }
+
+    const dictionaryContainer = document.getElementById('dict-dictionary');
+    dictionaryContainer.addEventListener('click', handleClickEvent);
+    dictionaryContainer.addEventListener('touchstart', handleClickEvent);
+    dictionaryContainer.addEventListener('touchend', handleClickEvent);
 
     document.querySelectorAll('.pagination-button').forEach(button => {
         button.addEventListener('click', (e) => {
