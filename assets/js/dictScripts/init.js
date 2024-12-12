@@ -182,12 +182,15 @@ async function handleClickEvent(e) {
 
         // Ensure `morph` exists and has more than one element
         if (row.morph && row.morph.length > 1) {
+            console.log('Morph length is greater than 1:', row.morph); // Debugging
             const rootButtonsElement = document.createElement('div');
             rootButtonsElement.className = 'root-buttons';
             for (const root of row.morph) {
+                console.log('Creating button for root:', root); // Debugging
                 const rootButton = document.createElement('button');
                 rootButton.innerText = root;
                 rootButton.addEventListener('click', async () => {
+                    console.log('Clicked root button:', root); // Debugging
                     const rootRelatedWords = allRows.filter(r => r.root === root && r.title.toLowerCase() !== row.title.toLowerCase())
                         .map(r => `${r.title} [${r.id}]: ${createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`)
                         .join(', ');
