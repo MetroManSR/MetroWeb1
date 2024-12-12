@@ -103,7 +103,9 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             pendingChanges.searchTerm = e.target.value;
+            const searchResults = searchDictionary(allRows, pendingChanges.searchTerm, pendingChanges.exactMatch, pendingChanges.searchIn);
             updatePendingChangesList();
+            displayPage(1, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, searchResults, allRows);
         });
     }
 
@@ -236,4 +238,4 @@ async function handleClickEvent(e) {
     }
 
     navigateToPage(1);
-                                }
+} 
