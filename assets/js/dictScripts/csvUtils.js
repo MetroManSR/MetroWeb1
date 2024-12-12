@@ -67,7 +67,10 @@ export async function cleanData(data, type) {
             const [root, rest] = rawTitle.split(' = ');
             const [translation, meta] = rest ? rest.split(' (') : ['', ''];
             let [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
-            morph = morph.split(', ');
+            
+            if (morph && typeof morph === "string"){
+               morph = morph.split(', ');
+            }
 
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(root ? root.trim() : '') : root ? root.trim() : ''); // X title for roots
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(translation ? translation.trim() : '') : translation ? translation.trim() : ''); // Y meta for roots
