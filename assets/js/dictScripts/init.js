@@ -112,12 +112,12 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         button.addEventListener('click', (e) => {
             const targetPage = parseInt(e.target.dataset.page, 10);
             if (!isNaN(targetPage)) {
-                goToPage(targetPage);
+                navigateToPage(targetPage);
             }
         });
     });
 
-    function goToPage(pageNumber) {
+    function navigateToPage(pageNumber) {
         if (!isNaN(pageNumber) && pageNumber >= 1) {
             currentPage = pageNumber;
         } else {
@@ -129,5 +129,5 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
     }
 
-    goToPage(1);
+    navigateToPage(1);
 }
