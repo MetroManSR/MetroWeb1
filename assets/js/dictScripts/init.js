@@ -236,4 +236,4 @@ async function handleClickEvent(e) {
     }
 
     navigateToPage(1);
-}
+                                }
