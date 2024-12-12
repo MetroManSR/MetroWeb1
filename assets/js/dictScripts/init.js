@@ -179,6 +179,26 @@ async function handleClickEvent(e) {
         } else {
             relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
         }
+
+        // Ensure `morph` exists and has more than one element
+        if (row.morph && row.morph.length > 1) {
+            const rootButtonsElement = document.createElement('div');
+            rootButtonsElement.className = 'root-buttons';
+            for (const root of row.morph) {
+                const rootButton = document.createElement('button');
+                rootButton.innerText = root;
+                rootButton.addEventListener('click', async () => {
+                    const rootRelatedWords = allRows.filter(r => r.root === root && r.title.toLowerCase() !== row.title.toLowerCase())
+                        .map(r => `${r.title} [${r.id}]: ${createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`)
+                        .join(', ');
+
+                    relatedWordsLabel = await getTranslatedText('relatedWords', language);
+                    relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${rootRelatedWords}`;
+                });
+                rootButtonsElement.appendChild(rootButton);
+            }
+            relatedWordsElement.appendChild(rootButtonsElement);
+        }
     } else {
         relatedWordsLabel = await getTranslatedText('relatedWords', language);
         const relatedWords = row.related || [];
@@ -194,26 +214,6 @@ async function handleClickEvent(e) {
                 }).join(', ');
 
             relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWordsHtml}`;
-
-            // Create buttons for each root if morph length is greater than 1
-            if (row.morph.length > 1) {
-                const rootButtonsElement = document.createElement('div');
-                rootButtonsElement.className = 'root-buttons';
-                for (const root of row.morph) {
-                    const rootButton = document.createElement('button');
-                    rootButton.innerText = root;
-                    rootButton.addEventListener('click', async () => {
-                        const rootRelatedWords = allRows.filter(r => r.root === root && r.title.toLowerCase() !== row.title.toLowerCase())
-                            .map(r => `${r.title} [${r.id}]: ${createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`)
-                            .join(', ');
-
-                        const relatedWordsLabel = await getTranslatedText('relatedWords', language);
-                        relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${rootRelatedWords}`;
-                    });
-                    rootButtonsElement.appendChild(rootButton);
-                }
-                relatedWordsElement.appendChild(rootButtonsElement);
-            }
         } else {
             relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
         }
