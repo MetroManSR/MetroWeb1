@@ -194,29 +194,28 @@ async function handleClickEvent(e) {
                 }).join(', ');
 
             relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWordsHtml}`;
+
+            // Create buttons for each root if morph length is greater than 1
+            if (row.morph.length > 1) {
+                const rootButtonsElement = document.createElement('div');
+                rootButtonsElement.className = 'root-buttons';
+                for (const root of row.morph) {
+                    const rootButton = document.createElement('button');
+                    rootButton.innerText = root;
+                    rootButton.addEventListener('click', async () => {
+                        const rootRelatedWords = allRows.filter(r => r.root === root && r.title.toLowerCase() !== row.title.toLowerCase())
+                            .map(r => `${r.title} [${r.id}]: ${createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`)
+                            .join(', ');
+
+                        const relatedWordsLabel = await getTranslatedText('relatedWords', language);
+                        relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${rootRelatedWords}`;
+                    });
+                    rootButtonsElement.appendChild(rootButton);
+                }
+                relatedWordsElement.appendChild(rootButtonsElement);
+            }
         } else {
             relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
-        }
-
-        // Create buttons for each root if morph length is greater than 1
-        if (row.morph.length > 1) {
-            const rootButtonsElement = document.createElement('div');
-            rootButtonsElement.className = 'root-buttons';
-            row.morph.forEach(root => {
-                const rootButton = document.createElement('button');
-                rootButton.innerText = root;
-                rootButton.addEventListener('click', () => {
-                    const rootRelatedWords = allRows.filter(r => r.root === root && r.title.toLowerCase() !== row.title.toLowerCase())
-                        .map(r => `${r.title} [${r.id}]: ${createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`)
-                        .join(', ');
-
-                    
-                    relatedWordsLabel = await getTranslatedText('relatedWords', language);
-                                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${rootRelatedWords}`;
-                });
-                rootButtonsElement.appendChild(rootButton);
-            });
-            relatedWordsElement.appendChild(rootButtonsElement);
         }
     }
 
@@ -228,7 +227,6 @@ async function handleClickEvent(e) {
     box.appendChild(relatedWordsElement);
 
     previouslySelectedBox = box;
-            
 }
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
