@@ -88,6 +88,7 @@ export function processRows(allRows, criteria, rowsPerPage, displayPage, current
         settingsAppliedText.remove();
     }, 1000);
 }
+
 /**
  * Handles advanced search functionality
  *
