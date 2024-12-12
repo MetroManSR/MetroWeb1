@@ -33,13 +33,13 @@ export function getRelatedWordsByRoot(allRows) {
         else if (clnrow.type === 'word') {
             clnrow.morph.forEach(mrphIt => {
                 if (mrphIt) {
-                    const matchingRoots = allRows.filter(r => {
-                        if (r.type === 'root') {
-                            return r.title.toLowerCase() === mrphIt.toLowerCase();
+                    const matchingWords = allRows.filter(r => {
+                        if (Array.isArray(r.morph) && r.type === 'word') {
+                            return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
                         }
                         return false;
                     });
-                    relatedWords.push(...matchingRoots.map(r => r.title));
+                    relatedWords.push(...matchingWords.map(r => r.title));
                 }
             });
         }
@@ -68,4 +68,4 @@ export function sanitizeHTML(html) {
     const tempDiv = document.createElement('div');
     tempDiv.textContent = html;
     return tempDiv.innerHTML;
-}
+} 
