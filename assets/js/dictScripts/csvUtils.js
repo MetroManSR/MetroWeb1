@@ -50,10 +50,10 @@ export async function cleanData(data, type) {
             id: index, // Assign unique ID
             type: type, // Identification of type (root or word)
             title: '', // Initialize title
-            partofspeech: '', // Initialize part of speech
+            partofspeech: '', // Initialize part of speech (for words)
             meta: '', // Initialize meta
             notes: '', // Initialize notes
-            morph: [], // Initialize morph as an array
+            morph: [], // Initialize morph as an array (etimology for roots)
             related: ''
         };
 
@@ -77,25 +77,27 @@ export async function cleanData(data, type) {
 
             console.log(`Final morph array (row ${index}):`, cleanedRow.morph);
         } else if (type === 'root') {
-            const rawTitle = row.col1 ? row.col1.trim() : '';
-            console.log(`Raw title (row ${index}):`, rawTitle);
-            const [root, rest] = rawTitle.split(' = ');
-            console.log(`Root (row ${index}):`, root, `Rest (row ${index}):`, rest);
-            const [translation, meta] = rest ? rest.split(' (') : ['', ''];
-            let [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
+            cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // X title for roots
+            cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Y meta for roots
 
-            if (typeof morph === 'string') {
-                morph = morph.split(', ').map(item => item.trim());
-            } else if (!Array.isArray(morph)) {
-                morph = [];
+            // Process notes and etimology in col3
+            const notesAndEtimologyRaw = row.col3 ? row.col3.trim() : '';
+            let notes = '', etimology = '';
+
+            if (notesAndEtimologyRaw.includes('|')) {
+                const parts = notesAndEtimologyRaw.split('|');
+                notes = parts[0].trim();
+                etimology = parts[1].trim();
+            } else {
+                if (!notesAndEtimologyRaw.startsWith("et") && !notesAndEtimologyRaw.startsWith("del")) {
+                    notes = notesAndEtimologyRaw;
+                } else {
+                    etimology = notesAndEtimologyRaw;
+                }
             }
 
-            console.log(`Final morph array for root (row ${index}):`, morph);
-
-            cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(root ? root.trim() : '') : root ? root.trim() : ''); // X title for roots
-            cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(translation ? translation.trim() : '') : translation ? translation.trim() : ''); // Y meta for roots
-            cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(notes ? notes.trim() : '') : notes ? notes.trim() : ''); // A notes for roots
-            cleanedRow.morph = morph.map(m => sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(m.trim()) : m.trim())); // B morph for roots
+            cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(notes) : notes); // Notes for roots
+            cleanedRow.morph = etimology.split(' | ').map(e => sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(e.trim()) : e.trim())); // Etimology for roots
         }
 
         // Check for anomalies (missing title or meta)
