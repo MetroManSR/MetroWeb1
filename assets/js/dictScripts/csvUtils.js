@@ -1,4 +1,4 @@
-import { sanitizeHTML, fixEncoding, createHyperlink } from './utils.js';
+import { createHyperlink } from './utils.js';
 
 /**
  * Cleans and formats the data for the dictionary.
