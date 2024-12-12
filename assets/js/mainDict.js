@@ -3,8 +3,7 @@ import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
 import { initializeEventListeners } from './dictScripts/init.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
-import { processAllSettings, sortRows } from './dictScripts/processRows.js';
-import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
+import { processAllSettings, sortRows, displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/processRows.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 
