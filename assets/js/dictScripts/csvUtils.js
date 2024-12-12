@@ -4,15 +4,10 @@
  * @returns {any} - The parsed object or the original input.
  */
 function safeJSONParse(input) {
-    if (typeof input !== 'string') {
-        console.error("Input is not a string:", input);
-        return input;
-    }
-
     try {
         return JSON.parse(input);
     } catch (error) {
-        console.error("Error parsing JSON:", error, "Input:", input);
+        console.error("Error parsing JSON:", error);
         return input; // Return input if parsing fails
     }
 }
@@ -153,7 +148,8 @@ export function sanitizeHTML(str) {
     temp.textContent = str;
     return temp.innerHTML;
 }
-/*
+
+/**
  * Fixes encoding issues for specific cases.
  * @param {string} str - The string to be fixed.
  * @returns {string} - The fixed string.
