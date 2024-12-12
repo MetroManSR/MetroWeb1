@@ -73,7 +73,7 @@ export async function cleanData(data, type) {
 
             // Ensure morph is always an array
             if (!Array.isArray(cleanedRow.morph)) {
-                cleanedRow.morph = [];
+                cleanedRow.morph = [cleanedRow.morph];
             }
 
            // console.log(`Final morph array for root (row ${index}):`, cleanedRow.morph);
