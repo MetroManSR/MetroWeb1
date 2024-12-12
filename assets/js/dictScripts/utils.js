@@ -45,7 +45,7 @@ export function getRelatedWordsByRoot(allRows) {
             }
         });
 
-        clnrow.related = relatedWords.join(', ') || 'No related words found';
+        clnrow.related = relatedWords|| ['No related words found'] ;
     });
 
     return allRows;
