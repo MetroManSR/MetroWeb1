@@ -303,3 +303,42 @@ header {
 .dict-filter-cont-visible {
     display: block;
 }
+
+.dict-info-button {
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.dict-icon-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    gap: 5px;
+}
+
+.dict-suggestion-icon {
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.dict-tooltip {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    opacity: 0.9;
+}
