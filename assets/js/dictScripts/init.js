@@ -9,6 +9,26 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     let previouslySelectedBox = null;
     let lastClickTime = 0;
 
+    // Ensure pendingChanges list is visible on page load
+    const pendingChangesElement = document.getElementById('dict-pending-changes');
+    if (pendingChangesElement) {
+        pendingChangesElement.style.display = 'block';
+    }
+
+    function updatePendingChangesList() {
+        if (!pendingChangesElement) return;
+
+        const changes = [];
+        if (pendingChanges.searchTerm) changes.push(`Search Term: ${pendingChanges.searchTerm}`);
+        if (pendingChanges.exactMatch) changes.push('Exact Match');
+        if (pendingChanges.filters.length) changes.push(`Filters: ${pendingChanges.filters.join(', ')}`);
+        if (pendingChanges.sortOrder) changes.push(`Sort Order: ${pendingChanges.sortOrder}`);
+
+        pendingChangesElement.innerHTML = changes.length ? `Pending Changes: ${changes.join(', ')}` : 'No pending changes.';
+    }
+
+    updatePendingChangesList();
+
     const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
@@ -46,6 +66,22 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             const { searchTerm, exactMatch, searchIn, filters } = pendingChanges;
             const criteria = { searchTerm, exactMatch, searchIn, filters };
             processRows(allRows, criteria, rowsPerPage, displayPage);
+        });
+    }
+
+    const searchInput = document.getElementById('dict-search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            pendingChanges.searchTerm = e.target.value;
+            updatePendingChangesList();
+        });
+    }
+
+    const rowsPerPageSelect = document.getElementById('dict-rows-per-page-select');
+    if (rowsPerPageSelect) {
+        rowsPerPageSelect.addEventListener('change', () => {
+            pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
+            updatePendingChangesList();
         });
     }
 
