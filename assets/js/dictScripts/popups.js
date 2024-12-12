@@ -1,119 +1,215 @@
+import { getRelatedWordsByRoot, highlight, createHyperlink } from './utils.js';
+import { updatePagination } from './pagination.js';
+import { getTranslatedText } from './loadTexts.js';
+import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
 import { processRows } from './processRows.js';
 
-export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage) {
-    let pendingChanges = {
-        searchTerm: '',
-        exactMatch: false,
-        searchIn: { word: true, root: true, definition: false, etymology: false },
-        filters: [],
-        rowsPerPage: 20
-    };
+export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
+    let currentPage = 1;
+    let filteredRows = [];
+    let previouslySelectedBox = null;
+    let lastClickTime = 0;
 
-    const updatePendingChangesList = () => {
-        const pendingChangesContainer = document.getElementById('dict-pending-changes');
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
-        let changesList = [];
+    // Ensure pendingChanges list is visible on page load
+    const pendingChangesElement = document.getElementById('dict-pending-changes');
+    if (pendingChangesElement) {
+        pendingChangesElement.style.display = 'block';
+    }
 
-        if (searchTerm) changesList.push(`Search Term: "${searchTerm}"`);
-        if (exactMatch) changesList.push(`Exact Match: On`);
-        if (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology) {
-            let searchInFields = [];
-            if (searchIn.word) searchInFields.push('Word');
-            if (searchIn.root) searchInFields.push('Root');
-            if (searchIn.definition) searchInFields.push('Definition');
-            if (searchIn.etymology) searchInFields.push('Etymology');
-            changesList.push(`Search In: ${searchInFields.join(', ')}`);
-        }
-        if (filters.length > 0) changesList.push(`Filters: ${filters.join(', ')}`);
-        if (rowsPerPage !== 20) changesList.push(`Rows Per Page: ${rowsPerPage}`);
+    function updatePendingChangesList() {
+        if (!pendingChangesElement) return;
 
-        pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No pending changes';
-    };
+        const changes = [];
+        if (pendingChanges.searchTerm) changes.push(`Search Term: ${pendingChanges.searchTerm}`);
+        if (pendingChanges.exactMatch) changes.push('Exact Match');
+        if (pendingChanges.filters.length) changes.push(`Filters: ${pendingChanges.filters.join(', ')}`);
+        if (pendingChanges.sortOrder) changes.push(`Sort Order: ${pendingChanges.sortOrder}`);
 
-    document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
-        const { searchTerm, exactMatch, searchIn, filters } = pendingChanges;
-        const criteria = { searchTerm, exactMatch, searchIn, filters };
-        processRows(allRows, criteria, rowsPerPage, displayPage);
-    });
+        pendingChangesElement.innerHTML = changes.length ? `Pending Changes: ${changes.join(', ')}` : 'No pending changes.';
+    }
 
-    document.getElementById('dict-advanced-search-button').addEventListener('click', () => {
-        document.getElementById('dict-advanced-search-popup').classList.add('active');
-        document.getElementById('dict-popup-overlay').classList.add('active');
-    });
+    updatePendingChangesList();
 
-    document.getElementById('dict-close-popup-button').addEventListener('click', () => {
-        document.getElementById('dict-advanced-search-popup').classList.remove('active');
-        document.getElementById('dict-popup-overlay').classList.remove('active');
-    });
+    const orderBySelect = document.getElementById('dict-order-by-select');
+    if (orderBySelect) {
+        orderBySelect.addEventListener('change', () => {
+            pendingChanges.sortOrder = orderBySelect.value;
+            updatePendingChangesList();
+        });
+    }
 
-    document.getElementById('dict-add-search-button-popup').addEventListener('click', () => {
-        const searchTerm = document.getElementById('dict-search-input').value.trim();
-        const searchIn = {
-            word: document.getElementById('dict-search-in-word')?.checked || false,
-            root: document.getElementById('dict-search-in-root')?.checked || false,
-            definition: document.getElementById('dict-search-in-definition')?.checked || false,
-            etymology: document.getElementById('dict-search-in-etymology')?.checked || false
-        };
+    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
+    if (toggleFilterButton) {
+        toggleFilterButton.addEventListener('click', () => {
+            const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+            filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
+            filterSortingContainer.classList.toggle('dict-filter-cont-visible');
+        });
+    }
 
-        const exactMatch = document.getElementById('dict-exact-match')?.checked || false;
-        const selectedFilters = Array.from(document.getElementById('dict-word-filter').selectedOptions).map(option => option.value);
+    const advancedSearchButton = document.getElementById('dict-advanced-search-button');
+    if (advancedSearchButton) {
+        advancedSearchButton.addEventListener('click', () => {
+            initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges);
+        });
+    }
 
-        pendingChanges = { ...pendingChanges, searchTerm, exactMatch, searchIn, filters: selectedFilters };
-        updatePendingChangesList();
-    });
+    const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
+    if (viewStatisticsButton) {
+        viewStatisticsButton.addEventListener('click', () => {
+            initStatisticsPopup(allRows);
+        });
+    }
 
-    document.getElementById('dict-apply-search-button-popup').addEventListener('click', () => {
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
-        const criteria = { searchTerm, exactMatch, searchIn, filters };
-        processRows(allRows, criteria, rowsPerPage, displayPage);
-        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
-        updatePendingChangesList();
-        document.getElementById('dict-advanced-search-popup').classList.remove('active');
-        document.getElementById('dict-popup-overlay').classList.remove('active');
-    });
+    const applySettingsButton = document.getElementById('dict-apply-settings-button');
+    if (applySettingsButton) {
+        applySettingsButton.addEventListener('click', () => {
+            const { searchTerm, exactMatch, searchIn, filters } = pendingChanges;
+            const criteria = { searchTerm, exactMatch, searchIn, filters };
+            processRows(allRows, criteria, rowsPerPage, displayPage);
+        });
+    }
 
-    // Ensure all checkboxes are checked by default
-    const searchInWord = document.getElementById('dict-search-in-word');
-    const searchInRoot = document.getElementById('dict-search-in-root');
-    const searchInDefinition = document.getElementById('dict-search-in-definition');
-    const searchInEtymology = document.getElementById('dict-search-in-etymology');
+    const cleanSettingsButton = document.getElementById('dict-clear-settings-button');
+    if (cleanSettingsButton) {
+        cleanSettingsButton.addEventListener('click', () => {
+            pendingChanges = {
+                searchTerm: '',
+                exactMatch: false,
+                searchIn: { word: true, root: true, definition: false, etymology: false },
+                filters: [],
+                rowsPerPage: 20
+            };
+            updatePendingChangesList();
+            processRows(allRows, pendingChanges, rowsPerPage, displayPage);
+            // Remove URL parameters without reloading the page
+            history.pushState({}, document.title, window.location.pathname);
+        });
+    }
 
-    if (searchInWord) searchInWord.checked = true;
-    if (searchInRoot) searchInRoot.checked = true;
-    if (searchInDefinition) searchInDefinition.checked = true;
-    if (searchInEtymology) searchInEtymology.checked = true;
+    const cleanSearchButton = document.getElementById('dict-clear-search-button');
+    if (cleanSearchButton) {
+        cleanSearchButton.addEventListener('click', () => {
+            pendingChanges.searchTerm = '';
+            document.getElementById('dict-search-input').value = '';
+            updatePendingChangesList();
+            processRows(allRows, pendingChanges, rowsPerPage, displayPage);
+            // Remove URL parameters without reloading the page
+            history.pushState({}, document.title, window.location.pathname);
+        });
+    }
+
+    const searchInput = document.getElementById('dict-search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            pendingChanges.searchTerm = e.target.value;
+            updatePendingChangesList();
+        });
+    }
+
+    const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
+    if (rowsPerPageSelect) {
+        rowsPerPageSelect.addEventListener('change', () => {
+            pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
+            updatePendingChangesList();
+        });
+    }
 }
 
-export function initStatisticsPopup(allRows) {
-    document.getElementById('dict-view-statistics-button').addEventListener('click', () => {
-        const totalWords = allRows.filter(row => row.type === 'word').length;
-        const totalRoots = allRows.filter(row => row.type === 'root').length;
+async function handleClickEvent(e) {
+        const now = Date.now();
+        if (now - lastClickTime < 250) return; // 0.25 second cooldown
+        lastClickTime = now;
 
-        const partOfSpeechCounts = allRows.reduce((counts, row) => {
-            if (row.type === 'word' && row.partofspeech) {
-                counts[row.partofspeech] = (counts[row.partofspeech] || 0) + 1;
+        e.stopPropagation(); // Stop event propagation to avoid duplicate events
+        e.preventDefault();  // Prevent default action to ensure correct handling
+
+        const box = e.target.closest('.dictionary-box');
+        if (!box) return;
+
+        const rowId = parseInt(box.id.replace('entry-', ''), 10);
+        const row = allRows.find(r => r.id === rowId);
+
+        if (!row) {
+            console.error(`Row with id ${rowId} not found.`);
+            return;
+        }
+
+        if (previouslySelectedBox) {
+            previouslySelectedBox.classList.remove('selected-word', 'selected-root');
+            const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
+            if (previousRelatedWords) {
+                previouslySelectedBox.removeChild(previousRelatedWords);
             }
-            return counts;
-        }, {});
+        }
 
-        const statisticsContainer = document.getElementById('dict-statistics-popup');
-        statisticsContainer.innerHTML = `
-            <h3>Statistics</h3>
-            <p>Total Words: ${totalWords}</p>
-            <p>Total Roots: ${totalRoots}</p>
-            <h4>Total Words per Part of Speech:</h4>
-            <ul>
-                ${Object.entries(partOfSpeechCounts).map(([pos, count]) => `<li>${pos}: ${count}</li>`).join('')}
-            </ul>
-            <button id="dict-close-statistics-button" class="btn">Close</button>
-        `;
+        if (box === previouslySelectedBox) {
+            previouslySelectedBox = null;
+            return;
+        }
 
-        statisticsContainer.classList.add('active');
-        document.getElementById('dict-popup-overlay').classList.add('active');
+        box.classList.add(row.type === 'root' ? 'selected-root' : 'selected-word');
 
-        document.getElementById('dict-close-statistics-button').addEventListener('click', () => {
-            statisticsContainer.classList.remove('active');
-            document.getElementById('dict-popup-overlay').classList.remove('active');
+        const relatedWordsElement = document.createElement('div');
+        relatedWordsElement.className = 'related-words';
+        relatedWordsElement.style.fontSize = '0.85em';
+
+        const language = document.querySelector('meta[name="language"]').content || 'en';
+
+        let derivativeWordsLabel = '';
+        let relatedWordsLabel = '';
+
+        if (row.type === 'root') {
+            derivativeWordsLabel = await getTranslatedText('derivativeWords', language);
+            if (row.related && row.related.length > 0 && typeof row.related[0] !== 'string') {
+                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${row.related.map(dw => createHyperlink(dw.title, pendingChanges.searchTerm, allRows)).join(', ')}`;
+            } else {
+                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
+            }
+        } else {
+            relatedWordsLabel = await getTranslatedText('relatedWords', language);
+            const relatedWords = row.related || [];
+
+            if (relatedWords.length > 0 && typeof relatedWords[0] !== 'string') {
+                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWords.map(rw => createHyperlink(rw.title, pendingChanges.searchTerm, allRows)).join(', ')}`;
+            } else {
+                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
+            }
+        }
+
+        if (relatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(relatedWordsElement).lineHeight)) {
+            relatedWordsElement.style.maxHeight = '3em';
+            relatedWordsElement.style.overflowY = 'auto';
+        }
+
+        box.appendChild(relatedWordsElement);
+
+        previouslySelectedBox = box;
+    }
+
+    const dictionaryContainer = document.getElementById('dict-dictionary');
+    dictionaryContainer.addEventListener('pointerdown', handleClickEvent);
+
+    document.querySelectorAll('.pagination-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const targetPage = parseInt(e.target.dataset.page, 10);
+            if (!isNaN(targetPage)) {
+                navigateToPage(targetPage);
+            }
         });
     });
+
+    function navigateToPage(pageNumber) {
+        if (!isNaN(pageNumber) && pageNumber >= 1) {
+            currentPage = pageNumber;
+        } else {
+            currentPage = 1;
+        }
+
+        const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+        updatePagination(currentPage, totalPages);
+        displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
+    }
+
+    navigateToPage(1);
 }
