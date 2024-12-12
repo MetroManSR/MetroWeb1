@@ -4,10 +4,9 @@ import { createHyperlink } from './utils.js';
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
  * @param {string} type - The type of data (e.g., 'word', 'root').
- * @param {Array} allRows - The array of all dictionary rows.
  * @returns {Promise<Array>} - A promise that resolves to the cleaned and formatted data.
  */
-export async function cleanData(data, type, allRows) {
+export async function cleanData(data, type) {
     const totalRows = data.length;
 
     // Progress bar elements
@@ -52,13 +51,12 @@ export async function cleanData(data, type, allRows) {
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
 
             let morphData = row.col5 ? row.col5.trim() : '';
-            cleanedRow.morph = Array.isArray(morphData) ? morphData : morphData.split(',').map(item => sanitizeHTML(item.trim()));
-
-            // Create hyperlinks for morph entries if the root exists in the dictionary
-            cleanedRow.morph = cleanedRow.morph.map(morphItem => {
-                const rootRow = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
-                return rootRow ? createHyperlink(rootRow) : sanitizeHTML(morphItem);
+            cleanedRow.morph = Array.isArray(morphData) ? morphData : morphData.split(',').map(item => {
+                // Create hyperlink if the root exists in the dictionary
+                const root = data.find(rootRow => rootRow.col1 && rootRow.col1.trim().toLowerCase() === item.trim().toLowerCase());
+                return root ? createHyperlink(root) : sanitizeHTML(item.trim());
             });
+
         } else if (type === 'root') {
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // Word title for roots
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Meta for roots
@@ -82,8 +80,6 @@ export async function cleanData(data, type, allRows) {
             if (!Array.isArray(cleanedRow.morph)) {
                 cleanedRow.morph = [cleanedRow.morph];
             }
-
-           // console.log(`Final morph array for root (row ${index}):`, cleanedRow.morph);
         }
 
         // Check for anomalies (missing title or meta)
