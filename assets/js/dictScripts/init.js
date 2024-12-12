@@ -164,7 +164,7 @@ async function handleClickEvent(e) {
     if (row.type === 'root') {
         derivativeWordsLabel = await getTranslatedText('derivativeWords', language);
         if (row.related && row.related.length > 0) {
-            console.log('Derivatives:', row.related); // Debugging
+            //console.log('Derivatives:', row.related); // Debugging
 
             // Ensure the displayed word is not shown as a related word
             const relatedWordsHtml = row.related
