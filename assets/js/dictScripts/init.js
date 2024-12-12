@@ -212,6 +212,11 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     document.querySelectorAll('.pagination-button').forEach(button => {
         button.addEventListener('click', (e) => {
             const targetPage = parseInt(e.target.dataset.page, 10);
+            if', handleClickEvent);
+
+    document.querySelectorAll('.pagination-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const targetPage = parseInt(e.target.dataset.page, 10);
             if (!isNaN(targetPage)) {
                 navigateToPage(targetPage);
             }
