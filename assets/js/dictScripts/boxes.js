@@ -88,22 +88,19 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
         contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
 
-        if (row.morph && typeof row.morph === 'object' && row.morph[0]?.title) {
-            const morphArray = row.morph[0]?.title;
-            if (Array.isArray(row.morph) && row.morph.length > 0) {
-                morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-                row.morph.forEach((morphItem, index) => {
-                    const morphTitle = morphItem.title;
-                    const matchingRoot = allRows.find(r => r.meta.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
-                    morphElement.innerHTML += matchingRoot 
-                        ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphTitle, searchTerm)}</a>` 
-                        : highlight(morphTitle, searchTerm);
-                    if (index < row.morph.length - 1) {
-                        morphElement.innerHTML += ', ';
-                    }
-                });
-                contentBox.appendChild(morphElement);
-            }
+        if (Array.isArray(row.morph) && row.morph.length > 0) {
+            morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
+            row.morph.forEach((morphItem, index) => {
+                const morphTitle = morphItem.title || morphItem;
+                const matchingRoot = allRows.find(r => r.meta.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
+                morphElement.innerHTML += matchingRoot 
+                    ? `<a href="?rootid=${matchingRoot.id}" style="color: green;">${highlight(morphTitle, searchTerm)}</a>` 
+                    : highlight(morphTitle, searchTerm);
+                if (index < row.morph.length - 1) {
+                    morphElement.innerHTML += ', ';
+                }
+            });
+            contentBox.appendChild(morphElement);
         }
     }
 
@@ -141,7 +138,6 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     return box;
 }
-
 // Function to create a no match box
 export async function createNoMatchBox(language) {
     const noMatchBox = document.createElement('div');
