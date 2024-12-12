@@ -160,9 +160,18 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
 
         if (row.type === 'root') {
             derivativeWordsLabel = await getTranslatedText('derivativeWords', language);
-            if (row.related && row.related.length > 0 && typeof row.related[0] !== 'string') {
+            if (row.related && row.related.length > 0) {
                 console.log('Derivatives:', row.related); // Debugging
-                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${row.related.map(dw => `${dw.title} [${dw.id}]: ${createHyperlink(dw.title, pendingChanges.searchTerm, allRows)}`).join(', ')}`;
+                const relatedWordsHtml = row.related.map(dw => {
+                    if (typeof dw === 'string') {
+                        const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === dw.trim().toLowerCase());
+                        console.log('Related word from string:', dw, 'Related word:', relatedWord);
+                        return relatedWord ? `${dw} [${relatedWord.id}]: ${createHyperlink(dw, pendingChanges.searchTerm, allRows)}` : dw;
+                    }
+                    console.log('Derivative word:', dw);
+                    return `${dw.title} [${dw.id}]: ${createHyperlink(dw.title, pendingChanges.searchTerm, allRows)}`;
+                }).join(', ');
+                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${relatedWordsHtml}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
@@ -170,9 +179,18 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             relatedWordsLabel = await getTranslatedText('relatedWords', language);
             const relatedWords = row.related || [];
 
-            if (relatedWords.length > 0 && typeof relatedWords[0] !== 'string') {
+            if (relatedWords.length > 0) {
                 console.log('Related Words:', relatedWords); // Debugging
-                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWords.map(rw => `${rw.title} [${rw.id}]: ${createHyperlink(rw.title, pendingChanges.searchTerm, allRows)}`).join(', ')}`;
+                const relatedWordsHtml = relatedWords.map(rw => {
+                    if (typeof rw === 'string') {
+                        const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === rw.trim().toLowerCase());
+                        console.log('Related word from string:', rw, 'Related word:', relatedWord);
+                        return relatedWord ? `${rw} [${relatedWord.id}]: ${createHyperlink(rw, pendingChanges.searchTerm, allRows)}` : rw;
+                    }
+                    console.log('Related word:', rw);
+                    return `${rw.title} [${rw.id}]: ${createHyperlink(rw.title, pendingChanges.searchTerm, allRows)}`;
+                }).join(', ');
+                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWordsHtml}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
