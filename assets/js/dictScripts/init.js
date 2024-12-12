@@ -48,7 +48,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         });
     }
 
-    function handleClickEvent(e) {
+    async function handleClickEvent(e) {
         const box = e.target.closest('.dictionary-box');
         if (!box) return;
 
@@ -81,16 +81,21 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
 
         const language = document.querySelector('meta[name="language"]').content || 'en';
 
+        let derivativeWordsLabel = '';
+        let relatedWordsLabel = '';
+
         if (row.type === 'root') {
+            derivativeWordsLabel = await getTranslatedText('derivativeWords', language);
             if (row.related && row.related.length > 0) {
-                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${row.related.map(dw => `<a href="?entry-${dw.id}" style="color: green;">${highlight(dw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${row.related.map(dw => `<a href="?entry-${dw.id}" style="color: green;">${highlight(dw.title, pendingChanges.searchTerm)}</a>`).join(', ')}`;
             } else {
-                relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('derivativeWords', language)}:</strong> ${await getTranslatedText('noneFound', language)}`;
+                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
         } else {
+            relatedWordsLabel = await getTranslatedText('relatedWords', language);
             const relatedWords = row.related || [];
 
-            relatedWordsElement.innerHTML = `<strong>${await getTranslatedText('relatedWords', language)}:</strong> ${relatedWords.length > 0 ? relatedWords.map(rw => `<a href="?entry-${rw.id}" style="color: green;">${highlight(rw.title, pendingChanges.searchTerm)}</a>`).join(', ') : await getTranslatedText('noneFound', language)}`;
+            relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWords.length > 0 ? relatedWords.map(rw => `<a href="?entry-${rw.id}" style="color: green;">${highlight(rw.title, pendingChanges.searchTerm)}</a>`).join(', ') : await getTranslatedText('noneFound', language)}`;
         }
 
         if (relatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(relatedWordsElement).lineHeight)) {
