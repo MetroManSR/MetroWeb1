@@ -3,7 +3,7 @@ import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js'; // Ensure this is imported if used
 
-export function initializeEventListeners(allRows, allRowsById, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage) {
+export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage) {
     let currentPage = 1;
     let filteredRows = [];
     let previouslySelectedBox = null;
@@ -53,7 +53,7 @@ export function initializeEventListeners(allRows, allRowsById, rowsPerPage, curr
         if (!box) return;
 
         const rowId = parseInt(box.id.replace('entry-', ''), 10);
-        const row = allRowsById[rowId];
+        const row = allRows.find(r => r.id === rowId);
 
         if (!row) {
             console.error(`Row with id ${rowId} not found.`);
