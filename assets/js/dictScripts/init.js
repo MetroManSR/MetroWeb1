@@ -50,7 +50,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     const advancedSearchButton = document.getElementById('dict-advanced-search-button');
     if (advancedSearchButton) {
         advancedSearchButton.addEventListener('click', () => {
-            initAdvancedSearchPopup(allRows, rowsPerPage, displayPage);
+            initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges);
         });
     }
 
