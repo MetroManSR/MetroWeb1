@@ -51,7 +51,7 @@ export async function cleanData(data, type) {
             let morphData = row.col5 ? row.col5.trim() : '';
             cleanedRow.morph = Array.isArray(morphData) ? morphData : morphData.split(',').map(item => sanitizeHTML(item.trim()));
 
-            console.log(`Final morph array (row ${index}):`, cleanedRow.morph);
+          //  console.log(`Final morph array (row ${index}):`, cleanedRow.morph);
         } else if (type === 'root') {
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // Word title for roots
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Meta for roots
@@ -76,7 +76,7 @@ export async function cleanData(data, type) {
                 cleanedRow.morph = [];
             }
 
-            console.log(`Final morph array for root (row ${index}):`, cleanedRow.morph);
+           // console.log(`Final morph array for root (row ${index}):`, cleanedRow.morph);
         }
 
         // Check for anomalies (missing title or meta)
