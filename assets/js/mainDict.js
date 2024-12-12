@@ -3,7 +3,7 @@ import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
 import { initializeEventListeners } from './dictScripts/init.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
-import { processRows, advancedSearch, sortRows } from './dictScripts/processRows.js';
+import { processAllSettings, sortRows } from './dictScripts/processRows.js';
 import { displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/dictSearch.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
@@ -120,8 +120,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         const rootSpecificTerm = params.get('rootSpecific');
 
         if (searchTerm && searchTerm.trim()) {
-            const criteria = { searchTerm: searchTerm.trim() };
-            processRows(allRows, criteria, rowsPerPage, displayPage, currentPage, currentSortOrder);
+            const criteria = { searchTerm: searchTerm.trim(), searchIn: { word: true, root: true, definition: false, etymology: false } };
+            processAllSettings(criteria, allRows, rowsPerPage, displayPage, currentPage, currentSortOrder);
         } else if (wordID && parseInt(wordID) > 0) {
             const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
             console.log('Word Entry:', wordEntry);
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     etymology: formData.get('search-in-etymology') === 'on',
                     exactMatch: formData.get('exact-match') === 'on'
                 };
-                advancedSearch(params, allRows, rowsPerPage, displayPage, pendingChanges.sortOrder);
+                processAllSettings(params, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             });
         }
 
@@ -174,5 +174,5 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Initialize event listeners with apply settings handling
-    initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, processRows, displayPage);
+    initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage);
 });
