@@ -8,45 +8,55 @@ export async function getRelatedWordsByRoot(allRows) {
     // Calculate related words and derivative roots
     allRows.forEach(clnrow => {
         let relatedWords = [];
-        
+
         // Ensure morph is an array
         if (typeof clnrow.morph === 'string') {
             clnrow.morph = clnrow.morph.split(',').map(i => i.trim());
         }
 
-        if (clnrow.morph.length > 0) {
-            clnrow.morph.forEach(mrphIt => {
-                if (mrphIt) {
-                    // Logic for root type
-                    if (clnrow.type === 'root') {
-                        const matchingRoots = allRows.filter(r => {
-                            if (Array.isArray(r.morph) && r.type !== 'root') {
-                                return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
-                            }
-                            return false;
-                        });
-                        relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
-                    }
-                    // Logic for word type
-                    else if (clnrow.type === 'word') {
-                        const matchingWords = allRows.filter(r => {
-                            if (Array.isArray(r.morph) && r.type === 'root') {
-                                return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
-                            }
-                            return false;
-                        });
-                        relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
-                    }
-                }
-            });
+        // Initialize morph as an empty array if undefined or null
+        if (!Array.isArray(clnrow.morph)) {
+            clnrow.morph = [];
         }
 
-        clnrow.related = relatedWords.join(', ');
+        clnrow.morph.forEach(mrphIt => {
+            if (mrphIt) {
+                // Logic for root type
+                if (clnrow.type === 'root') {
+                    const matchingRoots = allRows.filter(r => {
+                        if (Array.isArray(r.morph) && r.type !== 'root') {
+                            return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
+                        }
+                        return false;
+                    });
+                    relatedWords.push(...matchingRoots.map(r => `<a href="?wordid=${r.id}" style="color: green;">${r.title}</a>`));
+                }
+                // Logic for word type
+                else if (clnrow.type === 'word') {
+                    const matchingWords = allRows.filter(r => {
+                        if (Array.isArray(r.morph) && r.type === 'root') {
+                            return r.morph.some(item => item.toLowerCase() === mrphIt.toLowerCase());
+                        }
+                        return false;
+                    });
+                    relatedWords.push(...matchingWords.map(r => `<a href="?rootid=${r.id}" style="color: green;">${r.title}</a>`));
+                }
+            }
+        });
+
+        clnrow.related = relatedWords.join(', ') || 'No related words found';
     });
 
     return allRows;
 }
 
+/**
+ * Highlights the search term in the text.
+ *
+ * @param {string} text - The text to search within.
+ * @param {string} term - The term to highlight.
+ * @returns {string} - The text with highlighted terms.
+ */
 export function highlight(text, term) {
     if (!text || !term) return text;
     const regex = new RegExp(`(${term})`, 'gi');
