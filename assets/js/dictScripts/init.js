@@ -1,12 +1,7 @@
-import { getRelatedWordsByRoot, highlight, createHyperlink } from './utils.js';
-import { updatePagination } from './pagination.js';
-import { getTranslatedText } from './loadTexts.js';
-import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
-import { processRows } from './processRows.js';
+import { processAllSettings } from './processRows.js';
 
 export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     let currentPage = 1;
-    let filteredRows = [];
     let previouslySelectedBox = null;
     let lastClickTime = 0;
 
@@ -64,9 +59,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     const applySettingsButton = document.getElementById('dict-apply-settings-button');
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', () => {
-            const { searchTerm, exactMatch, searchIn, filters } = pendingChanges;
-            const criteria = { searchTerm, exactMatch, searchIn, filters };
-            processRows(allRows, criteria, rowsPerPage, displayPage);
+            processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
         });
     }
 
@@ -81,7 +74,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
                 rowsPerPage: 20
             };
             updatePendingChangesList();
-            processRows(allRows, pendingChanges, rowsPerPage, displayPage);
+            processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
@@ -93,7 +86,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             pendingChanges.searchTerm = '';
             document.getElementById('dict-search-input').value = '';
             updatePendingChangesList();
-            processRows(allRows, pendingChanges, rowsPerPage, displayPage);
+            processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
@@ -103,9 +96,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             pendingChanges.searchTerm = e.target.value;
-            const searchResults = searchDictionary(allRows, pendingChanges.searchTerm, pendingChanges.exactMatch, pendingChanges.searchIn);
             updatePendingChangesList();
-            displayPage(1, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, searchResults, allRows);
         });
     }
 
@@ -116,7 +107,8 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             updatePendingChangesList();
         });
     }
-async function handleClickEvent(e) {
+
+    async function handleClickEvent(e) {
         const now = Date.now();
         if (now - lastClickTime < 250) return; // 0.25 second cooldown
         lastClickTime = now;
@@ -214,7 +206,7 @@ async function handleClickEvent(e) {
     }
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
-    dictionaryContainer.addEventListener('click', handleClickEvent, true); // Use capturing phase
+    dictionaryContainer.addEventListener('click', handleClickEvent, true); // Use capturing phase    
 
     document.querySelectorAll('.pagination-button').forEach(button => {
         button.addEventListener('click', (e) => {
