@@ -1,11 +1,17 @@
+/**
+ * Parses JSON safely, returning the input itself if parsing fails.
+ * @param {string} input - The JSON string to parse.
+ * @returns {any} - The parsed object or the original input.
+ */
 function safeJSONParse(input) {
     try {
         return JSON.parse(input);
     } catch (error) {
         console.error("Error parsing JSON:", error);
-        return input; // Return null if parsing fails
+        return input; // Return input if parsing fails
     }
 }
+
 /**
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
@@ -57,10 +63,13 @@ export async function cleanData(data, type) {
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col3 ? row.col3.trim() : '') : row.col3 ? row.col3.trim() : ''); // Meta for words
             cleanedRow.notes = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col4 ? row.col4.trim() : '') : row.col4 ? row.col4.trim() : ''); // Notes for words
             try {
-                cleanedRow.morph = JSON.parse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : '')); // Morph for words
+                cleanedRow.morph = safeJSONParse(sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '') : row.col5 ? row.col5.trim() : '')); // Morph for words
+                if (!Array.isArray(cleanedRow.morph)) {
+                    cleanedRow.morph = [];
+                }
             } catch (e) {
                 console.error(`Error parsing JSON for morph in row ${index}:`, e);
-                cleanedRow.morph = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '').split(', ') : row.col5 ? row.col5.trim().split(', ') : []); // Fallback if parsing fails
+                cleanedRow.morph = (sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col5 ? row.col5.trim() : '').split(', ') : row.col5 ? row.col5.trim().split(', ') : [])); // Fallback if parsing fails
             }
         } else if (type === 'root') {
             const rawTitle = row.col1 ? row.col1.trim() : '';
@@ -69,7 +78,7 @@ export async function cleanData(data, type) {
             let [notes, morph] = meta ? meta.slice(0, -1).split(', del ') : ['', ''];
             
             if (morph && typeof morph === "string"){
-               morph = morph.split(', ');
+                morph = morph.split(', ');
             }
 
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(root ? root.trim() : '') : root ? root.trim() : ''); // X title for roots
@@ -116,7 +125,7 @@ export async function cleanData(data, type) {
     console.log(cleanedData);
 
     return cleanedData;
-                }
+}
 
 /**
  * Sanitizes a string to remove any potentially harmful HTML content.
