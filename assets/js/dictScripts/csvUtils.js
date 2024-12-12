@@ -1,10 +1,13 @@
+import { sanitizeHTML, fixEncoding, createHyperlink } from './utils.js';
+
 /**
  * Cleans and formats the data for the dictionary.
  * @param {Array} data - The raw data to be cleaned.
  * @param {string} type - The type of data (e.g., 'word', 'root').
+ * @param {Array} allRows - The array of all dictionary rows.
  * @returns {Promise<Array>} - A promise that resolves to the cleaned and formatted data.
  */
-export async function cleanData(data, type) {
+export async function cleanData(data, type, allRows) {
     const totalRows = data.length;
 
     // Progress bar elements
@@ -51,7 +54,11 @@ export async function cleanData(data, type) {
             let morphData = row.col5 ? row.col5.trim() : '';
             cleanedRow.morph = Array.isArray(morphData) ? morphData : morphData.split(',').map(item => sanitizeHTML(item.trim()));
 
-          //  console.log(`Final morph array (row ${index}):`, cleanedRow.morph);
+            // Create hyperlinks for morph entries if the root exists in the dictionary
+            cleanedRow.morph = cleanedRow.morph.map(morphItem => {
+                const rootRow = allRows.find(r => r.title.toLowerCase() === morphItem.toLowerCase() && r.type === 'root');
+                return rootRow ? createHyperlink(rootRow) : sanitizeHTML(morphItem);
+            });
         } else if (type === 'root') {
             cleanedRow.title = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col1 ? row.col1.trim() : '') : row.col1 ? row.col1.trim() : ''); // Word title for roots
             cleanedRow.meta = sanitizeHTML(idsNeedingFixing.includes(index) ? fixEncoding(row.col2 ? row.col2.trim() : '') : row.col2 ? row.col2.trim() : ''); // Meta for roots
