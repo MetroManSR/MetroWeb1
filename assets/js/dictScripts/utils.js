@@ -69,3 +69,16 @@ export function sanitizeHTML(html) {
     tempDiv.textContent = html;
     return tempDiv.innerHTML;
 }
+
+/**
+ * Creates a hyperlink for dictionary entries.
+ *
+ * @param {Object} row - The dictionary row object.
+ * @param {string} searchTerm - The search term to highlight in the title.
+ * @returns {string} - The HTML string of the hyperlink.
+ */
+export function createHyperlink(row, searchTerm = '') {
+    const idParam = row.type === 'root' ? 'rootid' : 'wordid';
+    const highlightedTitle = highlight(row.title, searchTerm);
+    return `<a href="?${idParam}=${row.id}" style="color: green;">${highlightedTitle}</a>`;
+}
