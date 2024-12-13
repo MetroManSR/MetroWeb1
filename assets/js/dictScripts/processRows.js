@@ -63,7 +63,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
             const titleMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.title === searchTerm : row.title.toLowerCase().includes(searchTerm.toLowerCase()));
             const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.title === searchTerm : row.title.toLowerCase().includes(searchTerm.toLowerCase()));
             const definitionMatch = searchIn.definition && (exactMatch ? row.meta === searchTerm : row.meta.toLowerCase().includes(searchTerm.toLowerCase()));
-            const etymologyMatch = searchIn.etymology && (exactMatch ? row.morph === searchTerm : row.morph.toLowerCase().includes(searchTerm.toLowerCase()));
+            const etymologyMatch = searchIn.etymology && (exactMatch ? row.morph.includes(searchTerm) : row.morph.some(morphItem => morphItem.toLowerCase().includes(searchTerm.toLowerCase())));
             return titleMatch || rootMatch || definitionMatch || etymologyMatch;
         });
         console.log('After search term filtering:', filteredRows);
