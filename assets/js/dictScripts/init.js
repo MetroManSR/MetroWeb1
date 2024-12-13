@@ -8,7 +8,7 @@ export async function updatePendingChangesList(pendingChanges, language) {
     const pendingChangesElement = document.getElementById('dict-pending-changes');
     if (!pendingChangesElement) return;
 
-    const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
+    const { searchTerm, exactMatch, searchIn, filters, ignoreDiacritics, startsWith, endsWith, rowsPerPage } = pendingChanges;
     let changesList = [];
 
     if (searchTerm) {
@@ -27,6 +27,18 @@ export async function updatePendingChangesList(pendingChanges, language) {
         if (searchIn.etymology) searchInFields.push(await getTranslatedText('searchInEtymology', language));
         const translatedSearchIn = await getTranslatedText('searchIn', language);
         changesList.push(`<strong>${translatedSearchIn}</strong>: ${searchInFields.join(', ')}`);
+    }
+    if (ignoreDiacritics) {
+        const translatedIgnoreDiacritics = await getTranslatedText('ignoreDiacritics', language);
+        changesList.push(`<strong>${translatedIgnoreDiacritics}</strong>`);
+    }
+    if (startsWith) {
+        const translatedStartsWith = await getTranslatedText('startsWith', language);
+        changesList.push(`<strong>${translatedStartsWith}</strong>`);
+    }
+    if (endsWith) {
+        const translatedEndsWith = await getTranslatedText('endsWith', language);
+        changesList.push(`<strong>${translatedEndsWith}</strong>`);
     }
     if (filters.length > 0) {
         const translatedFilters = await getTranslatedText('filters', language);
@@ -129,7 +141,7 @@ if (cleanSettingsButton) {
             option.selected = false;
         });
 
-        updatePendingChangesList(pendingChanges, currentLanguage);
+        updatePendingChangesList(pendingChanges, language);
         processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
         // Remove URL parameters without reloading the page
         history.pushState({}, document.title, window.location.pathname);
