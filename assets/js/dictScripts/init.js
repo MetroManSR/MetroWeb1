@@ -178,7 +178,7 @@ if (cleanSettingsButton) {
             // No search function call here
         });
     });
-});
+
 
     const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
     if (rowsPerPageSelect) {
