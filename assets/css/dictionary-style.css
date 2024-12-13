@@ -236,33 +236,6 @@ header {
     border-radius: 5px;
 }
 
-/* Popup Overlay and Popup */
-#dict-popup-overlay, #dict-popup-overlay-advse{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000; /* Ensure it is below the popup but above other content */
-    display: none; /* Initially hidden */
-}
-
-#dict-statistics-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 600px;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    z-index: 1001; /* Ensure it is above other content */
-    display: none; /* Initially hidden */
-}
-
 .active {
     display: block !important;
 }
@@ -340,6 +313,33 @@ header {
     border-radius: 5px;
     font-size: 0.9em;
     opacity: 0.9;
+}
+
+/* Popup Overlay and Popup */
+#dict-popup-overlay, #dict-popup-overlay-advse {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Ensure it is below the popup but above other content */
+    display: none; /* Initially hidden */
+}
+
+#dict-statistics-popup, #dict-advanced-search-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1001; /* Ensure it is above other content */
+    display: none; /* Initially hidden */
 }
 
 /* Popup Container */
