@@ -493,6 +493,7 @@ header {
     background-color: #d32f2f; /* Darker red on hover */
     border-color: #d32f2f;     /* Darker border on hover */
 }
+
 .dict-search-predictions {
     position: absolute;
     top: calc(100% + 4px); /* Place the prediction box slightly below the input */
