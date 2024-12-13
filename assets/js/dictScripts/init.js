@@ -149,6 +149,7 @@ if (cleanSettingsButton) {
     }
 
     document.getElementById('dict-search-input').addEventListener('input', function() {
+    document.getElementById('dict-search-input').addEventListener('input', function() {
     const searchTerm = this.value.trim().toLowerCase();
     const predictionBox = document.getElementById('dict-search-predictions');
     
@@ -174,7 +175,7 @@ if (cleanSettingsButton) {
         prediction.addEventListener('click', () => {
             document.getElementById('dict-search-input').value = predictions[index];
             predictionBox.innerHTML = '';
-            processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+            // No search function call here
         });
     });
 });
