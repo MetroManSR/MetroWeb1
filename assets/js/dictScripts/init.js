@@ -15,17 +15,45 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
         pendingChangesElement.style.display = 'block';
     }
 
-    function updatePendingChangesList() {
-        if (!pendingChangesElement) return;
+    /**
+ * Updates the pending changes display.
+ */
+async function updatePendingChangesList(language) {
+    const pendingChangesElement = document.getElementById('dict-pending-changes');
+    if (!pendingChangesElement) return;
 
-        const changes = [];
-        if (pendingChanges.searchTerm) changes.push(`Search Term: ${pendingChanges.searchTerm}`);
-        if (pendingChanges.exactMatch) changes.push('Exact Match');
-        if (pendingChanges.filters.length) changes.push(`Filters: ${pendingChanges.filters.join(', ')}`);
-        if (pendingChanges.sortOrder) changes.push(`Sort Order: ${pendingChanges.sortOrder}`);
+    const changes = [];
 
-        pendingChangesElement.innerHTML = changes.length ? `Pending Changes: ${changes.join(', ')}` : 'No pending changes.';
+    if (pendingChanges.searchTerm) {
+        const translatedSearchTerm = await getTranslatedText('searchTerm', language);
+        changes.push(`<strong>${translatedSearchTerm}</strong>: ${pendingChanges.searchTerm}`);
     }
+    
+    if (pendingChanges.exactMatch) {
+        const translatedExactMatch = await getTranslatedText('exactMatch', language);
+        changes.push(`<strong>${translatedExactMatch}</strong>`);
+    }
+
+    if (pendingChanges.filters.length) {
+        const translatedFilters = await getTranslatedText('filters', language);
+        changes.push(`<strong>${translatedFilters}</strong>: ${pendingChanges.filters.join(', ')}`);
+    }
+
+    if (pendingChanges.sortOrder) {
+        const translatedSortOrder = await getTranslatedText('sortOrder', language);
+        const sortOrderText = document.querySelector(`#dict-order-by-select option[value="${pendingChanges.sortOrder}"]`).textContent;
+        changes.push(`<strong>${translatedSortOrder}</strong>: ${sortOrderText}`);
+    }
+
+    if (pendingChanges.rowsPerPage) {
+        const translatedRowsPerPage = await getTranslatedText('rowsPerPage', language);
+        changes.push(`<strong>${translatedRowsPerPage}</strong>: ${pendingChanges.rowsPerPage}`);
+    }
+
+    const translatedPendingChanges = await getTranslatedText('pendingChanges', language);
+    const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', language);
+    pendingChangesElement.innerHTML = changes.length ? `<p><strong>${translatedPendingChanges}</strong></p><p>${changes.join('</p><p>')}</p>` : `<p>${translatedNoPendingChanges}</p>`;
+}
 
     updatePendingChangesList();
 
