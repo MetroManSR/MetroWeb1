@@ -62,3 +62,37 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
     if (searchInDefinition) searchInDefinition.checked = true;
     if (searchInEtymology) searchInEtymology.checked = true;
 }
+
+export function initStatisticsPopup(allRows) {
+    document.getElementById('dict-view-statistics-button').addEventListener('click', () => {
+        const totalWords = allRows.filter(row => row.type === 'word').length;
+        const totalRoots = allRows.filter(row => row.type === 'root').length;
+
+        const partOfSpeechCounts = allRows.reduce((counts, row) => {
+            if (row.type === 'word' && row.partofspeech) {
+                counts[row.partofspeech] = (counts[row.partofspeech] || 0) + 1;
+            }
+            return counts;
+        }, {});
+
+        const statisticsContainer = document.getElementById('dict-statistics-popup');
+        statisticsContainer.innerHTML = `
+            <h3>Statistics</h3>
+            <p>Total Words: ${totalWords}</p>
+            <p>Total Roots: ${totalRoots}</p>
+            <h4>Total Words per Part of Speech:</h4>
+            <ul>
+                ${Object.entries(partOfSpeechCounts).map(([pos, count]) => `<li>${pos}: ${count}</li>`).join('')}
+            </ul>
+            <button id="dict-close-statistics-button" class="btn">Close</button>
+        `;
+
+        statisticsContainer.classList.add('active');
+        document.getElementById('dict-popup-overlay').classList.add('active');
+
+        document.getElementById('dict-close-statistics-button').addEventListener('click', () => {
+            statisticsContainer.classList.remove('active');
+            document.getElementById('dict-popup-overlay').classList.remove('active');
+        });
+    });
+}
