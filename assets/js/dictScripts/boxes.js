@@ -42,7 +42,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     const box = document.createElement('div');
     box.classList.add('dictionary-box');
-    box.id = `entry-${row.id}`;
+    box.id = `${row.type}-${row.id}`;
 
     if (row.type === 'root') {
         box.classList.add('root-word'); // Apply root word styling
