@@ -148,12 +148,12 @@ if (cleanSettingsButton) {
         });
     }
 
-document.getElementById('dict-search-input').addEventListener('input', function() {
-    const searchTerm = this.value.trim().toLowerCase();
-    const predictionBox = document.getElementById('dict-search-predictions');
     const searchInput = document.getElementById('dict-search-input');
+const predictionBox = document.getElementById('dict-search-predictions');
 
-    // Ensure the prediction box matches the width of the search input
+// Handle input event for the search input
+searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.trim().toLowerCase();
     predictionBox.style.width = `${searchInput.offsetWidth}px`;
     
     if (searchTerm.length === 0) {
@@ -190,8 +190,25 @@ document.getElementById('dict-search-input').addEventListener('input', function(
             // No search function call here
         });
     });
+
+    // Update pending changes list while typing
+    pendingChanges.searchTerm = searchTerm;
+    updatePendingChangesList(pendingChanges, currentLanguage);
 });
 
+// Hide prediction box if input search is not selected
+document.addEventListener('focusin', (e) => {
+    if (!searchInput.contains(e.target) && !predictionBox.contains(e.target)) {
+        predictionBox.innerHTML = '';
+    }
+});
+
+// Handle focus event to show predictions if input is not empty
+searchInput.addEventListener('focus', () => {
+    if (searchInput.value.trim().length > 0) {
+        searchInput.dispatchEvent(new Event('input'));
+    }
+}); 
 
     const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
     if (rowsPerPageSelect) {
