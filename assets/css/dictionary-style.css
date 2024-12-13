@@ -438,12 +438,14 @@ header {
     transform: translate(-50%, -50%);
     width: 80%;
     max-width: 600px;
+    max-height: 80vh; /* Restrict maximum height */
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 1001; /* Ensure it is above other content */
     display: none; /* Initially hidden */
+    overflow-y: auto; /* Make popup scrollable if content overflows */
 }
 
 /* Align Checkboxes and Labels */
