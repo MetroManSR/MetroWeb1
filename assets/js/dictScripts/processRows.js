@@ -38,6 +38,17 @@ export function sortRows(rows, sortingManner) {
 }
 
 /**
+ * Checks if a row is unique based on its ID.
+ *
+ * @param {Object} row - The row to check.
+ * @param {Array} existingRows - The array of existing rows.
+ * @returns {boolean} - True if the row is unique, false otherwise.
+ */
+function isUniqueResult(row, existingRows) {
+    return !existingRows.some(existingRow => existingRow.id === row.id);
+}
+
+/**
  * Processes all settings including search, filters, sorting, and advanced search criteria.
  *
  * @param {Object} params - The search parameters.
