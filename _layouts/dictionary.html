@@ -10,8 +10,6 @@ layout: default
     <meta name="language" content="{{ page.language }}"> <!-- This will be dynamic based on your markdown front matter -->
     <title>{{ title }}</title>
     <link rel="stylesheet" href="../../../assets/css/dictionary-style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-    <script src="../../../assets/js/mainDict.js" type="module"></script>
 </head>
 <body>
     <header>
@@ -28,7 +26,7 @@ layout: default
         <div class="dict-search-container">
             <label for="dict-search-input" id="dict-search-label">Search:</label>
             <input type="text" id="dict-search-input" placeholder="Search..." class="dict-search-input"/>
-            <button id="dict-clear-search-button" class="dict-clear-search-button dict-filter-button">Clear Search</button>
+            <button id="dict-clear-search-button" class="dict-clear-search-button dict-filter-button btn-danger">Clear Search</button>
             <button id="dict-advanced-search-button" class="dict-advanced-search-button dict-filter-button">Advanced Search</button>
             <button id="dict-view-statistics-button" class="dict-view-statistics-button dict-filter-button">View Statistics</button>
         </div>
@@ -36,7 +34,7 @@ layout: default
         <div id="dict-pending-changes" class="dict-pending-changes"></div> <!-- Pending changes box -->
 
         <!-- Filter and Sorting Section -->
-        <div id="dict-filter-sorting-container" class="dict-filter-cont-hidden">
+        <div id="dict-filter-sorting-container" class="dict-filter-cont-hidden dict-filter-container">
             <div class="dict-pagination-container">
                 <label id="dict-rows-per-page-label" for="dict-rows-per-page-input">Rows per page:</label>
                 <input type="number" id="dict-rows-per-page-input" value="20" min="5" max="500" class="dict-rows-input"/>
@@ -78,7 +76,7 @@ layout: default
         <div class="dict-buttons">
             <button id="dict-toggle-filter-button" class="dict-toggle-filter-button dict-filter-button">Toggle Filters</button>
             <button id="dict-apply-settings-button" class="dict-apply-settings-button dict-filter-button">Apply Settings</button>
-            <button id="dict-clear-settings-button" class="dict-clear-settings-button dict-filter-button">Clear Settings</button>
+            <button id="dict-clear-settings-button" class="dict-clear-settings-button dict-filter-button btn-danger">Clear Settings</button>
         </div>
 
         <!-- Dictionary Content -->
