@@ -104,11 +104,3 @@ export function initStatisticsPopup(allRows) {
         });
     });
 }
-
-// Add event listener for advanced search button to initialize the popup
-const advancedSearchButton = document.getElementById('dict-advanced-search-button');
-if (advancedSearchButton) {
-    advancedSearchButton.addEventListener('click', () => {
-        initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage);
-    });
-}
