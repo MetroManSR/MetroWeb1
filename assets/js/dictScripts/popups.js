@@ -1,43 +1,7 @@
 import { processAllSettings } from './processRows.js';
+import { updatePendingChangesList } from './init.js';
 
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
-    const updatePendingChangesList = async () => {
-        const pendingChangesContainer = document.getElementById('dict-pending-changes');
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
-        let changesList = [];
-
-        if (searchTerm) {
-            const translatedSearchTerm = await getTranslatedText('searchTerm', currentLanguage);
-            changesList.push(`<strong>${translatedSearchTerm}</strong>: "${searchTerm}"`);
-        }
-        if (exactMatch) {
-            const translatedExactMatch = await getTranslatedText('exactMatch', currentLanguage);
-            changesList.push(`<strong>${translatedExactMatch}</strong>: On`);
-        }
-        if (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology) {
-            let searchInFields = [];
-            if (searchIn.word) searchInFields.push(await getTranslatedText('searchInWord', currentLanguage));
-            if (searchIn.root) searchInFields.push(await getTranslatedText('searchInRoot', currentLanguage));
-            if (searchIn.definition) searchInFields.push(await getTranslatedText('searchInDefinition', currentLanguage));
-            if (searchIn.etymology) searchInFields.push(await getTranslatedText('searchInEtymology', currentLanguage));
-            const translatedSearchIn = await getTranslatedText('searchIn', currentLanguage);
-            changesList.push(`<strong>${translatedSearchIn}</strong>: ${searchInFields.join(', ')}`);
-        }
-        if (filters.length > 0) {
-            const translatedFilters = await getTranslatedText('filters', currentLanguage);
-            const translatedFilterValues = await Promise.all(filters.map(async filter => await getTranslatedText(filter, currentLanguage)));
-            changesList.push(`<strong>${translatedFilters}</strong>: ${translatedFilterValues.join(', ')}`);
-        }
-        if (rowsPerPage !== 20) {
-            const translatedRowsPerPage = await getTranslatedText('rowsPerPage', currentLanguage);
-            changesList.push(`<strong>${translatedRowsPerPage}</strong>: ${rowsPerPage}`);
-        }
-
-        const translatedPendingChanges = await getTranslatedText('pendingChanges', currentLanguage);
-        const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', currentLanguage);
-        pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
-    };
-
     document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
         processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage);
     });
@@ -84,7 +48,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         pendingChanges.searchIn = searchIn;
         pendingChanges.filters = selectedFilters;
         
-        await updatePendingChangesList(currentLanguage);
+        await updatePendingChangesList(pendingChanges, currentLanguage);
     });
 
     // Ensure all checkboxes are checked by default
