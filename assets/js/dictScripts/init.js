@@ -119,7 +119,7 @@ if (cleanSettingsButton) {
         document.getElementById('dict-search-input').value = '';
         document.getElementById('dict-search-in-word').checked = true;
         document.getElementById('dict-search-in-root').checked = true;
-        document.getElementById('dict-search-in-definition').checked = false;
+        document.getElementById('dict-search-in-definition').checked = true;
         document.getElementById('dict-search-in-etymology').checked = false;
         document.getElementById('dict-exact-match').checked = false;
 
@@ -148,17 +148,30 @@ if (cleanSettingsButton) {
         });
     }
 
-    document.getElementById('dict-search-input').addEventListener('input', function() {
+document.getElementById('dict-search-input').addEventListener('input', function() {
     const searchTerm = this.value.trim().toLowerCase();
     const predictionBox = document.getElementById('dict-search-predictions');
+    const searchInput = document.getElementById('dict-search-input');
+
+    // Ensure the prediction box matches the width of the search input
+    predictionBox.style.width = `${searchInput.offsetWidth}px`;
     
     if (searchTerm.length === 0) {
         predictionBox.innerHTML = '';
         return;
     }
 
+    const searchIn = pendingChanges.searchIn;
+
+    // Generate predictions based on the current search criteria
     const predictions = allRows
-        .filter(row => row.title.toLowerCase().includes(searchTerm))
+        .filter(row => {
+            const titleMatch = searchIn.word && row.type === 'word' && row.title.toLowerCase().includes(searchTerm);
+            const rootMatch = searchIn.root && row.type === 'root' && row.title.toLowerCase().includes(searchTerm);
+            const definitionMatch = searchIn.definition && row.meta.toLowerCase().includes(searchTerm);
+            const etymologyMatch = searchIn.etymology && row.morph.some(morphItem => morphItem.toLowerCase().includes(searchTerm));
+            return titleMatch || rootMatch || definitionMatch || etymologyMatch;
+        })
         .slice(0, 10) // Limit to the first 10 matches
         .map(row => row.title);
 
@@ -172,12 +185,12 @@ if (cleanSettingsButton) {
     // Add click event to predictions
     Array.from(predictionBox.children).forEach((prediction, index) => {
         prediction.addEventListener('click', () => {
-            document.getElementById('dict-search-input').value = predictions[index];
+            searchInput.value = predictions[index];
             predictionBox.innerHTML = '';
             // No search function call here
         });
     });
-    });
+});
 
 
     const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
