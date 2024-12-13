@@ -66,6 +66,9 @@
         "searchTerm": "Search Term",
         "exactMatch": "Exact Match",
         "filters": "Filters",
+        "ignoreDiacritics": "Ignore Diacritics",
+        "startsWith": "Starts With",
+        "endsWith": "Ends With",
         "sortOrder": "Sort Order",
         "rowsPerPage": "Rows Per Page"
     },
@@ -136,6 +139,9 @@
         "searchTerm": "Término de Búsqueda",
         "exactMatch": "Coincidencia Exacta",
         "filters": "Filtros",
+        "ignoreDiacritics": "Ignorar Diacríticos",
+        "startsWith": "Comienza Con",
+        "endsWith": "Termina Con",
         "sortOrder": "Orden de Clasificación",
         "rowsPerPage": "Filas Por Página"
     },
