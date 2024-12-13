@@ -158,6 +158,5 @@ export function handleRowsPerPageChange(e) {
     const rowsPerPage = parseInt(e.target.value, 10);
     if (!isNaN(rowsPerPage) && rowsPerPage > 0) {
         pendingChanges.rowsPerPage = rowsPerPage;
-        processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
     }
 }
