@@ -1,6 +1,10 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
 
+function isUniqueResult(row, existingRows) {
+    return !existingRows.some(existingRow => existingRow.id === row.id);
+}
+
 /**
  * Sorts rows based on the specified sorting manner.
  *
@@ -74,6 +78,16 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         filteredRows = filteredRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()));
         console.log('After filter criteria:', filteredRows);
     }
+
+    // Ensure the search results are unique
+    const uniqueFilteredRows = [];
+    filteredRows.forEach(row => {
+        if (isUniqueResult(row, uniqueFilteredRows)) {
+            uniqueFilteredRows.push(row);
+        }
+    });
+    filteredRows = uniqueFilteredRows;
+    console.log('After ensuring unique results:', filteredRows);
 
     // Sort filtered rows based on the current sorting manner
     filteredRows = sortRows(filteredRows, sortingManner);
