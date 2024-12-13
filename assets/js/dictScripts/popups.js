@@ -21,6 +21,11 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         document.getElementById('dict-search-in-etymology').checked = pendingChanges.searchIn.etymology;
         document.getElementById('dict-exact-match').checked = pendingChanges.exactMatch;
 
+        // New filters
+        document.getElementById('dict-ignore-diacritics').checked = pendingChanges.ignoreDiacritics;
+        document.getElementById('dict-starts-with').checked = pendingChanges.startsWith;
+        document.getElementById('dict-ends-with').checked = pendingChanges.endsWith;
+
         // Set selected filters
         const wordFilterSelect = document.getElementById('dict-word-filter');
         Array.from(wordFilterSelect.options).forEach(option => {
@@ -43,6 +48,12 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         };
 
         const exactMatch = document.getElementById('dict-exact-match')?.checked || false;
+
+        // New filters
+        const ignoreDiacritics = document.getElementById('dict-ignore-diacritics')?.checked || false;
+        const startsWith = document.getElementById('dict-starts-with')?.checked || false;
+        const endsWith = document.getElementById('dict-ends-with')?.checked || false;
+
         const selectedFilters = Array.from(document.getElementById('dict-word-filter').selectedOptions).map(option => option.value);
 
         pendingChanges.searchTerm = searchTerm;
@@ -50,7 +61,13 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         pendingChanges.searchIn = searchIn;
         pendingChanges.filters = selectedFilters;
         
+        // New filters
+        pendingChanges.ignoreDiacritics = ignoreDiacritics;
+        pendingChanges.startsWith = startsWith;
+        pendingChanges.endsWith = endsWith;
+
         await updatePendingChangesList(pendingChanges, currentLanguage);
+        processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
     });
 
     // Ensure all checkboxes are checked by default
