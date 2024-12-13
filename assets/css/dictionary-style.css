@@ -360,3 +360,29 @@ header {
 .dict-pending-changes strong {
     font-weight: bold;         /* Bold text for emphasis */
 }
+
+.dict-pending-changes {
+    background-color: #e8f5e9; /* Soft green background for a positive look */
+    border: 2px solid #4caf50; /* Green border to complement the background */
+    border-radius: 8px;        /* Rounded corners for a smooth appearance */
+    padding: 15px;             /* Padding for spacing */
+    margin: 15px 0;            /* Margin for separation from other elements */
+    font-size: 0.95em;         /* Slightly larger font size for readability */
+    color: #2e7d32;            /* Dark green text color for contrast */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.dict-pending-changes p {
+    margin: 10px 0; /* Increased margin between paragraphs */
+}
+
+.dict-pending-changes strong {
+    font-weight: bold;        /* Bold text for emphasis */
+    color: #1b5e20;           /* Slightly darker green for key labels */
+}
+
+.dict-pending-changes:hover {
+    background-color: #d7ffd9; /* Lighter green on hover for interactive feel */
+    border-color: #388e3c;     /* Darker border on hover */
+}
