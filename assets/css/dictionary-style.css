@@ -395,18 +395,18 @@ header {
 }
 
 .dict-filter-button {
-    background-color: #f0f4c3; /* Light green background */
-    border: 2px solid #cddc39; /* Green border */
+    background-color: #ff9800; /* Orange background */
+    border: 2px solid #ff9800; /* Matching orange border */
     border-radius: 6px;        /* Rounded corners */
     padding: 5px 10px;         /* Padding for spacing */
-    color: #333;               /* Dark text color */
+    color: #fff;               /* White text */
     cursor: pointer;           /* Pointer cursor on hover */
     transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
 .dict-filter-button:hover {
-    background-color: #dce775; /* Darker green on hover */
-    border-color: #afb42b;     /* Darker border on hover */
+    background-color: #fb8c00; /* Darker orange on hover */
+    border-color: #fb8c00;     /* Darker border on hover */
 }
 
 .dict-pagination-container,
