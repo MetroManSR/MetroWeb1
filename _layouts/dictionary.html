@@ -26,11 +26,12 @@ layout: default
         {{ content }} <!-- Positioned below the loading message -->
 
         <div class="dict-search-container">
-            <label for="dict-search-input" id="dict-search-label">Search:</label>
-            <input type="text" id="dict-search-input" placeholder="Search..." class="dict-search-input"/>
-            <button id="dict-clear-search-button" class="dict-clear-search-button dict-filter-button btn-danger">Clear Search</button>
-            <button id="dict-advanced-search-button" class="dict-advanced-search-button dict-filter-button">Advanced Search</button>
-            <button id="dict-view-statistics-button" class="dict-view-statistics-button dict-filter-button">View Statistics</button>
+           <label for="dict-search-input" id="dict-search-label">Search:</label>
+           <input type="text" id="dict-search-input" placeholder="Search..." class="dict-search-input" autocomplete="off"/>
+           <div id="dict-search-predictions" class="dict-search-predictions"></div>
+           <button id="dict-clear-search-button" class="dict-clear-search-button dict-filter-button btn-danger">Clear Search</button>
+           <button id="dict-advanced-search-button" class="dict-advanced-search-button dict-filter-button">Advanced Search</button>
+    <button id="dict-view-statistics-button" class="dict-view-statistics-button dict-filter-button">View Statistics</button>
         </div>
 
         <div id="dict-pending-changes" class="dict-pending-changes"></div> <!-- Pending changes box -->
