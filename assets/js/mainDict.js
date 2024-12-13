@@ -146,8 +146,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                     word: formData.get('search-in-word') === 'on',
                     root: formData.get('search-in-root') === 'on',
                     definition: formData.get('search-in-definition') === 'on',
-                    etymology: formData.get('search-in-etymology') === 'on',
-                    exactMatch: formData.get('exact-match') === 'on'
+                    etymology: formData.get('search-in-etymology') === 'off',
+                    exactMatch: formData.get('exact-match') === 'off'
                 };
                 processAllSettings(params, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             });
