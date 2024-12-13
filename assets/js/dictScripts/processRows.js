@@ -1,10 +1,6 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
-import { highlight } from './utils.js';
-
-function isUniqueResult(row, existingRows) {
-    return !existingRows.some(existingRow => existingRow.id === row.id);
-}
+import { highlight } from './highlight.js';
 
 /**
  * Sorts rows based on the specified sorting manner.
@@ -39,6 +35,17 @@ export function sortRows(rows, sortingManner) {
         default:
             return rows.sort((a, b) => a.title.localeCompare(b.title));
     }
+}
+
+/**
+ * Check if a row is unique based on its ID.
+ *
+ * @param {Object} row - The row to check.
+ * @param {Array} existingRows - The array of existing rows.
+ * @returns {boolean} - True if the row is unique, false otherwise.
+ */
+function isUniqueResult(row, existingRows) {
+    return !existingRows.some(existingRow => existingRow.id === row.id);
 }
 
 /**
@@ -125,6 +132,10 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     filteredRows = uniqueRows;
 
     console.log('After removing duplicates:', filteredRows);
+
+    // Clear previous rows before rendering new ones
+    const renderContainer = document.getElementById('render-container'); // Ensure the correct container ID
+    renderContainer.innerHTML = '';
 
     // Sort filtered rows based on the current sorting manner
     filteredRows = sortRows(filteredRows, sortingManner);
