@@ -1,8 +1,9 @@
 import { processAllSettings } from './processRows.js';
-import { getRelatedWordsByRoot, highlight, createHyperlink } from './utils.js';
+import { highlight } from './utils.js';
 import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
+import { addRelatedWordsEventListeners, addIconEventListeners } from './eventListeners.js';
 
 export async function updatePendingChangesList(pendingChanges, language) {
     const pendingChangesElement = document.getElementById('dict-pending-changes');
@@ -58,8 +59,6 @@ export async function updatePendingChangesList(pendingChanges, language) {
 export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     const language = document.querySelector('meta[name="language"]').content || 'en';
     let currentPage = 1;
-    let previouslySelectedBox = null;
-    let lastClickTime = 0;
 
     // Ensure pendingChanges list is visible on page load
     const pendingChangesElement = document.getElementById('dict-pending-changes');
@@ -81,7 +80,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     if (filterSelect) {
         filterSelect.addEventListener('change', () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
-            updatePendingChangesList(pendingChanges,  language);
+            updatePendingChangesList(pendingChanges, language);
         });
     }
 
@@ -112,6 +111,8 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', () => {
             processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+            addRelatedWordsEventListeners(allRows);
+            addIconEventListeners(allRows);
         });
     }
 
@@ -146,9 +147,9 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
-    }
+    } 
 
-    const cleanSearchButton = document.getElementById('dict-clear-search-button');
+const cleanSearchButton = document.getElementById('dict-clear-search-button');
     if (cleanSearchButton) {
         cleanSearchButton.addEventListener('click', () => {
             pendingChanges.searchTerm = '';
@@ -162,21 +163,6 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
 
     const searchInput = document.getElementById('dict-search-input');
     const predictionBox = document.getElementById('dict-search-predictions');
-
-    // Function to update the checkboxes based on current pendingChanges
-    const updateCheckboxes = () => {
-        document.getElementById('dict-search-in-word').checked = pendingChanges.searchIn.word;
-        document.getElementById('dict-search-in-root').checked = pendingChanges.searchIn.root;
-        document.getElementById('dict-search-in-definition').checked = pendingChanges.searchIn.definition;
-        document.getElementById('dict-search-in-etymology').checked = pendingChanges.searchIn.etymology;
-        document.getElementById('dict-exact-match').checked = pendingChanges.exactMatch;
-        document.getElementById('dict-ignore-diacritics').checked = pendingChanges.ignoreDiacritics;
-        document.getElementById('dict-starts-with').checked = pendingChanges.startsWith;
-        document.getElementById('dict-ends-with').checked = pendingChanges.endsWith;
-    };
-
-    // Call updateCheckboxes on page load to ensure current settings are reflected
-    updateCheckboxes();
 
     // Handle input event for the search input
     searchInput.addEventListener('input', function() {
@@ -263,4 +249,4 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
             updatePendingChangesList(pendingChanges, language);
         });
     }
-}
+    }
