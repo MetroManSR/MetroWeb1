@@ -15,7 +15,6 @@ export async function setTexts(language) {
         document.getElementById('dict-view-statistics-button').textContent = currentTexts.viewStatisticsButton;
         document.getElementById('dict-close-popup-button').textContent = currentTexts.closeSearchButton;
         document.getElementById('dict-filter-by-label').textContent = currentTexts.filterByLabel;
-        document.getElementById('dict-apply-filter-button').textContent = currentTexts.applyFilterButton;
         document.getElementById('dict-order-by-label').textContent = currentTexts.orderByLabel;
 
         // Update the order by options text
