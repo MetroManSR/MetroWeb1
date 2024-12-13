@@ -2,9 +2,9 @@ export async function setTexts(language) {
     try {
         const response = await fetch('/assets/data/defaultTexts.json');
         const texts = await response.json();
-        
+
         const currentTexts = texts[language] || texts['en'];
-        
+
         document.getElementById('dict-search-input').placeholder = currentTexts.searchPlaceholder;
         document.getElementById('dict-clear-search-button').textContent = currentTexts.clearSearchButton;
         document.getElementById('dict-rows-per-page-label').textContent = currentTexts.rowsPerPageLabel;
@@ -44,6 +44,11 @@ export async function setTexts(language) {
             filterSelect.options[10].textContent = currentTexts.pronoun;
         }
 
+        // Update texts for new filters
+        document.getElementById('dict-ignore-diacritics-label').textContent = currentTexts.ignoreDiacritics;
+        document.getElementById('dict-starts-with-label').textContent = currentTexts.startsWith;
+        document.getElementById('dict-ends-with-label').textContent = currentTexts.endsWith;
+
         // Apply other labels as required
         document.getElementById('dict-loading-message-text').textContent = currentTexts.loadingMessage;
         document.getElementById('dict-error-message').textContent = currentTexts.errorLoadingData;
@@ -56,6 +61,9 @@ export async function setTexts(language) {
                 <li><strong>${currentTexts.searchTerm}:</strong> ${pendingChanges.searchTerm}</li>
                 <li><strong>${currentTexts.exactMatch}:</strong> ${pendingChanges.exactMatch}</li>
                 <li><strong>${currentTexts.filters}:</strong> ${pendingChanges.filters.join(', ')}</li>
+                <li><strong>${currentTexts.ignoreDiacritics}:</strong> ${pendingChanges.ignoreDiacritics}</li>
+                <li><strong>${currentTexts.startsWith}:</strong> ${pendingChanges.startsWith}</li>
+                <li><strong>${currentTexts.endsWith}:</strong> ${pendingChanges.endsWith}</li>
                 <li><strong>${currentTexts.sortOrder}:</strong> ${pendingChanges.sortOrder}</li>
                 <li><strong>${currentTexts.rowsPerPage}:</strong> ${pendingChanges.rowsPerPage}</li>
             </ul>
