@@ -343,6 +343,7 @@ header {
 }
 
 /* Orange Buttons */
+/* Filter Buttons */
 .dict-filter-button {
     background-color: #ff9800; /* Orange background */
     border: 2px solid #ff9800; /* Matching orange border */
@@ -356,6 +357,37 @@ header {
 .dict-filter-button:hover {
     background-color: #fb8c00; /* Darker orange on hover */
     border-color: #fb8c00;     /* Darker border on hover */
+}
+
+/* Pagination and Sorting Containers */
+.dict-pagination-container,
+.dict-sorting-container,
+.dict-filter-dropdown-container,
+.dict-buttons {
+    margin-bottom: 15px;       /* Space between sections */
+    padding: 10px;             /* Padding inside the containers */
+    border: 1px solid #ddd;    /* Light border for containers */
+    border-radius: 6px;        /* Rounded corners for containers */
+    background-color: #fff;    /* White background for clarity */
+}
+
+/* Input Fields and Select Boxes */
+.dict-rows-input,
+.dict-filter-select,
+.dict-order-select {
+    border: 1px solid #ccc;    /* Light grey border */
+    border-radius: 4px;        /* Rounded corners */
+    padding: 8px;              /* Padding for input fields */
+    margin-left: 10px;         /* Space between label and input */
+    font-size: 1em;            /* Consistent font size */
+}
+
+/* Search Container */
+.dict-search-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px; /* Space between elements */
 }
 
 /* Green Buttons */
@@ -416,6 +448,7 @@ header {
     font-size: 1em;            /* Consistent font size */
 }
 
+/* Popup Overlay */
 .dict-popup-overlay {
     position: fixed;
     top: 0;
@@ -426,8 +459,10 @@ header {
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 9998; /* Ensures the overlay is above other elements */
 }
 
+/* Popup Container */
 .dict-popup {
     background: #fff;
     border-radius: 10px;
@@ -436,8 +471,10 @@ header {
     max-width: 500px;
     width: 90%;
     position: relative;
+    z-index: 9999; /* Ensures the popup is above the overlay */
 }
 
+/* Popup Header */
 .dict-popup h3 {
     margin-top: 0;
     margin-bottom: 15px;
@@ -445,12 +482,14 @@ header {
     text-align: center;
 }
 
+/* Popup Form */
 .dict-popup form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
+/* Label Container */
 .dict-popup label.container {
     display: flex;
     align-items: center;
@@ -458,10 +497,12 @@ header {
     margin-bottom: 10px;
 }
 
+/* Checkbox Input */
 .dict-popup input[type="checkbox"] {
     margin-right: 10px;
 }
 
+/* Button Styling */
 .dict-popup .btn {
     background-color: #4caf50; /* Green background */
     border: 2px solid #4caf50; /* Matching green border */
@@ -478,9 +519,11 @@ header {
     border-color: #388e3c;     /* Darker border on hover */
 }
 
+/* Close Button Styling */
 .dict-popup .dict-close-popup-button {
     background-color: #f44336; /* Red background for close button */
     border: 2px solid #f44336; /* Matching red border */
+    margin-top: 10px;
 }
 
 .dict-popup .dict-close-popup-button:hover {
