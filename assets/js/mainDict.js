@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             orderBySelect.addEventListener('change', () => {
                 pendingChanges.sortOrder = orderBySelect.value;
                 console.log('Selected order:', pendingChanges.sortOrder);
-                updatePendingChangesList();
+                updatePendingChangesList(pendingChanges, language);
             });
         }
 
