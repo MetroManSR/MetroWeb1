@@ -1,5 +1,6 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
+import { highlight } from './utils.js';
 
 function isUniqueResult(row, existingRows) {
     return !existingRows.some(existingRow => existingRow.id === row.id);
@@ -55,7 +56,8 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         searchTerm = '',
         exactMatch = false,
         searchIn = { word: true, root: true, definition: false, etymology: false },
-        filters = []
+        filters = [],
+        rowsPerPage: paramsRowsPerPage = 20
     } = params;
 
     console.log('Initial allRows:', allRows);
@@ -70,6 +72,19 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
             const etymologyMatch = searchIn.etymology && (exactMatch ? row.morph.includes(searchTerm) : row.morph.some(morphItem => morphItem.toLowerCase().includes(searchTerm.toLowerCase())));
             return titleMatch || rootMatch || definitionMatch || etymologyMatch;
         });
+
+        // Remove duplicates
+        const seen = new Set();
+        filteredRows = filteredRows.filter(row => {
+            const identifier = `${row.type}-${row.title}`;
+            if (seen.has(identifier)) {
+                return false;
+            } else {
+                seen.add(identifier);
+                return true;
+            }
+        });
+
         console.log('After search term filtering:', filteredRows);
     }
 
@@ -79,23 +94,13 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         console.log('After filter criteria:', filteredRows);
     }
 
-    // Ensure the search results are unique
-    const uniqueFilteredRows = [];
-    filteredRows.forEach(row => {
-        if (isUniqueResult(row, uniqueFilteredRows)) {
-            uniqueFilteredRows.push(row);
-        }
-    });
-    filteredRows = uniqueFilteredRows;
-    console.log('After ensuring unique results:', filteredRows);
-
     // Sort filtered rows based on the current sorting manner
     filteredRows = sortRows(filteredRows, sortingManner);
     console.log('After sorting:', filteredRows);
 
     // Update pagination and render boxes
-    createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-    renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
+    createPaginationControls(paramsRowsPerPage, filteredRows, currentPage, displayPage);
+    renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, paramsRowsPerPage, currentPage);
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 
     // Show "Settings Applied" notification
