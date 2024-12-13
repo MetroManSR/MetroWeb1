@@ -64,14 +64,14 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     } = params;
 
     console.log('Initial allRows:', allRows);
-    let filteredRows = allRows;
+    let filteredRows = [];
 
     // Normalize and remove diacritics if needed
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
 
     // Apply search term filtering
     if (searchTerm) {
-        filteredRows = filteredRows.filter(row => {
+        filteredRows = allRows.filter(row => {
             const normalizedTitle = normalize(row.title.toLowerCase());
             const normalizedMeta = normalize(row.meta.toLowerCase());
             const normalizedMorph = row.morph.map(morphItem => normalize(morphItem.toLowerCase()));
@@ -107,20 +107,6 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
 
             return titleMatch || rootMatch || definitionMatch || etymologyMatch;
         });
-
-        // Remove duplicates
-        const seen = new Set();
-        filteredRows = filteredRows.filter(row => {
-            const identifier = `${row.type}-${row.title}`;
-            if (seen.has(identifier)) {
-                return false;
-            } else {
-                seen.add(identifier);
-                return true;
-            }
-        });
-
-        console.log('After search term filtering:', filteredRows);
     }
 
     // Apply filter criteria for parts of speech
@@ -128,6 +114,17 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         filteredRows = filteredRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()));
         console.log('After filter criteria:', filteredRows);
     }
+
+    // Remove duplicates using isUniqueResult
+    const uniqueRows = [];
+    filteredRows.forEach(row => {
+        if (isUniqueResult(row, uniqueRows)) {
+            uniqueRows.push(row);
+        }
+    });
+    filteredRows = uniqueRows;
+
+    console.log('After removing duplicates:', filteredRows);
 
     // Sort filtered rows based on the current sorting manner
     filteredRows = sortRows(filteredRows, sortingManner);
@@ -149,7 +146,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     setTimeout(() => {
         settingsAppliedText.remove();
     }, 1000);
-    }
+}
 
 /**
  * Displays the specified page of results.
