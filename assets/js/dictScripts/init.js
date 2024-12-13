@@ -44,6 +44,7 @@ export async function updatePendingChangesList(pendingChanges, language) {
 }
 
 export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
+    const language = document.querySelector('meta[name="language"]').content || 'en';
     let currentPage = 1;
     let previouslySelectedBox = null;
     let lastClickTime = 0;
@@ -54,13 +55,13 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
         pendingChangesElement.style.display = 'block';
     }
 
-    updatePendingChangesList(pendingChanges);
+    updatePendingChangesList(pendingChanges, language);
 
     const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
             pendingChanges.sortOrder = orderBySelect.value;
-                updatePendingChangesList(pendingChanges);
+                updatePendingChangesList(pendingChanges, language);
         });
     }
     
@@ -68,7 +69,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
 if (filterSelect) {
     filterSelect.addEventListener('change', () => {
         pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
-            updatePendingChangesList(pendingChanges);
+            updatePendingChangesList(pendingChanges,  language);
     });
 }
 
@@ -113,7 +114,7 @@ if (cleanSettingsButton) {
             rowsPerPage: 20,
             sortOrder: 'titleup' // Default sort order
         };
-        updatePendingChangesList(pendingChanges, currentLanguage);
+        updatePendingChangesList(pendingChanges, language);
         processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
         // Remove URL parameters without reloading the page
         history.pushState({}, document.title, window.location.pathname);
@@ -125,7 +126,7 @@ if (cleanSettingsButton) {
         cleanSearchButton.addEventListener('click', () => {
             pendingChanges.searchTerm = '';
             document.getElementById('dict-search-input').value = '';
-                updatePendingChangesList(pendingChanges);
+                updatePendingChangesList(pendingChanges, language);
             processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
@@ -136,7 +137,7 @@ if (cleanSettingsButton) {
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             pendingChanges.searchTerm = e.target.value;
-                updatePendingChangesList(pendingChanges);
+                updatePendingChangesList(pendingChanges, language);
         });
     }
 
@@ -144,7 +145,7 @@ if (cleanSettingsButton) {
     if (rowsPerPageSelect) {
         rowsPerPageSelect.addEventListener('change', () => {
             pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
-                updatePendingChangesList(pendingChanges);
+                updatePendingChangesList(pendingChanges, language);
         });
     }
 
@@ -195,7 +196,7 @@ async function handleClickEvent(e) {
     relatedWordsElement.className = 'related-words';
     relatedWordsElement.style.fontSize = '0.85em';
 
-    const language = document.querySelector('meta[name="language"]').content || 'en';
+    
 
     let derivativeWordsLabel = '';
     let relatedWordsLabel = '';
