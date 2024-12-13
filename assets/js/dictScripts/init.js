@@ -148,13 +148,36 @@ if (cleanSettingsButton) {
         });
     }
 
-    const searchInput = document.getElementById('dict-search-input');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            pendingChanges.searchTerm = e.target.value;
-                updatePendingChangesList(pendingChanges, language);
-        });
+    document.getElementById('dict-search-input').addEventListener('input', function() {
+    const searchTerm = this.value.trim().toLowerCase();
+    const predictionBox = document.getElementById('dict-search-predictions');
+    
+    if (searchTerm.length === 0) {
+        predictionBox.innerHTML = '';
+        return;
     }
+
+    const predictions = allRows
+        .filter(row => row.title.toLowerCase().includes(searchTerm))
+        .slice(0, 10) // Limit to the first 10 matches
+        .map(row => row.title);
+
+    if (predictions.length === 0) {
+        predictionBox.innerHTML = '';
+        return;
+    }
+
+    predictionBox.innerHTML = predictions.map(title => `<div>${highlight(title, searchTerm)}</div>`).join('');
+
+    // Add click event to predictions
+    Array.from(predictionBox.children).forEach((prediction, index) => {
+        prediction.addEventListener('click', () => {
+            document.getElementById('dict-search-input').value = predictions[index];
+            predictionBox.innerHTML = '';
+            processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+        });
+    });
+});
 
     const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
     if (rowsPerPageSelect) {
