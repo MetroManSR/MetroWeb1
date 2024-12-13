@@ -2,6 +2,13 @@ import { processAllSettings } from './processRows.js';
 import { updatePendingChangesList } from './init.js';
 
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
+    const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
+    const popupOverlay = document.getElementById('dict-popup-overlay');
+        
+        // Add class to make popup visible  
+    popupOverlay.style.display = 'flex';
+    advancedSearchPopup.style.display = 'block'; 
+    
     document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
         processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage);
     });
