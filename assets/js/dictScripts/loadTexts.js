@@ -28,6 +28,22 @@ export async function setTexts(language) {
             orderBySelect.options[5].textContent = currentTexts.morphDesc;
         }
 
+        // Update the filter dropdown options text
+        const filterSelect = document.getElementById('dict-word-filter');
+        if (filterSelect) {
+            filterSelect.options[0].textContent = currentTexts.searchInWord;
+            filterSelect.options[1].textContent = currentTexts.searchInRoot;
+            filterSelect.options[2].textContent = currentTexts.noun;
+            filterSelect.options[3].textContent = currentTexts.verb;
+            filterSelect.options[4].textContent = currentTexts.adjective;
+            filterSelect.options[5].textContent = currentTexts.adverb;
+            filterSelect.options[6].textContent = currentTexts.conjunction;
+            filterSelect.options[7].textContent = currentTexts.interjection;
+            filterSelect.options[8].textContent = currentTexts.preposition;
+            filterSelect.options[9].textContent = currentTexts.expression;
+            filterSelect.options[10].textContent = currentTexts.pronoun;
+        }
+
         // Apply other labels as required
         document.getElementById('dict-loading-message-text').textContent = currentTexts.loadingMessage;
         document.getElementById('dict-error-message').textContent = currentTexts.errorLoadingData;
@@ -37,11 +53,11 @@ export async function setTexts(language) {
             <p>${currentTexts.pendingChanges}</p>
             <p>${currentTexts.noPendingChanges}</p>
             <ul>
-                <li><strong>${currentTexts.searchTerm}:</strong> ${currentTexts.searchInWord}</li>
-                <li><strong>${currentTexts.exactMatch}:</strong> ${currentTexts.exactMatch}</li>
-                <li><strong>${currentTexts.filters}:</strong> ${currentTexts.filters}</li>
-                <li><strong>${currentTexts.sortOrder}:</strong> ${currentTexts.sortOrder}</li>
-                <li><strong>${currentTexts.rowsPerPage}:</strong> ${currentTexts.rowsPerPage}</li>
+                <li><strong>${currentTexts.searchTerm}:</strong> ${pendingChanges.searchTerm}</li>
+                <li><strong>${currentTexts.exactMatch}:</strong> ${pendingChanges.exactMatch}</li>
+                <li><strong>${currentTexts.filters}:</strong> ${pendingChanges.filters.join(', ')}</li>
+                <li><strong>${currentTexts.sortOrder}:</strong> ${pendingChanges.sortOrder}</li>
+                <li><strong>${currentTexts.rowsPerPage}:</strong> ${pendingChanges.rowsPerPage}</li>
             </ul>
         `;
     } catch (error) {
@@ -59,4 +75,4 @@ export async function getTranslatedText(key, language) {
         console.error('Error fetching translated text:', error);
         return key; // Return the key as fallback
     }
-}
+} 
