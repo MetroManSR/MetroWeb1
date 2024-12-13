@@ -1,5 +1,6 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
-import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
+import { renderBox, createDictionaryBox, createNoMatchBox } from './boxes.js';
+import { attachIcons } from './boxEvents.js';
 
 /**
  * Displays the specified page of results.
@@ -32,6 +33,9 @@ export function displaySpecificEntry(row, allRows) {
     if (box) {
         dictionaryContainer.appendChild(box);
     }
+
+    // Attach icons to the dictionary box
+    attachIcons(box, row);
 }
 
 // Function for exact and unique word search
