@@ -158,6 +158,8 @@ searchInput.addEventListener('input', function() {
     
     if (searchTerm.length === 0) {
         predictionBox.innerHTML = '';
+        pendingChanges.searchTerm = ''; // Clear searchTerm in pending changes
+        updatePendingChangesList(pendingChanges, currentLanguage); // Update pending changes list
         return;
     }
 
@@ -177,6 +179,8 @@ searchInput.addEventListener('input', function() {
 
     if (predictions.length === 0) {
         predictionBox.innerHTML = '';
+        pendingChanges.searchTerm = searchTerm; // Update searchTerm in pending changes
+        updatePendingChangesList(pendingChanges, currentLanguage); // Update pending changes list
         return;
     }
 
@@ -188,6 +192,8 @@ searchInput.addEventListener('input', function() {
             searchInput.value = predictions[index];
             predictionBox.innerHTML = '';
             // No search function call here
+            pendingChanges.searchTerm = predictions[index]; // Update searchTerm in pending changes
+            updatePendingChangesList(pendingChanges, currentLanguage); // Update pending changes list
         });
     });
 
@@ -196,6 +202,20 @@ searchInput.addEventListener('input', function() {
     updatePendingChangesList(pendingChanges, currentLanguage);
 });
 
+// Hide prediction box if input search is not selected
+document.addEventListener('focusin', (e) => {
+    if (!searchInput.contains(e.target) && !predictionBox.contains(e.target)) {
+        predictionBox.innerHTML = '';
+    }
+});
+
+// Handle focus event to show predictions if input is not empty
+searchInput.addEventListener('focus', () => {
+    if (searchInput.value.trim().length > 0) {
+        searchInput.dispatchEvent(new Event('input'));
+    }
+}); 
+    
 // Hide prediction box if input search is not selected
 document.addEventListener('focusin', (e) => {
     if (!searchInput.contains(e.target) && !predictionBox.contains(e.target)) {
