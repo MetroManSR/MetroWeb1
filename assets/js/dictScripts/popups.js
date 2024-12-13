@@ -1,22 +1,17 @@
 import { processAllSettings } from './processRows.js';
-import { updatePendingChangesList } from './init.js';
+import { updatePendingChangesList } from './updatePendingChangesList.js';
 
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
-    const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-    const popupOverlay = document.getElementById('dict-popup-overlay');
-        
-        // Add class to make popup visible  
-    advancedSearchPopup.classList.add('active');
-    document.getElementById('dict-popup-overlay').classList.add('active');
-
-    
     document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
         processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage);
     });
 
     document.getElementById('dict-advanced-search-button').addEventListener('click', () => {
         const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-        document.getElementById('dict-popup-overlay').classList.add('active');
+        const popupOverlay = document.getElementById('dict-popup-overlay');
+        
+        // Add class to make popup visible
+        popupOverlay.classList.add('active');
         advancedSearchPopup.classList.add('active');
 
         // Load previous selections if any
@@ -35,8 +30,11 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
     });
 
     document.getElementById('dict-close-popup-button').addEventListener('click', () => {
-        document.getElementById('dict-advanced-search-popup').classList.remove('active');
-        document.getElementById('dict-popup-overlay').classList.remove('active');
+        const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
+        const popupOverlay = document.getElementById('dict-popup-overlay');
+        
+        advancedSearchPopup.classList.remove('active');
+        popupOverlay.classList.remove('active');
     });
 
     document.getElementById('dict-add-search-button-popup').addEventListener('click', async () => {
