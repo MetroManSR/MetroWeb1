@@ -64,6 +64,14 @@ async function updatePendingChangesList(language) {
             updatePendingChangesList();
         });
     }
+    
+    const filterSelect = document.getElementById('dict-word-filter');
+if (filterSelect) {
+    filterSelect.addEventListener('change', () => {
+        pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
+        updatePendingChangesList();
+    });
+}
 
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
 if (toggleFilterButton) {
