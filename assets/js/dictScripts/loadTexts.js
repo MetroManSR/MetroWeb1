@@ -32,6 +32,19 @@ export async function setTexts(language) {
         // Apply other labels as required
         document.getElementById('dict-loading-message-text').textContent = currentTexts.loadingMessage;
         document.getElementById('dict-error-message').textContent = currentTexts.errorLoadingData;
+
+        // Pending Changes Section
+        document.getElementById('dict-pending-changes').innerHTML = `
+            <p>${currentTexts.pendingChanges}</p>
+            <p>${currentTexts.noPendingChanges}</p>
+            <ul>
+                <li><strong>${currentTexts.searchTerm}:</strong> ${currentTexts.searchInWord}</li>
+                <li><strong>${currentTexts.exactMatch}:</strong> ${currentTexts.exactMatch}</li>
+                <li><strong>${currentTexts.filters}:</strong> ${currentTexts.filters}</li>
+                <li><strong>${currentTexts.sortOrder}:</strong> ${currentTexts.sortOrder}</li>
+                <li><strong>${currentTexts.rowsPerPage}:</strong> ${currentTexts.rowsPerPage}</li>
+            </ul>
+        `;
     } catch (error) {
         console.error('Error loading texts:', error);
     }
