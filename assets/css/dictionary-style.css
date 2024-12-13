@@ -500,7 +500,7 @@ header {
     z-index: 1000;
     max-height: 150px;
     overflow-y: auto;
-    width: 90%;
+    width: 100%; /* This will dynamically resize to the width of the search input */
     margin-top: 2px;
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
