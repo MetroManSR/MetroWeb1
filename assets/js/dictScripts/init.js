@@ -104,21 +104,22 @@ if (toggleFilterButton) {
     }
 
     const cleanSettingsButton = document.getElementById('dict-clear-settings-button');
-    if (cleanSettingsButton) {
-        cleanSettingsButton.addEventListener('click', () => {
-            pendingChanges = {
-                searchTerm: '',
-                exactMatch: false,
-                searchIn: { word: true, root: true, definition: false, etymology: false },
-                filters: [],
-                rowsPerPage: 20
-            };
-            updatePendingChangesList();
-            processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
-            // Remove URL parameters without reloading the page
-            history.pushState({}, document.title, window.location.pathname);
-        });
-    }
+if (cleanSettingsButton) {
+    cleanSettingsButton.addEventListener('click', () => {
+        pendingChanges = {
+            searchTerm: pendingChanges.searchTerm, // Retain the search term
+            exactMatch: false,
+            searchIn: { word: true, root: true, definition: false, etymology: false },
+            filters: [],
+            rowsPerPage: 20,
+            sortOrder: 'titleup' // Default sort order
+        };
+        updatePendingChangesList(currentLanguage);
+        processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+        // Remove URL parameters without reloading the page
+        history.pushState({}, document.title, window.location.pathname);
+    });
+}
 
     const cleanSearchButton = document.getElementById('dict-clear-search-button');
     if (cleanSearchButton) {
