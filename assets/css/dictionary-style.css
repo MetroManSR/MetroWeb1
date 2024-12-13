@@ -386,3 +386,41 @@ header {
     background-color: #d7ffd9; /* Lighter green on hover for interactive feel */
     border-color: #388e3c;     /* Darker border on hover */
 }
+
+.dict-search-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px; /* Space between elements */
+}
+
+.dict-filter-button {
+    background-color: #f0f4c3; /* Light green background */
+    border: 2px solid #cddc39; /* Green border */
+    border-radius: 6px;        /* Rounded corners */
+    padding: 5px 10px;         /* Padding for spacing */
+    color: #333;               /* Dark text color */
+    cursor: pointer;           /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.dict-filter-button:hover {
+    background-color: #dce775; /* Darker green on hover */
+    border-color: #afb42b;     /* Darker border on hover */
+}
+
+.dict-pagination-container,
+.dict-filter-dropdown-container,
+.dict-sorting-container {
+    margin-bottom: 15px;       /* Space between sections */
+}
+
+.dict-rows-input,
+.dict-filter-select,
+.dict-order-select {
+    border: 1px solid #ccc;    /* Light grey border */
+    border-radius: 4px;        /* Rounded corners */
+    padding: 8px;              /* Padding for input fields */
+    margin-left: 10px;         /* Space between label and input */
+    font-size: 1em;            /* Consistent font size */
+}
