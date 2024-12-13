@@ -134,7 +134,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     console.log('After removing duplicates:', filteredRows);
 
     // Clear previous rows before rendering new ones
-    const renderContainer = document.getElementById('render-container'); // Ensure the correct container ID
+    const renderContainer = document.getElementById('dict-dictionary'); // Ensure the correct container ID
     renderContainer.innerHTML = '';
 
     // Sort filtered rows based on the current sorting manner
@@ -142,7 +142,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     console.log('After sorting:', filteredRows);
 
     // Highlight terms in the filtered rows based on search criteria
-    filteredRows = filteredRows.map(row => highlight(row, searchTerm, searchIn));
+    filteredRows = filteredRows.map(row => highlight(row, searchTerm, searchIn, row));
 
     // Update pagination and render boxes
     createPaginationControls(paramsRowsPerPage, filteredRows, currentPage, displayPage);
