@@ -343,57 +343,7 @@ header {
     opacity: 0.9;
 }
 
-.dict-pending-changes {
-    background-color: #f5f5f5; /* Light grey background for contrast */
-    border-radius: 8px;        /* Rounded corners for smoother appearance */
-    padding: 10px;             /* Padding for spacing */
-    margin: 15px 0;            /* Margin for separation from other elements */
-    font-size: 0.9em;          /* Slightly smaller font size for readability */
-    color: #333;               /* Darker text color for better contrast */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-
-.dict-pending-changes p {
-    margin: 5px 0;             /* Space between paragraphs */
-}
-
-.dict-pending-changes strong {
-    font-weight: bold;         /* Bold text for emphasis */
-}
-
-.dict-pending-changes {
-    background-color: #e8f5e9; /* Soft green background for a positive look */
-    border: 2px solid #4caf50; /* Green border to complement the background */
-    border-radius: 8px;        /* Rounded corners for a smooth appearance */
-    padding: 15px;             /* Padding for spacing */
-    margin: 15px 0;            /* Margin for separation from other elements */
-    font-size: 0.95em;         /* Slightly larger font size for readability */
-    color: #2e7d32;            /* Dark green text color for contrast */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
-}
-
-.dict-pending-changes p {
-    margin: 10px 0; /* Increased margin between paragraphs */
-}
-
-.dict-pending-changes strong {
-    font-weight: bold;        /* Bold text for emphasis */
-    color: #1b5e20;           /* Slightly darker green for key labels */
-}
-
-.dict-pending-changes:hover {
-    background-color: #d7ffd9; /* Lighter green on hover for interactive feel */
-    border-color: #388e3c;     /* Darker border on hover */
-}
-
-.dict-search-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px; /* Space between elements */
-}
-
+/* Orange Buttons */
 .dict-filter-button {
     background-color: #ff9800; /* Orange background */
     border: 2px solid #ff9800; /* Matching orange border */
@@ -409,10 +359,52 @@ header {
     border-color: #fb8c00;     /* Darker border on hover */
 }
 
+/* Green Buttons */
+.dict-search-button {
+    background-color: #4caf50; /* Green background */
+    border: 2px solid #4caf50; /* Matching green border */
+    border-radius: 6px;        /* Rounded corners */
+    padding: 5px 10px;         /* Padding for spacing */
+    color: #fff;               /* White text */
+    cursor: pointer;           /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.dict-search-button:hover {
+    background-color: #388e3c; /* Darker green on hover */
+    border-color: #388e3c;     /* Darker border on hover */
+}
+
+/* Yellow Buttons */
+.dict-toggle-filter-button,
+.dict-apply-settings-button,
+.dict-clear-settings-button {
+    background-color: #ffeb3b; /* Yellow background */
+    border: 2px solid #ffeb3b; /* Matching yellow border */
+    border-radius: 6px;        /* Rounded corners */
+    padding: 5px 10px;         /* Padding for spacing */
+    color: #333;               /* Dark text for contrast */
+    cursor: pointer;           /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.dict-toggle-filter-button:hover,
+.dict-apply-settings-button:hover,
+.dict-clear-settings-button:hover {
+    background-color: #fdd835; /* Darker yellow on hover */
+    border-color: #fdd835;     /* Darker border on hover */
+}
+
+/* Containers and Inputs */
+.dict-search-container,
 .dict-pagination-container,
 .dict-filter-dropdown-container,
 .dict-sorting-container {
     margin-bottom: 15px;       /* Space between sections */
+    padding: 10px;             /* Padding inside the containers */
+    border: 1px solid #ddd;    /* Light border for containers */
+    border-radius: 6px;        /* Rounded corners for containers */
+    background-color: #fff;    /* White background for clarity */
 }
 
 .dict-rows-input,
