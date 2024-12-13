@@ -53,33 +53,31 @@ export function getRelatedWordsByRoot(allRows) {
 /**
  * Highlights the search term in the specified field.
  *
- * @param {Object} row - The current row being processed.
+ * @param {string} text - The text to search within.
  * @param {string} term - The term to highlight.
  * @param {Object} searchIn - The fields to search within.
- * @returns {Object} - The row with highlighted terms in the specified fields.
+ * @param {Object} row - The current row being processed.
+ * @returns {string} - The text with highlighted terms if criteria are met.
  */
-export function highlight(row, term, searchIn = { word: true, root: true, definition: false, etymology: false }) {
-    const highlightText = (text) => {
-        if (!text || !term) return text;
-        const regex = new RegExp(`(${term})`, 'gi');
-        return text.replace(regex, '<mark style="background-color: yellow;">$1</mark>');
-    };
+export function highlight(text, term, searchIn = { word: true, root: true, definition: false, etymology: false }, row) {
+    if (!text || !term) return text;
 
-    const highlightedRow = { ...row };
-    if (searchIn.word && row.type === 'word') {
-        highlightedRow.title = highlightText(row.title);
-    }
-    if (searchIn.root && row.type === 'root') {
-        highlightedRow.title = highlightText(row.title);
-    }
-    if (searchIn.definition) {
-        highlightedRow.meta = highlightText(row.meta);
-    }
-    if (searchIn.etymology) {
-        highlightedRow.morph = row.morph.map(morphItem => highlightText(morphItem));
+    const normalizedTerm = term.toLowerCase();
+    let regex;
+
+    if (searchIn.word && row.type === 'word' && text === row.title) {
+        regex = new RegExp(`(${normalizedTerm})`, 'gi');
+    } else if (searchIn.root && row.type === 'root' && text === row.title) {
+        regex = new RegExp(`(${normalizedTerm})`, 'gi');
+    } else if (searchIn.definition && text === row.meta) {
+        regex = new RegExp(`(${normalizedTerm})`, 'gi');
+    } else if (searchIn.etymology && Array.isArray(row.morph) && row.morph.includes(text)) {
+        regex = new RegExp(`(${normalizedTerm})`, 'gi');
+    } else {
+        return text;
     }
 
-    return highlightedRow;
+    return text.replace(regex, '<mark style="background-color: yellow;">$1</mark>');
 }
 
 // Utility function to sanitize HTML
