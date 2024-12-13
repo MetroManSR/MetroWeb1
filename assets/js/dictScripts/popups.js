@@ -1,5 +1,5 @@
 import { processAllSettings } from './processRows.js';
-import { updatePendingChangesList } from './updatePendingChangesList.js';
+import { updatePendingChangesList } from './init.js';
 
 // Initialize Advanced Search Popup
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
