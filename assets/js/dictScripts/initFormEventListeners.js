@@ -1,5 +1,65 @@
-import { updatePendingChangesList } from './initDefaultValues.js';
+import { getTranslatedText } from './loadTexts.js';
 import { processAllSettings } from './processRows.js';
+
+export const defaultPendingChanges = {
+    searchTerm: '',
+    exactMatch: false,
+    searchIn: { word: true, root: true, definition: false, etymology: false },
+    filters: [],
+    rowsPerPage: 20,
+    sortOrder: 'titleup' // Default sort order
+};
+
+export async function updatePendingChangesList(pendingChanges, language) {
+    const pendingChangesElement = document.getElementById('dict-pending-changes');
+    if (!pendingChangesElement) return;
+
+    const { searchTerm, exactMatch, searchIn, filters, ignoreDiacritics, startsWith, endsWith, rowsPerPage } = pendingChanges;
+    let changesList = [];
+
+    if (searchTerm) {
+        const translatedSearchTerm = await getTranslatedText('searchTerm', language);
+        changesList.push(`<strong>${translatedSearchTerm}</strong>: "${searchTerm}"`);
+    }
+    if (exactMatch) {
+        const translatedExactMatch = await getTranslatedText('exactMatch', language);
+        changesList.push(`<strong>${translatedExactMatch}</strong>: ${translatedExactMatch}`);
+    }
+    if (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology) {
+        let searchInFields = [];
+        if (searchIn.word) searchInFields.push(await getTranslatedText('searchInWord', language));
+        if (searchIn.root) searchInFields.push(await getTranslatedText('searchInRoot', language));
+        if (searchIn.definition) searchInFields.push(await getTranslatedText('searchInDefinition', language));
+        if (searchIn.etymology) searchInFields.push(await getTranslatedText('searchInEtymology', language));
+        const translatedSearchIn = await getTranslatedText('searchIn', language);
+        changesList.push(`<strong>${translatedSearchIn}</strong>: ${searchInFields.join(', ')}`);
+    }
+    if (ignoreDiacritics) {
+        const translatedIgnoreDiacritics = await getTranslatedText('ignoreDiacritics', language);
+        changesList.push(`<strong>${translatedIgnoreDiacritics}</strong>`);
+    }
+    if (startsWith) {
+        const translatedStartsWith = await getTranslatedText('startsWith', language);
+        changesList.push(`<strong>${translatedStartsWith}</strong>`);
+    }
+    if (endsWith) {
+        const translatedEndsWith = await getTranslatedText('endsWith', language);
+        changesList.push(`<strong>${translatedEndsWith}</strong>`);
+    }
+    if (filters.length > 0) {
+        const translatedFilters = await getTranslatedText('filters', language);
+        const translatedFilterValues = await Promise.all(filters.map(async filter => await getTranslatedText(filter, language)));
+        changesList.push(`<strong>${translatedFilters}</strong>: ${translatedFilterValues.join(', ')}`);
+    }
+    if (rowsPerPage !== 20) {
+        const translatedRowsPerPage = await getTranslatedText('rowsPerPage', language);
+        changesList.push(`<strong>${translatedRowsPerPage}</strong>: ${rowsPerPage}`);
+    }
+
+    const translatedPendingChanges = await getTranslatedText('pendingChanges', language);
+    const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', language);
+    pendingChangesElement.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
+}
 
 export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPage, displayPage) {
     const language = document.querySelector('meta[name="language"]').content || 'en';
@@ -96,4 +156,4 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             updatePendingChangesList(pendingChanges, language);
         });
     }
-}
+                    }
