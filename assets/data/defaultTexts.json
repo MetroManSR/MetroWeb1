@@ -1,3 +1,4 @@
+
 {
     "en": {
         "searchPlaceholder": "Search...",
@@ -59,7 +60,15 @@
         "whenLookingFor": "when looking for",
         "withFilters": "with filters",
         "withAdvancedSearch": "with advanced search applied",
-        "toggleFiltersButton": "Toggle Filters"
+        "toggleFiltersButton": "Toggle Filters",
+
+        "pendingChanges": "Pending Changes",
+        "noPendingChanges": "No pending changes",
+        "searchTerm": "Search Term",
+        "exactMatch": "Exact Match",
+        "filters": "Filters",
+        "sortOrder": "Sort Order",
+        "rowsPerPage": "Rows Per Page"
     },
     "es": {
 
@@ -123,7 +132,16 @@
         "whenLookingFor": "al buscar",
         "withFilters": "con filtros",
         "withAdvancedSearch": "con búsqueda avanzada aplicada",
-        "toggleFiltersButton": "Mostrar o Esconder Filtros"
+        "toggleFiltersButton": "Mostrar o Esconder Filtros",
+
+        "pendingChanges": "Cambios Pendientes",
+        "noPendingChanges": "No hay cambios pendientes",
+        "searchTerm": "Término de Búsqueda",
+        "exactMatch": "Coincidencia Exacta",
+        "filters": "Filtros",
+        "sortOrder": "Orden de Clasificación",
+        "rowsPerPage": "Filas Por Página"
+    
     },
     "eo": {},
     "blk": {}
