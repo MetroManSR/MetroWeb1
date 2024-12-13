@@ -1,6 +1,7 @@
 import { processAllSettings } from './processRows.js';
-import { updatePendingChangesList } from './init.js';
+import { updatePendingChangesList } from './updatePendingChangesList.js';
 
+// Initialize Advanced Search Popup
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
     document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
         processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage);
@@ -31,7 +32,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
 
     document.getElementById('dict-close-popup-button').addEventListener('click', () => {
         const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-        const popupOverlay = document.getElementById('dict-popup-overlay');
+        const popupOverlay = document.getElementById('dict-popup-overlay-advse');
         
         advancedSearchPopup.classList.remove('active');
         popupOverlay.classList.remove('active');
@@ -69,6 +70,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
     if (searchInEtymology) searchInEtymology.checked = true;
 }
 
+// Initialize Statistics Popup
 export function initStatisticsPopup(allRows) {
     document.getElementById('dict-view-statistics-button').addEventListener('click', () => {
         const totalWords = allRows.filter(row => row.type === 'word').length;
@@ -100,5 +102,13 @@ export function initStatisticsPopup(allRows) {
             statisticsContainer.classList.remove('active');
             document.getElementById('dict-popup-overlay').classList.remove('active');
         });
+    });
+}
+
+// Add event listener for advanced search button to initialize the popup
+const advancedSearchButton = document.getElementById('dict-advanced-search-button');
+if (advancedSearchButton) {
+    advancedSearchButton.addEventListener('click', () => {
+        initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage);
     });
 }
