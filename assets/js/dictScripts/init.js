@@ -171,7 +171,7 @@ searchInput.addEventListener('input', function() {
     if (searchTerm.length === 0) {
         predictionBox.innerHTML = '';
         pendingChanges.searchTerm = ''; // Clear searchTerm in pending changes
-        updatePendingChangesList(pendingChanges, currentLanguage); // Update pending changes list
+        updatePendingChangesList(pendingChanges, language); // Update pending changes list
         return;
     }
 
@@ -192,7 +192,7 @@ searchInput.addEventListener('input', function() {
     if (predictions.length === 0) {
         predictionBox.innerHTML = '';
         pendingChanges.searchTerm = searchTerm; // Update searchTerm in pending changes
-        updatePendingChangesList(pendingChanges, currentLanguage); // Update pending changes list
+        updatePendingChangesList(pendingChanges, language); // Update pending changes list
         return;
     }
 
@@ -203,13 +203,13 @@ searchInput.addEventListener('input', function() {
             searchInput.value = predictions[index];
             predictionBox.innerHTML = '';
             pendingChanges.searchTerm = predictions[index]; // Update searchTerm in pending changes
-            updatePendingChangesList(pendingChanges, currentLanguage); // Update pending changes list
+            updatePendingChangesList(pendingChanges, language); // Update pending changes list
         });
     });
 
     // Update pending changes list while typing
     pendingChanges.searchTerm = searchTerm;
-    updatePendingChangesList(pendingChanges, currentLanguage);
+    updatePendingChangesList(pendingChanges, language);
 });
 
 // Hide prediction box if input search is not selected
