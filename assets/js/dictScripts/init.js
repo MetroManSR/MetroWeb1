@@ -108,7 +108,7 @@ if (cleanSettingsButton) {
         pendingChanges = {
             searchTerm: pendingChanges.searchTerm, // Retain the search term
             exactMatch: false,
-            searchIn: { word: true, root: true, definition: false, etymology: false },
+            searchIn: { word: true, root: true, definition: true, etymology: true },
             filters: [],
             rowsPerPage: 20,
             sortOrder: 'titleup' // Default sort order
