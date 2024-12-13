@@ -1,6 +1,7 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
 import { highlight } from './utils.js';
+import { attachIcons } from './boxEvents.js';
 
 /**
  * Sorts rows based on the specified sorting manner.
@@ -29,7 +30,7 @@ export function sortRows(rows, sortingManner) {
         case 'morphdown':
             return rows.sort((a, b) => {
                 const morphA = Array.isArray(a.morph) ? a.morph.join(' ') : a.morph || '';
-                const morphB = Array.isArray(b.morph) ? b.morph.join(' ') : b.morph || '';
+                const morphB = Array.isArray(b.morph) ? b.morph join(' ') : b.morph || '';
                 return morphB.localeCompare(morphA);
             });
         default:
@@ -132,7 +133,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
             const etymologyMatch = searchIn.etymology && (
                 (exactMatch && normalizedMorph.includes(term)) ||
                 (startsWith && normalizedMorph.some(item => item.startsWith(term))) ||
-                (endsWith && normalizedMorph.some(item => item.endsWith(term))) ||
+                (endsWith && normalizedMorph.some(item.endsWith(term))) ||
                 (!exactMatch && !startsWith && !endsWith && normalizedMorph.some(item => item.includes(term)))
             );
 
@@ -232,6 +233,9 @@ export function displaySpecificEntry(row, allRows) {
     if (box) {
         dictionaryContainer.appendChild(box);
     }
+
+    // Attach icons to the dictionary box
+    attachIcons(box, row);
 }
 
 /**
