@@ -149,7 +149,6 @@ if (cleanSettingsButton) {
     }
 
     document.getElementById('dict-search-input').addEventListener('input', function() {
-    document.getElementById('dict-search-input').addEventListener('input', function() {
     const searchTerm = this.value.trim().toLowerCase();
     const predictionBox = document.getElementById('dict-search-predictions');
     
@@ -177,6 +176,7 @@ if (cleanSettingsButton) {
             predictionBox.innerHTML = '';
             // No search function call here
         });
+    });
     });
 
 
