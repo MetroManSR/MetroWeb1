@@ -66,13 +66,13 @@ async function updatePendingChangesList(language) {
     }
 
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    if (toggleFilterButton) {
-        toggleFilterButton.addEventListener('click', () => {
-            const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
-            filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
-            filterSortingContainer.classList.toggle('dict-filter-cont-visible');
-        });
-    }
+if (toggleFilterButton) {
+    toggleFilterButton.addEventListener('click', () => {
+        const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+        filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
+        filterSortingContainer.classList.toggle('dict-filter-cont-visible');
+    });
+}
 
     const advancedSearchButton = document.getElementById('dict-advanced-search-button');
     if (advancedSearchButton) {
