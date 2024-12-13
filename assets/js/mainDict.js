@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     pendingChanges = {
         searchTerm: '',
         exactMatch: false,
-        searchIn: { word: true, root: true, definition: false, etymology: false },
+        searchIn: { word: true, root: true, definition: true, etymology: false },
         filters: [],
         rowsPerPage: 20,
         sortOrder: 'titleup'
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const rootSpecificTerm = params.get('rootSpecific');
 
         if (searchTerm && searchTerm.trim()) {
-            const criteria = { searchTerm: searchTerm.trim(), searchIn: { word: true, root: true, definition: false, etymology: false } };
+            const criteria = { searchTerm: searchTerm.trim(), searchIn: { word: true, root: true, definition: true, etymology: false } };
             processAllSettings(criteria, allRows, rowsPerPage, displayPage, currentPage, currentSortOrder);
         } else if (wordID && parseInt(wordID) > 0) {
             const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
@@ -146,8 +146,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                     word: formData.get('search-in-word') === 'on',
                     root: formData.get('search-in-root') === 'on',
                     definition: formData.get('search-in-definition') === 'on',
-                    etymology: formData.get('search-in-etymology') === 'off',
-                    exactMatch: formData.get('exact-match') === 'off'
+                    etymology: formData.get('search-in-etymology') === 'on',
+                    exactMatch: formData.get('exact-match') === 'on'
                 };
                 processAllSettings(params, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             });
