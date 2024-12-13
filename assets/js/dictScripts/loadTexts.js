@@ -75,4 +75,4 @@ export async function getTranslatedText(key, language) {
         console.error('Error fetching translated text:', error);
         return key; // Return the key as fallback
     }
-} 
+}
