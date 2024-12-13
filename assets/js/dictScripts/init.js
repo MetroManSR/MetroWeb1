@@ -4,21 +4,11 @@ import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
 
-export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
-    let currentPage = 1;
-    let previouslySelectedBox = null;
-    let lastClickTime = 0;
-
-    // Ensure pendingChanges list is visible on page load
-    const pendingChangesElement = document.getElementById('dict-pending-changes');
-    if (pendingChangesElement) {
-        pendingChangesElement.style.display = 'block';
-    }
 
     /**
  * Updates the pending changes display.
  */
-async function updatePendingChangesList(language) {
+export async function updatePendingChangesList(language) {
     const pendingChangesElement = document.getElementById('dict-pending-changes');
     if (!pendingChangesElement) return;
 
@@ -53,7 +43,18 @@ async function updatePendingChangesList(language) {
     const translatedPendingChanges = await getTranslatedText('pendingChanges', language);
     const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', language);
     pendingChangesElement.innerHTML = changes.length ? `<p><strong>${translatedPendingChanges}</strong></p><p>${changes.join('</p><p>')}</p>` : `<p>${translatedNoPendingChanges}</p>`;
-}
+} 
+
+export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
+    let currentPage = 1;
+    let previouslySelectedBox = null;
+    let lastClickTime = 0;
+
+    // Ensure pendingChanges list is visible on page load
+    const pendingChangesElement = document.getElementById('dict-pending-changes');
+    if (pendingChangesElement) {
+        pendingChangesElement.style.display = 'block';
+    }
 
     updatePendingChangesList();
 
