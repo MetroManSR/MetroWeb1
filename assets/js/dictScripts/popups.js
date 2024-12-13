@@ -1,17 +1,14 @@
 import { processAllSettings } from './processRows.js';
 import { updatePendingChangesList } from './init.js';
 
-// Initialize Advanced Search Popup
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
-   const language = document.querySelector('meta[name="language"]').content || 'en';
-    document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
-        processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage);
-    });
+    const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
+    const popupOverlay = document.getElementById('dict-popup-overlay-advse');
 
-    document.getElementById('dict-advanced-search-button').addEventListener('click', () => {
-        const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-        const popupOverlay = document.getElementById('dict-popup-overlay-advse');
-        
+    if (advancedSearchPopup.classList.contains('active')) {
+        advancedSearchPopup.classList.remove('active');
+        popupOverlay.classList.remove('active');
+    } else {
         // Add class to make popup visible
         popupOverlay.classList.add('active');
         advancedSearchPopup.classList.add('active');
@@ -29,12 +26,9 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         Array.from(wordFilterSelect.options).forEach(option => {
             option.selected = pendingChanges.filters.includes(option.value);
         });
-    });
+    }
 
     document.getElementById('dict-close-popup-button').addEventListener('click', () => {
-        const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-        const popupOverlay = document.getElementById('dict-popup-overlay-advse');
-        
         advancedSearchPopup.classList.remove('active');
         popupOverlay.classList.remove('active');
     });
@@ -56,7 +50,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         pendingChanges.searchIn = searchIn;
         pendingChanges.filters = selectedFilters;
         
-        await updatePendingChangesList(pendingChanges, language);
+        await updatePendingChangesList(pendingChanges, currentLanguage);
     });
 
     // Ensure all checkboxes are checked by default
@@ -73,7 +67,13 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
 
 // Initialize Statistics Popup
 export function initStatisticsPopup(allRows) {
-    document.getElementById('dict-view-statistics-button').addEventListener('click', () => {
+    const statisticsPopup = document.getElementById('dict-statistics-popup');
+    const popupOverlay = document.getElementById('dict-popup-overlay');
+
+    if (statisticsPopup.classList.contains('active')) {
+        statisticsPopup.classList.remove('active');
+        popupOverlay.classList.remove('active');
+    } else {
         const totalWords = allRows.filter(row => row.type === 'word').length;
         const totalRoots = allRows.filter(row => row.type === 'root').length;
 
@@ -84,8 +84,7 @@ export function initStatisticsPopup(allRows) {
             return counts;
         }, {});
 
-        const statisticsContainer = document.getElementById('dict-statistics-popup');
-        statisticsContainer.innerHTML = `
+        statisticsPopup.innerHTML = `
             <h3>Statistics</h3>
             <p>Total Words: ${totalWords}</p>
             <p>Total Roots: ${totalRoots}</p>
@@ -96,12 +95,12 @@ export function initStatisticsPopup(allRows) {
             <button id="dict-close-statistics-button" class="btn">Close</button>
         `;
 
-        statisticsContainer.classList.add('active');
-        document.getElementById('dict-popup-overlay').classList.add('active');
+        statisticsPopup.classList.add('active');
+        popupOverlay.classList.add('active');
 
         document.getElementById('dict-close-statistics-button').addEventListener('click', () => {
-            statisticsContainer.classList.remove('active');
-            document.getElementById('dict-popup-overlay').classList.remove('active');
+            statisticsPopup.classList.remove('active');
+            popupOverlay.classList.remove('active');
         });
-    });
+    }
 }
