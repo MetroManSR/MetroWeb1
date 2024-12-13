@@ -4,7 +4,7 @@ import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
 
- export async function updatePendingChangesList(pendingChanges, language) {
+export async function updatePendingChangesList(pendingChanges, language) {
     const pendingChangesElement = document.getElementById('dict-pending-changes');
     if (!pendingChangesElement) return;
 
@@ -17,7 +17,7 @@ import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
     }
     if (exactMatch) {
         const translatedExactMatch = await getTranslatedText('exactMatch', language);
-        changesList.push(`<strong>${translatedExactMatch}</strong>: On`);
+        changesList.push(`<strong>${translatedExactMatch}</strong>: ${translatedExactMatch}`);
     }
     if (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology) {
         let searchInFields = [];
@@ -41,7 +41,7 @@ import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
     const translatedPendingChanges = await getTranslatedText('pendingChanges', language);
     const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', language);
     pendingChangesElement.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
- }
+}
 
 export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     let currentPage = 1;
