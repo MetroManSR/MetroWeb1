@@ -1,25 +1,41 @@
 import { processAllSettings } from './processRows.js';
 
-export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges) {
-    const updatePendingChangesList = () => {
+export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
+    const updatePendingChangesList = async () => {
         const pendingChangesContainer = document.getElementById('dict-pending-changes');
         const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
         let changesList = [];
 
-        if (searchTerm) changesList.push(`Search Term: "${searchTerm}"`);
-        if (exactMatch) changesList.push(`Exact Match: On`);
+        if (searchTerm) {
+            const translatedSearchTerm = await getTranslatedText('searchTerm', currentLanguage);
+            changesList.push(`<strong>${translatedSearchTerm}</strong>: "${searchTerm}"`);
+        }
+        if (exactMatch) {
+            const translatedExactMatch = await getTranslatedText('exactMatch', currentLanguage);
+            changesList.push(`<strong>${translatedExactMatch}</strong>: On`);
+        }
         if (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology) {
             let searchInFields = [];
-            if (searchIn.word) searchInFields.push('Word');
-            if (searchIn.root) searchInFields.push('Root');
-            if (searchIn.definition) searchInFields.push('Definition');
-            if (searchIn.etymology) searchInFields.push('Etymology');
-            changesList.push(`Search In: ${searchInFields.join(', ')}`);
+            if (searchIn.word) searchInFields.push(await getTranslatedText('searchInWord', currentLanguage));
+            if (searchIn.root) searchInFields.push(await getTranslatedText('searchInRoot', currentLanguage));
+            if (searchIn.definition) searchInFields.push(await getTranslatedText('searchInDefinition', currentLanguage));
+            if (searchIn.etymology) searchInFields.push(await getTranslatedText('searchInEtymology', currentLanguage));
+            const translatedSearchIn = await getTranslatedText('searchIn', currentLanguage);
+            changesList.push(`<strong>${translatedSearchIn}</strong>: ${searchInFields.join(', ')}`);
         }
-        if (filters.length > 0) changesList.push(`Filters: ${filters.join(', ')}`);
-        if (rowsPerPage !== 20) changesList.push(`Rows Per Page: ${rowsPerPage}`);
+        if (filters.length > 0) {
+            const translatedFilters = await getTranslatedText('filters', currentLanguage);
+            const translatedFilterValues = await Promise.all(filters.map(async filter => await getTranslatedText(filter, currentLanguage)));
+            changesList.push(`<strong>${translatedFilters}</strong>: ${translatedFilterValues.join(', ')}`);
+        }
+        if (rowsPerPage !== 20) {
+            const translatedRowsPerPage = await getTranslatedText('rowsPerPage', currentLanguage);
+            changesList.push(`<strong>${translatedRowsPerPage}</strong>: ${rowsPerPage}`);
+        }
 
-        pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No pending changes';
+        const translatedPendingChanges = await getTranslatedText('pendingChanges', currentLanguage);
+        const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', currentLanguage);
+        pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
     };
 
     document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
@@ -51,7 +67,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         document.getElementById('dict-popup-overlay').classList.remove('active');
     });
 
-    document.getElementById('dict-add-search-button-popup').addEventListener('click', () => {
+    document.getElementById('dict-add-search-button-popup').addEventListener('click', async () => {
         const searchTerm = document.getElementById('dict-search-input').value.trim();
         const searchIn = {
             word: document.getElementById('dict-search-in-word')?.checked || false,
@@ -68,20 +84,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         pendingChanges.searchIn = searchIn;
         pendingChanges.filters = selectedFilters;
         
-        updatePendingChangesList();
-    });
-
-    document.getElementById('dict-apply-search-button-popup').addEventListener('click', () => {
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
-        const criteria = { searchTerm, exactMatch, searchIn, filters };
-        processAllSettings(criteria, allRows, rowsPerPage, displayPage);
-        pendingChanges.searchTerm = '';
-        pendingChanges.exactMatch = false;
-        pendingChanges.searchIn = { word: true, root: true, definition: false, etymology: false };
-        pendingChanges.filters = [];
-        updatePendingChangesList();
-        document.getElementById('dict-advanced-search-popup').classList.remove('active');
-        document.getElementById('dict-popup-overlay').classList.remove('active');
+        await updatePendingChangesList(currentLanguage);
     });
 
     // Ensure all checkboxes are checked by default
@@ -94,38 +97,4 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
     if (searchInRoot) searchInRoot.checked = true;
     if (searchInDefinition) searchInDefinition.checked = true;
     if (searchInEtymology) searchInEtymology.checked = true;
-}
-
-export function initStatisticsPopup(allRows) {
-    document.getElementById('dict-view-statistics-button').addEventListener('click', () => {
-        const totalWords = allRows.filter(row => row.type === 'word').length;
-        const totalRoots = allRows.filter(row => row.type === 'root').length;
-
-        const partOfSpeechCounts = allRows.reduce((counts, row) => {
-            if (row.type === 'word' && row.partofspeech) {
-                counts[row.partofspeech] = (counts[row.partofspeech] || 0) + 1;
-            }
-            return counts;
-        }, {});
-
-        const statisticsContainer = document.getElementById('dict-statistics-popup');
-        statisticsContainer.innerHTML = `
-            <h3>Statistics</h3>
-            <p>Total Words: ${totalWords}</p>
-            <p>Total Roots: ${totalRoots}</p>
-            <h4>Total Words per Part of Speech:</h4>
-            <ul>
-                ${Object.entries(partOfSpeechCounts).map(([pos, count]) => `<li>${pos}: ${count}</li>`).join('')}
-            </ul>
-            <button id="dict-close-statistics-button" class="btn">Close</button>
-        `;
-
-        statisticsContainer.classList.add('active');
-        document.getElementById('dict-popup-overlay').classList.add('active');
-
-        document.getElementById('dict-close-statistics-button').addEventListener('click', () => {
-            statisticsContainer.classList.remove('active');
-            document.getElementById('dict-popup-overlay').classList.remove('active');
-        });
-    });
 }
