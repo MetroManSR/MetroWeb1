@@ -248,7 +248,6 @@ header {
     display: none; /* Initially hidden */
 }
 
-#dict-advanced-search-popup,
 #dict-statistics-popup {
     position: fixed;
     top: 50%;
@@ -415,4 +414,76 @@ header {
     padding: 8px;              /* Padding for input fields */
     margin-left: 10px;         /* Space between label and input */
     font-size: 1em;            /* Consistent font size */
+}
+
+.dict-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.dict-popup {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+}
+
+.dict-popup h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.dict-popup form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.dict-popup label.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.dict-popup input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.dict-popup .btn {
+    background-color: #4caf50; /* Green background */
+    border: 2px solid #4caf50; /* Matching green border */
+    border-radius: 6px;        /* Rounded corners */
+    padding: 10px 15px;        /* Padding for spacing */
+    color: #fff;               /* White text */
+    cursor: pointer;           /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    text-align: center;        /* Center the text */
+}
+
+.dict-popup .btn:hover {
+    background-color: #388e3c; /* Darker green on hover */
+    border-color: #388e3c;     /* Darker border on hover */
+}
+
+.dict-popup .dict-close-popup-button {
+    background-color: #f44336; /* Red background for close button */
+    border: 2px solid #f44336; /* Matching red border */
+}
+
+.dict-popup .dict-close-popup-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+    border-color: #d32f2f;     /* Darker border on hover */
 }
