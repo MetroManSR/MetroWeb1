@@ -130,12 +130,13 @@ async function handleClickEvent(e) {
     const box = target.closest('.dictionary-box');
     if (!box) return;
 
-    // Extract the row ID from the box's ID attribute
-    const rowId = parseInt(box.id.replace('entry-', ''), 10);
-    const row = allRows.find(r => r.id === rowId);
+    // Extract the type and row ID from the box's ID attribute
+    const [type, id] = box.id.split('-');
+    const rowId = parseInt(id, 10);
+    const row = allRows.find(r => r.id === rowId && r.type === type);
 
     if (!row) {
-        console.error(`Row with id ${rowId} not found.`);
+        console.error(`Row with id ${rowId} and type ${type} not found.`);
         return;
     }
 
