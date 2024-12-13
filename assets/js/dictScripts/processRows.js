@@ -61,9 +61,9 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         console.log('After search term filtering:', filteredRows);
     }
 
-    // Apply filter criteria
+    // Apply filter criteria for parts of speech
     if (filters.length > 0) {
-        filteredRows = filteredRows.filter(row => filters.includes(row.type) || filters.includes(row.partofspeech?.toLowerCase()));
+        filteredRows = filteredRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()));
         console.log('After filter criteria:', filteredRows);
     }
 
@@ -147,4 +147,17 @@ export function wordSpecific(term, allRows) {
 export function rootSpecific(term, allRows) {
     const specificRoot = allRows.find(row => row.type === 'root' && row.title.toLowerCase() === term.toLowerCase());
     displaySpecificEntry(specificRoot, allRows);
+}
+
+/**
+ * Handles the rows per page customization.
+ *
+ * @param {Event} e - The event object.
+ */
+export function handleRowsPerPageChange(e) {
+    const rowsPerPage = parseInt(e.target.value, 10);
+    if (!isNaN(rowsPerPage) && rowsPerPage > 0) {
+        pendingChanges.rowsPerPage = rowsPerPage;
+        processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+    }
 }
