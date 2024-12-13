@@ -3,6 +3,7 @@ import { updatePendingChangesList } from './init.js';
 
 // Initialize Advanced Search Popup
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
+   const language = document.querySelector('meta[name="language"]').content || 'en';
     document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
         processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage);
     });
@@ -55,7 +56,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         pendingChanges.searchIn = searchIn;
         pendingChanges.filters = selectedFilters;
         
-        await updatePendingChangesList(pendingChanges, currentLanguage);
+        await updatePendingChangesList(pendingChanges, language);
     });
 
     // Ensure all checkboxes are checked by default
