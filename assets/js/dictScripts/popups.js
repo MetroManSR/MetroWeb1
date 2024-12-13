@@ -1,5 +1,5 @@
 import { processAllSettings } from './processRows.js';
-import { updatePendingChangesList } from './updatePendingChangesList.js';
+import { updatePendingChangesList } from './init.js';
 
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
     document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
