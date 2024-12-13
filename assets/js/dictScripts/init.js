@@ -148,7 +148,7 @@ if (cleanSettingsButton) {
         });
     }
 
-    const searchInput = document.getElementById('dict-search-input');
+const searchInput = document.getElementById('dict-search-input');
 const predictionBox = document.getElementById('dict-search-predictions');
 
 // Handle input event for the search input
@@ -191,7 +191,6 @@ searchInput.addEventListener('input', function() {
         prediction.addEventListener('click', () => {
             searchInput.value = predictions[index];
             predictionBox.innerHTML = '';
-            // No search function call here
             pendingChanges.searchTerm = predictions[index]; // Update searchTerm in pending changes
             updatePendingChangesList(pendingChanges, currentLanguage); // Update pending changes list
         });
@@ -200,6 +199,20 @@ searchInput.addEventListener('input', function() {
     // Update pending changes list while typing
     pendingChanges.searchTerm = searchTerm;
     updatePendingChangesList(pendingChanges, currentLanguage);
+});
+
+// Hide prediction box if input search is not selected
+document.addEventListener('focusin', (e) => {
+    if (!searchInput.contains(e.target) && !predictionBox.contains(e.target)) {
+        predictionBox.innerHTML = '';
+    }
+});
+
+// Handle focus event to show predictions if input is not empty
+searchInput.addEventListener('focus', () => {
+    if (searchInput.value.trim().length > 0) {
+        searchInput.dispatchEvent(new Event('input'));
+    }
 });
 
 // Hide prediction box if input search is not selected
