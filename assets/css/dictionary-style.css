@@ -493,10 +493,9 @@ header {
     background-color: #d32f2f; /* Darker red on hover */
     border-color: #d32f2f;     /* Darker border on hover */
 }
-
 .dict-search-predictions {
     position: absolute;
-    top: 100%; /* Place the prediction box directly below the input */
+    top: calc(100% + 4px); /* Place the prediction box slightly below the input */
     left: 0;
     border: 1px solid #ccc;
     background-color: #f0f0f0; /* Light gray background */
@@ -504,7 +503,6 @@ header {
     max-height: 150px;
     overflow-y: auto;
     width: 100%; /* Ensure it matches the width of the input */
-    margin-top: 2px;
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif; /* Use a clean font */
