@@ -1,4 +1,3 @@
-
 {
     "en": {
         "searchPlaceholder": "Search...",
@@ -71,12 +70,10 @@
         "rowsPerPage": "Rows Per Page"
     },
     "es": {
-
         "searchPlaceholder": "Buscar...",
         "searchButton": "Buscar",
         "clearSearchButton": "Limpiar Búsqueda",
 
-    
         "rowsPerPageLabel": "Filas por página:",
         "rowsPerPageButton": "Enviar",
 
@@ -141,7 +138,6 @@
         "filters": "Filtros",
         "sortOrder": "Orden de Clasificación",
         "rowsPerPage": "Filas Por Página"
-    
     },
     "eo": {},
     "blk": {}
