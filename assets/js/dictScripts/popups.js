@@ -8,7 +8,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
 
     document.getElementById('dict-advanced-search-button').addEventListener('click', () => {
         const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-        const popupOverlay = document.getElementById('dict-popup-overlay');
+        const popupOverlay = document.getElementById('dict-popup-overlay-advse');
         
         // Add class to make popup visible
         popupOverlay.classList.add('active');
