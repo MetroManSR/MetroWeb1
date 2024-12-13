@@ -93,24 +93,28 @@ layout: default
         <div id="dict-advanced-search-popup" class="dict-popup">
             <form id="dict-advanced-search-form">
                 <h3>Advanced Search</h3>
-                <input type="checkbox" id="dict-search-in-word" name="dict-search-in-word" value="Word">
-                <label class="container" id="dict-search-in-word-label" for="dict-search-in-word"> Word</label>
-                <br>
-                <input type="checkbox" id="dict-search-in-root" name="dict-search-in-root" value="Root">
-                <label class="container" id="dict-search-in-root-label" for="dict-search-in-root"> Root</label>
-                <br>
-                <input type="checkbox" id="dict-search-in-definition" name="dict-search-in-definition" value="Definition">
-                <label class="container" id="dict-search-in-definition-label" for="dict-search-in-definition"> Definition</label>
-                <br>
-                <input type="checkbox" id="dict-search-in-etymology" name="dict-search-in-etymology" value="Etymology">
-                <label class="container" id="dict-search-in-etymology-label" for="dict-search-in-etymology"> Etymology</label>
-                <br>
-                <input type="checkbox" id="dict-exact-match" name="dict-exact-match" value="Exact Match">
-                <label class="container" id="dict-exact-match-label" for="dict-exact-match"> Exact Match</label>
-                <br>
-                <button type="button" id="dict-add-search-button-popup" class="btn">Add Search</button>
-                <button type="button" id="dict-apply-search-button-popup" class="btn">Apply Search</button>
-                <button type="button" id="dict-close-popup-button" class="dict-close-popup-button dict-filter-button">Close</button>
+                
+                <div class="dict-search-options">
+                    <input type="checkbox" id="dict-search-in-word" name="dict-search-in-word" value="Word">
+                    <label class="container" id="dict-search-in-word-label" for="dict-search-in-word"> Word</label>
+                    <input type="checkbox" id="dict-search-in-root" name="dict-search-in-root" value="Root">
+                    <label class="container" id="dict-search-in-root-label" for="dict-search-in-root"> Root</label>
+                    <input type="checkbox" id="dict-search-in-definition" name="dict-search-in-definition" value="Definition">
+                    <label class="container" id="dict-search-in-definition-label" for="dict-search-in-definition"> Definition</label>
+                    <input type="checkbox" id="dict-search-in-etymology" name="dict-search-in-etymology" value="Etymology">
+                    <label class="container" id="dict-search-in-etymology-label" for="dict-search-in-etymology"> Etymology</label>
+                </div>
+
+                <div class="dict-exact-match">
+                    <input type="checkbox" id="dict-exact-match" name="dict-exact-match" value="Exact Match">
+                    <label class="container" id="dict-exact-match-label" for="dict-exact-match"> Exact Match</label>
+                </div>
+
+                <div class="dict-popup-buttons">
+                    <button type="button" id="dict-add-search-button-popup" class="btn">Add Search</button>
+                    <button type="button" id="dict-apply-search-button-popup" class="btn">Apply Search</button>
+                    <button type="button" id="dict-close-popup-button" class="dict-close-popup-button btn">Close</button>
+                </div>
             </form>
         </div>
 
