@@ -51,16 +51,35 @@ export function getRelatedWordsByRoot(allRows) {
 }
 
 /**
- * Highlights the search term in the text.
+ * Highlights the search term in the specified field.
  *
- * @param {string} text - The text to search within.
+ * @param {Object} row - The current row being processed.
  * @param {string} term - The term to highlight.
- * @returns {string} - The text with highlighted terms.
+ * @param {Object} searchIn - The fields to search within.
+ * @returns {Object} - The row with highlighted terms in the specified fields.
  */
-export function highlight(text, term) {
-    if (!text || !term) return text;
-    const regex = new RegExp(`(${term})`, 'gi');
-    return text.replace(regex, '<mark style="background-color: yellow;">$1</mark>');
+export function highlight(row, term, searchIn = { word: true, root: true, definition: false, etymology: false }) {
+    const highlightText = (text) => {
+        if (!text || !term) return text;
+        const regex = new RegExp(`(${term})`, 'gi');
+        return text.replace(regex, '<mark style="background-color: yellow;">$1</mark>');
+    };
+
+    const highlightedRow = { ...row };
+    if (searchIn.word && row.type === 'word') {
+        highlightedRow.title = highlightText(row.title);
+    }
+    if (searchIn.root && row.type === 'root') {
+        highlightedRow.title = highlightText(row.title);
+    }
+    if (searchIn.definition) {
+        highlightedRow.meta = highlightText(row.meta);
+    }
+    if (searchIn.etymology) {
+        highlightedRow.morph = row.morph.map(morphItem => highlightText(morphItem));
+    }
+
+    return highlightedRow;
 }
 
 // Utility function to sanitize HTML
