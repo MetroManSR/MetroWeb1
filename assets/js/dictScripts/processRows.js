@@ -20,9 +20,17 @@ export function sortRows(rows, sortingManner) {
         case 'metadown':
             return rows.sort((a, b) => (b.meta || '').localeCompare(a.meta || ''));
         case 'morphup':
-            return rows.sort((a, b) => (a.morph || '').localeCompare(b.morph || ''));
+            return rows.sort((a, b) => {
+                const morphA = Array.isArray(a.morph) ? a.morph.join(' ') : a.morph || '';
+                const morphB = Array.isArray(b.morph) ? b.morph.join(' ') : b.morph || '';
+                return morphA.localeCompare(morphB);
+            });
         case 'morphdown':
-            return rows.sort((a, b) => (b.morph || '').localeCompare(a.morph || ''));
+            return rows.sort((a, b) => {
+                const morphA = Array.isArray(a.morph) ? a.morph.join(' ') : a.morph || '';
+                const morphB = Array.isArray(b.morph) ? b.morph.join(' ') : b.morph || '';
+                return morphB.localeCompare(morphA);
+            });
         default:
             return rows.sort((a, b) => a.title.localeCompare(b.title));
     }
