@@ -49,6 +49,30 @@ function isUniqueResult(row, existingRows) {
 }
 
 /**
+ * Removes duplicated dictionary boxes based on their unique IDs.
+ */
+function cleanUpDuplicates() {
+    const renderContainer = document.getElementById('dict-dictionary');
+    if (!renderContainer) {
+        console.error("Error: 'dict-dictionary' element not found in the DOM.");
+        return;
+    }
+
+    const seenIds = new Set();
+    const children = Array.from(renderContainer.children);
+    
+    children.forEach(child => {
+        const childId = child.id;
+        if (seenIds.has(childId)) {
+            renderContainer.removeChild(child);
+        } else {
+            seenIds.add(childId);
+        }
+    });
+    console.log("Duplicates cleaned up.");
+}
+
+/**
  * Processes all settings including search, filters, sorting, and advanced search criteria.
  *
  * @param {Object} params - The search parameters.
@@ -144,9 +168,19 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     // Highlight terms in the filtered rows based on search criteria
     filteredRows = filteredRows.map(row => highlight(row, searchTerm, searchIn, row));
 
-    // Update pagination and render boxes
+    // Render the filtered rows into the container
+    filteredRows.forEach(async row => {
+        const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        if (box) {
+            renderContainer.appendChild(box);
+        }
+    });
+
+    // Call cleanUpDuplicates to ensure no duplicate boxes are present
+    cleanUpDuplicates();
+
+    // Update pagination and floating text
     createPaginationControls(paramsRowsPerPage, filteredRows, currentPage, displayPage);
-    renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, paramsRowsPerPage, currentPage);
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 
     // Show "Settings Applied" notification
