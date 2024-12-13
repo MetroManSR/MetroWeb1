@@ -8,7 +8,7 @@ import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
     /**
  * Updates the pending changes display.
  */
-export async function updatePendingChangesList(language) {
+export async function updatePendingChangesList(pendingChanges, language) {
     const pendingChangesElement = document.getElementById('dict-pending-changes');
     if (!pendingChangesElement) return;
 
@@ -56,13 +56,13 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
         pendingChangesElement.style.display = 'block';
     }
 
-    updatePendingChangesList();
+    updatePendingChangesList(pendingChanges);
 
     const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
             pendingChanges.sortOrder = orderBySelect.value;
-            updatePendingChangesList();
+                updatePendingChangesList(pendingChanges);
         });
     }
     
@@ -70,7 +70,7 @@ export function initializeEventListeners(allRows, rowsPerPage, currentSortOrder,
 if (filterSelect) {
     filterSelect.addEventListener('change', () => {
         pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
-        updatePendingChangesList();
+            updatePendingChangesList(pendingChanges);
     });
 }
 
@@ -115,7 +115,7 @@ if (cleanSettingsButton) {
             rowsPerPage: 20,
             sortOrder: 'titleup' // Default sort order
         };
-        updatePendingChangesList(currentLanguage);
+        updatePendingChangesList(pendingChanges, currentLanguage);
         processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
         // Remove URL parameters without reloading the page
         history.pushState({}, document.title, window.location.pathname);
@@ -127,7 +127,7 @@ if (cleanSettingsButton) {
         cleanSearchButton.addEventListener('click', () => {
             pendingChanges.searchTerm = '';
             document.getElementById('dict-search-input').value = '';
-            updatePendingChangesList();
+                updatePendingChangesList(pendingChanges);
             processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
@@ -138,7 +138,7 @@ if (cleanSettingsButton) {
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             pendingChanges.searchTerm = e.target.value;
-            updatePendingChangesList();
+                updatePendingChangesList(pendingChanges);
         });
     }
 
@@ -146,7 +146,7 @@ if (cleanSettingsButton) {
     if (rowsPerPageSelect) {
         rowsPerPageSelect.addEventListener('change', () => {
             pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
-            updatePendingChangesList();
+                updatePendingChangesList(pendingChanges);
         });
     }
 
