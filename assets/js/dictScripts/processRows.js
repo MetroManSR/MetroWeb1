@@ -57,19 +57,54 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         exactMatch = false,
         searchIn = { word: true, root: true, definition: false, etymology: false },
         filters = [],
+        ignoreDiacritics = false,
+        startsWith = false,
+        endsWith = false,
         rowsPerPage: paramsRowsPerPage = 20
     } = params;
 
     console.log('Initial allRows:', allRows);
     let filteredRows = allRows;
 
+    // Normalize and remove diacritics if needed
+    const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
+
     // Apply search term filtering
     if (searchTerm) {
         filteredRows = filteredRows.filter(row => {
-            const titleMatch = searchIn.word && row.type === 'word' && (exactMatch ? row.title === searchTerm : row.title.toLowerCase().includes(searchTerm.toLowerCase()));
-            const rootMatch = searchIn.root && row.type === 'root' && (exactMatch ? row.title === searchTerm : row.title.toLowerCase().includes(searchTerm.toLowerCase()));
-            const definitionMatch = searchIn.definition && (exactMatch ? row.meta === searchTerm : row.meta.toLowerCase().includes(searchTerm.toLowerCase()));
-            const etymologyMatch = searchIn.etymology && (exactMatch ? row.morph.includes(searchTerm) : row.morph.some(morphItem => morphItem.toLowerCase().includes(searchTerm.toLowerCase())));
+            const normalizedTitle = normalize(row.title.toLowerCase());
+            const normalizedMeta = normalize(row.meta.toLowerCase());
+            const normalizedMorph = row.morph.map(morphItem => normalize(morphItem.toLowerCase()));
+            const term = normalize(searchTerm.toLowerCase());
+
+            const titleMatch = searchIn.word && row.type === 'word' && (
+                (exactMatch && normalizedTitle === term) ||
+                (startsWith && normalizedTitle.startsWith(term)) ||
+                (endsWith && normalizedTitle.endsWith(term)) ||
+                (!exactMatch && !startsWith && !endsWith && normalizedTitle.includes(term))
+            );
+
+            const rootMatch = searchIn.root && row.type === 'root' && (
+                (exactMatch && normalizedTitle === term) ||
+                (startsWith && normalizedTitle.startsWith(term)) ||
+                (endsWith && normalizedTitle.endsWith(term)) ||
+                (!exactMatch && !startsWith && !endsWith && normalizedTitle.includes(term))
+            );
+
+            const definitionMatch = searchIn.definition && (
+                (exactMatch && normalizedMeta === term) ||
+                (startsWith && normalizedMeta.startsWith(term)) ||
+                (endsWith && normalizedMeta.endsWith(term)) ||
+                (!exactMatch && !startsWith && !endsWith && normalizedMeta.includes(term))
+            );
+
+            const etymologyMatch = searchIn.etymology && (
+                (exactMatch && normalizedMorph.includes(term)) ||
+                (startsWith && normalizedMorph.some(item => item.startsWith(term))) ||
+                (endsWith && normalizedMorph.some(item => item.endsWith(term))) ||
+                (!exactMatch && !startsWith && !endsWith && normalizedMorph.some(item => item.includes(term)))
+            );
+
             return titleMatch || rootMatch || definitionMatch || etymologyMatch;
         });
 
@@ -114,7 +149,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     setTimeout(() => {
         settingsAppliedText.remove();
     }, 1000);
-}
+    }
 
 /**
  * Displays the specified page of results.
