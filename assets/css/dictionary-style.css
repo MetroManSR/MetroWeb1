@@ -446,22 +446,6 @@ header {
     display: none; /* Initially hidden */
 }
 
-/* Popup Container */
-.dict-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 600px;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    z-index: 1001; /* Ensure it is above other content */
-    display: none; /* Initially hidden */
-}
-
 /* Align Checkboxes and Labels */
 .dict-search-options, .dict-exact-match {
     display: flex;
@@ -469,13 +453,13 @@ header {
     gap: 10px;
 }
 
-.dict-search-options input[type="checkbox"], .dict-exact-match input[type="checkbox"] {
-    margin-right: 10px;
+.dict-checkbox-group {
+    display: flex;
+    align-items: center;
 }
 
 .dict-search-options label, .dict-exact-match label {
-    display: flex;
-    align-items: center;
+    margin-left: 10px; /* Add margin to create space between the checkbox and label */
 }
 
 /* Button Styling */
