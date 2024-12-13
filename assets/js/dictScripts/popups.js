@@ -6,8 +6,9 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
     const popupOverlay = document.getElementById('dict-popup-overlay');
         
         // Add class to make popup visible  
-    popupOverlay.style.display = 'flex';
-    advancedSearchPopup.style.display = 'block'; 
+    advancedSearchPopup.classList.add('active');
+    document.getElementById('dict-popup-overlay').classList.add('active');
+
     
     document.getElementById('dict-apply-settings-button').addEventListener('click', () => {
         processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage);
