@@ -24,6 +24,13 @@ export const defaultPendingChanges = {
 let universalPendingChanges = [];
 
 export async function updatePendingChangesList(pendingChanges, language) {
+
+    if (!pendingChanges || pendingChanges.length === 0){
+
+        pendingChanges = universalPendingChanges;
+        
+    }
+    
     const pendingChangesElement = document.getElementById('dict-pending-changes');
     if (!pendingChangesElement) return;
     const {
