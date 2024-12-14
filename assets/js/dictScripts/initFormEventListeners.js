@@ -7,6 +7,9 @@ import {
 import {
     boxClickListener
 } from './boxEvents.js';
+import {
+    highlight 
+} from './utils.js';
 export const defaultPendingChanges = {
     searchTerm: '',
     exactMatch: false,
