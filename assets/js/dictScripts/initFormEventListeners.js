@@ -21,7 +21,7 @@ export const defaultPendingChanges = {
     sortOrder: 'titleup' // Default sort order
 };
 
-export let universalPendingChanges = [];
+export let universalPendingChanges;
 
 export async function updatePendingChangesList(pendingChanges, language) {
 
@@ -234,3 +234,8 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
 
 }
 
+export function updateUniversalPendingChanges(i) {
+
+   universalPendingChanges = i;
+    
+} 
