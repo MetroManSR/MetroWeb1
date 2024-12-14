@@ -25,6 +25,8 @@ export let universalPendingChanges = [];
 
 export async function updatePendingChangesList(pendingChanges, language) {
 
+    console.log('Initializing Form Event Listeners');
+    
     if (!pendingChanges || pendingChanges.length === 0){
 
         pendingChanges = universalPendingChanges;
@@ -221,10 +223,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
     }
 
     
-    
+    console.log('Form Events Listeners initialized');
 
 }
 
-export function getUniversalPendingChanges(){
-    return universalPendingChanges;
-}
