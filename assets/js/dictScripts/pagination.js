@@ -40,8 +40,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const beginButton = createPageButton('⏮️', () => {
         if (currentPage > 1) {
             currentPage = 1;
-            displayPage(currentPage, rowsPerPage, '', {}, false, []);
-        }
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+         }
     });
     paginationContainer.appendChild(beginButton);
 
@@ -66,7 +66,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
         let pageNumber = parseInt(currentPageInput.value, 10);
         if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
             currentPage = pageNumber;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
         } else {
             currentPageInput.value = currentPage;
         }
@@ -87,8 +87,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const nextButton = createPageButton('➡️', () => {
         if (currentPage < totalPages) {
             currentPage += 1;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
-        }
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+          }
     });
     paginationContainer.appendChild(nextButton);
 
@@ -96,8 +96,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const endButton = createPageButton('⏭️', () => {
         if (currentPage < totalPages) {
             currentPage = totalPages;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
-        }
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+         }
     });
     paginationContainer.appendChild(endButton);
 }
