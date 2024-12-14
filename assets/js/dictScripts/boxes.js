@@ -244,12 +244,18 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
     const end = start + rowsPerPage;
     const rowsToDisplay = filteredRows.slice(start, end);
 
+    // Create a Set to track added boxes
+    const addedBoxes = new Set();
+
     // Replace loading boxes with actual content
     dictionaryContainer.innerHTML = ''; // Clear loading boxes
     for (const row of rowsToDisplay) {
-        const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-        if (box) {
-            dictionaryContainer.appendChild(box);
+        if (!addedBoxes.has(row.id)) { // Assuming each row has a unique 'id' field
+            const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+            if (box) {
+                dictionaryContainer.appendChild(box);
+                addedBoxes.add(row.id); // Track the added box
+            }
         }
     }
 
