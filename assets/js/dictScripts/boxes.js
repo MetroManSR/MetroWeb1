@@ -3,7 +3,7 @@ import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
 import { copyToClipboard, getSimilarity, levenshteinDistance } from './utils.js';
 import { loadInfoBox } from './boxEvents.js';
-import { filteredRows} from './processRows.js';
+import { filteredRows } from '../mainDict.js';
 
 let previouslySelectedBox = null;
 
