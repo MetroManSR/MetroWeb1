@@ -1,6 +1,7 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, createDictionaryBox, createNoMatchBox } from './boxes.js';
-
+import { filteredRows} from "../mainDict.js";
+    
 /**
  * Displays the specified page of results.
  *
