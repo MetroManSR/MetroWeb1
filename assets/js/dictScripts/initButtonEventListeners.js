@@ -86,7 +86,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
                 searchIn: {
                     word: true,
                     root: true,
-                    definition: false,
+                    definition: true,
                     etymology: false
                 },
                 filters: [],
