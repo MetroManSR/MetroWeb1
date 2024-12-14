@@ -83,6 +83,9 @@ function cleanUpDuplicates() {
  * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
  */
 export function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
+
+    const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
+    
     const {
         searchTerm = '',
         exactMatch = false,
@@ -181,6 +184,10 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
 
     cleanUpDuplicates();
 
+    if (filteredRows.length===0){
+        const noMatchBox = createNoMatchBox(language, searchTerm, allRows);
+        dictionaryContainer.appendChild(noMatchBox);
+    } 
     createPaginationControls(paramsRowsPerPage, filteredRows, currentPage, displayPage);
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 
@@ -220,12 +227,12 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
  * @param {Object} row - The dictionary row to display.
  * @param {Array} allRows - The array of all dictionary rows.
  */
-export function displaySpecificEntry(row, allRows) {
+export function displaySpecificEntry(language, row, allRows) {
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
     if (!row) {
-        const noMatchBox = createNoMatchBox();
+        const noMatchBox = createNoMatchBox(language, row.title, allRows);
         dictionaryContainer.appendChild(noMatchBox);
         return;
     }
