@@ -3,7 +3,8 @@ import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
 import { copyToClipboard, getSimilarity, levenshteinDistance } from './utils.js';
 import { loadInfoBox } from './boxEvents.js';
-    
+import { filteredRows} from './processRows.js';
+
 let previouslySelectedBox = null;
 
 // Function to get part of speech abbreviation based on language
@@ -195,7 +196,7 @@ export function createLoadingBox() {
 }
 
 // Function to update the floating text
-export async function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams, language) {
+export async function updateFloatingText(searchTerm, filters, advancedSearchParams, language) {
     let floatingTextContent = `${filteredRows.length} ${await getTranslatedText('wordsFound', language)}`;
 
     if (searchTerm) {
@@ -220,7 +221,7 @@ export async function updateFloatingText(filteredRows, searchTerm, filters, adva
     }
 }
 
-export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
+export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
@@ -252,6 +253,6 @@ export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, s
         }
     }
 
-    updatePagination(currentPage, filteredRows, rowsPerPage);
-    await updateFloatingText(filteredRows, searchTerm, [], {}, language);
+    updatePagination(currentPage, rowsPerPage);
+    await updateFloatingText(searchTerm, [], {}, language);
 }
