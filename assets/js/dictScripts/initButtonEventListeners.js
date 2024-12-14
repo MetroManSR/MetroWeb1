@@ -12,7 +12,7 @@ import {
     initStatisticsPopup
 } from './popups.js';
 
-import { filteredRows } from './processRows.js';
+import { filteredRows } from '../mainDict.js';
 
 import {
     boxClickListener
