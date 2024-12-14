@@ -19,7 +19,7 @@ import {
 } from './boxEvents.js';
 
 
-export function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
+export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     
     console.log('Initializing Button Event Listeners');
     
@@ -77,7 +77,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', () => {
             
-            processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+           await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
         });
     }
     const cleanSettingsButton = document.getElementById('dict-clear-settings-button');
@@ -109,7 +109,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
                 option.selected = false;
             });
             updatePendingChangesList(pendingChanges, language);
-            processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
+            await processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
             universalPendingChanges = pendingChanges;
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
@@ -122,7 +122,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
             document.getElementById('dict-search-input').value = '';
             updatePendingChangesList(pendingChanges, language);
             universalPendingChanges = pendingChanges;
-            processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+            await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
