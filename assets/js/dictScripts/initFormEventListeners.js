@@ -39,6 +39,9 @@ export async function updatePendingChangesList(pendingChanges, language) {
         pendingChanges = universalPendingChanges;
     
     }
+
+    console.log('Pending Changes: ', pendingChanges);
+    console.log('Universal PendingChanges: ', universalPendingChanges);
     
     const pendingChangesElement = document.getElementById('dict-pending-changes');
     if (!pendingChangesElement) return;
