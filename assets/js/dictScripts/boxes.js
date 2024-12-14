@@ -60,7 +60,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     const metaElement = document.createElement('div');
     metaElement.classList.add('dictionary-box-meta');
-    metaElement.innerHTML = highlight(row.meta, searchTerm, searchIn);
+    metaElement.innerHTML = highlight(row.meta, searchTerm, searchIn, row);
 
     const contentBox = document.createElement('div');
     contentBox.classList.add('dictionary-box-content');
