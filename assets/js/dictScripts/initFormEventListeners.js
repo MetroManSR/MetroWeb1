@@ -118,19 +118,22 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
 
     const language = document.querySelector('meta[name="language"]').content || 'en';
     const filterSelect = document.getElementById('dict-word-filter');
+    let currentPage = 1;
 
     if (filterSelect) {
-        filterSelect.addEventListener('change', () => {
+        filterSelect.addEventListener('change', async () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
             updatePendingChangesList(pendingChanges, language);
             universalPendingChanges = pendingChanges;
+            currentPage = 1;
+            await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
         });
     }
 
     const searchInput = document.getElementById('dict-search-input');
     const predictionBox = document.getElementById('dict-search-predictions');
 
-    searchInput.addEventListener('input', function() {
+    searchInput.addEventListener('input', async function() {
         const searchTerm = this.value.trim().toLowerCase();
         predictionBox.style.width = `${searchInput.offsetWidth}px`;
 
@@ -139,6 +142,8 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             pendingChanges.searchTerm = ''; // Clear searchTerm in pending changes
             updatePendingChangesList(pendingChanges, language); // Update pending changes list
             universalPendingChanges = pendingChanges;
+            currentPage = 1;
+            await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             return;
         }
 
@@ -159,6 +164,8 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             pendingChanges.searchTerm = searchTerm; // Update searchTerm in pending changes
             updatePendingChangesList(pendingChanges, language); // Update pending changes list
             universalPendingChanges = pendingChanges;
+            currentPage = 1;
+            await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             return;
         }
 
@@ -167,18 +174,22 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
         ).join('');
 
         Array.from(predictionBox.children).forEach((prediction, index) => {
-            prediction.addEventListener('click', () => {
+            prediction.addEventListener('click', async () => {
                 searchInput.value = predictions[index].title;
                 predictionBox.innerHTML = '';
                 pendingChanges.searchTerm = predictions[index].title; // Update searchTerm in pending changes
                 updatePendingChangesList(pendingChanges, language); // Update pending changes list
                 universalPendingChanges = pendingChanges;
+                currentPage = 1;
+                await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             });
         });
 
         pendingChanges.searchTerm = searchTerm;
         updatePendingChangesList(pendingChanges, language);
         universalPendingChanges = pendingChanges;
+        currentPage = 1;
+        await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
     });
 
     document.addEventListener('focusin', (e) => {
@@ -187,7 +198,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
         }
     });
 
-    searchInput.addEventListener('focus', () => {
+    searchInput.addEventListener('focus', async () => {
         if (searchInput.value.trim().length > 0) {
             searchInput.dispatchEvent(new Event('input'));
         }
@@ -195,10 +206,12 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
 
     const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
     if (rowsPerPageSelect) {
-        rowsPerPageSelect.addEventListener('change', () => {
+        rowsPerPageSelect.addEventListener('change', async () => {
             pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
             updatePendingChangesList(pendingChanges, language);
             universalPendingChanges = pendingChanges;
+            currentPage = 1;
+            await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
         });
     }
 
