@@ -174,5 +174,5 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Initialize event listeners with apply settings handling
-    initializeEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage);
+    initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage);
 });
