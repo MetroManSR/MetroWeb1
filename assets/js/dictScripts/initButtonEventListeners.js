@@ -116,7 +116,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     }
     const cleanSearchButton = document.getElementById('dict-clear-search-button');
     if (cleanSearchButton) {
-        cleanSearchButton.addEventListener('click', () => {
+        cleanSearchButton.addEventListener('click', async () => {
             pendingChanges.searchTerm = '';
             document.getElementById('dict-search-input').value = '';
             updatePendingChangesList(pendingChanges, language);
