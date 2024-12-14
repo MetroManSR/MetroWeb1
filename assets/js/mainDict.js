@@ -7,6 +7,7 @@ import { createPaginationControls } from './dictScripts/pagination.js';
 import { processAllSettings, sortRows, displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/processRows.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
+import { boxClickListener } from './dictScripts/boxEvents.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     const language = document.querySelector('meta[name="language"]').content || 'en';
