@@ -33,6 +33,9 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
     if (pendingChangesElement) {
         pendingChangesElement.style.display = 'block';
     }
+
+    processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+   
     updatePendingChangesList(pendingChanges, language);
     const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
