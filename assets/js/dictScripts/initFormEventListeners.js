@@ -157,8 +157,8 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             return;
         }
 
-        predictionBox.innerHTML = predictions.map(title => `<div>${highlight(title, searchTerm, pendingChanges.searchIn, { title })}</div>`).join('');
-
+        predictionBox.innerHTML = predictions.map(({ title, meta }) => `<div>${highlight(title, searchTerm, pendingChanges.searchIn, { title })} (${meta})</div>`).join('');
+        
         Array.from(predictionBox.children).forEach((prediction, index) => {
             prediction.addEventListener('click', () => {
                 searchInput.value = predictions[index];
