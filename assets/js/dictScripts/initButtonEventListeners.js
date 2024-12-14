@@ -110,6 +110,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
             });
             updatePendingChangesList(pendingChanges, language);
             processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
+            universalPendingChanges = pendingChanges;
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
