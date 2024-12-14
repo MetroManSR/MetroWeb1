@@ -138,18 +138,6 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     return box;
 }
 
-// Function to display tooltip message
-function showTooltip(message) {
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tooltip';
-    tooltip.innerText = message;
-    document.body.appendChild(tooltip);
-
-    setTimeout(() => {
-        tooltip.remove();
-    }, 3000);
-}
-
 // Function to create a no match box with suggestions
 export async function createNoMatchBox(language, searchTerm, allRows) {
     const noMatchBox = document.createElement('div');
