@@ -1,7 +1,7 @@
 import { processAllSettings, displaySpecificEntry, rootSpecific, wordSpecific } from './processRows.js';
 
 // Handle URL parameters
-export function initUrl() {
+export function initUrl(rowsPerPage, displayPage, currentPage, currentSortOrder) {
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
         const wordID = params.get('wordid');
