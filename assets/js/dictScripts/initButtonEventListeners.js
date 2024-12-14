@@ -81,7 +81,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     }
     const cleanSettingsButton = document.getElementById('dict-clear-settings-button');
     if (cleanSettingsButton) {
-        cleanSettingsButton.addEventListener('click', () => {
+        cleanSettingsButton.addEventListener('click', async () => {
             pendingChanges = {
                 searchTerm: '',
                 exactMatch: false,
