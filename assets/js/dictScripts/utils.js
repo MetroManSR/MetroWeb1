@@ -129,3 +129,51 @@ export function copyToClipboard(text) {
     document.execCommand('copy');
     document.body.removeChild(textarea);
 }
+
+/**
+ * Function to calculate Levenshtein distance between two strings
+ * @param {string} a - First string
+ * @param {string} b - Second string
+ * @returns {number} - Levenshtein distance
+ */
+export function levenshteinDistance(a, b) {
+    const matrix = [];
+
+    // increment along the first column of each row
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+
+    // increment each column in the first row
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    // fill in the rest of the matrix
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b[i - 1] === a[j - 1]) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1, // substitution
+                    matrix[i][j - 1] + 1, // insertion
+                    matrix[i - 1][j] + 1 // deletion
+                );
+            }
+        }
+    }
+
+    return matrix[b.length][a.length];
+}
+
+/**
+ * Function to calculate the similarity between two strings using Levenshtein distance
+ * @param {string} a - First string
+ * @param {string} b - Second string
+ * @returns {number} - Similarity score between 0 and 1
+ */
+export function getSimilarity(a, b) {
+    const distance = levenshteinDistance(a.toLowerCase(), b.toLowerCase());
+    return 1 - distance / Math.max(a.length, b.length);
+}
