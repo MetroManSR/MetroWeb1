@@ -54,6 +54,9 @@ export async function loadInfoBox(box, row) {
 }
 
 export function boxClickListener(allRows, language, pendingChanges) {
+
+    console.log('Initializing Box Click Event Listener');
+    
     async function handleClickEvent(e) {
         const now = Date.now();
         if (now - lastClickTime < 250) return; // 0.25 second cooldown
@@ -182,4 +185,8 @@ export function boxClickListener(allRows, language, pendingChanges) {
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.addEventListener('click', handleClickEvent, true); // Use capturing phase
+
+   console.log('Initialized Box Click Event Listener'); 
+    
+    
 }
