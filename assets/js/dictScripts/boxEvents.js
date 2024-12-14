@@ -1,3 +1,5 @@
+import { copyToClipboard } from './utils.js';
+
 export async function loadInfoBox(box, row){
 
 // Info button
