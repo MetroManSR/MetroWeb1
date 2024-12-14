@@ -75,7 +75,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     if (row.type === 'root') {
         metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn, row)}`;
         notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn, row)}`;
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etimology', language)}:</strong> ${highlight(row.morph.join(', ') || '', searchTerm, searchIn, row)}`;        
+        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.morph.join(', ') || '', searchTerm, searchIn, row)}`;        
         contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
         contentBox.appendChild(morphElement);
