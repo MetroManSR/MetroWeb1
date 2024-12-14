@@ -10,7 +10,7 @@ import { highlight } from './utils.js';
  * @returns {Array} - The sorted array of rows.
  */
 export function sortRows(rows, sortingManner) {
-    console.log(`Sorting rows by: ${sortingManner}`);
+    //console.log(`Sorting rows by: ${sortingManner}`);
     switch (sortingManner) {
         case 'titleup':
             return rows.sort((a, b) => a.title.localeCompare(b.title));
@@ -69,7 +69,7 @@ function cleanUpDuplicates() {
             seenIds.add(childId);
         }
     });
-    console.log("Duplicates cleaned up.");
+    //console.log("Duplicates cleaned up.");
 }
 
 /**
@@ -94,7 +94,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         rowsPerPage: paramsRowsPerPage = 20
     } = params;
 
-    console.log('Initial allRows:', allRows);
+    //console.log('Initial allRows:', allRows);
     let filteredRows = [];
 
     // Normalize and remove diacritics if needed
@@ -143,7 +143,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     // Apply filter criteria for parts of speech
     if (filters.length > 0) {
         filteredRows = filteredRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()));
-        console.log('After filter criteria:', filteredRows);
+        //console.log('After filter criteria:', filteredRows);
     }
 
     // Remove duplicates using isUniqueResult
@@ -208,7 +208,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
  * @param {Array} allRows - The array of all dictionary entries.
  */
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
-    console.log('Displaying page:', page);
+    //console.log('Displaying page:', page);
     renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
 }
 
