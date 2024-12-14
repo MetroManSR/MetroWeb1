@@ -55,7 +55,7 @@ export async function loadInfoBox(box, row){
 }  
 
 
-export async function boxClickListener(allRows, language){
+export function boxClickListener(allRows, language){
 
     async function handleClickEvent(e) {
     const now = Date.now();
@@ -184,5 +184,8 @@ export async function boxClickListener(allRows, language){
 
     previouslySelectedBox = box;
 }
+    
+    const dictionaryContainer = document.getElementById('dict-dictionary');
+    dictionaryContainer.addEventListener('click', handleClickEvent, true); // Use capturing phase
 
 }
