@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Cleaned Roots Data:', cleanedRootsData);
 
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
-        let filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)); // Sorting rows initially
+        filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)); // Sorting rows initially
 
         console.log('All Rows:', allRows);
         console.log('Filtered Rows:', filteredRows);
