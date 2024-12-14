@@ -108,7 +108,7 @@ export function createPaginationControls(rowsPerPage, currentPage, displayPage) 
  * @param {Array} filteredRows - The filtered array of dictionary entries.
  * @param {number} rowsPerPage - The number of rows to display per page.
  */
-export function updatePagination(currentPage,, rowsPerPage) {
+export function updatePagination(currentPage, rowsPerPage) {
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
