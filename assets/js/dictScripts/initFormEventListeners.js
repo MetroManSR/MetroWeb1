@@ -218,6 +218,6 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
     boxClickListener(allRows, language);
 }
 
-export function getPendingChanges(){
+export function getUniversalPendingChanges(){
     return universalPendingChanges;
 }
