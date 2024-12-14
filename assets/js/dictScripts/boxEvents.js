@@ -1,4 +1,4 @@
-async export function loadInfoBox(box, row){
+export async function loadInfoBox(box, row){
 
 // Info button
     const infoButton = document.createElement('button');
