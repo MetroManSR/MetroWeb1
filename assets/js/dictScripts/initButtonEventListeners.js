@@ -11,7 +11,7 @@ import {
     initAdvancedSearchPopup,
     initStatisticsPopup
 } from './popups.js';
-
+import { updatePagination } from './pagination.js';
 import { filteredRows } from '../mainDict.js';
 
 import {
