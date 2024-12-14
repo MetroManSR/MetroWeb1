@@ -2,7 +2,6 @@ import { copyToClipboard, createHyperlink } from './utils.js';
 import { getTranslatedText } from './loadTexts.js';
 import { universalPendingChanges} from './initFormEventListeners.js';
 
-
 let previouslySelectedBox = null;
 let lastClickTime = 0;
 
