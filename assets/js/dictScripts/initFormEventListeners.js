@@ -1,6 +1,6 @@
 import { getTranslatedText } from './loadTexts.js';
 import { processAllSettings } from './processRows.js';
-import { blockClickListener } from './boxEvents.js';
+import { boxClickListener } from './boxEvents.js';
 
 export const defaultPendingChanges = {
     searchTerm: '',
