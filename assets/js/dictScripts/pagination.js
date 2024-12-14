@@ -1,5 +1,6 @@
 import { filteredRows } from '../mainDict.js';
-
+import { displayPage } from "./processRows.js";
+    
 /**
  * Creates pagination controls and updates the display of dictionary entries.
  *
