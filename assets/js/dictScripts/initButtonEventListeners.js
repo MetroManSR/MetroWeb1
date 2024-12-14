@@ -4,12 +4,15 @@ import {
 import {
     universalPendingChanges,
     updatePendingChangesList,
-    defaultPendingChanges,
+    defaultPendingChanges
 } from './initFormEventListeners.js';
 import {
     initAdvancedSearchPopup,
     initStatisticsPopup
 } from './popups.js';
+
+import { filteredRows } from './processRows.js';
+
 import {
     boxClickListener
 } from './boxEvents.js';
