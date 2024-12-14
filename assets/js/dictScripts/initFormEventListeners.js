@@ -216,9 +216,6 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
         }
     });
 
-    //click pending changes 
-    boxClickListener(allRows, language);
-
     const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
     if (rowsPerPageSelect) {
         rowsPerPageSelect.addEventListener('change', () => {
