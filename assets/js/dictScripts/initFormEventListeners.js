@@ -21,7 +21,7 @@ export const defaultPendingChanges = {
     sortOrder: 'titleup' // Default sort order
 };
 
-let universalPendingChanges = [];
+export let universalPendingChanges = [];
 
 export async function updatePendingChangesList(pendingChanges, language) {
 
