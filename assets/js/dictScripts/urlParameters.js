@@ -1,4 +1,4 @@
-import { processAllSettings, displaySpecificEntry, rootSpecific, wordSpecific } from './processRows';
+import { processAllSettings, displaySpecificEntry, rootSpecific, wordSpecific } from './processRows.js';
 
 // Handle URL parameters
 export function initUrl() {
