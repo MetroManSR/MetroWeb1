@@ -96,23 +96,23 @@ export function sanitizeHTML(html) {
  * @returns {string} - The HTML string of the hyperlink if found, otherwise the original string.
  */
 export function createHyperlink(title, searchTerm = '', allRows = []) {
-    console.log('Searching for title:', title);
+    //console.log('Searching for title:', title);
     const relatedRow = allRows.find(r => {
         const isMatch = r.title.trim().toLowerCase() === title.trim().toLowerCase();
         console.log('Comparing with row title:', r.title, 'Match:', isMatch);
         return isMatch;
     });
-    console.log('Title:', title);
-    console.log('Related Row:', relatedRow);
+    //console.log('Title:', title);
+    //console.log('Related Row:', relatedRow);
 
     if (relatedRow) {
         const idParam = relatedRow.type === 'root' ? 'rootid' : 'wordid';
         const highlightedTitle = highlight(title, searchTerm);
         const hyperlink = `<a href="?${idParam}=${relatedRow.id}" style="color: green;">${highlightedTitle}</a>`;
-        console.log('Hyperlink:', hyperlink);
+        //console.log('Hyperlink:', hyperlink);
         return hyperlink;
     } else {
-        console.log('Title not found, returning original title:', title);
+        //console.log('Title not found, returning original title:', title);
         return title;
     }
 }
