@@ -57,10 +57,12 @@ export async function loadInfoBox(box, row) {
 }
 
 export function boxClickListener(allRows, language, pendingChanges) {
-    // Check if pendingChanges is undefined or null, and if so, assign it to universalPendingChanges
-    pendingChanges = pendingChanges ?? universalPendingChanges;
+    // Ensure pendingChanges is initialized
+    if (!pendingChanges || pendingChanges.length === 0) {
+        pendingChanges = universalPendingChanges ?? defaultPendingChanges;
+    }
 
-    // Ensure that searchTerm exists in pendingChanges
+    // Set searchTerm if not present
     pendingChanges.searchTerm = pendingChanges.searchTerm || '';
 
     console.log('Initializing Box Click Event Listener');
@@ -72,8 +74,7 @@ export function boxClickListener(allRows, language, pendingChanges) {
 
         const target = e.target;
         if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('.icon-container')) {
-            // Ignore clicks on links, buttons, and the icon container
-            return;
+            return; // Ignore clicks on links, buttons, and the icon container
         }
 
         e.stopPropagation(); // Stop event propagation to avoid duplicate events
@@ -139,7 +140,6 @@ export function boxClickListener(allRows, language, pendingChanges) {
                 relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
 
-            // Ensure `morph` exists and has more than one element
             if (row.morph && row.morph.length > 1) {
                 console.log('Morph length is greater than 1:', row.morph); // Debugging
                 const rootButtonsElement = document.createElement('div');
