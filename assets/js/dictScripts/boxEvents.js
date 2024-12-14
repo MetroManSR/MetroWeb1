@@ -63,6 +63,12 @@ export function boxClickListener(allRows, language, pendingChanges) {
         pendingChanges = universalPendingChanges;
 
     }
+
+    if (!pendingChanges.searchTerm){
+
+        pendingChanges.searchTerm = '';
+        
+    }
     
     console.log('Initializing Box Click Event Listener');
     
