@@ -57,21 +57,14 @@ export async function loadInfoBox(box, row) {
 }
 
 export function boxClickListener(allRows, language, pendingChanges) {
+    // Check if pendingChanges is undefined or null, and if so, assign it to universalPendingChanges
+    pendingChanges = pendingChanges ?? universalPendingChanges;
 
-    if (!pendingChanges || pendingChanges.length === 0){
+    // Ensure that searchTerm exists in pendingChanges
+    pendingChanges.searchTerm = pendingChanges.searchTerm || '';
 
-        pendingChanges = universalPendingChanges;
-
-    }
-
-    if (!pendingChanges.searchTerm){
-
-        pendingChanges.searchTerm = '';
-        
-    }
-    
     console.log('Initializing Box Click Event Listener');
-    
+
     async function handleClickEvent(e) {
         const now = Date.now();
         if (now - lastClickTime < 250) return; // 0.25 second cooldown
@@ -201,7 +194,5 @@ export function boxClickListener(allRows, language, pendingChanges) {
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.addEventListener('click', handleClickEvent, true); // Use capturing phase
 
-   console.log('Initialized Box Click Event Listener'); 
-    
-    
+    console.log('Initialized Box Click Event Listener');
 }
