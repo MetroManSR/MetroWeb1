@@ -2,6 +2,7 @@ import {
     processAllSettings
 } from './processRows.js';
 import {
+    universalPendingChanges,
     updatePendingChangesList,
     defaultPendingChanges,
     getUniversalPendingChanges,
@@ -13,10 +14,12 @@ import {
 import {
     boxClickListener
 } from './boxEvents.js';
+
+
 export function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     
     if (!pendingChanges || pendingChanges.length === 0){
-        pendingChanges = getUniversalPendingChanges;
+        pendingChanges = universalPendingChanges;
     }
     
     const language = document.querySelector('meta[name="language"]').content || 'en';
@@ -32,6 +35,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
         orderBySelect.addEventListener('change', () => {
             pendingChanges.sortOrder = orderBySelect.value;
             updatePendingChangesList(pendingChanges, language);
+            universalPendingChanges = pendingChanges;
         });
     }
     const filterSelect = document.getElementById('dict-word-filter');
@@ -39,6 +43,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
         filterSelect.addEventListener('change', () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
             updatePendingChangesList(pendingChanges, language);
+            universalPendingChanges = pendingChanges;
         });
     }
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
@@ -108,6 +113,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
             pendingChanges.searchTerm = '';
             document.getElementById('dict-search-input').value = '';
             updatePendingChangesList(pendingChanges, language);
+            universalPendingChanges = pendingChanges;
             processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
