@@ -137,7 +137,10 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
         console.log('After filter criteria:', filteredRows.length);
     }
 
-    updateFilteredRows(sortRows(sortingManner));
+
+    sortedRows = sortRows(filteredRows, sortingManner);
+    
+    updateFilteredRows(sortedRows);
     console.log('After sorting:', filteredRows.length);
 
     const totalRows = filteredRows.length;
@@ -180,6 +183,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
     }
 
     createPaginationControls(currentPage, totalPages, rowsPerPage, displayPage);
+    
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 
     const settingsAppliedText = document.createElement('div');
