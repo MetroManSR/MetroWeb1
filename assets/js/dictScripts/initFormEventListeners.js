@@ -104,7 +104,7 @@ export async function updatePendingChangesList(pendingChanges, language){
 export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPage, displayPage) {
     console.log('Initializing Form Event Listeners');
 
-    initUrl(allRows);
+    initUrl(allRows, rowsPerPage, displayPage, 1, 'titleup');
     
     if (!pendingChanges || pendingChanges.length === 0) {
         if (!universalPendingChanges || universalPendingChanges.length === 0) {
