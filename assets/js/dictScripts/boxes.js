@@ -182,3 +182,19 @@ export async function updateDictionaryDisplay(rows, searchTerm, exactMatch, sear
 
     updateDictionaryPagination(dictionaryBoxes, itemsPerPage);
 }
+
+export async function createNoMatchBox(language) {
+    const noMatchBox = document.createElement('div');
+    noMatchBox.className = 'dictionary-box no-match';
+    noMatchBox.textContent = await getTranslatedText('noMatch', language); // Adjust to be language-sensitive
+    return noMatchBox;
+}
+
+// Function to create a loading box
+export function createLoadingBox() {
+    const loadingBox = document.createElement('div');
+    loadingBox.className = 'dictionary-box loading';
+    loadingBox.textContent = "Loading..."; // Add some loading text or a spinner
+    return loadingBox;
+}
+
