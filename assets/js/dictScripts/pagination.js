@@ -49,8 +49,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const prevButton = createPageButton('⬅️', () => {
         if (currentPage > 1) {
             currentPage -= 1;
-            displayPage(currentPage, rowsPerPage, '', {}, false, []);
-        }
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+          }
     });
     paginationContainer.appendChild(prevButton);
 
