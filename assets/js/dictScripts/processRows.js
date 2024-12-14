@@ -138,7 +138,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, curr
     }
 
 
-    sortedRows = sortRows(filteredRows, sortingManner);
+    let sortedRows = sortRows(filteredRows, sortingManner);
     
     updateFilteredRows(sortedRows);
     console.log('After sorting:', filteredRows.length);
