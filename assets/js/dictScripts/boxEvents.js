@@ -60,7 +60,7 @@ export function addIconEventListeners(allRows) {
             const row = allRows.find(r => `${r.type}-${r.id}` === boxId);
             const message = `Hello, I think I have an idea to improve word ${row.title} [${row.id}]: _suggestion here_`;
             copyToClipboard(message);
-            showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.`);
+            showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
         });
     });
 
