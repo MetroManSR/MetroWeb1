@@ -23,8 +23,7 @@ export const defaultPendingChanges = {
 
 export let universalPendingChanges;
 
-export async function updatePendingChangesList(pendingChanges, language) {
-    console.log('Initializing Form Event Listeners');
+export async function updatePendingChangesList(pendingChanges, language){
 
     if (!pendingChanges || pendingChanges.length === 0) {
         if (!universalPendingChanges || universalPendingChanges.length === 0) {
@@ -96,6 +95,19 @@ export async function updatePendingChangesList(pendingChanges, language) {
 }
 
 export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPage, displayPage) {
+    
+    console.log('Initializing Form Event Listeners');
+
+    if (!pendingChanges || pendingChanges.length === 0) {
+        if (!universalPendingChanges || universalPendingChanges.length === 0) {
+            universalPendingChanges = defaultPendingChanges;
+        }
+        pendingChanges = universalPendingChanges;
+    }
+
+    console.log('Pending Changes I: ', pendingChanges);
+    console.log('Universal PendingChanges I: ', universalPendingChanges);
+    
     const language = document.querySelector('meta[name="language"]').content || 'en';
     const filterSelect = document.getElementById('dict-word-filter');
 
