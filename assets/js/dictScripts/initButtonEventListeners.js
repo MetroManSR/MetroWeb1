@@ -75,10 +75,9 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     }
     const applySettingsButton = document.getElementById('dict-apply-settings-button');
     if (applySettingsButton) {
-        applySettingsButton.addEventListener('click', () => {
-            
-           await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
-        });
+    applySettingsButton.addEventListener('click', async () => {
+        await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+    });
     }
     const cleanSettingsButton = document.getElementById('dict-clear-settings-button');
     if (cleanSettingsButton) {
