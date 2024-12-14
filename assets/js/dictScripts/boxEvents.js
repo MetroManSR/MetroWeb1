@@ -1,5 +1,7 @@
 import { copyToClipboard, createHyperlink } from './utils.js';
 import { getTranslatedText } from './loadTexts.js';
+import { universalPendingChanges} from './initFormEventListeners.js';
+
 
 let previouslySelectedBox = null;
 let lastClickTime = 0;
@@ -56,6 +58,12 @@ export async function loadInfoBox(box, row) {
 
 export function boxClickListener(allRows, language, pendingChanges) {
 
+    if (!pendingChanges || pendingChanges.length === 0){
+
+        pendingChanges = universalPendingChanges;
+
+    }
+    
     console.log('Initializing Box Click Event Listener');
     
     async function handleClickEvent(e) {
