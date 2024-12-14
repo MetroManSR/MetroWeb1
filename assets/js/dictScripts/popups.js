@@ -1,6 +1,5 @@
 import { processAllSettings } from './processRows.js';
 import { updatePendingChangesList } from './initFormEventListeners.js';
-import { attachIcons } from './boxEvents.js';
 
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
     const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
