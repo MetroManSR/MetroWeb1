@@ -1,8 +1,9 @@
 import { getRelatedWordsByRoot, highlight, createHyperlink } from './utils.js';
 import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
-import { attachIcons } from './boxEvents.js';
-
+import { copyToClipboard } from './utils.js';
+import { loadInfoBox } from './boxEvents.js';
+    
 let previouslySelectedBox = null;
 
 // Function to get part of speech abbreviation based on language
@@ -53,13 +54,13 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('dictionary-box-title');
-    wordElement.innerHTML = highlight(row.title + (row.type !== 'root' ? ` (${partOfSpeechAbbr})` : ''), searchTerm, searchIn, row);
+    wordElement.innerHTML = highlight(row.title + (row.type !== 'root' ? ` (${partOfSpeechAbbr})` : ''), searchTerm, searchIn);
 
     const hrElement = document.createElement('hr');
 
     const metaElement = document.createElement('div');
     metaElement.classList.add('dictionary-box-meta');
-    metaElement.innerHTML = highlight(row.meta, searchTerm, searchIn, row);
+    metaElement.innerHTML = highlight(row.meta, searchTerm, searchIn);
 
     const contentBox = document.createElement('div');
     contentBox.classList.add('dictionary-box-content');
@@ -72,13 +73,13 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn, row)}`;
-        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn, row)}`;
+        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn)}`;
         contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
     } else {
-        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn, row)}`;
-        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn, row)}`;
+        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn)}`;
         contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
 
@@ -88,7 +89,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
                 const matchingRoot = allRows.find(r => r.meta.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
                 morphElement.innerHTML += matchingRoot 
                     ? createHyperlink(morphTitle, searchTerm, allRows, searchIn) 
-                    : highlight(morphTitle, searchTerm, searchIn, row);
+                    : highlight(morphTitle, searchTerm, searchIn);
                 if (index < row.morph.length - 1) {
                     morphElement.innerHTML += ', ';
                 }
@@ -124,65 +125,29 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     wordElement.style.paddingRight = '50px'; // Adjust padding to avoid type tag
     morphElement.style.paddingBottom = '30px'; // Adjust padding to avoid ID box
 
-    // Attach icons to the dictionary box
-    attachIcons(box, row);
-
-    // Implement selection logic
-    box.addEventListener('click', (event) => {
-        if (previouslySelectedBox) {
-            previouslySelectedBox.classList.remove('selected');
-        }
-        box.classList.add('selected');
-        previouslySelectedBox = box;
-    });
+    await loadInfoBox(box, row);
+    
+    // Add fade-in effect
+    setTimeout(() => {
+        box.classList.add('fade-in');
+    }, 100);
 
     return box;
-        }
-
-// Function to create and update pagination controls
-export function updateDictionaryPagination(dictionaryBoxes, itemsPerPage) {
-    const paginationControls = document.getElementById('pagination-controls');
-    paginationControls.innerHTML = ''; // Clear previous pagination controls
-
-    const totalItems = dictionaryBoxes.length;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-    for (let i = 1; i <= totalPages; i++) {
-        const pageButton = document.createElement('button');
-        pageButton.classList.add('page-button');
-        pageButton.textContent = i;
-
-        pageButton.addEventListener('click', () => {
-            updatePagination(i, itemsPerPage, dictionaryBoxes);
-        });
-
-        paginationControls.appendChild(pageButton);
-    }
-
-    // Initialize the first page
-    updatePagination(1, itemsPerPage, dictionaryBoxes);
 }
 
-// Function to update the dictionary display based on the provided rows
-export async function updateDictionaryDisplay(rows, searchTerm, exactMatch, searchIn, itemsPerPage) {
-    const dictionaryContainer = document.getElementById('dictionary-container');
-    dictionaryContainer.innerHTML = ''; // Clear previous content
+// Function to display tooltip message
+function showTooltip(message) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    tooltip.innerText = message;
+    document.body.appendChild(tooltip);
 
-    const allRows = await getAllDictionaryRows(); // Function to retrieve all dictionary rows
-
-    const dictionaryBoxes = await Promise.all(
-        rows.map(row => createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn))
-    );
-
-    dictionaryBoxes.forEach(box => {
-        if (box) {
-            dictionaryContainer.appendChild(box);
-        }
-    });
-
-    updateDictionaryPagination(dictionaryBoxes, itemsPerPage);
+    setTimeout(() => {
+        tooltip.remove();
+    }, 3000);
 }
 
+// Function to create a no match box
 export async function createNoMatchBox(language) {
     const noMatchBox = document.createElement('div');
     noMatchBox.className = 'dictionary-box no-match';
@@ -198,3 +163,64 @@ export function createLoadingBox() {
     return loadingBox;
 }
 
+// Function to update the floating text
+export async function updateFloatingText(filteredRows, searchTerm, filters, advancedSearchParams, language) {
+    let floatingTextContent = `${filteredRows.length} ${await getTranslatedText('wordsFound', language)}`;
+
+    if (searchTerm) {
+        floatingTextContent += ` ${await getTranslatedText('whenLookingFor', language)} "${searchTerm}"`;
+    }
+    if (filters.length > 0) {
+        floatingTextContent += ` ${await getTranslatedText('withFilters', language)}: ${filters.join(", ")}`;
+    }
+    if (advancedSearchParams) {
+        floatingTextContent += ` ${await getTranslatedText('withAdvancedSearch', language)}: ${Object.keys(advancedSearchParams).join(", ")}`;
+    }
+
+    const floatingText = document.getElementById('floating-text');
+    if (floatingText) {
+        floatingText.textContent = floatingTextContent;
+    } else {
+        const newFloatingText = document.createElement('div');
+        newFloatingText.id = 'floating-text';
+        newFloatingText.className = 'floating-text';
+        newFloatingText.textContent = floatingTextContent;
+        document.body.appendChild(newFloatingText);
+    }
+}
+
+export async function renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
+    const dictionaryContainer = document.getElementById('dict-dictionary');
+    dictionaryContainer.innerHTML = ''; // Clear previous entries
+
+    const language = document.querySelector('meta[name="language"]').content || 'en';
+
+    // Render loading boxes
+    for (let i = 0; i < rowsPerPage; i++) {
+        dictionaryContainer.appendChild(createLoadingBox());
+    }
+
+    if (filteredRows.length === 0) {
+        dictionaryContainer.innerHTML = ''; // Clear loading boxes
+        dictionaryContainer.appendChild(await createNoMatchBox(language));
+        updatePagination(currentPage, filteredRows, rowsPerPage);
+        await updateFloatingText(filteredRows, searchTerm, [], {}, language);
+        return;
+    }
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const rowsToDisplay = filteredRows.slice(start, end);
+
+    // Replace loading boxes with actual content
+    dictionaryContainer.innerHTML = ''; // Clear loading boxes
+    for (const row of rowsToDisplay) {
+        const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        if (box) {
+            dictionaryContainer.appendChild(box);
+        }
+    }
+
+    updatePagination(currentPage, filteredRows, rowsPerPage);
+    await updateFloatingText(filteredRows, searchTerm, [], {}, language);
+}
