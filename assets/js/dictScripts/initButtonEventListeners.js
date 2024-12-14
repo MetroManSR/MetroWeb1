@@ -1,7 +1,7 @@
 import { processAllSettings } from './processRows.js';
 import { updatePendingChangesList, defaultPendingChanges } from './initFormEventListeners.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
-import { addRelatedWordsEventListeners, addIconEventListeners } from './boxEvents.js';
+import { boxClickListener } from './boxEvents.js';
 
 export function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     const language = document.querySelector('meta[name="language"]').content || 'en';
