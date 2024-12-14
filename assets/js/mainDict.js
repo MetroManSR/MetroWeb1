@@ -1,7 +1,7 @@
 import { fetchData } from './dictScripts/fetchData.js';
 import { setTexts } from './dictScripts/loadTexts.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
-import { initializeEventListeners } from './dictScripts/initButtonEventListeners.js';
+import { initializeButtonEventListeners } from './dictScripts/initButtonEventListeners.js';
 import { updatePendingChangesList } from './dictScripts/initFormEventListeners.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processAllSettings, sortRows, displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/processRows.js';
