@@ -1,5 +1,6 @@
 import { getTranslatedText } from './loadTexts.js';
 import { processAllSettings } from './processRows.js';
+import { blockClickListener } from './boxEvent.js';
 
 export const defaultPendingChanges = {
     searchTerm: '',
@@ -156,4 +157,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             updatePendingChangesList(pendingChanges, language);
         });
     }
-                    }
+
+    boxClickListener(allRows, language);
+    
+}
