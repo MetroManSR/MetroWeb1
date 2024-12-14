@@ -3,7 +3,8 @@ import {
 } from './processRows.js';
 import {
     updatePendingChangesList,
-    defaultPendingChanges
+    defaultPendingChanges,
+    getUniversalPendingChanges,
 } from './initFormEventListeners.js';
 import {
     initAdvancedSearchPopup,
@@ -13,6 +14,11 @@ import {
     boxClickListener
 } from './boxEvents.js';
 export function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
+    
+    if (!pendingChanges || pendingChanges.length === 0){
+        pendingChanges = getUniversalPendingChanges;
+    }
+    
     const language = document.querySelector('meta[name="language"]').content || 'en';
     let currentPage = 1;
     // Ensure pendingChanges list is visible on page load
@@ -58,6 +64,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
     const applySettingsButton = document.getElementById('dict-apply-settings-button');
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', () => {
+            
             processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
         });
     }
