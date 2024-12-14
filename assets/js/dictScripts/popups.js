@@ -1,7 +1,11 @@
 import { processAllSettings } from './processRows.js';
-import { updatePendingChangesList } from './initFormEventListeners.js';
+import { universalPendingChanges, updatePendingChangesList } from './initFormEventListeners.js';
+
 
 export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
+   
+    pendingChanges = universalPendingChanges;
+    
     const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
     const popupOverlay = document.getElementById('dict-popup-overlay-advse');
 
