@@ -73,13 +73,13 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn)}`;
-        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn)}`;
+        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn, row)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn, row)}`;
         contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
     } else {
-        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn)}`;
-        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn)}`;
+        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn, row)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn, row)}`;
         contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
 
@@ -89,7 +89,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
                 const matchingRoot = allRows.find(r => r.meta.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
                 morphElement.innerHTML += matchingRoot 
                     ? createHyperlink(morphTitle, searchTerm, allRows, searchIn) 
-                    : highlight(morphTitle, searchTerm, searchIn);
+                    : highlight(morphTitle, searchTerm, searchIn, row);
                 if (index < row.morph.length - 1) {
                     morphElement.innerHTML += ', ';
                 }
