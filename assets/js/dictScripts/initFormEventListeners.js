@@ -10,6 +10,10 @@ import {
 import {
     highlight 
 } from './utils.js';
+import {
+    initUrl
+} from './urlParameters.js';
+
 export const defaultPendingChanges = {
     searchTerm: '',
     exactMatch: false,
@@ -100,6 +104,8 @@ export async function updatePendingChangesList(pendingChanges, language){
 export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPage, displayPage) {
     console.log('Initializing Form Event Listeners');
 
+    initUrl();
+    
     if (!pendingChanges || pendingChanges.length === 0) {
         if (!universalPendingChanges || universalPendingChanges.length === 0) {
             universalPendingChanges = defaultPendingChanges;
