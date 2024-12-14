@@ -15,24 +15,32 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
 
     updatePendingChangesList(pendingChanges, language);
 
-    const orderBySelect = document.getElementById('dict-order-by-select');
+ const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
             pendingChanges.sortOrder = orderBySelect.value;
-            updatePendingChangesList(pendingChanges, language);
+                updatePendingChangesList(pendingChanges, language);
         });
     }
 
-    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    if (toggleFilterButton) {
-        toggleFilterButton.addEventListener('click', () => {
-            const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
-            filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
-            filterSortingContainer.classList.toggle('dict-filter-cont-visible');
-        });
-    }
+     const filterSelect = document.getElementById('dict-word-filter');
+if (filterSelect) {
+    filterSelect.addEventListener('change', () => {
+        pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
+            updatePendingChangesList(pendingChanges,  language);
+    });
+}
 
-    const advancedSearchButton = document.getElementById('dict-advanced-search-button');
+       const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
+if (toggleFilterButton) {
+    toggleFilterButton.addEventListener('click', () => {
+        const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+        filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
+        filterSortingContainer.classList.toggle('dict-filter-cont-visible');
+    });
+}
+
+      const advancedSearchButton = document.getElementById('dict-advanced-search-button');
     if (advancedSearchButton) {
         advancedSearchButton.addEventListener('click', () => {
             initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges);
@@ -50,46 +58,78 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', () => {
             processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
-            addRelatedWordsEventListeners(allRows);
-            addIconEventListeners(allRows);
         });
     }
 
     const cleanSettingsButton = document.getElementById('dict-clear-settings-button');
-    if (cleanSettingsButton) {
-        cleanSettingsButton.addEventListener('click', () => {
-            Object.assign(pendingChanges, defaultPendingChanges);
+if (cleanSettingsButton) {
+    cleanSettingsButton.addEventListener('click', () => {
+        pendingChanges = {
+            searchTerm: '',
+            exactMatch: false,
+            searchIn: { word: true, root: true, definition: false, etymology: false },
+            filters: [],
+            rowsPerPage: 20,
+            sortOrder: 'titleup' // Default sort order
+        };
+        
+        // Reset form fields in the advanced search popup
+        document.getElementById('dict-search-input').value = '';
+        document.getElementById('dict-search-in-word').checked = true;
+        document.getElementById('dict-search-in-root').checked = true;
+        document.getElementById('dict-search-in-definition').checked = true;
+        document.getElementById('dict-search-in-etymology').checked = false;
+        document.getElementById('dict-exact-match').checked = false;
 
-            // Reset form fields in the advanced search popup
-            document.getElementById('dict-search-input').value = '';
-            document.getElementById('dict-search-in-word').checked = true;
-            document.getElementById('dict-search-in-root').checked = true;
-            document.getElementById('dict-search-in-definition').checked = true;
-            document.getElementById('dict-search-in-etymology').checked = false;
-            document.getElementById('dict-exact-match').checked = false;
-
-            // Reset selected filters
-            const wordFilterSelect = document.getElementById('dict-word-filter');
-            Array.from(wordFilterSelect.options).forEach(option => {
-                option.selected = false;
-            });
-
-            updatePendingChangesList(pendingChanges, language);
-            processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
-            // Remove URL parameters without reloading the page
-            history.pushState({}, document.title, window.location.pathname);
+        // Reset selected filters
+        const wordFilterSelect = document.getElementById('dict-word-filter');
+        Array.from(wordFilterSelect.options).forEach(option => {
+            option.selected = false;
         });
-    }
+
+        updatePendingChangesList(pendingChanges, language);
+        processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
+        // Remove URL parameters without reloading the page
+        history.pushState({}, document.title, window.location.pathname);
+    });
+}
 
     const cleanSearchButton = document.getElementById('dict-clear-search-button');
     if (cleanSearchButton) {
         cleanSearchButton.addEventListener('click', () => {
             pendingChanges.searchTerm = '';
             document.getElementById('dict-search-input').value = '';
-            updatePendingChangesList(pendingChanges, language);
+                updatePendingChangesList(pendingChanges, language);
             processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
     }
-              }
+
+const searchInput = document.getElementById('dict-search-input');
+const predictionBox = document.getElementById('dict-search-predictions');
+
+     document.querySelectorAll('.pagination-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const targetPage = parseInt(e.target.dataset.page, 10);
+            if (!isNaN(targetPage)) {
+                navigateToPage(targetPage);
+            }
+        });
+    });
+
+    function navigateToPage(pageNumber) {
+        if (!isNaN(pageNumber) && pageNumber >= 1) {
+            currentPage = pageNumber;
+        } else {
+            currentPage = 1;
+        }
+
+        const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+        updatePagination(currentPage, totalPages);
+        displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
+    }
+
+    navigateToPage(1);
+
+}
