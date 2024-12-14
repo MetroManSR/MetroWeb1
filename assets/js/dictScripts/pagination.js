@@ -112,31 +112,56 @@ export function updatePagination(currentPage, filteredRows, rowsPerPage) {
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
     console.log(`Total Pages: ${totalPages}`);
     const paginationContainer = document.getElementById('dict-pagination'); // Correct reference
-    const buttons = paginationContainer.querySelectorAll('.pagination-button');
-    const currentPageInput = paginationContainer.querySelector('.pagination-input');
-    const totalPagesDisplay = paginationContainer.querySelector('.pagination-display');
+    paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
-    buttons.forEach((button) => {
-        button.classList.remove('active');
-    });
+    // Create Previous Button
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Previous';
+    prevButton.disabled = currentPage <= 1;
+    prevButton.addEventListener('click', () => displayPage(currentPage - 1, rowsPerPage));
+    paginationContainer.appendChild(prevButton);
 
-    if (currentPageInput) {
-        currentPageInput.value = currentPage;
-        console.log('CurrentPageInput Check');
-    } else {
-        console.error('currentPageInput is undefined');
+    // Create Page Buttons
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.classList.add('pagination-button');
+        if (i === currentPage) {
+            pageButton.classList.add('active');
+        }
+        pageButton.addEventListener('click', () => displayPage(i, rowsPerPage));
+        paginationContainer.appendChild(pageButton);
     }
 
-    if (totalPagesDisplay) {
-        totalPagesDisplay.textContent = ` / ${totalPages}`;
-        console.log('TotalPagesDisplay Check');
-    } else {
-        console.error('totalPagesDisplay is undefined');
-    }
+    // Create Next Button
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.disabled = currentPage >= totalPages;
+    nextButton.addEventListener('click', () => displayPage(currentPage + 1, rowsPerPage));
+    paginationContainer.appendChild(nextButton);
 
-    buttons.forEach((button) => {
-        if (parseInt(button.innerHTML) === currentPage) {
-            button.classList.add('active');
+    const currentPageInput = document.createElement('input');
+    currentPageInput.type = 'number';
+    currentPageInput.value = currentPage;
+    currentPageInput.min = 1;
+    currentPageInput.max = totalPages;
+    currentPageInput.classList.add('pagination-input');
+
+    currentPageInput.addEventListener('change', () => {
+        let pageNumber = parseInt(currentPageInput.value, 10);
+        if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
+            displayPage(pageNumber, rowsPerPage);
+        } else {
+            currentPageInput.value = currentPage;
         }
     });
+
+    paginationContainer.appendChild(currentPageInput);
+
+    const totalPagesDisplay = document.createElement('span');
+    totalPagesDisplay.textContent = ` / ${totalPages}`;
+    totalPagesDisplay.classList.add('pagination-display');
+    paginationContainer.appendChild(totalPagesDisplay);
+
+    console.log('Pagination controls updated.');
 }
