@@ -1,7 +1,7 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
 import { highlight } from './utils.js';
-
+export let filteredRows;
 /**
  * Sorts rows based on the specified sorting manner.
  *
@@ -95,7 +95,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     } = params;
 
     //console.log('Initial allRows:', allRows);
-    let filteredRows = [];
+    filteredRows = [];
 
     // Normalize and remove diacritics if needed
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
