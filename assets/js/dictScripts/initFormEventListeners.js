@@ -126,7 +126,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             updatePendingChangesList(pendingChanges, language);
             universalPendingChanges = pendingChanges;
             currentPage = 1;
-            await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+            await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
         });
     }
 
@@ -143,7 +143,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             updatePendingChangesList(pendingChanges, language); // Update pending changes list
             universalPendingChanges = pendingChanges;
             currentPage = 1;
-            await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+            await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
             return;
         }
 
@@ -165,7 +165,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             updatePendingChangesList(pendingChanges, language); // Update pending changes list
             universalPendingChanges = pendingChanges;
             currentPage = 1;
-            await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+            await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
             return;
         }
 
@@ -181,7 +181,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
                 updatePendingChangesList(pendingChanges, language); // Update pending changes list
                 universalPendingChanges = pendingChanges;
                 currentPage = 1;
-                await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+                await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
             });
         });
 
@@ -189,7 +189,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
         updatePendingChangesList(pendingChanges, language);
         universalPendingChanges = pendingChanges;
         currentPage = 1;
-        await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+        await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
     });
 
     document.addEventListener('focusin', (e) => {
@@ -211,7 +211,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             updatePendingChangesList(pendingChanges, language);
             universalPendingChanges = pendingChanges;
             currentPage = 1;
-            await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+            await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
         });
     }
 
