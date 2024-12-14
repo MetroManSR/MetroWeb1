@@ -40,7 +40,7 @@ export function createPaginationControls(rowsPerPage, currentPage, displayPage) 
     const beginButton = createPageButton('⏮️', () => {
         if (currentPage > 1) {
             currentPage = 1;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
+            displayPage(currentPage, rowsPerPage, '', {}, false, []);
         }
     });
     paginationContainer.appendChild(beginButton);
@@ -49,7 +49,7 @@ export function createPaginationControls(rowsPerPage, currentPage, displayPage) 
     const prevButton = createPageButton('⬅️', () => {
         if (currentPage > 1) {
             currentPage -= 1;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
+            displayPage(currentPage, rowsPerPage, '', {}, false, []);
         }
     });
     paginationContainer.appendChild(prevButton);
