@@ -1,7 +1,7 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
 import { highlight } from './utils.js';
-export let filteredRows;
+import { filteredRows } from "../mainDict.js";
 /**
  * Sorts rows based on the specified sorting manner.
  *
