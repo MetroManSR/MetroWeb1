@@ -1,4 +1,5 @@
-import { copyToClipboard, createHyperlink, getTranslatedText } from './utils.js';
+import { copyToClipboard, createHyperlink } from './utils.js';
+import { getTranslatedText } from './loadTexts.js';
 
 let previouslySelectedBox = null;
 let lastClickTime = 0;
