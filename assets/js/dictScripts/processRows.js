@@ -82,8 +82,7 @@ function cleanUpDuplicates() {
  * @param {number} [currentPage=1] - The current page to display.
  * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
  */
-
-export function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
+export async function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
     const {
