@@ -24,20 +24,13 @@ export const defaultPendingChanges = {
 export let universalPendingChanges;
 
 export async function updatePendingChangesList(pendingChanges, language) {
-
     console.log('Initializing Form Event Listeners');
-    
-    if (!pendingChanges || pendingChanges.length === 0){
 
-
-        if (universalPendingChanges.length === 0){
-
+    if (!pendingChanges || pendingChanges.length === 0) {
+        if (!universalPendingChanges || universalPendingChanges.length === 0) {
             universalPendingChanges = defaultPendingChanges;
-        
         }
-        
         pendingChanges = universalPendingChanges;
-    
     }
 
     console.log('Pending Changes: ', pendingChanges);
