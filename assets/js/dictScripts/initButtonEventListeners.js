@@ -18,6 +18,8 @@ import {
 
 export function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
     
+    console.log('Initializing Button Event Listeners');
+    
     if (!pendingChanges || pendingChanges.length === 0){
         pendingChanges = universalPendingChanges;
     }
@@ -141,4 +143,6 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
         displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
     }
     navigateToPage(1);
+
+    console.log('Button Event Listeners initialized');
 }
