@@ -206,6 +206,10 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             searchInput.dispatchEvent(new Event('input'));
         }
     });
+
+    //click pending changes 
+    boxClickListener(allRows, language);
+
     const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
     if (rowsPerPageSelect) {
         rowsPerPageSelect.addEventListener('change', () => {
@@ -215,7 +219,10 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
 
         });
     }
-    boxClickListener(allRows, language);
+
+    
+    
+
 }
 
 export function getUniversalPendingChanges(){
