@@ -1,7 +1,7 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
 import { highlight } from './utils.js';
-import { filteredRows } from "../mainDict.js";
+import { filteredRows, updateFilteredRows } from "../mainDict.js";
 /**
  * Sorts rows based on the specified sorting manner.
  *
@@ -87,12 +87,12 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
     } = params;
 
     console.log('Initial allRows:', allRows.length);
-    filteredRows = [];
+    updateFilteredRows([]);
 
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
 
     if (searchTerm) {
-        filteredRows = allRows.filter(row => {
+        updateFilteredRows(allRows.filter(row => {
             const normalizedTitle = normalize(row.title.toLowerCase());
             const normalizedMeta = normalize(row.meta.toLowerCase());
             const normalizedMorph = row.morph.map(morphItem => normalize(morphItem.toLowerCase()));
@@ -127,9 +127,9 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
             );
 
             return titleMatch || rootMatch || definitionMatch || etymologyMatch;
-        });
+        }));
     } else {
-        filteredRows = allRows;
+        updateFilteredRows(allRows);
     }
 
     if (filters.length > 0) {
@@ -137,7 +137,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
         console.log('After filter criteria:', filteredRows.length);
     }
 
-    filteredRows = sortRows(sortingManner);
+    updateFilteredRows(sortRows(sortingManner));
     console.log('After sorting:', filteredRows.length);
 
     const totalRows = filteredRows.length;
@@ -151,7 +151,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
             uniqueRows.push(row);
         }
     });
-    filteredRows = uniqueRows;
+    updateFilteredRows(uniqueRows);
     console.log('After removing duplicates:', filteredRows.length);
 
     const renderContainer = document.getElementById('dict-dictionary');
