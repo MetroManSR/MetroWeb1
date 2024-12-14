@@ -15,7 +15,7 @@ import { filteredRows} from "../mainDict.js";
  */
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
     console.log('Displaying page:', page);
-    renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
+    renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
 }
 
 // Function to display a specific word or root entry by ID
