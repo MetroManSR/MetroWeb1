@@ -94,13 +94,11 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         rowsPerPage: paramsRowsPerPage = 20
     } = params;
 
-    //console.log('Initial allRows:', allRows);
+    console.log('Initial allRows:', allRows.length);
     filteredRows = [];
 
-    // Normalize and remove diacritics if needed
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
 
-    // Apply search term filtering
     if (searchTerm) {
         filteredRows = allRows.filter(row => {
             const normalizedTitle = normalize(row.title.toLowerCase());
@@ -138,15 +136,23 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
 
             return titleMatch || rootMatch || definitionMatch || etymologyMatch;
         });
+    } else {
+        filteredRows = allRows;
     }
 
-    // Apply filter criteria for parts of speech
     if (filters.length > 0) {
         filteredRows = filteredRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()));
-        //console.log('After filter criteria:', filteredRows);
+        console.log('After filter criteria:', filteredRows.length);
     }
 
-    // Remove duplicates using isUniqueResult
+    filteredRows = sortRows(filteredRows, sortingManner);
+    console.log('After sorting:', filteredRows.length);
+
+    const totalRows = filteredRows.length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+    currentPage = Math.min(currentPage, totalPages);
+    console.log(`Total rows: ${totalRows}, Total pages: ${totalPages}, Current page: ${currentPage}`);
+
     const uniqueRows = [];
     filteredRows.forEach(row => {
         if (isUniqueResult(row, uniqueRows)) {
@@ -154,21 +160,18 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         }
     });
     filteredRows = uniqueRows;
+    console.log('After removing duplicates:', filteredRows.length);
 
-    console.log('After removing duplicates:', filteredRows);
+    const renderContainer = document.getElementById('dict-dictionary');
+    if (renderContainer) {
+        renderContainer.innerHTML = '';
+    } else {
+        console.error("Error: 'dict-dictionary' element not found in the DOM.");
+        return;
+    }
 
-    // Clear previous rows before rendering new ones
-    const renderContainer = document.getElementById('dict-dictionary'); // Ensure the correct container ID
-    renderContainer.innerHTML = '';
-
-    // Sort filtered rows based on the current sorting manner
-    filteredRows = sortRows(filteredRows, sortingManner);
-    console.log('After sorting:', filteredRows);
-
-    // Highlight terms in the filtered rows based on search criteria
     filteredRows = filteredRows.map(row => highlight(row, searchTerm, searchIn, row));
 
-    // Render the filtered rows into the container
     filteredRows.forEach(async row => {
         const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
         if (box) {
@@ -176,14 +179,11 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         }
     });
 
-    // Call cleanUpDuplicates to ensure no duplicate boxes are present
     cleanUpDuplicates();
 
-    // Update pagination and floating text
     createPaginationControls(paramsRowsPerPage, filteredRows, currentPage, displayPage);
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 
-    // Show "Settings Applied" notification
     const settingsAppliedText = document.createElement('div');
     settingsAppliedText.id = 'settings-applied-text';
     settingsAppliedText.innerText = 'Settings Applied';
@@ -194,6 +194,8 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     setTimeout(() => {
         settingsAppliedText.remove();
     }, 1000);
+
+    console.log('Process complete.');
 }
 
 /**
