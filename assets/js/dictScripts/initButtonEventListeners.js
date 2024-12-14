@@ -135,12 +135,6 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
         });
     });
 
-    if (!filteredRows) {
-
-       await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
-        
-    }
-
     function navigateToPage(pageNumber) {
         if (!isNaN(pageNumber) && pageNumber >= 1) {
             currentPage = pageNumber;
@@ -151,7 +145,11 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
         updatePagination(currentPage, totalPages);
         displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
     }
-    navigateToPage(1);
+    if (filteredRows) {
+
+      navigateToPage(1);
+
+    }
 
     console.log('Button Event Listeners initialized');
 }
