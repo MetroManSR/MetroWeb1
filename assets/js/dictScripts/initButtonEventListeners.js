@@ -4,7 +4,8 @@ import {
 import {
     universalPendingChanges,
     updatePendingChangesList,
-    defaultPendingChanges
+    defaultPendingChanges,
+    initializeFormEventListeners 
 } from './initFormEventListeners.js';
 import {
     initAdvancedSearchPopup,
@@ -34,6 +35,7 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
         pendingChangesElement.style.display = 'block';
     }
    
+    initializeFormEventListeners(allRows, pendingChanges, rowsPerPage, displayPage);
     updatePendingChangesList(pendingChanges, language);
     const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
