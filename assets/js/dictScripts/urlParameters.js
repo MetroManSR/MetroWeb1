@@ -1,7 +1,7 @@
 import { processAllSettings, displaySpecificEntry, rootSpecific, wordSpecific } from './processRows.js';
 
 // Handle URL parameters
-export function initUrl(allRows, rowsPerPage, displayPage, currentPage, currentSortOrder) {
+export async function initUrl(allRows, rowsPerPage, displayPage, currentPage, currentSortOrder) {
         const params = new URLSearchParams(window.location.search);
         const searchTerm = params.get('hypersearchterm');
         const wordID = params.get('wordid');
@@ -11,7 +11,7 @@ export function initUrl(allRows, rowsPerPage, displayPage, currentPage, currentS
 
         if (searchTerm && searchTerm.trim()) {
             const criteria = { searchTerm: searchTerm.trim(), searchIn: { word: true, root: true, definition: true, etymology: false } };
-            processAllSettings(criteria, allRows, rowsPerPage, displayPage, currentPage, currentSortOrder);
+           await processAllSettings(criteria, allRows, rowsPerPage, displayPage, currentPage, currentSortOrder);
         } else if (wordID && parseInt(wordID) > 0) {
             const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
             console.log('Word Entry:', wordEntry);
