@@ -98,7 +98,6 @@ export async function updatePendingChangesList(pendingChanges, language){
 }
 
 export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPage, displayPage) {
-    
     console.log('Initializing Form Event Listeners');
 
     if (!pendingChanges || pendingChanges.length === 0) {
@@ -110,7 +109,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
 
     console.log('Pending Changes I: ', pendingChanges);
     console.log('Universal PendingChanges I: ', universalPendingChanges);
-    
+
     const language = document.querySelector('meta[name="language"]').content || 'en';
     const filterSelect = document.getElementById('dict-word-filter');
 
@@ -133,7 +132,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             predictionBox.innerHTML = '';
             pendingChanges.searchTerm = ''; // Clear searchTerm in pending changes
             updatePendingChangesList(pendingChanges, language); // Update pending changes list
-            universalPendingChanges = pendingChanges; 
+            universalPendingChanges = pendingChanges;
             return;
         }
 
@@ -147,31 +146,33 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
                 return titleMatch || rootMatch || definitionMatch || etymologyMatch;
             })
             .slice(0, 10) // Limit to the first 10 matches
-            .map(row => row.title);
+            .map(row => ({ title: row.title, meta: row.meta }));
 
         if (predictions.length === 0) {
             predictionBox.innerHTML = '';
             pendingChanges.searchTerm = searchTerm; // Update searchTerm in pending changes
             updatePendingChangesList(pendingChanges, language); // Update pending changes list
-            universalPendingChanges = pendingChanges; 
+            universalPendingChanges = pendingChanges;
             return;
         }
 
-        predictionBox.innerHTML = predictions.map(({ title, meta }) => `<div>${highlight(title, searchTerm, pendingChanges.searchIn, { title })} (${meta})</div>`).join('');
-        
+        predictionBox.innerHTML = predictions.map(({ title, meta }) => 
+            `<div>${highlight(title, searchTerm, pendingChanges.searchIn, { title })} (${meta})</div>`
+        ).join('');
+
         Array.from(predictionBox.children).forEach((prediction, index) => {
             prediction.addEventListener('click', () => {
-                searchInput.value = predictions[index];
+                searchInput.value = predictions[index].title;
                 predictionBox.innerHTML = '';
-                pendingChanges.searchTerm = predictions[index]; // Update searchTerm in pending changes
+                pendingChanges.searchTerm = predictions[index].title; // Update searchTerm in pending changes
                 updatePendingChangesList(pendingChanges, language); // Update pending changes list
-                universalPendingChanges = pendingChanges; 
+                universalPendingChanges = pendingChanges;
             });
         });
 
         pendingChanges.searchTerm = searchTerm;
         updatePendingChangesList(pendingChanges, language);
-        universalPendingChanges = pendingChanges; 
+        universalPendingChanges = pendingChanges;
     });
 
     document.addEventListener('focusin', (e) => {
@@ -187,12 +188,11 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
     });
 
     const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
-
     if (rowsPerPageSelect) {
         rowsPerPageSelect.addEventListener('change', () => {
             pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
             updatePendingChangesList(pendingChanges, language);
-            universalPendingChanges = pendingChanges; 
+            universalPendingChanges = pendingChanges;
         });
     }
 
