@@ -63,6 +63,7 @@
 
         "pendingChanges": "Pending Changes",
         "noPendingChanges": "No pending changes",
+        "searchIn": "Search in",
         "searchTerm": "Search Term",
         "exactMatch": "Exact Match",
         "filters": "Filters",
@@ -136,6 +137,7 @@
 
         "pendingChanges": "Cambios Pendientes",
         "noPendingChanges": "No hay cambios pendientes",
+        "searchIn": "Buscar en",
         "searchTerm": "Término de Búsqueda",
         "exactMatch": "Coincidencia Exacta",
         "filters": "Filtros",
