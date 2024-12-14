@@ -1,7 +1,7 @@
 import { getRelatedWordsByRoot, highlight, createHyperlink } from './utils.js';
 import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
-import { copyToClipboard } from './utils.js';
+import { copyToClipboard, getSimilarity, levenshteinDistance } from './utils.js';
 import { loadInfoBox } from './boxEvents.js';
     
 let previouslySelectedBox = null;
@@ -150,11 +150,51 @@ function showTooltip(message) {
     }, 3000);
 }
 
-// Function to create a no match box
-export async function createNoMatchBox(language) {
+// Function to create a no match box with suggestions
+export async function createNoMatchBox(language, searchTerm, allRows) {
     const noMatchBox = document.createElement('div');
     noMatchBox.className = 'dictionary-box no-match';
-    noMatchBox.textContent = await getTranslatedText('noMatch', language); // Adjust to be language-sensitive
+
+    const noMatchText = document.createElement('div');
+    noMatchText.textContent = await getTranslatedText('noMatch', language);
+    noMatchBox.appendChild(noMatchText);
+
+    // Calculate similarities and get the top 75% matching titles
+    const suggestions = allRows
+        .map(row => ({
+            title: row.title,
+            meta: row.meta,
+            similarity: getSimilarity(row.title, searchTerm)
+        }))
+        .sort((a, b) => b.similarity - a.similarity)
+        .slice(0, Math.ceil(allRows.length * 0.75))
+        .map(row => `${row.title} (${row.meta})`);
+
+    if (suggestions.length > 0) {
+        const suggestionsContainer = document.createElement('div');
+        suggestionsContainer.className = 'suggestions-container';
+
+        const suggestionsTitle = document.createElement('div');
+        suggestionsTitle.textContent = await getTranslatedText('maybeYouMeant', language);
+        suggestionsContainer.appendChild(suggestionsTitle);
+
+        suggestions.forEach(suggestion => {
+            const suggestionElement = document.createElement('div');
+            suggestionElement.className = 'suggestion';
+            suggestionElement.textContent = suggestion;
+            suggestionElement.addEventListener('click', () => {
+                const searchInput = document.getElementById('dict-search-input');
+                if (searchInput) {
+                    searchInput.value = suggestion.split(' (')[0]; // Set the title only
+                    searchInput.dispatchEvent(new Event('input')); // Trigger the input event to update predictions
+                }
+            });
+            suggestionsContainer.appendChild(suggestionElement);
+        });
+
+        noMatchBox.appendChild(suggestionsContainer);
+    }
+
     return noMatchBox;
 }
 
