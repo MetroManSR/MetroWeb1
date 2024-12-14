@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Initialize event listeners with apply settings handling
     initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage);
     
-    const temp = {searchTerm: ''};
+    const temp = {};
     
     //click pending changes 
     boxClickListener(allRows, language, temp);
