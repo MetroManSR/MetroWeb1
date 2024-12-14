@@ -33,8 +33,6 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
     if (pendingChangesElement) {
         pendingChangesElement.style.display = 'block';
     }
-
-    processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
    
     updatePendingChangesList(pendingChanges, language);
     const orderBySelect = document.getElementById('dict-order-by-select');
@@ -136,6 +134,12 @@ export function initializeButtonEventListeners(allRows, rowsPerPage, currentSort
             }
         });
     });
+
+    if (!filteredRows) {
+
+       await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+        
+    }
 
     function navigateToPage(pageNumber) {
         if (!isNaN(pageNumber) && pageNumber >= 1) {
