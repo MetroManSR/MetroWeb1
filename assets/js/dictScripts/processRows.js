@@ -72,7 +72,7 @@ function cleanUpDuplicates() {
     //console.log("Duplicates cleaned up.");
 }
 
-export async function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
+export async function processAllSettings(params, allRows = [], rowsPerPage, currentPage = 1, sortingManner = 'titleup') {
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
     
     const {
@@ -182,7 +182,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
         renderContainer.appendChild(noMatchBox);
     }
 
-    createPaginationControls(currentPage, totalPages, rowsPerPage, displayPage);
+    createPaginationControls(currentPage, totalPages, rowsPerPage);
     
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 
