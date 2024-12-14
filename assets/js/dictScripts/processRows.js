@@ -162,10 +162,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
         return;
     }
 
-    // Apply pagination: slice the array to include only the rows for the current page
-    const startIdx = (currentPage - 1) * rowsPerPage;
-    const endIdx = startIdx + rowsPerPage;
-    const rowsToDisplay = filteredRows.slice(startIdx, endIdx);
+    const rowsToDisplay = filteredRows;
     console.log('Rows to display:', rowsToDisplay.length);
 
     for (const row of rowsToDisplay) {
@@ -175,7 +172,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
         }
     }
 
-    // cleanUpDuplicates();
+    cleanUpDuplicates();
 
     if (filteredRows.length === 0) {
         const noMatchBox = await createNoMatchBox(language, 'dict-search-input', searchTerm, allRows);
@@ -197,7 +194,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, disp
     }, 1000);
 
     console.log('Process complete.');
-} 
+}
 
 /**
  * Displays the specified page of results.
