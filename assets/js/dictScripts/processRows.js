@@ -72,17 +72,7 @@ function cleanUpDuplicates() {
     //console.log("Duplicates cleaned up.");
 }
 
-/**
- * Processes all settings including search, filters, sorting, and advanced search criteria.
- *
- * @param {Object} params - The search parameters.
- * @param {Array} allRows - The array of all dictionary rows.
- * @param {number} rowsPerPage - The number of rows to display per page.
- * @param {Function} displayPage - The function to display the page.
- * @param {number} [currentPage=1] - The current page to display.
- * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
- */
-export async function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
+export function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
     const {
