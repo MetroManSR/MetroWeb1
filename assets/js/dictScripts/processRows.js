@@ -30,7 +30,7 @@ export function sortRows(rows, sortingManner) {
         case 'morphdown':
             return rows.sort((a, b) => {
                 const morphA = Array.isArray(a.morph) ? a.morph.join(' ') : a.morph || '';
-                const morphB = Array.isArray(b.morph) ? b.morph join(' ') : b.morph || '';
+                const morphB = Array.isArray(b.morph) ? b.morph.join(' ') : b.morph || '';
                 return morphB.localeCompare(morphA);
             });
         default:
