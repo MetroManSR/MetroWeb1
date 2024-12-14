@@ -235,8 +235,8 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
     if (filteredRows.length === 0) {
         dictionaryContainer.innerHTML = ''; // Clear loading boxes
         dictionaryContainer.appendChild(await createNoMatchBox(language));
-        updatePagination(currentPage, filteredRows, rowsPerPage);
-        await updateFloatingText(filteredRows, searchTerm, [], {}, language);
+        updatePagination(currentPage, rowsPerPage);
+        await updateFloatingText(searchTerm, [], {}, language);
         return;
     }
 
