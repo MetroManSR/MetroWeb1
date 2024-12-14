@@ -9,6 +9,7 @@ import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { boxClickListener } from './dictScripts/boxEvents.js';
 export let filteredRows;
+
 document.addEventListener('DOMContentLoaded', async function() {
     const language = document.querySelector('meta[name="language"]').content || 'en';
     await setTexts(language);
@@ -158,3 +159,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     boxClickListener(allRows, language, temp);
 
 });
+
+export function updateFilteredRows(i){
+
+    filteredRows = i;
+
+}
