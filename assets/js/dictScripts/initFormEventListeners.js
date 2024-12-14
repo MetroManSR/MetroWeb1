@@ -13,7 +13,7 @@ export const defaultPendingChanges = {
     searchIn: {
         word: true,
         root: true,
-        definition: false,
+        definition: true,
         etymology: false
     },
     filters: [],
@@ -29,8 +29,15 @@ export async function updatePendingChangesList(pendingChanges, language) {
     
     if (!pendingChanges || pendingChanges.length === 0){
 
-        pendingChanges = universalPendingChanges;
+
+        if (universalPendingChanges.length === 0){
+
+            universalPendingChanges = defaultPendingChanges;
         
+        }
+        
+        pendingChanges = universalPendingChanges;
+    
     }
     
     const pendingChangesElement = document.getElementById('dict-pending-changes');
