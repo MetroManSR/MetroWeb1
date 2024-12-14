@@ -1,7 +1,6 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
 import { highlight } from './utils.js';
-import { attachIcons } from './boxEvents.js';
 
 /**
  * Sorts rows based on the specified sorting manner.
