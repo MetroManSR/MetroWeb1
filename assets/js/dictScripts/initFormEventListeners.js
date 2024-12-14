@@ -1,172 +1,203 @@
-import { 
-    processAllSettings 
+import {
+    getTranslatedText
+} from './loadTexts.js';
+import {
+    processAllSettings
 } from './processRows.js';
-import { 
-    universalPendingChanges, 
-    updatePendingChangesList, 
-    defaultPendingChanges, 
-    updateUniversalPendingChanges 
-} from './initFormEventListeners.js';
-import { 
-    initAdvancedSearchPopup, 
-    initStatisticsPopup 
-} from './popups.js';
-import { 
-    filteredRows 
-} from './processRows.js';
-import { 
-    boxClickListener 
+import {
+    boxClickListener
 } from './boxEvents.js';
+export const defaultPendingChanges = {
+    searchTerm: '',
+    exactMatch: false,
+    searchIn: {
+        word: true,
+        root: true,
+        definition: true,
+        etymology: false
+    },
+    filters: [],
+    rowsPerPage: 20,
+    sortOrder: 'titleup' // Default sort order
+};
 
-export function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
-    console.log('Initializing Button Event Listeners');
+export let universalPendingChanges;
 
-    // Ensure pendingChanges is properly initialized
+export async function updatePendingChangesList(pendingChanges, language){
+
     if (!pendingChanges || pendingChanges.length === 0) {
-        pendingChanges = universalPendingChanges ?? defaultPendingChanges;
-        updateUniversalPendingChanges(pendingChanges);
+        if (!universalPendingChanges || universalPendingChanges.length === 0) {
+            universalPendingChanges = defaultPendingChanges;
+        }
+        pendingChanges = universalPendingChanges;
     }
 
-    const language = document.querySelector('meta[name="language"]').content || 'en';
-    let currentPage = 1;
-
-    // Ensure pendingChanges list is visible on page load
+    console.log('Pending Changes: ', pendingChanges);
+    console.log('Universal PendingChanges: ', universalPendingChanges);
+    
     const pendingChangesElement = document.getElementById('dict-pending-changes');
-    if (pendingChangesElement) {
-        pendingChangesElement.style.display = 'block';
+    if (!pendingChangesElement) return;
+    const {
+        searchTerm,
+        exactMatch,
+        searchIn,
+        filters,
+        ignoreDiacritics,
+        startsWith,
+        endsWith,
+        rowsPerPage
+    } = pendingChanges;
+    let changesList = [];
+    if (searchTerm) {
+        const translatedSearchTerm = await getTranslatedText('searchTerm', language);
+        changesList.push(`<strong>${translatedSearchTerm}</strong>: "${searchTerm}"`);
+    }
+    if (exactMatch) {
+        const translatedExactMatch = await getTranslatedText('exactMatch', language);
+        changesList.push(`<strong>${translatedExactMatch}</strong>: ${translatedExactMatch}`);
+    }
+    if (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology) {
+        let searchInFields = [];
+        if (searchIn.word) searchInFields.push(await getTranslatedText('searchInWord', language));
+        if (searchIn.root) searchInFields.push(await getTranslatedText('searchInRoot', language));
+        if (searchIn.definition) searchInFields.push(await getTranslatedText('searchInDefinition', language));
+        if (searchIn.etymology) searchInFields.push(await getTranslatedText('searchInEtymology', language));
+        const translatedSearchIn = await getTranslatedText('searchIn', language);
+        changesList.push(`<strong>${translatedSearchIn}</strong>: ${searchInFields.join(', ')}`);
+    }
+    if (ignoreDiacritics) {
+        const translatedIgnoreDiacritics = await getTranslatedText('ignoreDiacritics', language);
+        changesList.push(`<strong>${translatedIgnoreDiacritics}</strong>`);
+    }
+    if (startsWith) {
+        const translatedStartsWith = await getTranslatedText('startsWith', language);
+        changesList.push(`<strong>${translatedStartsWith}</strong>`);
+    }
+    if (endsWith) {
+        const translatedEndsWith = await getTranslatedText('endsWith', language);
+        changesList.push(`<strong>${translatedEndsWith}</strong>`);
+    }
+    if (filters.length > 0) {
+        const translatedFilters = await getTranslatedText('filters', language);
+        const translatedFilterValues = await Promise.all(filters.map(async filter => await getTranslatedText(filter, language)));
+        changesList.push(`<strong>${translatedFilters}</strong>: ${translatedFilterValues.join(', ')}`);
+    }
+    if (rowsPerPage !== 20) {
+        const translatedRowsPerPage = await getTranslatedText('rowsPerPage', language);
+        changesList.push(`<strong>${translatedRowsPerPage}</strong>: ${rowsPerPage}`);
+    }
+    const translatedPendingChanges = await getTranslatedText('pendingChanges', language);
+    const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', language);
+    
+    universalPendingChanges = pendingChanges; 
+    
+    pendingChangesElement.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
+}
+
+export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPage, displayPage) {
+    
+    console.log('Initializing Form Event Listeners');
+
+    if (!pendingChanges || pendingChanges.length === 0) {
+        if (!universalPendingChanges || universalPendingChanges.length === 0) {
+            universalPendingChanges = defaultPendingChanges;
+        }
+        pendingChanges = universalPendingChanges;
     }
 
-    updatePendingChangesList(pendingChanges, language);
-
-    const orderBySelect = document.getElementById('dict-order-by-select');
-    if (orderBySelect) {
-        orderBySelect.addEventListener('change', () => {
-            pendingChanges.sortOrder = orderBySelect.value;
-            updatePendingChangesList(pendingChanges, language);
-            updateUniversalPendingChanges(pendingChanges);
-        });
-    }
-
+    console.log('Pending Changes I: ', pendingChanges);
+    console.log('Universal PendingChanges I: ', universalPendingChanges);
+    
+    const language = document.querySelector('meta[name="language"]').content || 'en';
     const filterSelect = document.getElementById('dict-word-filter');
+
     if (filterSelect) {
         filterSelect.addEventListener('change', () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
             updatePendingChangesList(pendingChanges, language);
-            updateUniversalPendingChanges(pendingChanges);
-        });
-    }
-
-    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    if (toggleFilterButton) {
-        toggleFilterButton.addEventListener('click', () => {
-            const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
-            filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
-            filterSortingContainer.classList.toggle('dict-filter-cont-visible');
-        });
-    }
-
-    const advancedSearchButton = document.getElementById('dict-advanced-search-button');
-    if (advancedSearchButton) {
-        advancedSearchButton.addEventListener('click', () => {
-            initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges);
-        });
-    }
-
-    const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
-    if (viewStatisticsButton) {
-        viewStatisticsButton.addEventListener('click', () => {
-            initStatisticsPopup(allRows);
-        });
-    }
-
-    const applySettingsButton = document.getElementById('dict-apply-settings-button');
-    if (applySettingsButton) {
-        applySettingsButton.addEventListener('click', () => {
-            processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
-        });
-    }
-
-    const cleanSettingsButton = document.getElementById('dict-clear-settings-button');
-    if (cleanSettingsButton) {
-        cleanSettingsButton.addEventListener('click', () => {
-            pendingChanges = {
-                searchTerm: '',
-                exactMatch: false,
-                searchIn: {
-                    word: true,
-                    root: true,
-                    definition: true,
-                    etymology: false
-                },
-                filters: [],
-                rowsPerPage: 20,
-                sortOrder: 'titleup' // Default sort order
-            };
-
-            // Reset form fields in the advanced search popup
-            document.getElementById('dict-search-input').value = '';
-            document.getElementById('dict-search-in-word').checked = true;
-            document.getElementById('dict-search-in-root').checked = true;
-            document.getElementById('dict-search-in-definition').checked = true;
-            document.getElementById('dict-search-in-etymology').checked = false;
-            document.getElementById('dict-exact-match').checked = false;
-
-            // Reset selected filters
-            const wordFilterSelect = document.getElementById('dict-word-filter');
-            Array.from(wordFilterSelect.options).forEach(option => {
-                option.selected = false;
-            });
-
-            updatePendingChangesList(pendingChanges, language);
-            updateUniversalPendingChanges(pendingChanges);
-            processAllSettings(pendingChanges, allRows, pendingChanges.rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
-
-            // Remove URL parameters without reloading the page
-            history.pushState({}, document.title, window.location.pathname);
-        });
-    }
-
-    const cleanSearchButton = document.getElementById('dict-clear-search-button');
-    if (cleanSearchButton) {
-        cleanSearchButton.addEventListener('click', () => {
-            pendingChanges.searchTerm = '';
-            document.getElementById('dict-search-input').value = '';
-            updatePendingChangesList(pendingChanges, language);
-            updateUniversalPendingChanges(pendingChanges);
-            processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
-
-            // Remove URL parameters without reloading the page
-            history.pushState({}, document.title, window.location.pathname);
+            universalPendingChanges = pendingChanges;
         });
     }
 
     const searchInput = document.getElementById('dict-search-input');
     const predictionBox = document.getElementById('dict-search-predictions');
 
-    document.querySelectorAll('.pagination-button').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const targetPage = parseInt(e.target.dataset.page, 10);
-            if (!isNaN(targetPage)) {
-                navigateToPage(targetPage);
-            }
-        });
-    });
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.trim().toLowerCase();
+        predictionBox.style.width = `${searchInput.offsetWidth}px`;
 
-    function navigateToPage(pageNumber) {
-        if (!isNaN(pageNumber) && pageNumber >= 1) {
-            currentPage = pageNumber;
-        } else {
-            currentPage = 1;
+        if (searchTerm.length === 0) {
+            predictionBox.innerHTML = '';
+            pendingChanges.searchTerm = ''; // Clear searchTerm in pending changes
+            updatePendingChangesList(pendingChanges, language); // Update pending changes list
+            universalPendingChanges = pendingChanges; 
+            return;
         }
 
-        const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
-        updatePagination(currentPage, totalPages);
-        displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, filteredRows, allRows);
+        const searchIn = pendingChanges.searchIn;
+        const predictions = allRows
+            .filter(row => {
+                const titleMatch = searchIn.word && row.type === 'word' && row.title.toLowerCase().includes(searchTerm);
+                const rootMatch = searchIn.root && row.type === 'root' && row.title.toLowerCase().includes(searchTerm);
+                const definitionMatch = searchIn.definition && row.meta.toLowerCase().includes(searchTerm);
+                const etymologyMatch = searchIn.etymology && row.morph.some(morphItem => morphItem.toLowerCase().includes(searchTerm));
+                return titleMatch || rootMatch || definitionMatch || etymologyMatch;
+            })
+            .slice(0, 10) // Limit to the first 10 matches
+            .map(row => row.title);
+
+        if (predictions.length === 0) {
+            predictionBox.innerHTML = '';
+            pendingChanges.searchTerm = searchTerm; // Update searchTerm in pending changes
+            updatePendingChangesList(pendingChanges, language); // Update pending changes list
+            universalPendingChanges = pendingChanges; 
+            return;
+        }
+
+        predictionBox.innerHTML = predictions.map(title => `<div>${highlight(title, searchTerm, pendingChanges.searchIn, { title })}</div>`).join('');
+
+        Array.from(predictionBox.children).forEach((prediction, index) => {
+            prediction.addEventListener('click', () => {
+                searchInput.value = predictions[index];
+                predictionBox.innerHTML = '';
+                pendingChanges.searchTerm = predictions[index]; // Update searchTerm in pending changes
+                updatePendingChangesList(pendingChanges, language); // Update pending changes list
+                universalPendingChanges = pendingChanges; 
+            });
+        });
+
+        pendingChanges.searchTerm = searchTerm;
+        updatePendingChangesList(pendingChanges, language);
+        universalPendingChanges = pendingChanges; 
+    });
+
+    document.addEventListener('focusin', (e) => {
+        if (!searchInput.contains(e.target) && !predictionBox.contains(e.target)) {
+            predictionBox.innerHTML = '';
+        }
+    });
+
+    searchInput.addEventListener('focus', () => {
+        if (searchInput.value.trim().length > 0) {
+            searchInput.dispatchEvent(new Event('input'));
+        }
+    });
+
+    const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
+
+    if (rowsPerPageSelect) {
+        rowsPerPageSelect.addEventListener('change', () => {
+            pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
+            updatePendingChangesList(pendingChanges, language);
+            universalPendingChanges = pendingChanges; 
+        });
     }
 
-    if (filteredRows) {
-        navigateToPage(1);
-    }
+    console.log('Form Event Listeners initialized');
+}
 
-    console.log('Button Event Listeners initialized');
-                                        }
+export function updateUniversalPendingChanges(i) {
+
+   universalPendingChanges = i;
+    
+} 
