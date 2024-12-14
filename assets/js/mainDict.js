@@ -177,7 +177,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Initialize event listeners with apply settings handling
     initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage);
     
+    const temp = [];
+    
     //click pending changes 
-    boxClickListener(allRows, language);
+    boxClickListener(allRows, language, temp);
 
 });
