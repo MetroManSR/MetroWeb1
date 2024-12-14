@@ -8,7 +8,7 @@ import { processAllSettings, sortRows, displayPage, wordSpecific, rootSpecific, 
 import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { boxClickListener } from './dictScripts/boxEvents.js';
-
+export let filteredRows;
 document.addEventListener('DOMContentLoaded', async function() {
     const language = document.querySelector('meta[name="language"]').content || 'en';
     await setTexts(language);
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
+        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, allRows);
 
         // Initialize advanced search form
         const advancedSearchForm = document.getElementById('advanced-search-form');
