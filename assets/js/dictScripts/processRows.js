@@ -72,9 +72,9 @@ function cleanUpDuplicates() {
     //console.log("Duplicates cleaned up.");
 }
 
-export function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
+export async function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
-
+    
     const {
         searchTerm = '',
         exactMatch = false,
@@ -168,12 +168,12 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     const rowsToDisplay = filteredRows.slice(startIdx, endIdx);
     console.log('Rows to display:', rowsToDisplay.length);
 
-    rowsToDisplay.forEach(async row => {
+    for (const row of rowsToDisplay) {
         const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
         if (box) {
             renderContainer.appendChild(box);
         }
-    });
+    }
 
     cleanUpDuplicates();
 
@@ -197,7 +197,7 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     }, 1000);
 
     console.log('Process complete.');
-}
+} 
 
 /**
  * Displays the specified page of results.
