@@ -9,7 +9,7 @@ import { displayPage } from "./processRows.js";
  * @param {number} currentPage - The current page number.
  * @param {Function} displayPage - Function to display the given page.
  */
-export function createPaginationControls(rowsPerPage, currentPage, displayPage) {
+export function createPaginationControls(rowsPerPage, currentPage) {
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
     console.log(`Current Page: ${currentPage}`);
