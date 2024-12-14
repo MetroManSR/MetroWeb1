@@ -20,6 +20,9 @@ export const defaultPendingChanges = {
     rowsPerPage: 20,
     sortOrder: 'titleup' // Default sort order
 };
+
+let universalPendingChanges = [];
+
 export async function updatePendingChangesList(pendingChanges, language) {
     const pendingChangesElement = document.getElementById('dict-pending-changes');
     if (!pendingChangesElement) return;
@@ -74,6 +77,9 @@ export async function updatePendingChangesList(pendingChanges, language) {
     }
     const translatedPendingChanges = await getTranslatedText('pendingChanges', language);
     const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', language);
+    
+    universalPendingChanges = pendingChanges; 
+    
     pendingChangesElement.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
 }
 export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPage, displayPage) {
@@ -83,6 +89,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
         filterSelect.addEventListener('change', () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
             updatePendingChangesList(pendingChanges, language);
+            universalPendingChanges = pendingChanges; 
         });
     }
     const searchInput = document.getElementById('dict-search-input');
@@ -102,6 +109,8 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
         predictionBox.innerHTML = '';
         pendingChanges.searchTerm = searchTerm;
         updatePendingChangesList(pendingChanges, language);
+        universalPendingChanges = pendingChanges; 
+
         return;
     }
     predictionBox.innerHTML = predictions.map(title => `<div>${highlight(title, searchTerm, pendingChanges.searchIn, { title })}</div>`).join('');
@@ -131,6 +140,8 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
             predictionBox.innerHTML = '';
             pendingChanges.searchTerm = searchTerm; // Update searchTerm in pending changes
             updatePendingChangesList(pendingChanges, language); // Update pending changes list
+            universalPendingChanges = pendingChanges; 
+
             return;
         }
         predictionBox.innerHTML = predictions.map(title => `<div>${highlight(title, searchTerm, pendingChanges.searchIn, { title })}</div>`).join('');
@@ -141,11 +152,16 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
                 predictionBox.innerHTML = '';
                 pendingChanges.searchTerm = predictions[index]; // Update searchTerm in pending changes
                 updatePendingChangesList(pendingChanges, language); // Update pending changes list
+                universalPendingChanges = pendingChanges; 
+
+            
             });
         });
         // Update pending changes list while typing
         pendingChanges.searchTerm = searchTerm;
         updatePendingChangesList(pendingChanges, language);
+        universalPendingChanges = pendingChanges; 
+
     });
     // Hide prediction box if input search is not selected
     document.addEventListener('focusin', (e) => {
@@ -188,7 +204,13 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
         rowsPerPageSelect.addEventListener('change', () => {
             pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
             updatePendingChangesList(pendingChanges, language);
+            universalPendingChanges = pendingChanges; 
+
         });
     }
     boxClickListener(allRows, language);
+}
+
+export function getPendingChanges(){
+    return universalPendingChanges;
 }
