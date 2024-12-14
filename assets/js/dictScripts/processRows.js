@@ -82,10 +82,10 @@ function cleanUpDuplicates() {
  * @param {number} [currentPage=1] - The current page to display.
  * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
  */
-export function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
 
+export function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
-    
+
     const {
         searchTerm = '',
         exactMatch = false,
@@ -173,9 +173,13 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         return;
     }
 
-    filteredRows = filteredRows.map(row => highlight(row, searchTerm, searchIn, row));
+    // Apply pagination: slice the array to include only the rows for the current page
+    const startIdx = (currentPage - 1) * rowsPerPage;
+    const endIdx = startIdx + rowsPerPage;
+    const rowsToDisplay = filteredRows.slice(startIdx, endIdx);
+    console.log('Rows to display:', rowsToDisplay.length);
 
-    filteredRows.forEach(async row => {
+    rowsToDisplay.forEach(async row => {
         const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
         if (box) {
             renderContainer.appendChild(box);
@@ -184,11 +188,12 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
 
     cleanUpDuplicates();
 
-    if (filteredRows.length===0){
-        const noMatchBox = createNoMatchBox(language, searchTerm, allRows);
-        dictionaryContainer.appendChild(noMatchBox);
-    } 
-    createPaginationControls(paramsRowsPerPage, filteredRows, currentPage, displayPage);
+    if (filteredRows.length === 0) {
+        const noMatchBox = await createNoMatchBox(language, 'dict-search-input', searchTerm, allRows);
+        renderContainer.appendChild(noMatchBox);
+    }
+
+    createPaginationControls(currentPage, totalPages, rowsPerPage, displayPage);
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 
     const settingsAppliedText = document.createElement('div');
