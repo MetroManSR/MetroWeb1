@@ -5,7 +5,6 @@ import {
     universalPendingChanges,
     updatePendingChangesList,
     defaultPendingChanges,
-    getUniversalPendingChanges,
 } from './initFormEventListeners.js';
 import {
     initAdvancedSearchPopup,
