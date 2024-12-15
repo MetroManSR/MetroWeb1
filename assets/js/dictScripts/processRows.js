@@ -170,7 +170,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         return;
     }
     
-    cleanUpDuplicates();
+    //cleanUpDuplicates();
 
     if (filteredRows.length === 0) {
         const noMatchBox = await createNoMatchBox(language, 'dict-search-input', searchTerm, allRows);
@@ -181,7 +181,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
 
     updatePagination(currentPage, rowsPerPage);
     
-    updateFloatingText(filteredRows, searchTerm, filters, searchIn);
+    updateFloatingText(searchTerm, filters, searchIn);
 
     const settingsAppliedText = document.createElement('div');
     settingsAppliedText.id = 'settings-applied-text';
