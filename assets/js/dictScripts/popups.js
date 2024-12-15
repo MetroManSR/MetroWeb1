@@ -1,11 +1,11 @@
 import { processAllSettings } from './processRows.js';
-import { universalPendingChanges, updatePendingChangesList } from './initFormEventListeners.js';
+import { universalPendingChanges, defaultPendingChanges, updatePendingChangesList } from './initFormEventListeners.js';
 import { filteredRows } from '../mainDict.js';
 
 export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
    
-    pendingChanges = universalPendingChanges;
-    
+    let pendingChanges = (universalPendingChanges && Object.keys(universalPendingChanges).length > 0) ? universalPendingChanges : { ...defaultPendingChanges };
+   
     const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
     const popupOverlay = document.getElementById('dict-popup-overlay-advse');
 
