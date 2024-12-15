@@ -1,5 +1,6 @@
 import {
-    processAllSettings
+    processAllSettings, 
+    displayPage
 } from './processRows.js';
 import {
     universalPendingChanges,
@@ -19,13 +20,12 @@ import {
 } from './boxEvents.js';
 
 
-export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
+export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder) {
     
     console.log('Initializing Button Event Listeners');
     
-    if (!pendingChanges || pendingChanges.length === 0){
-        pendingChanges = universalPendingChanges;
-    }
+    let pendingChanges = universalPendingChanges;
+    
     
     const language = document.querySelector('meta[name="language"]').content || 'en';
     let currentPage = 1;
