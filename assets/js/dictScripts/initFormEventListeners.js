@@ -95,7 +95,10 @@ export async function updatePendingChangesList(language){
     
     universalPendingChanges = pendingChanges; 
     
+    const pendingChangesElement = document.getElementById('dict-pending-changes');
+    
     pendingChangesElement.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
+
 }
 
 export function initializeFormEventListeners(allRows, rowsPerPage, displayPage) {
