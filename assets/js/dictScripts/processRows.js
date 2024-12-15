@@ -74,14 +74,11 @@ function cleanUpDuplicates() {
     //console.log("Duplicates cleaned up.");
 }
 
-export async function processAllSettings(allRows = [], rowsPerPage, currentPage = 1, sortingManner = 'titleup') {
+export async function processAllSettings(allRows = [], rowsPerPage = 20, currentPage = 1, sortingManner = 'titleup') {
     
     let params = universalPendingChanges ? universalPendingChanges : defaultPendingChanges ;
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
-    
-
-    
     const {
         searchTerm, 
         exactMatch,
@@ -90,11 +87,13 @@ export async function processAllSettings(allRows = [], rowsPerPage, currentPage 
         ignoreDiacritics,
         startsWith,
         endsWith,
-        rowsPerPage: paramsRowsPerPage
+        rowsPerPage: rowsPerPage
     } = params;
 
     console.log('Initial allRows:', allRows.length);
     updateFilteredRows([]);
+
+    console.log("Rows per page", rowsPerPage);
 
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
 
