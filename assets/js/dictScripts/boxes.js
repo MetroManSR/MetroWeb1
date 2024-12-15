@@ -254,7 +254,7 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
     // Replace loading boxes with actual content
     dictionaryContainer.innerHTML = ''; // Clear loading boxes
     for (const row of rowsToDisplay) {
-        if (!addedBoxes.has(row.id) && (row.title !== "" && row.meta !== "") { // Assuming each row has a unique 'id' field
+        if (!addedBoxes.has(row.id) && (row.title !== "" && row.meta !== "")) { // Assuming each row has a unique 'id' field
             const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
             if (box) {
                 dictionaryContainer.appendChild(box);
