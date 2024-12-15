@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Initialize advanced search form
         const advancedSearchForm = document.getElementById('advanced-search-form');
         if (advancedSearchForm) {
-            advancedSearchForm.addEventListener('submit', (e) => {
+            advancedSearchForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const formData = new FormData(advancedSearchForm);
                 const params = {
