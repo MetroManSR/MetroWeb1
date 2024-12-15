@@ -211,7 +211,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, curr
  * @param {Array} filteredRows - The filtered array of dictionary entries.
  * @param {Array} allRows - The array of all dictionary entries.
  */
-export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
+export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, allRows = []) {
     //console.log('Displaying page:', page);
     renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
 }
