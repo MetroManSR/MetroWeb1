@@ -30,13 +30,13 @@ export async function loadInfoBox(box, row) {
 
     // Add event listeners
     warningIcon.addEventListener('click', () => {
-        const message = `Hello I found a mistake or bug in ${row.title} [${row.id}]: _insert your input_`;
+        const message = `${getTranslatedText('bugCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('bugCopyPaste02')}`;
         copyToClipboard(message);
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
     });
 
     suggestionIcon.addEventListener('click', () => {
-        const message = `Hello I think I have an idea to improve word ${row.title} [${row.id}]: _suggestion here_`;
+        const message = `${getTranslatedText('ideaCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('ideaCopyPaste02')}`;
         copyToClipboard(message);
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
     });
