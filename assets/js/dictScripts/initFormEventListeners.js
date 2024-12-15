@@ -32,13 +32,14 @@ export let universalPendingChanges;
 
 export async function updatePendingChangesList(language){
 
-    pendingChanges = universalPendingChanges ? universalPendingChanges : defaultPendingChanges ;
+    console.log('Initializing Button Event Listeners');
 
-    console.log('Pending Changes: ', pendingChanges);
-    console.log('Universal PendingChanges: ', universalPendingChanges);
-    
-    const pendingChangesElement = document.getElementById('dict-pending-changes');
-    if (!pendingChangesElement) return;
+    const language = document.querySelector('meta[name="language"]').content || 'en';
+    let currentPage = 1;
+
+    // Initialize pendingChanges with fallback to defaults
+    let pendingChanges = (universalPendingChanges && Object.keys(universalPendingChanges).length > 0) ? universalPendingChanges : { ...defaultPendingChanges };
+
     const {
         searchTerm,
         exactMatch,
@@ -47,8 +48,9 @@ export async function updatePendingChangesList(language){
         ignoreDiacritics,
         startsWith,
         endsWith,
-        rowsPerPage
+        rowsPerPage: rowsPerPageFromChanges
     } = pendingChanges;
+    
     let changesList = [];
     if (searchTerm) {
         const translatedSearchTerm = await getTranslatedText('searchTerm', language);
