@@ -1,6 +1,6 @@
 import { processAllSettings } from './processRows.js';
 import { universalPendingChanges, updatePendingChangesList } from './initFormEventListeners.js';
-import { filteredRows } from '.. /mainDict.js';
+import { filteredRows } from '../mainDict.js';
 
 export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
    
