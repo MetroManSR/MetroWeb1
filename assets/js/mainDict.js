@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Filtered Rows:', filteredRows);
 
         console.log('Creating pagination controls...');
-        createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
+        //createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
         displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, allRows);
 
         // Initialize advanced search form
