@@ -5,7 +5,6 @@ import { renderBox } from "./boxes.js";
  * Creates pagination controls and updates the display of dictionary entries.
  *
  * @param {number} rowsPerPage - The number of rows to display per page.
- * @param {Array} filteredRows - The filtered array of dictionary entries.
  * @param {number} currentPage - The current page number.
  */
 export function createPaginationControls(rowsPerPage, currentPage) {
@@ -24,6 +23,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
         button.classList.add('pagination-button');
         let isCooldown = false;
         button.addEventListener('click', () => {
+            console.log(`Button clicked: ${label}`); // Log click event
             if (!isCooldown) {
                 isCooldown = true;
                 onClick();
@@ -66,6 +66,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
 
     currentPageInput.addEventListener('change', () => {
         let pageNumber = parseInt(currentPageInput.value, 10);
+        console.log(`Input changed: ${pageNumber}`); // Log input change
         if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
             currentPage = pageNumber;
             renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
@@ -110,7 +111,6 @@ export function createPaginationControls(rowsPerPage, currentPage) {
  * Updates the pagination display based on the current page and total rows.
  *
  * @param {number} currentPage - The current page number.
- * @param {Array} filteredRows - The filtered array of dictionary entries.
  * @param {number} rowsPerPage - The number of rows to display per page.
  */
 export function updatePagination(currentPage, rowsPerPage) {
