@@ -103,12 +103,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
 
     initUrl(allRows, rowsPerPage, displayPage, 1, 'titleup');
     
-    if (!pendingChanges || pendingChanges.length === 0) {
-        if (!universalPendingChanges || universalPendingChanges.length === 0) {
-            universalPendingChanges = defaultPendingChanges;
-        }
-        pendingChanges = universalPendingChanges;
-    }
+    let pendingChanges = (universalPendingChanges && Object.keys(universalPendingChanges).length > 0) ? universalPendingChanges : { ...defaultPendingChanges };
 
     console.log('Pending Changes I: ', pendingChanges);
     console.log('Universal PendingChanges I: ', universalPendingChanges);
