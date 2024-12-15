@@ -34,6 +34,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
 
     // Add go to beginning button
     const beginButton = createPageButton('⏮️', () => {
+        console.log("Current Page: ", currentPage)
         if (currentPage > 1) {
             currentPage = 1;
             renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
@@ -44,6 +45,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
 
     // Add previous button
     const prevButton = createPageButton('⬅️', () => {
+        console.log("Current Page: ", currentPage);
         if (currentPage > 1) {
             currentPage -= 1;
             renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
@@ -84,6 +86,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
 
     // Add next button
     const nextButton = createPageButton('➡️', () => {
+        console.log("Current Page: ", currentPage);
         if (currentPage < totalPages) {
             currentPage += 1;
             renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
@@ -94,6 +97,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
 
     // Add go to last button
     const endButton = createPageButton('⏭️', () => {
+        console.log("Current Page: ", currentPage);
         if (currentPage < totalPages) {
             currentPage = totalPages;
             renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
