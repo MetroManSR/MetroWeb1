@@ -41,7 +41,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
         if (currentPage > 1) {
             currentPage = 1;
             renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
-         }
+            console.log('To the beginning');
+        }
     });
     paginationContainer.appendChild(beginButton);
 
@@ -50,7 +51,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
         if (currentPage > 1) {
             currentPage -= 1;
             renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
-          }
+            console.log('1 page backwards');
+        }
     });
     paginationContainer.appendChild(prevButton);
 
@@ -88,7 +90,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
         if (currentPage < totalPages) {
             currentPage += 1;
             renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
-          }
+            console.log('1 page forward');
+        }
     });
     paginationContainer.appendChild(nextButton);
 
@@ -97,7 +100,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
         if (currentPage < totalPages) {
             currentPage = totalPages;
             renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
-         }
+            console.log('To the end');
+        }
     });
     paginationContainer.appendChild(endButton);
 }
