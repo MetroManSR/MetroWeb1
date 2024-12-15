@@ -22,10 +22,7 @@ import {
 
 export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder) {
     
-    console.log('Initializing Button Event Listeners');
-    
-    let pendingChanges = universalPendingChanges;
-    
+    console.log('Initializing Button Event Listeners'); 
     
     const language = document.querySelector('meta[name="language"]').content || 'en';
     let currentPage = 1;
@@ -36,6 +33,9 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     }
    
     initializeFormEventListeners(allRows, rowsPerPage);
+
+    let pendingChanges = universalPendingChanges;
+    
     updatePendingChangesList(language);
     const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
