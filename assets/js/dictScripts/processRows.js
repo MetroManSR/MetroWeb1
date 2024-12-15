@@ -171,7 +171,8 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         return;
     }
 
-    const rowsToDisplay = filteredRows;
+    const rowsToDisplay = splitArrayIntoChunks(filteredRows, rowsPerPage)[currentPage];
+    
     console.log('Rows to display:', rowsToDisplay.length);
 
     for (const row of rowsToDisplay) {
@@ -279,4 +280,13 @@ export function handleRowsPerPageChange(e) {
     if (!isNaN(rowsPerPage) && rowsPerPage > 0) {
         pendingChanges.rowsPerPage = rowsPerPage;
     }
+}
+
+function splitArrayIntoChunks(array, chunkSize) {
+    let result = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+        let chunk = array.slice(i, i + chunkSize);
+        result.push(chunk);
+    }
+    return result;
 }
