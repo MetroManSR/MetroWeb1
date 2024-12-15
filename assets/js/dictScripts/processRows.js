@@ -86,8 +86,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         filters, 
         ignoreDiacritics,
         startsWith,
-        endsWith,
-        rowsPerPage: rowsPerPage
+        endsWith
     } = params;
 
     console.log('Initial allRows:', allRows.length);
