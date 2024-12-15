@@ -169,9 +169,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         console.error("Error: 'dict-dictionary' element not found in the DOM.");
         return;
     }
-
-    console.log('Rows to display:', rowsToDisplay.length);
-
+    
     cleanUpDuplicates();
 
     if (filteredRows.length === 0) {
