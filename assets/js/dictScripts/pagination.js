@@ -1,13 +1,12 @@
 import { filteredRows } from '../mainDict.js';
 import { renderBox } from "./boxes.js";
-    
+
 /**
  * Creates pagination controls and updates the display of dictionary entries.
  *
  * @param {number} rowsPerPage - The number of rows to display per page.
  * @param {Array} filteredRows - The filtered array of dictionary entries.
  * @param {number} currentPage - The current page number.
- * @param {Function} displayPage - Function to display the given page.
  */
 export function createPaginationControls(rowsPerPage, currentPage) {
     console.log(`Rows per page: ${rowsPerPage}`);
@@ -33,6 +32,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
                 }, 500); // 0.5 seconds cooldown
             }
         });
+        console.log(`Button created: ${label}`); // Log button creation
         return button;
     };
 
@@ -40,7 +40,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const beginButton = createPageButton('⏮️', () => {
         if (currentPage > 1) {
             currentPage = 1;
-            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
             console.log('To the beginning');
         }
     });
@@ -50,7 +50,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const prevButton = createPageButton('⬅️', () => {
         if (currentPage > 1) {
             currentPage -= 1;
-            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
             console.log('1 page backwards');
         }
     });
@@ -68,7 +68,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
         let pageNumber = parseInt(currentPageInput.value, 10);
         if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
             currentPage = pageNumber;
-            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
         } else {
             currentPageInput.value = currentPage;
         }
@@ -89,7 +89,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const nextButton = createPageButton('➡️', () => {
         if (currentPage < totalPages) {
             currentPage += 1;
-            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
             console.log('1 page forward');
         }
     });
@@ -99,7 +99,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const endButton = createPageButton('⏭️', () => {
         if (currentPage < totalPages) {
             currentPage = totalPages;
-            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
             console.log('To the end');
         }
     });
