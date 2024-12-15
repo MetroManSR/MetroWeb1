@@ -34,7 +34,7 @@ export async function updatePendingChangesList(language){
 
     console.log('Initializing Button Event Listeners');
 
-    const language = document.querySelector('meta[name="language"]').content || 'en';
+    language = document.querySelector('meta[name="language"]').content || 'en';
     let currentPage = 1;
 
     // Initialize pendingChanges with fallback to defaults
