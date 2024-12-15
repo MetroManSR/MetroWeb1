@@ -160,7 +160,6 @@ export function initializeFormEventListeners(allRows, rowsPerPage, displayPage) 
             updatePendingChangesList(pendingChanges, language); // Update pending changes list
             universalPendingChanges = pendingChanges;
             currentPage = 1;
-            await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
             return;
         }
 
@@ -176,7 +175,7 @@ export function initializeFormEventListeners(allRows, rowsPerPage, displayPage) 
                 updatePendingChangesList(pendingChanges, language); // Update pending changes list
                 universalPendingChanges = pendingChanges;
                 currentPage = 1;
-                await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
+    
             });
         });
 
@@ -184,7 +183,6 @@ export function initializeFormEventListeners(allRows, rowsPerPage, displayPage) 
         updatePendingChangesList(pendingChanges, language);
         universalPendingChanges = pendingChanges;
         currentPage = 1;
-        await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
     });
 
     document.addEventListener('focusin', (e) => {
@@ -206,7 +204,7 @@ export function initializeFormEventListeners(allRows, rowsPerPage, displayPage) 
             updatePendingChangesList(language);
             universalPendingChanges = pendingChanges;
             currentPage = 1;
-            await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
+        
         });
     }
 
