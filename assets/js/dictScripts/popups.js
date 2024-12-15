@@ -1,8 +1,8 @@
 import { processAllSettings } from './processRows.js';
 import { universalPendingChanges, updatePendingChangesList } from './initFormEventListeners.js';
+import { filteredRows } from '.. /mainDict.js';
 
-
-export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
+export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
    
     pendingChanges = universalPendingChanges;
     
@@ -70,8 +70,8 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         pendingChanges.startsWith = startsWith;
         pendingChanges.endsWith = endsWith;
 
-        await updatePendingChangesList(pendingChanges, currentLanguage);
-        await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
+        await updatePendingChangesList(currentLanguage);
+        await processAllSettings(allRows, rowsPerPage, 1, pendingChanges.sortOrder);
     });
 
     // Ensure all checkboxes are checked by default
