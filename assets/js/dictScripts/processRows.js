@@ -80,14 +80,14 @@ export async function processAllSettings(allRows = [], rowsPerPage, currentPage 
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
     
     const {
-        searchTerm = '',
-        exactMatch = false,
-        searchIn = { word: true, root: true, definition: false, etymology: false },
-        filters = [],
-        ignoreDiacritics = false,
-        startsWith = false,
-        endsWith = false,
-        rowsPerPage: paramsRowsPerPage = 20
+        searchTerm, 
+        exactMatch,
+        searchIn, 
+        filters, 
+        ignoreDiacritics,
+        startsWith,
+        endsWith,
+        rowsPerPage: paramsRowsPerPage
     } = params;
 
     console.log('Initial allRows:', allRows.length);
