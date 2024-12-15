@@ -170,16 +170,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         return;
     }
 
-    const rowsToDisplay = splitArrayIntoChunks(filteredRows, rowsPerPage)[currentPage];
-    
     console.log('Rows to display:', rowsToDisplay.length);
-
-    for (const row of rowsToDisplay) {
-        const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-        if (box) {
-            renderContainer.appendChild(box);
-        }
-    }
 
     cleanUpDuplicates();
 
@@ -187,6 +178,8 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         const noMatchBox = await createNoMatchBox(language, 'dict-search-input', searchTerm, allRows);
         renderContainer.appendChild(noMatchBox);
     }
+
+    await renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
 
     updatePagination(currentPage, rowsPerPage);
     
