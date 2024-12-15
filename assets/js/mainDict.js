@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     etymology: formData.get('search-in-etymology') === 'on',
                     exactMatch: formData.get('exact-match') === 'on'
                 };
-                processAllSettings(params, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
+                await processAllSettings(params, allRows, rowsPerPage, displayPage, currentPage, pendingChanges.sortOrder);
             });
         }
 
