@@ -222,6 +222,8 @@ export async function updateFloatingText(searchTerm, filters, advancedSearchPara
 }
 
 export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage) {
+    console.log(`RenderBox called with currentPage: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
+
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
@@ -243,6 +245,8 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
     const start = (currentPage - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     const rowsToDisplay = filteredRows.slice(start, end);
+
+    console.log(`Rows to display: ${rowsToDisplay.length}, Start: ${start}, End: ${end}`);
 
     // Create a Set to track added boxes
     const addedBoxes = new Set();
