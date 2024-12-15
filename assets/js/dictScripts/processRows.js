@@ -182,7 +182,7 @@ export async function processAllSettings(params, allRows = [], rowsPerPage, curr
         renderContainer.appendChild(noMatchBox);
     }
 
-    createPaginationControls(currentPage, totalPages, rowsPerPage);
+    updatePaginationControls(currentPage, rowsPerPage);
     
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 
