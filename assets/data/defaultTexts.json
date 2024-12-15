@@ -75,10 +75,9 @@
 
         "bugCopyPaste01": "Hello I found a mistake or bug in ",
         "bugCopyPaste02": ": _your input_",
-        
-        "ideaCopyPaste01": "Hello I think I have an idea to improve word ",
-        "ideaCopyPaste02": "_your suggestion here_",
 
+        "ideaCopyPaste01": "Hello I think I have an idea to improve word ",
+        "ideaCopyPaste02": "_your suggestion here_"
     },
     "es": {
         "searchPlaceholder": "Buscar...",
@@ -153,12 +152,12 @@
         "endsWith": "Termina Con",
         "sortOrder": "Orden de Clasificación",
         "rowsPerPage": "Filas Por Página",
-    
+
         "bugCopyPaste01": "Hola encontré un error en ",
         "bugCopyPaste02": ": _escribe aquí_",
-        
+
         "ideaCopyPaste01": "Hola tengo una idea para mejorar la palabra ",
-        "ideaCopyPaste02": ": _tu sugerencia_",
+        "ideaCopyPaste02": ": _tu sugerencia_"
     },
     "eo": {},
     "blk": {}
