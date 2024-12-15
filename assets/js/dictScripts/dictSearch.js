@@ -1,5 +1,5 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
-import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
+import { renderBox, createDictionaryBox, createNoMatchBox } from './boxes.js';
 
 /**
  * Displays the specified page of results.
@@ -32,6 +32,9 @@ export function displaySpecificEntry(row, allRows) {
     if (box) {
         dictionaryContainer.appendChild(box);
     }
+
+    // Attach icons to the dictionary box
+    attachIcons(box, row);
 }
 
 // Function for exact and unique word search
@@ -45,4 +48,3 @@ export function rootSpecific(term, allRows) {
     const specificRoot = allRows.find(row => row.type === 'root' && row.title.toLowerCase() === term.toLowerCase());
     displaySpecificEntry(specificRoot, allRows);
 }
-

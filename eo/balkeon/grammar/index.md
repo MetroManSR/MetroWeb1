@@ -17,5 +17,4 @@ language: eo
 
 ### 🥎 <button class="button-16" role="button" onclick="location.href='./cases'">Kazoj gramatikaj</button>
 
-
 ### 👌 <button class="button-16" role="button" onclick="location.href='./words'">Vort-konstruado</button>

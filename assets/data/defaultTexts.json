@@ -3,8 +3,10 @@
         "searchPlaceholder": "Search...",
         "searchButton": "Search",
         "clearSearchButton": "Clear Search",
+
         "rowsPerPageLabel": "Rows per page:",
         "rowsPerPageButton": "Submit",
+
         "advancedSearchButton": "Advanced Search",
         "applySearchButton": "Apply",
         "closeSearchButton": "Close",
@@ -13,7 +15,9 @@
         "searchInDefinition": "Definition",
         "searchInEtymology": "Etymology",
         "exactMatch": "Exact Match",
+
         "viewStatisticsButton": "View Statistics",
+
         "filterByLabel": "Filter by:",
         "applyFilterButton": "Apply",
         "noun": "Noun",
@@ -25,24 +29,57 @@
         "preposition": "Preposition",
         "expression": "Expression",
         "pronoun": "Pronoun",
+
         "loadingMessage": "Loading dictionary, please wait...",
         "errorLoadingData": "Failed to load dictionary data. Please try again later.",
+
         "applySettingsButton": "Apply Settings",
         "clearSettingsButton": "Clear Settings",
+
         "orderByLabel": "Order By:",
-        "idAsc": "ID (Ascending)",
-        "idDesc": "ID (Descending)",
-        "definitionAsc": "Definition (A to Z)",
-        "definitionDesc": "Definition (Z to A)",
-        "wordAsc": "Word (A to Z)",
-        "wordDesc": "Word (Z to A)"
+        "titleAsc": "Title (Ascending)",
+        "titleDesc": "Title (Descending)",
+        "metaAsc": "Meta (Ascending)",
+        "metaDesc": "Meta (Descending)",
+        "morphAsc": "Morphology (Ascending)",
+        "morphDesc": "Morphology (Descending)",
+
+        "translation": "Translation",
+        "notes": "Notes",
+        "morphology": "Morphology",
+        "etymology": "Etymology",
+        "derivativeWords": "Derivative Words",
+        "relatedWords": "Related Words",
+        "noneFound": "None found",
+        "root": "Root",
+        "word": "Word",
+        "id": "ID",
+        "noMatch": "No match for your search",
+        "wordsFound": "words found",
+        "whenLookingFor": "when looking for",
+        "withFilters": "with filters",
+        "withAdvancedSearch": "with advanced search applied",
+        "toggleFiltersButton": "Toggle Filters",
+
+        "pendingChanges": "Pending Changes",
+        "noPendingChanges": "No pending changes",
+        "searchTerm": "Search Term",
+        "exactMatch": "Exact Match",
+        "filters": "Filters",
+        "ignoreDiacritics": "Ignore Diacritics",
+        "startsWith": "Starts With",
+        "endsWith": "Ends With",
+        "sortOrder": "Sort Order",
+        "rowsPerPage": "Rows Per Page"
     },
     "es": {
         "searchPlaceholder": "Buscar...",
         "searchButton": "Buscar",
         "clearSearchButton": "Limpiar Búsqueda",
+
         "rowsPerPageLabel": "Filas por página:",
         "rowsPerPageButton": "Enviar",
+
         "advancedSearchButton": "Búsqueda Avanzada",
         "applySearchButton": "Aplicar",
         "closeSearchButton": "Cerrar",
@@ -51,7 +88,9 @@
         "searchInDefinition": "Definición",
         "searchInEtymology": "Etimología",
         "exactMatch": "Coincidencia Exacta",
+
         "viewStatisticsButton": "Ver Estadísticas",
+
         "filterByLabel": "Filtrar por:",
         "applyFilterButton": "Aplicar",
         "noun": "Sustantivo",
@@ -63,11 +102,51 @@
         "preposition": "Preposición",
         "expression": "Expresión",
         "pronoun": "Pronombre",
+
         "loadingMessage": "Cargando diccionario, por favor espera...",
         "errorLoadingData": "No se pudo cargar los datos del diccionario. Por favor, inténtalo de nuevo más tarde.",
+
         "applySettingsButton": "Aplicar Configuraciones",
         "clearSettingsButton": "Limpiar Configuraciones",
+
         "orderByLabel": "Ordenar Por:",
+		"__comment": "Jena ekzistis en nova versio de l' bloko.",
+        "titleAsc": "Título (Ascendente)",
+        "titleDesc": "Título (Descendente)",
+        "metaAsc": "Meta (Ascendente)",
+        "metaDesc": "Meta (Descendente)",
+        "morphAsc": "Morfología (Ascendente)",
+        "morphDesc": "Morfología (Descendente)",
+
+        "translation": "Traducción",
+        "notes": "Notas",
+        "morphology": "Morfología",
+        "etymology": "Etimología",
+        "derivativeWords": "Palabras Derivadas",
+        "relatedWords": "Palabras Relacionadas",
+        "noneFound": "No encontrado",
+        "root": "Raíz",
+        "word": "Palabra",
+        "id": "ID",
+        "noMatch": "No hay coincidencias para tu búsqueda",
+        "wordsFound": "palabras encontradas",
+        "whenLookingFor": "al buscar",
+        "withFilters": "con filtros",
+        "withAdvancedSearch": "con búsqueda avanzada aplicada",
+        "toggleFiltersButton": "Mostrar o Esconder Filtros",
+
+        "pendingChanges": "Cambios Pendientes",
+        "noPendingChanges": "No hay cambios pendientes",
+        "searchTerm": "Término de Búsqueda",
+        "exactMatch": "Coincidencia Exacta",
+        "filters": "Filtros",
+        "ignoreDiacritics": "Ignorar Diacríticos",
+        "startsWith": "Comienza Con",
+        "endsWith": "Termina Con",
+        "sortOrder": "Orden de Clasificación",
+        "rowsPerPage": "Filas Por Página"
+
+		"_comment": "Jena ekzistis nur en malnova versio de l' bloko - ne sciante kion fari prie.",
         "idAsc": "ID (Ascendente)",
         "idDesc": "ID (Descendente)",
         "definitionAsc": "Definición (A a Z)",
@@ -79,8 +158,10 @@
         "searchPlaceholder": "Serĉi...",
         "searchButton": "Serĉi",
         "clearSearchButton": "Malplenigi serĉejon",
+
         "rowsPerPageLabel": "Linioj en ĉiu paĝo",
         "rowsPerPageButton": "Sendi",
+
         "advancedSearchButton": "Serĉi pli komplekse",
         "applySearchButton": "Apliki",
         "closeSearchButton": "Fermi",
@@ -89,7 +170,9 @@
         "searchInDefinition": "Difino",
         "searchInEtymology": "Etimologio",
         "exactMatch": "Nur trafojn ekzaktajn",
+
         "viewStatisticsButton": "Vidi statistikojn",
+
         "filterByLabel": "Filtri per:",
         "applyFilterButton": "Apliki",
         "noun": "Substantivo",
@@ -101,15 +184,57 @@
         "preposition": "Prepozicio",
         "expression": "Esprimaĵo",
         "pronoun": "Pronomo",
+
         "loadingMessage": "Nun ŝarĝas la vortaro-datumon, bonvole atendu...",
-        "errorLoadingData": "Malsukcesis ŝarĝi la vortaro-datumon. Bonvole reprovu poste."
+        "errorLoadingData": "Malsukcesis ŝarĝi la vortaro-datumon. Bonvole reprovu poste.",
+
+        "applySettingsButton": "Efektivigi agordojn",
+        "clearSettingsButton": "Malplenigi agordojn",
+
+        "orderByLabel": "Vicigi laŭ:",
+        "titleAsc": "Titolo (A ĝis Z)",
+        "titleDesc": "Titolo (Z ĝis A)",
+        "metaAsc": "Meta (pliiĝanta)",
+        "metaDesc": "Meta (malpliiĝanta)",
+        "morphAsc": "Morfologio (A ĝis Z)",
+        "morphDesc": "Morfologio (Z ĝis A)",
+
+        "translation": "Traduko",
+        "notes": "Notoj",
+        "morphology": "Morfologio",
+        "etymology": "Etimologio",
+        "derivativeWords": "Derivataj vortoj",
+        "relatedWords": "Rilatantaj vortoj",
+        "noneFound": "Nenion trovis",
+        "root": "Radiko",
+        "word": "Vorto",
+        "id": "ID",
+        "noMatch": "Nenian koincidon trovis por via serĉo",
+        "wordsFound": "vortojn trovis",
+        "whenLookingFor": "serĉante al",
+        "withFilters": "kun filtroj",
+        "withAdvancedSearch": "en modo kompleks-serĉa",
+        "toggleFiltersButton": "Ŝalti filtrojn",
+
+        "pendingChanges": "Ŝanĝoj atendas",
+        "noPendingChanges": "Neniaj ŝanĝoj atendas",
+        "searchTerm": "Serĉvorto",
+        "exactMatch": "Ekzakta koincido",
+        "filters": "Filtroj",
+        "ignoreDiacritics": "Ignori diakritojn",
+        "startsWith": "Komenciĝas per",
+        "endsWith": "Finiĝas per",
+        "sortOrder": "Vicig-ordo",
+        "rowsPerPage": "Linioj en ĉiu paĝo"
     },
-    "bk": {
+    "blk": {
         "searchPlaceholder": "Tansakirian...",
         "searchButton": "Tansakirian",
         "clearSearchButton": "Nebirian",
+
         "rowsPerPageLabel": "Linseon kich biringeon",
         "rowsPerPageButton": "Efektasnirian",
+
         "advancedSearchButton": "Tansakirian ",
         "applySearchButton": "Efektasnirian",
         "closeSearchButton": "Klosirian",
@@ -118,7 +243,9 @@
         "searchInDefinition": "Defineon",
         "searchInEtymology": "Baklufrokeon",
         "exactMatch": "Ol eksaktidseon samemseon",
+
         "viewStatisticsButton": "Birian estatistik-seon",
+
         "filterByLabel": "Filter by:",
         "applyFilterButton": "Apply",
         "noun": "Bakleon maksa emseon",
@@ -130,7 +257,47 @@
         "preposition": "Preposition",
         "expression": "Seyoftemeon",
         "pronoun": "Pronoun",
+
         "loadingMessage": "Lodir baklubukeon, please wait...",
-        "errorLoadingData": "Nekokasiro lodirian baklubukeon. Please try again later."
+        "errorLoadingData": "Nekokasiro lodirian baklubukeon. Please try again later.",
+
+        "applySettingsButton": "Efektasnirian bolseon",
+        "clearSettingsButton": "Nelasnirian bolseon",
+
+        "orderByLabel": "Order By:",
+        "titleAsc": "Title (Ascending)",
+        "titleDesc": "Title (Descending)",
+        "metaAsc": "Meta (Ascending)",
+        "metaDesc": "Meta (Descending)",
+        "morphAsc": "Morphology (Ascending)",
+        "morphDesc": "Morphology (Descending)",
+
+        "translation": "Translation",
+        "notes": "Notes",
+        "morphology": "Morphology",
+        "etymology": "Etymology",
+        "derivativeWords": "Derivative Words",
+        "relatedWords": "Related Words",
+        "noneFound": "None found",
+        "root": "Root",
+        "word": "Word",
+        "id": "ID",
+        "noMatch": "No match for your search",
+        "wordsFound": "words found",
+        "whenLookingFor": "when looking for",
+        "withFilters": "with filters",
+        "withAdvancedSearch": "with advanced search applied",
+        "toggleFiltersButton": "Toggle Filters",
+
+        "pendingChanges": "Pending Changes",
+        "noPendingChanges": "No pending changes",
+        "searchTerm": "Search Term",
+        "exactMatch": "Exact Match",
+        "filters": "Filters",
+        "ignoreDiacritics": "Ignore Diacritics",
+        "startsWith": "Starts With",
+        "endsWith": "Ends With",
+        "sortOrder": "Sort Order",
+        "rowsPerPage": "Rows Per Page"
     }
 }

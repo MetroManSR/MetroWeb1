@@ -1,46 +1,44 @@
-import { processRows } from './processRows.js';
+import { processAllSettings } from './processRows.js';
+import { updatePendingChangesList } from './initFormEventListeners.js';
 
-export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage) {
-    let pendingChanges = {
-        searchTerm: '',
-        exactMatch: false,
-        searchIn: { word: true, root: true, definition: false, etymology: false },
-        filters: [],
-        rowsPerPage: 20
-    };
+export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendingChanges, currentLanguage) {
+    const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
+    const popupOverlay = document.getElementById('dict-popup-overlay-advse');
 
-    const updatePendingChangesList = () => {
-        const pendingChangesContainer = document.getElementById('dict-pending-changes');
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
-        let changesList = [];
+    if (advancedSearchPopup.classList.contains('active')) {
+        advancedSearchPopup.classList.remove('active');
+        popupOverlay.classList.remove('active');
+    } else {
+        // Add class to make popup visible
+        popupOverlay.classList.add('active');
+        advancedSearchPopup.classList.add('active');
 
-        if (searchTerm) changesList.push(`Search Term: "${searchTerm}"`);
-        if (exactMatch) changesList.push(`Exact Match: On`);
-        if (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology) {
-            let searchInFields = [];
-            if (searchIn.word) searchInFields.push('Word');
-            if (searchIn.root) searchInFields.push('Root');
-            if (searchIn.definition) searchInFields.push('Definition');
-            if (searchIn.etymology) searchInFields.push('Etymology');
-            changesList.push(`Search In: ${searchInFields.join(', ')}`);
-        }
-        if (filters.length > 0) changesList.push(`Filters: ${filters.join(', ')}`);
-        if (rowsPerPage !== 20) changesList.push(`Rows Per Page: ${rowsPerPage}`);
+        // Load previous selections if any
+        document.getElementById('dict-search-input').value = pendingChanges.searchTerm || '';
+        document.getElementById('dict-search-in-word').checked = pendingChanges.searchIn.word;
+        document.getElementById('dict-search-in-root').checked = pendingChanges.searchIn.root;
+        document.getElementById('dict-search-in-definition').checked = pendingChanges.searchIn.definition;
+        document.getElementById('dict-search-in-etymology').checked = pendingChanges.searchIn.etymology;
+        document.getElementById('dict-exact-match').checked = pendingChanges.exactMatch;
 
-        pendingChangesContainer.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No pending changes';
-    };
+        // New filters
+        document.getElementById('dict-ignore-diacritics').checked = pendingChanges.ignoreDiacritics;
+        document.getElementById('dict-starts-with').checked = pendingChanges.startsWith;
+        document.getElementById('dict-ends-with').checked = pendingChanges.endsWith;
 
-    document.getElementById('dict-advanced-search-button').addEventListener('click', () => {
-        document.getElementById('dict-advanced-search-popup').classList.add('active');
-        document.getElementById('dict-popup-overlay').classList.add('active');
-    });
+        // Set selected filters
+        const wordFilterSelect = document.getElementById('dict-word-filter');
+        Array.from(wordFilterSelect.options).forEach(option => {
+            option.selected = pendingChanges.filters.includes(option.value);
+        });
+    }
 
     document.getElementById('dict-close-popup-button').addEventListener('click', () => {
-        document.getElementById('dict-advanced-search-popup').classList.remove('active');
-        document.getElementById('dict-popup-overlay').classList.remove('active');
+        advancedSearchPopup.classList.remove('active');
+        popupOverlay.classList.remove('active');
     });
 
-    document.getElementById('dict-add-search-button-popup').addEventListener('click', () => {
+    document.getElementById('dict-add-search-button-popup').addEventListener('click', async () => {
         const searchTerm = document.getElementById('dict-search-input').value.trim();
         const searchIn = {
             word: document.getElementById('dict-search-in-word')?.checked || false,
@@ -50,20 +48,26 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage) {
         };
 
         const exactMatch = document.getElementById('dict-exact-match')?.checked || false;
+
+        // New filters
+        const ignoreDiacritics = document.getElementById('dict-ignore-diacritics')?.checked || false;
+        const startsWith = document.getElementById('dict-starts-with')?.checked || false;
+        const endsWith = document.getElementById('dict-ends-with')?.checked || false;
+
         const selectedFilters = Array.from(document.getElementById('dict-word-filter').selectedOptions).map(option => option.value);
 
-        pendingChanges = { ...pendingChanges, searchTerm, exactMatch, searchIn, filters: selectedFilters };
-        updatePendingChangesList();
-    });
+        pendingChanges.searchTerm = searchTerm;
+        pendingChanges.exactMatch = exactMatch;
+        pendingChanges.searchIn = searchIn;
+        pendingChanges.filters = selectedFilters;
+        
+        // New filters
+        pendingChanges.ignoreDiacritics = ignoreDiacritics;
+        pendingChanges.startsWith = startsWith;
+        pendingChanges.endsWith = endsWith;
 
-    document.getElementById('dict-apply-search-button-popup').addEventListener('click', () => {
-        const { searchTerm, exactMatch, searchIn, filters, rowsPerPage } = pendingChanges;
-        const criteria = { searchTerm, exactMatch, searchIn, filters };
-        processRows(allRows, criteria, rowsPerPage, displayPage);
-        pendingChanges = { searchTerm: '', exactMatch: false, searchIn: { word: false, root: false, definition: false, etymology: false }, filters: [], rowsPerPage: 20 };
-        updatePendingChangesList();
-        document.getElementById('dict-advanced-search-popup').classList.remove('active');
-        document.getElementById('dict-popup-overlay').classList.remove('active');
+        await updatePendingChangesList(pendingChanges, currentLanguage);
+        processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
     });
 
     // Ensure all checkboxes are checked by default
@@ -78,20 +82,26 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage) {
     if (searchInEtymology) searchInEtymology.checked = true;
 }
 
+// Initialize Statistics Popup
 export function initStatisticsPopup(allRows) {
-    document.getElementById('dict-view-statistics-button').addEventListener('click', () => {
+    const statisticsPopup = document.getElementById('dict-statistics-popup');
+    const popupOverlay = document.getElementById('dict-popup-overlay');
+
+    if (statisticsPopup.classList.contains('active')) {
+        statisticsPopup.classList.remove('active');
+        popupOverlay.classList.remove('active');
+    } else {
         const totalWords = allRows.filter(row => row.type === 'word').length;
         const totalRoots = allRows.filter(row => row.type === 'root').length;
 
         const partOfSpeechCounts = allRows.reduce((counts, row) => {
-            if (row.type === 'word' && row.partOfSpeech) {
-                counts[row.partOfSpeech] = (counts[row.partOfSpeech] || 0) + 1;
+            if (row.type === 'word' && row.partofspeech) {
+                counts[row.partofspeech] = (counts[row.partofspeech] || 0) + 1;
             }
             return counts;
         }, {});
 
-        const statisticsContainer = document.getElementById('dict-statistics-popup');
-        statisticsContainer.innerHTML = `
+        statisticsPopup.innerHTML = `
             <h3>Statistics</h3>
             <p>Total Words: ${totalWords}</p>
             <p>Total Roots: ${totalRoots}</p>
@@ -102,12 +112,12 @@ export function initStatisticsPopup(allRows) {
             <button id="dict-close-statistics-button" class="btn">Close</button>
         `;
 
-        statisticsContainer.classList.add('active');
-        document.getElementById('dict-popup-overlay').classList.add('active');
+        statisticsPopup.classList.add('active');
+        popupOverlay.classList.add('active');
 
         document.getElementById('dict-close-statistics-button').addEventListener('click', () => {
-            statisticsContainer.classList.remove('active');
-            document.getElementById('dict-popup-overlay').classList.remove('active');
+            statisticsPopup.classList.remove('active');
+            popupOverlay.classList.remove('active');
         });
-    });
+    }
 }
