@@ -71,7 +71,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, displayPage, pendi
         pendingChanges.endsWith = endsWith;
 
         await updatePendingChangesList(pendingChanges, currentLanguage);
-        processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
+        await processAllSettings(pendingChanges, allRows, rowsPerPage, displayPage, 1, pendingChanges.sortOrder);
     });
 
     // Ensure all checkboxes are checked by default
