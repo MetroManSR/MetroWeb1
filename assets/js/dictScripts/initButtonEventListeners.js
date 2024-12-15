@@ -54,13 +54,20 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         });
     }
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    if (toggleFilterButton) {
-        toggleFilterButton.addEventListener('click', () => {
-            const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+if (toggleFilterButton) {
+    toggleFilterButton.addEventListener('click', () => {
+        const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+        if (filterSortingContainer) {
+            console.log('Button clicked. Toggling classes...');
             filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
             filterSortingContainer.classList.toggle('dict-filter-cont-visible');
-        });
-    }
+        } else {
+            console.error('filterSortingContainer not found');
+        }
+    });
+} else {
+    console.error('toggleFilterButton not found');
+}
     const advancedSearchButton = document.getElementById('dict-advanced-search-button');
     if (advancedSearchButton) {
         advancedSearchButton.addEventListener('click', () => {
