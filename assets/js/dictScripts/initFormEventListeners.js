@@ -32,7 +32,7 @@ export let universalPendingChanges;
 
 export async function updatePendingChangesList(language){
 
-    pendingChanges = universalPendingChanges ? defaultPendingChanges;
+    pendingChanges = universalPendingChanges ? universalPendingChanges : defaultPendingChanges ;
 
     console.log('Pending Changes: ', pendingChanges);
     console.log('Universal PendingChanges: ', universalPendingChanges);
