@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Initialize event listeners with apply settings handling
     await initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder);
-    initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage) {
+    initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder);
     
     const temp = {};
     
