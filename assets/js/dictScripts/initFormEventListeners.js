@@ -30,14 +30,9 @@ export const defaultPendingChanges = {
 
 export let universalPendingChanges;
 
-export async function updatePendingChangesList(pendingChanges, language){
+export async function updatePendingChangesList(language){
 
-    if (!pendingChanges || pendingChanges.length === 0) {
-        if (!universalPendingChanges || universalPendingChanges.length === 0) {
-            universalPendingChanges = defaultPendingChanges;
-        }
-        pendingChanges = universalPendingChanges;
-    }
+    pendingChanges = universalPendingChanges ? defaultPendingChanges;
 
     console.log('Pending Changes: ', pendingChanges);
     console.log('Universal PendingChanges: ', universalPendingChanges);
@@ -181,7 +176,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
                 updatePendingChangesList(pendingChanges, language); // Update pending changes list
                 universalPendingChanges = pendingChanges;
                 currentPage = 1;
-                await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
+                await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
             });
         });
 
@@ -189,7 +184,7 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
         updatePendingChangesList(pendingChanges, language);
         universalPendingChanges = pendingChanges;
         currentPage = 1;
-        await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
+        await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
     });
 
     document.addEventListener('focusin', (e) => {
@@ -208,10 +203,10 @@ export function initializeFormEventListeners(allRows, pendingChanges, rowsPerPag
     if (rowsPerPageSelect) {
         rowsPerPageSelect.addEventListener('change', async () => {
             pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
-            updatePendingChangesList(pendingChanges, language);
+            updatePendingChangesList(language);
             universalPendingChanges = pendingChanges;
             currentPage = 1;
-            await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
+            await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
         });
     }
 
