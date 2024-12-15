@@ -1,3 +1,5 @@
+import { universalPendingChanges } from './initFormEventListeners.js';
+
 /**
  * Gets related words by root.
  *
@@ -107,7 +109,7 @@ export function createHyperlink(title, searchTerm = '', allRows = []) {
 
     if (relatedRow) {
         const idParam = relatedRow.type === 'root' ? 'rootid' : 'wordid';
-        const highlightedTitle = highlight(title, searchTerm);
+        const highlightedTitle = highlight(title, searchTerm, universalPendingChanges.searchIn, relatedRow);
         const hyperlink = `<a href="?${idParam}=${relatedRow.id}" style="color: green;">${highlightedTitle}</a>`;
         //console.log('Hyperlink:', hyperlink);
         return hyperlink;
