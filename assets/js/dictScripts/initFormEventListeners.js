@@ -48,7 +48,7 @@ export async function updatePendingChangesList(language){
         ignoreDiacritics,
         startsWith,
         endsWith,
-        rowsPerPage: rowsPerPageFromChanges
+        rowsPerPage
     } = pendingChanges;
     
     let changesList = [];
