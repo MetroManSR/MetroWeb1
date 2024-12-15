@@ -1,7 +1,7 @@
 import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
 import { highlight } from './utils.js';
-
+import { filteredRows, updateFilteredRows } from "../mainDict.js";
 /**
  * Sorts rows based on the specified sorting manner.
  *
@@ -10,7 +10,7 @@ import { highlight } from './utils.js';
  * @returns {Array} - The sorted array of rows.
  */
 export function sortRows(rows, sortingManner) {
-    console.log(`Sorting rows by: ${sortingManner}`);
+    //console.log(`Sorting rows by: ${sortingManner}`);
     switch (sortingManner) {
         case 'titleup':
             return rows.sort((a, b) => a.title.localeCompare(b.title));
@@ -69,20 +69,12 @@ function cleanUpDuplicates() {
             seenIds.add(childId);
         }
     });
-    console.log("Duplicates cleaned up.");
+    //console.log("Duplicates cleaned up.");
 }
 
-/**
- * Processes all settings including search, filters, sorting, and advanced search criteria.
- *
- * @param {Object} params - The search parameters.
- * @param {Array} allRows - The array of all dictionary rows.
- * @param {number} rowsPerPage - The number of rows to display per page.
- * @param {Function} displayPage - The function to display the page.
- * @param {number} [currentPage=1] - The current page to display.
- * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
- */
-export function processAllSettings(params, allRows = [], rowsPerPage, displayPage, currentPage = 1, sortingManner = 'titleup') {
+export async function processAllSettings(params, allRows = [], rowsPerPage, currentPage = 1, sortingManner = 'titleup') {
+    const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
+    
     const {
         searchTerm = '',
         exactMatch = false,
@@ -94,15 +86,13 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
         rowsPerPage: paramsRowsPerPage = 20
     } = params;
 
-    console.log('Initial allRows:', allRows);
-    let filteredRows = [];
+    console.log('Initial allRows:', allRows.length);
+    updateFilteredRows([]);
 
-    // Normalize and remove diacritics if needed
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
 
-    // Apply search term filtering
     if (searchTerm) {
-        filteredRows = allRows.filter(row => {
+        updateFilteredRows(allRows.filter(row => {
             const normalizedTitle = normalize(row.title.toLowerCase());
             const normalizedMeta = normalize(row.meta.toLowerCase());
             const normalizedMorph = row.morph.map(morphItem => normalize(morphItem.toLowerCase()));
@@ -137,53 +127,65 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
             );
 
             return titleMatch || rootMatch || definitionMatch || etymologyMatch;
-        });
+        }));
+    } else {
+        updateFilteredRows(allRows);
     }
 
-    // Apply filter criteria for parts of speech
     if (filters.length > 0) {
         filteredRows = filteredRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()));
-        console.log('After filter criteria:', filteredRows);
+        console.log('After filter criteria:', filteredRows.length);
     }
 
-    // Remove duplicates using isUniqueResult
+
+    let sortedRows = sortRows(filteredRows, sortingManner);
+    
+    updateFilteredRows(sortedRows);
+    console.log('After sorting:', filteredRows.length);
+
+    const totalRows = filteredRows.length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+    currentPage = Math.min(currentPage, totalPages);
+    console.log(`Total rows: ${totalRows}, Total pages: ${totalPages}, Current page: ${currentPage}`);
+
     const uniqueRows = [];
     filteredRows.forEach(row => {
         if (isUniqueResult(row, uniqueRows)) {
             uniqueRows.push(row);
         }
     });
-    filteredRows = uniqueRows;
+    updateFilteredRows(uniqueRows);
+    console.log('After removing duplicates:', filteredRows.length);
 
-    console.log('After removing duplicates:', filteredRows);
+    const renderContainer = document.getElementById('dict-dictionary');
+    if (renderContainer) {
+        renderContainer.innerHTML = '';
+    } else {
+        console.error("Error: 'dict-dictionary' element not found in the DOM.");
+        return;
+    }
 
-    // Clear previous rows before rendering new ones
-    const renderContainer = document.getElementById('dict-dictionary'); // Ensure the correct container ID
-    renderContainer.innerHTML = '';
+    const rowsToDisplay = filteredRows;
+    console.log('Rows to display:', rowsToDisplay.length);
 
-    // Sort filtered rows based on the current sorting manner
-    filteredRows = sortRows(filteredRows, sortingManner);
-    console.log('After sorting:', filteredRows);
-
-    // Highlight terms in the filtered rows based on search criteria
-    filteredRows = filteredRows.map(row => highlight(row, searchTerm, searchIn, row));
-
-    // Render the filtered rows into the container
-    filteredRows.forEach(async row => {
+    for (const row of rowsToDisplay) {
         const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
         if (box) {
             renderContainer.appendChild(box);
         }
-    });
+    }
 
-    // Call cleanUpDuplicates to ensure no duplicate boxes are present
     cleanUpDuplicates();
 
-    // Update pagination and floating text
-    createPaginationControls(paramsRowsPerPage, filteredRows, currentPage, displayPage);
+    if (filteredRows.length === 0) {
+        const noMatchBox = await createNoMatchBox(language, 'dict-search-input', searchTerm, allRows);
+        renderContainer.appendChild(noMatchBox);
+    }
+
+    createPaginationControls(currentPage, totalPages, rowsPerPage);
+    
     updateFloatingText(filteredRows, searchTerm, filters, searchIn);
 
-    // Show "Settings Applied" notification
     const settingsAppliedText = document.createElement('div');
     settingsAppliedText.id = 'settings-applied-text';
     settingsAppliedText.innerText = 'Settings Applied';
@@ -194,6 +196,8 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
     setTimeout(() => {
         settingsAppliedText.remove();
     }, 1000);
+
+    console.log('Process complete.');
 }
 
 /**
@@ -208,8 +212,8 @@ export function processAllSettings(params, allRows = [], rowsPerPage, displayPag
  * @param {Array} allRows - The array of all dictionary entries.
  */
 export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, filteredRows = [], allRows = []) {
-    console.log('Displaying page:', page);
-    renderBox(filteredRows, allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
+    //console.log('Displaying page:', page);
+    renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
 }
 
 /**
@@ -218,12 +222,12 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
  * @param {Object} row - The dictionary row to display.
  * @param {Array} allRows - The array of all dictionary rows.
  */
-export function displaySpecificEntry(row, allRows) {
+export function displaySpecificEntry(language, row, allRows) {
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
     if (!row) {
-        const noMatchBox = createNoMatchBox();
+        const noMatchBox = createNoMatchBox(language, row.title, allRows);
         dictionaryContainer.appendChild(noMatchBox);
         return;
     }

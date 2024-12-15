@@ -1,3 +1,6 @@
+import { filteredRows } from '../mainDict.js';
+import { displayPage } from "./processRows.js";
+    
 /**
  * Creates pagination controls and updates the display of dictionary entries.
  *
@@ -6,7 +9,7 @@
  * @param {number} currentPage - The current page number.
  * @param {Function} displayPage - Function to display the given page.
  */
-export function createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage) {
+export function createPaginationControls(rowsPerPage, currentPage) {
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
     console.log(`Current Page: ${currentPage}`);
@@ -37,8 +40,8 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     const beginButton = createPageButton('⏮️', () => {
         if (currentPage > 1) {
             currentPage = 1;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
-        }
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+         }
     });
     paginationContainer.appendChild(beginButton);
 
@@ -46,8 +49,8 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     const prevButton = createPageButton('⬅️', () => {
         if (currentPage > 1) {
             currentPage -= 1;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
-        }
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+          }
     });
     paginationContainer.appendChild(prevButton);
 
@@ -63,7 +66,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
         let pageNumber = parseInt(currentPageInput.value, 10);
         if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
             currentPage = pageNumber;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
         } else {
             currentPageInput.value = currentPage;
         }
@@ -84,8 +87,8 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     const nextButton = createPageButton('➡️', () => {
         if (currentPage < totalPages) {
             currentPage += 1;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
-        }
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+          }
     });
     paginationContainer.appendChild(nextButton);
 
@@ -93,8 +96,8 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
     const endButton = createPageButton('⏭️', () => {
         if (currentPage < totalPages) {
             currentPage = totalPages;
-            displayPage(currentPage, rowsPerPage, '', {}, false, filteredRows, []);
-        }
+            renderBox(allRows, '', false, {}, rowsPerPage, currentPage)
+         }
     });
     paginationContainer.appendChild(endButton);
 }
@@ -106,7 +109,7 @@ export function createPaginationControls(rowsPerPage, filteredRows, currentPage,
  * @param {Array} filteredRows - The filtered array of dictionary entries.
  * @param {number} rowsPerPage - The number of rows to display per page.
  */
-export function updatePagination(currentPage, filteredRows, rowsPerPage) {
+export function updatePagination(currentPage, rowsPerPage) {
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);

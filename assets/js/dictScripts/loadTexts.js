@@ -1,4 +1,9 @@
+import { universalPendingChanges} from './initFormEventListeners.js' ;
+
 export async function setTexts(language) {
+    
+    const pendingChanges = universalPendingChanges;
+    
     try {
         const response = await fetch('/assets/data/defaultTexts.json');
         const texts = await response.json();

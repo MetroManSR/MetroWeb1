@@ -114,7 +114,7 @@ export async function cleanData(data, type, allRows) {
         }
     }, 3000);
 
-    console.log("Cleaned Data:", cleanedData);
+    //console.log("Cleaned Data:", cleanedData);
 
     return cleanedData;
 }

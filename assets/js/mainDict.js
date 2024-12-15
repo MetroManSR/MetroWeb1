@@ -7,6 +7,8 @@ import { createPaginationControls } from './dictScripts/pagination.js';
 import { processAllSettings, sortRows, displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/processRows.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
+import { boxClickListener } from './dictScripts/boxEvents.js';
+export let filteredRows;
 
 document.addEventListener('DOMContentLoaded', async function() {
     const language = document.querySelector('meta[name="language"]').content || 'en';
@@ -102,39 +104,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Cleaned Roots Data:', cleanedRootsData);
 
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
-        let filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)); // Sorting rows initially
+        filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)); // Sorting rows initially
 
         console.log('All Rows:', allRows);
         console.log('Filtered Rows:', filteredRows);
 
         console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, filteredRows, currentPage, displayPage);
-        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, filteredRows, allRows);
-
-        // Handle URL parameters
-        const params = new URLSearchParams(window.location.search);
-        const searchTerm = params.get('hypersearchterm');
-        const wordID = params.get('wordid');
-        const rootID = params.get('rootid');
-        const wordSpecificTerm = params.get('wordSpecific');
-        const rootSpecificTerm = params.get('rootSpecific');
-
-        if (searchTerm && searchTerm.trim()) {
-            const criteria = { searchTerm: searchTerm.trim(), searchIn: { word: true, root: true, definition: true, etymology: false } };
-            processAllSettings(criteria, allRows, rowsPerPage, displayPage, currentPage, currentSortOrder);
-        } else if (wordID && parseInt(wordID) > 0) {
-            const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
-            console.log('Word Entry:', wordEntry);
-            displaySpecificEntry(wordEntry, allRows);
-        } else if (rootID && parseInt(rootID) > 0) {
-            const rootEntry = allRows.find(row => row.id === parseInt(rootID) && row.type === 'root');
-            console.log('Root Entry:', rootEntry);
-            displaySpecificEntry(rootEntry, allRows);
-        } else if (wordSpecificTerm && wordSpecificTerm.trim()) {
-            wordSpecific(wordSpecificTerm, allRows);
-        } else if (rootSpecificTerm && rootSpecificTerm.trim()) {
-            rootSpecific(rootSpecificTerm, allRows);
-        }
+        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, allRows);
 
         // Initialize advanced search form
         const advancedSearchForm = document.getElementById('advanced-search-form');
@@ -174,5 +151,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Initialize event listeners with apply settings handling
-    initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage);
+    await initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder, pendingChanges, displayPage);
+    
+    const temp = {};
+    
+    //click pending changes 
+    boxClickListener(allRows, language, temp);
+
 });
+
+export function updateFilteredRows(i){
+
+    filteredRows = i;
+
+}
