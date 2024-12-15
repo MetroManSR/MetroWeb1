@@ -195,3 +195,15 @@ export function boxClickListener(allRows, language, pendingChanges) {
 
     console.log('Initialized Box Click Event Listener');
 }
+
+// Function to display tooltip message
+function showTooltip(message) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    tooltip.innerText = message;
+    document.body.appendChild(tooltip);
+
+    setTimeout(() => {
+        tooltip.remove();
+    }, 3000);
+}
