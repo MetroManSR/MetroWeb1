@@ -2,7 +2,7 @@ import { createPaginationControls, updatePagination } from './pagination.js';
 import { renderBox, updateFloatingText, createDictionaryBox, createNoMatchBox } from './boxes.js';
 import { highlight } from './utils.js';
 import { filteredRows, updateFilteredRows } from "../mainDict.js";
-import { universalPendingChanges} from './initFormEventListeners.js';
+import { universalPendingChanges } from './initFormEventListeners.js';
 
 /**
  * Sorts rows based on the specified sorting manner.
@@ -76,8 +76,11 @@ function cleanUpDuplicates() {
 
 export async function processAllSettings(allRows = [], rowsPerPage, currentPage = 1, sortingManner = 'titleup') {
     
-    let params = universalPendingChanges;
+    let params = universalPendingChanges ? universalPendingChanges : defaultPendingChanges ;
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
+
+    
+
     
     const {
         searchTerm, 
