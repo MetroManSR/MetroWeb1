@@ -8,10 +8,13 @@ import { renderBox } from "./boxes.js";
  * @param {number} currentPage - The current page number.
  */
 export function createPaginationControls(rowsPerPage, currentPage) {
-    console.log(`Rows per page: ${rowsPerPage}`);
-    console.log(`Filtered Rows: ${filteredRows.length}`);
-    console.log(`Current Page: ${currentPage}`);
-    const paginationContainer = document.getElementById('dict-pagination'); // Correct reference
+    console.log(`Creating Pagination Controls: Rows per page = ${rowsPerPage}, Current page = ${currentPage}`);
+    
+    const paginationContainer = document.getElementById('dict-pagination');
+    if (!paginationContainer) {
+        console.error('Pagination container not found');
+        return;
+    }
     paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
@@ -21,18 +24,11 @@ export function createPaginationControls(rowsPerPage, currentPage) {
         const button = document.createElement('button');
         button.innerHTML = label;
         button.classList.add('pagination-button');
-        let isCooldown = false;
         button.addEventListener('click', () => {
-            console.log(`Button clicked: ${label}`); // Log click event
-            if (!isCooldown) {
-                isCooldown = true;
-                onClick();
-                setTimeout(() => {
-                    isCooldown = false;
-                }, 500); // 0.5 seconds cooldown
-            }
+            console.log(`Button clicked: ${label}`);
+            onClick();
         });
-        console.log(`Button created: ${label}`); // Log button creation
+        console.log(`Button created: ${label}`);
         return button;
     };
 
@@ -40,8 +36,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const beginButton = createPageButton('⏮️', () => {
         if (currentPage > 1) {
             currentPage = 1;
-            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
-            console.log('To the beginning');
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
+            console.log('Navigated to the beginning');
         }
     });
     paginationContainer.appendChild(beginButton);
@@ -50,8 +46,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const prevButton = createPageButton('⬅️', () => {
         if (currentPage > 1) {
             currentPage -= 1;
-            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
-            console.log('1 page backwards');
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
+            console.log('Navigated 1 page backwards');
         }
     });
     paginationContainer.appendChild(prevButton);
@@ -66,10 +62,10 @@ export function createPaginationControls(rowsPerPage, currentPage) {
 
     currentPageInput.addEventListener('change', () => {
         let pageNumber = parseInt(currentPageInput.value, 10);
-        console.log(`Input changed: ${pageNumber}`); // Log input change
         if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
             currentPage = pageNumber;
-            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
+            console.log(`Navigated to page number ${pageNumber}`);
         } else {
             currentPageInput.value = currentPage;
         }
@@ -90,8 +86,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const nextButton = createPageButton('➡️', () => {
         if (currentPage < totalPages) {
             currentPage += 1;
-            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
-            console.log('1 page forward');
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
+            console.log('Navigated 1 page forward');
         }
     });
     paginationContainer.appendChild(nextButton);
@@ -100,8 +96,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const endButton = createPageButton('⏭️', () => {
         if (currentPage < totalPages) {
             currentPage = totalPages;
-            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage); // Update to use filteredRows
-            console.log('To the end');
+            renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
+            console.log('Navigated to the end');
         }
     });
     paginationContainer.appendChild(endButton);
