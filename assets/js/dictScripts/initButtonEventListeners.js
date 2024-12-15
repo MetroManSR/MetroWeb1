@@ -34,7 +34,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
    
     initializeFormEventListeners(allRows, rowsPerPage);
 
-    let pendingChanges = universalPendingChanges;
+    let pendingChanges = universalPendingChanges ? universalPendingChanges : defaultPendingChanges ;
     
     updatePendingChangesList(language);
     const orderBySelect = document.getElementById('dict-order-by-select');
