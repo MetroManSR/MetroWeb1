@@ -228,7 +228,7 @@ export async function updateFloatingText(searchTerm, filters, advancedSearchPara
         floatingTextContent += ` ${await getTranslatedText('withAdvancedSearch', language)}: ${translatedAdvancedParams.join(", ")}`;
     }
 
-    const floatingText = document.getElementById('floating-info');
+    const floatingText = document.getElementById('dictfloating-info');
     if (floatingText) {
         floatingText.textContent = floatingTextContent;
     } else {
