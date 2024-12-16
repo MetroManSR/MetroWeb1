@@ -1,5 +1,5 @@
 import { processAllSettings, displayPage } from './processRows.js';
-import { universalPendingChanges, updatePendingChangesList, defaultPendingChanges, initializeFormEventListeners } from './initFormEventListeners.js';
+import { universalPendingChanges, updateUniversalPendingChanges, updatePendingChangesList, defaultPendingChanges, initializeFormEventListeners } from './initFormEventListeners.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
 import { updatePagination } from './pagination.js';
 import { boxClickListener } from "./boxEvents.js";
