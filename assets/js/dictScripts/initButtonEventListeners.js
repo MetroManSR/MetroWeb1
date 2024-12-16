@@ -16,7 +16,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         pendingChangesElement.style.display = 'block';
     }
 
-    initializeFormEventListeners(allRows, rowsPerPage);
+    await initializeFormEventListeners(allRows, rowsPerPage);
 
     updatePendingChangesList(language);
 
