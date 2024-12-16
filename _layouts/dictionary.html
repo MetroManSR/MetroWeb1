@@ -89,7 +89,6 @@ layout: default
             <div id="dict-progress-text"></div>
         </div>
 
-
         <!-- Popup for advanced search -->
 <div id="dict-popup-overlay-advse" class="dict-popup-overlay"></div>
 <div id="dict-advanced-search-popup" class="dict-popup">
@@ -101,8 +100,39 @@ layout: default
                 <input type="checkbox" id="dict-search-in-word" name="dict-search-in-word" value="Word">
                 <label class="container" id="dict-search-in-word-label" for="dict-search-in-word"> Word</label>
             </div>
-            <!-- Additional checkbox groups... -->
+            <div class="dict-checkbox-group">
+                <input type="checkbox" id="dict-search-in-root" name="dict-search-in-root" value="Root">
+                <label class="container" id="dict-search-in-root-label" for="dict-search-in-root"> Root</label>
+            </div>
+            <div class="dict-checkbox-group">
+                <input type="checkbox" id="dict-search-in-definition" name="dict-search-in-definition" value="Definition">
+                <label class="container" id="dict-search-in-definition-label" for="dict-search-in-definition"> Definition</label>
+            </div>
+            <div class="dict-checkbox-group">
+                <input type="checkbox" id="dict-search-in-etymology" name="dict-search-in-etymology" value="Etymology">
+                <label class="container" id="dict-search-in-etymology-label" for="dict-search-in-etymology"> Etymology</label>
+            </div>
         </div>
+
+        <div class="dict-checkbox-group">
+            <input type="checkbox" id="dict-exact-match" name="dict-exact-match" value="Exact Match">
+            <label class="container" id="dict-exact-match-label" for="dict-exact-match"> Exact Match</label>
+        </div>
+
+        <!-- New filters -->
+            <div class="dict-checkbox-group">
+                <input type="checkbox" id="dict-ignore-diacritics" name="dict-ignore-diacritics" value="Ignore Diacritics">
+                <label class="container" id="dict-ignore-diacritics-label" for="dict-ignore-diacritics"> Ignore Diacritics</label>
+            </div>
+            <div class="dict-checkbox-group">
+                <input type="checkbox" id="dict-starts-with" name="dict-starts-with" value="Starts With">
+                <label class="container" id="dict-starts-with-label" for="dict-starts-with"> Starts With</label>
+            </div>
+            <div class="dict-checkbox-group">
+                <input type="checkbox" id="dict-ends-with" name="dict-ends-with" value="Ends With">
+                <label class="container" id="dict-ends-with-label" for="dict-ends-with"> Ends With</label>
+            </div>
+        
 
         <div class="dict-popup-buttons">
             <button type="button" id="dict-add-search-button-popup" class="btn">Add Search</button>
@@ -110,12 +140,11 @@ layout: default
         </div>
     </form>
 </div>
-
-<!-- Popup for statistics -->
-<div class="dict-popup-overlay" id="dict-statistics-popup-overlay"></div>
-<div class="dict-popup" id="dict-statistics-popup">
-    <!-- Content will be added dynamically -->
-</div>
+        <!-- Popup for statistics -->
+        <div class="dict-popup-overlay" id="dict-statistics-popup-overlay" style="display: none;"></div>
+        <div class="dict-popup" id="dict-statistics-popup" style="display: none;">
+            <!-- Content will be added dynamically -->
+        </div>
 
         <!-- Error Message Container -->
         <div id="dict-error-message" class="dict-error-message" style="display: none;"></div>
