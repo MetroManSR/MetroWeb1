@@ -55,16 +55,13 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         });
     }
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
+if (const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
 if (toggleFilterButton) {
     toggleFilterButton.addEventListener('click', () => {
         const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
         if (filterSortingContainer) {
             console.log('Button clicked. Toggling classes...');
-            
             filterSortingContainer.classList.toggle('active');
-            console.log('After toggle, hidden class: ', filterSortingContainer.classList.contains('dict-filter-cont-hidden'));
-            
-            // Print current classes
             console.log('Current classes: ', filterSortingContainer.className);
         } else {
             console.error('filterSortingContainer not found');
