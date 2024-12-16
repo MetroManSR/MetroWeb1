@@ -55,7 +55,6 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         });
     }
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-if (const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
 if (toggleFilterButton) {
     toggleFilterButton.addEventListener('click', () => {
         const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
