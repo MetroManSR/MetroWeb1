@@ -7,7 +7,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
     let pendingChanges = (universalPendingChanges && Object.keys(universalPendingChanges).length > 0) ? universalPendingChanges : { ...defaultPendingChanges };
    
     const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-    const popupOverlay = document.getElementById('dict-popup-overlay-advse');
+    const popupOverlay = document.getElementById('dict-popup-overlay');
 
     if (advancedSearchPopup.classList.contains('active')) {
         advancedSearchPopup.classList.remove('active');
