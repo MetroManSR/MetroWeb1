@@ -100,8 +100,8 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
     if (filterSelect) {
         filterSelect.addEventListener('change', async () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
-            updatePendingChangesList(pendingChanges, language);
             universalPendingChanges = pendingChanges;
+            updatePendingChangesList(language);
             currentPage = 1;
             await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
         });
@@ -117,7 +117,6 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
         if (searchTerm.length === 0) {
             predictionBox.innerHTML = '';
             pendingChanges.searchTerm = ''; // Clear searchTerm in pending changes
-            updatePendingChangesList(pendingChanges, language); // Update pending changes list
             universalPendingChanges = pendingChanges;
             currentPage = 1;
             await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
@@ -139,7 +138,7 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
         if (predictions.length === 0) {
             predictionBox.innerHTML = '';
             pendingChanges.searchTerm = searchTerm; // Update searchTerm in pending changes
-            updatePendingChangesList(pendingChanges, language); // Update pending changes list
+            , language); // Update pending changes list
             universalPendingChanges = pendingChanges;
             currentPage = 1;
             return;
@@ -154,7 +153,6 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
                 searchInput.value = predictions[index].title;
                 predictionBox.innerHTML = '';
                 pendingChanges.searchTerm = predictions[index].title; // Update searchTerm in pending changes
-                updatePendingChangesList(pendingChanges, language); // Update pending changes list
                 universalPendingChanges = pendingChanges;
                 currentPage = 1;
     
@@ -162,9 +160,9 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
         });
 
         pendingChanges.searchTerm = searchTerm;
-        updatePendingChangesList(pendingChanges, language);
-        universalPendingChanges = pendingChanges;
         currentPage = 1;
+        universalPendingChanges = pendingChanges;
+        updatePendingChangesList(language);
     });
 
     document.addEventListener('focusin', (e) => {
@@ -183,8 +181,8 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
     if (rowsPerPageSelect) {
         rowsPerPageSelect.addEventListener('change', async () => {
             pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
-            updatePendingChangesList(language);
             universalPendingChanges = pendingChanges;
+            updatePendingChangesList(language);
             currentPage = 1;
         });
     }
