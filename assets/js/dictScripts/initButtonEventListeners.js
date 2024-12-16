@@ -4,6 +4,7 @@ import {
 } from './processRows.js';
 import {
     universalPendingChanges,
+    updateUniversalPendingChanges,
     updatePendingChangesList,
     defaultPendingChanges,
     initializeFormEventListeners 
@@ -42,7 +43,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         orderBySelect.addEventListener('change', () => {
             pendingChanges.sortOrder = orderBySelect.value;
             updatePendingChangesList(language);
-            universalPendingChanges = pendingChanges;
+            updateUniversalPendingChanges(pendingChanges);
         });
     }
     const filterSelect = document.getElementById('dict-word-filter');
@@ -50,7 +51,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         filterSelect.addEventListener('change', () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
             updatePendingChangesList(language);
-            universalPendingChanges = pendingChanges;
+            updateUniversalPendingChanges(pendingChanges);
         });
     }
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
@@ -120,7 +121,7 @@ if (toggleFilterButton) {
             });
             updatePendingChangesList(pendingChanges, language);
             await processAllSettings(allRows, pendingChanges.rowsPerPage, currentPage, pendingChanges.sortOrder);
-            universalPendingChanges = pendingChanges;
+            updateUniversalPendingChanges(pendingChanges);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
@@ -131,7 +132,7 @@ if (toggleFilterButton) {
             pendingChanges.searchTerm = '';
             document.getElementById('dict-search-input').value = '';
             updatePendingChangesList(pendingChanges, language);
-            universalPendingChanges = pendingChanges;
+            updateUniversalPendingChanges(pendingChanges);
             await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
