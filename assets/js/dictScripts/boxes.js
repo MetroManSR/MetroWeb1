@@ -196,9 +196,9 @@ export function createLoadingBox() {
 }
 
 function initializeFloatingText() {
-    const floatingButton = document.querySelector('.floating-button');
-    const floatingText = document.querySelector('.floating-text');
-    const floatingInfo = document.getElementById('floating-info');
+    const floatingButton = document.querySelector('.dictfloating-button');
+    const floatingText = document.querySelector('.dictfloating-text');
+    const floatingInfo = document.getElementById('dictfloating-info');
 
     floatingButton.addEventListener('click', () => {
         floatingText.classList.toggle('hidden');
@@ -220,7 +220,7 @@ export async function updateFloatingText(searchTerm, filters, advancedSearchPara
         floatingTextContent += ` ${await getTranslatedText('withAdvancedSearch', language)}: ${Object.keys(advancedSearchParams).join(", ")}`;
     }
 
-    const floatingText = document.getElementById('floating-info');
+    const floatingText = document.getElementById('dictfloating-info');
     if (floatingText) {
         floatingText.textContent = floatingTextContent;
     } else {
