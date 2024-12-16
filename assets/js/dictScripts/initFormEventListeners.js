@@ -83,7 +83,7 @@ export async function updatePendingChangesList(language) {
     pendingChangesElement.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
 }
 
-export function initializeFormEventListeners(allRows, rowsPerPage) {
+export async function initializeFormEventListeners(allRows, rowsPerPage) {
     console.log('Initializing Form Event Listeners');
 
     initUrl(allRows, rowsPerPage, 1, 'titleup');
