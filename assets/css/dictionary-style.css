@@ -107,6 +107,15 @@ header {
     align-items: center;
 }
 
+/* Toggle Classes */
+.dict-filter-cont-hidden {
+    display: none;
+}
+
+.dict-filter-cont-visible {
+    display: block !important;
+} 
+
 .pagination-page-display {
     display: flex;
     align-items: center;
@@ -410,15 +419,6 @@ header {
     background-color: #2e7d32; /* Darker green on hover for interactive feel */
     border-color: #388e3c;     /* Darker border on hover */
 }
-
-/* Toggle Classes */
-.dict-filter-cont-hidden {
-    display: none;
-}
-
-.dict-filter-cont-visible {
-    display: block;
-} 
 
 /* Popup Overlay and Popup */
 #dict-popup-overlay, #dict-popup-overlay-advse {
