@@ -55,7 +55,7 @@ export async function loadInfoBox(box, row) {
     box.appendChild(iconContainer);
 }
 
-export function boxClickListener(allRows, language, pendingChanges) {
+export async function boxClickListener(allRows, language, pendingChanges) {
     // Ensure pendingChanges is initialized
     if (!pendingChanges || pendingChanges.length === 0) {
         pendingChanges = universalPendingChanges ?? defaultPendingChanges;
