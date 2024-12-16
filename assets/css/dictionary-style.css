@@ -264,6 +264,53 @@ header {
 
 .floating-text.visible {
     display: block;
+.floating-button-container {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.floating-button {
+    background-color: rgba(0, 120, 212, 0.8);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s;
+}
+
+.floating-button:hover {
+    background-color: rgba(0, 120, 212, 1);
+}
+
+.floating-text {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    max-width: 250px;
+    position: absolute;
+    bottom: 40px;
+    right: 10px;
+    display: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s, max-height 0.5s;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.floating-text.visible {
+    display: block;
+    opacity: 1;
+    max-height: 200px; /* Adjust the height based on your content */
 }
 /* Related Words Scrollable Box */
 .scrollable-box {
