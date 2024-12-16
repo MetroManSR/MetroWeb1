@@ -401,41 +401,50 @@
  
 }
  .dict-filter-cont-visible {
-     display: flex;
+     display: block;
      z-index: 201;
 }
+ 
 /* Popup Overlay and Popup */
- #dict-popup-overlay, #dict-popup-overlay-advse {
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     background-color: rgba(0, 0, 0, 0.5);
-     z-index: 999;
-    /* Ensure it is below the popup but above other content */
-     display: none;
-    /* Initially hidden */
+#dict-popup-overlay, #dict-popup-overlay-advse {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Ensure it is below the popup but above other content */
+    display: none; /* Initially hidden */
 }
- #dict-statistics-popup, #dict-advanced-search-popup {
-     position: fixed;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     width: 80%;
-     max-width: 600px;
-     max-height: 80vh;
-    /* Restrict maximum height */
-     background-color: white;
-     border: 1px solid #ccc;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     padding: 20px;
-     z-index: 1002;
-    /* Ensure it is above other content */
-     display: none;
-    /* Initially hidden */
-     overflow-y: auto;
-    /* Make popup scrollable if content overflows */
+
+#dict-statistics-popup, #dict-advanced-search-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh; /* Restrict maximum height */
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1001; /* Ensure it is above other content */
+    display: none; /* Initially hidden */
+    overflow-y: auto; /* Make popup scrollable if content overflows */
+}
+
+/* Align Checkboxes and Labels */
+.dict-search-options, .dict-exact-match {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dict-checkbox-group {
+    display: flex;
+    align-items: center;
+}llable if content overflows */
 }
 /* Align Checkboxes and Labels */
  .dict-search-options, .dict-exact-match {
