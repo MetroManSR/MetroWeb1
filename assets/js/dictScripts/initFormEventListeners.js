@@ -138,8 +138,7 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
         if (predictions.length === 0) {
             predictionBox.innerHTML = '';
             pendingChanges.searchTerm = searchTerm; // Update searchTerm in pending changes
-            , language); // Update pending changes list
-            universalPendingChanges = pendingChanges;
+            updateUniversalPendingChanges(pendingChanges)
             currentPage = 1;
             return;
         }
