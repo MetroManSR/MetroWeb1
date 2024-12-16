@@ -6,7 +6,10 @@ import { filteredRows } from '../mainDict.js';
 export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
     const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
     const popupOverlay = document.getElementById('dict-popup-overlay-advse');
-
+    // Load previous selections if any 
+    const pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
+            
+    
     if (advancedSearchPopup.classList.contains('active')) {
         advancedSearchPopup.classList.remove('active');
         popupOverlay.classList.remove('active');
@@ -14,9 +17,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
         popupOverlay.classList.add('active');
         advancedSearchPopup.classList.add('active');
 
-        // Load previous selections if any
-        const pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
-            
+        
         document.getElementById('dict-search-input').value = pendingChanges.searchTerm || '';
         document.getElementById('dict-search-in-word').checked = pendingChanges.searchIn.word;
         document.getElementById('dict-search-in-root').checked = pendingChanges.searchIn.root;
