@@ -12,6 +12,9 @@ import { universalPendingChanges, defaultPendingChanges } from './initFormEventL
  * @returns {Array} - The sorted array of rows.
  */
 export function sortRows(rows, sortingManner) {
+    
+    
+    
     //console.log(`Sorting rows by: ${sortingManner}`);
     switch (sortingManner) {
         case 'titleup':
@@ -172,7 +175,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         return;
     }
     
-    //cleanUpDuplicates();
+    cleanUpDuplicates();
 
     if (filteredRows.length === 0) {
         const noMatchBox = await createNoMatchBox(language, 'dict-search-input', searchTerm, allRows);
