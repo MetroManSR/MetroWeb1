@@ -402,7 +402,7 @@
      display: block;
 }
 /* Popup Overlay and Popup */
- #dict-popup-overlay, #dict-popup-overlay-advse {
+  dict-popup-overlay, .dict-popup-overlay-advse {
      position: fixed;
      top: 0;
      left: 0;
@@ -414,7 +414,14 @@
      display: none;
     /* Initially hidden */
 }
- #dict-statistics-popup, #dict-advanced-search-popup {
+
+.dict-popup-overlay.active {
+
+     display: block;
+	
+} 
+
+.dict-statistics-popup, .dict-advanced-search-popup {
      position: fixed;
      top: 50%;
      left: 50%;
@@ -487,6 +494,10 @@
      border-color: #d32f2f;
     /* Darker border on hover */
 }
+
+.dict-popup.active {
+    display: block;
+} 
  .dict-search-predictions {
      position: absolute;
      top: calc(100% + 4px);
