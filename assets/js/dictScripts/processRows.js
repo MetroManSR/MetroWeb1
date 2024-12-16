@@ -11,9 +11,9 @@ import { universalPendingChanges, defaultPendingChanges } from './initFormEventL
  * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
  * @returns {Array} - The sorted array of rows.
  */
-export function sortRows(rows, sortingManner) {
+export function sortRows(sortingManner) {
     
-    
+    const rows = filteredRows;
     
     //console.log(`Sorting rows by: ${sortingManner}`);
     switch (sortingManner) {
