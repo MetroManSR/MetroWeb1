@@ -56,7 +56,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
 if (toggleFilterButton) {
     toggleFilterButton.addEventListener('click', () => {
-        const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+        const filterSortingContainer = document.getElementById('dict-filter-container');
         if (filterSortingContainer) {
             console.log('Button clicked. Toggling classes...');
             
