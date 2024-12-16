@@ -61,7 +61,7 @@ if (toggleFilterButton) {
         if (filterSortingContainer) {
             console.log('Button clicked. Toggling classes...');
             
-            filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
+            filterSortingContainer.classList.toggle('active');
             console.log('After toggle, hidden class: ', filterSortingContainer.classList.contains('dict-filter-cont-hidden'));
             
             // Print current classes
