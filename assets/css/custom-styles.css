@@ -386,7 +386,7 @@ button {
   touch-action: manipulation;
   width: auto;
   will-change: transform,opacity;
-  z-index: 4000;
+  z-index: 99999;
 }
 
 .button-17:hover {
@@ -543,4 +543,3 @@ body.transition-page.loaded {
   background: rgba(0, 0, 0, .08);
   color: rgba(0, 0, 0, .3);
 }
-
