@@ -359,6 +359,10 @@ header {
     background-color: #ffeb3b; /* Yellow background */
 }
 
+.dict-filter-sorting-container.active{
+    display: block;
+}
+
 /* Input Fields and Select Boxes */
 .dict-rows-input,
 .dict-filter-select,
@@ -432,6 +436,10 @@ header {
     display: none !important; /* Initially hidden */
 }
 
+.dict-popup.active {
+  display: block;
+}
+
 #dict-statistics-popup, #dict-advanced-search-popup {
     position: fixed;
     top: 50%;
@@ -447,6 +455,10 @@ header {
     z-index: 1001; /* Ensure it is above other content */
     display: none !important; /* Initially hidden */
     overflow-y: auto; /* Make popup scrollable if content overflows */
+}
+
+.dict-popup-overlay.active {
+  display: block;
 }
 
 /* Align Checkboxes and Labels */
