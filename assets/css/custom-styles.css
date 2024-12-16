@@ -386,7 +386,7 @@ button {
   touch-action: manipulation;
   width: auto;
   will-change: transform,opacity;
-  z-index: 99999;
+  z-index: 4000;
 }
 
 .button-17:hover {
