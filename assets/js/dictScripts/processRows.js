@@ -156,11 +156,11 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     console.log(`Total rows: ${totalRows}, Total pages: ${totalPages}, Current page: ${currentPage}`);
 
     const uniqueRows = [];
-    filteredRows.forEach(row => {
+    /*filteredRows.forEach(row => {
         if (isUniqueResult(row, uniqueRows)) {
             uniqueRows.push(row);
         }
-    });
+    });*/
     updateFilteredRows(uniqueRows);
     console.log('After removing duplicates:', filteredRows.length);
 
