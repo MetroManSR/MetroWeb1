@@ -90,6 +90,8 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     } = params;
 
     console.log('Initial allRows:', allRows.length);
+    console.log('Params: ', params)
+    
     updateFilteredRows([]);
 
     console.log("Rows per page", rowsPerPage);
