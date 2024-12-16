@@ -27,8 +27,11 @@ export async function updatePendingChangesList(language) {
     let currentPage = 1;
 
     // Initialize pendingChanges with fallback to defaults
-    let pendingChanges = (universalPendingChanges && Object.keys(universalPendingChanges).length > 0) ? universalPendingChanges : { ...defaultPendingChanges };
-
+    let pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
+   
+    if (!universalPendingChanges){
+       universalPendingChanges = pendingChanges;
+    }
     const { searchTerm, exactMatch, searchIn, filters, ignoreDiacritics, startsWith, endsWith, rowsPerPage } = pendingChanges;
     
     let changesList = [];
