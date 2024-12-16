@@ -89,7 +89,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
 // Initialize Statistics Popup
 export function initStatisticsPopup(allRows) {
     const statisticsPopup = document.getElementById('dict-statistics-popup');
-    const popupOverlay = document.getElementById('dict-statistics-popup-overlay');
+    const popupOverlay = document.getElementById('dict-popup-overlay');
 
     if (statisticsPopup.classList.contains('active')) {
         statisticsPopup.classList.remove('active');
