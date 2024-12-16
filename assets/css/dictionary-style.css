@@ -201,6 +201,18 @@
      border-radius: 5px;
      font-size: 14px;
 }
+
+/* Toggle Classes */
+ .dict-filter-cont-hidden {
+     display: none;
+     z-index: 200;
+ 
+}
+ .dict-filter-cont-visible {
+     display: block;
+     z-index: 201;
+ }
+
 /* Related Words Scrollable Box */
  .scrollable-box {
      max-height: 100px;
@@ -394,16 +406,7 @@
      border-color: #388e3c;
     /* Darker border on hover */
 }
-/* Toggle Classes */
- .dict-filter-cont-hidden {
-     display: none;
-     z-index: 200;
- 
-}
- .dict-filter-cont-visible {
-     display: block;
-     z-index: 201;
-}
+
  
 /* Popup Overlay and Popup */
 #dict-popup-overlay, #dict-popup-overlay-advse {
