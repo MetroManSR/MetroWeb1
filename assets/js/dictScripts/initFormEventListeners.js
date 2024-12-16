@@ -83,7 +83,7 @@ export async function updatePendingChangesList(language) {
 export function initializeFormEventListeners(allRows, rowsPerPage) {
     console.log('Initializing Form Event Listeners');
 
-    initUrl(allRows, rowsPerPage, displayPage, 1, 'titleup');
+    initUrl(allRows, rowsPerPage, 1, 'titleup');
     
     let pendingChanges = (universalPendingChanges && Object.keys(universalPendingChanges).length > 0) ? universalPendingChanges : { ...defaultPendingChanges };
 
