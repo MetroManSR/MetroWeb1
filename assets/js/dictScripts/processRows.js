@@ -178,7 +178,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     cleanUpDuplicates();
 
     if (filteredRows.length === 0) {
-        const noMatchBox = await createNoMatchBox(language, 'dict-search-input', searchTerm, allRows);
+        const noMatchBox = await createNoMatchBox(language, searchTerm, allRows);
         renderContainer.appendChild(noMatchBox);
     }
 
