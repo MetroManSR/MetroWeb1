@@ -18,7 +18,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
 
     await initializeFormEventListeners(allRows, rowsPerPage);
 
-    updatePendingChangesList(language);
+    await updatePendingChangesList(language);
 
     const orderBySelect = document.getElementById('dict-order-by-select');
     if (orderBySelect) {
