@@ -413,11 +413,11 @@ header {
 
 /* Toggle Classes */
 .dict-filter-cont-hidden {
-    display: none;
+    display: none !important;
 }
 
 .dict-filter-cont-visible {
-    display: block;
+    display: block !important;
 } 
 
 /* Popup Overlay and Popup */
@@ -429,7 +429,7 @@ header {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000; /* Ensure it is below the popup but above other content */
-    display: none; /* Initially hidden */
+    display: none !important; /* Initially hidden */
 }
 
 #dict-statistics-popup, #dict-advanced-search-popup {
@@ -445,7 +445,7 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 1001; /* Ensure it is above other content */
-    display: none; /* Initially hidden */
+    display: none !important; /* Initially hidden */
     overflow-y: auto; /* Make popup scrollable if content overflows */
 }
 
