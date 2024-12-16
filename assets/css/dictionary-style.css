@@ -397,9 +397,12 @@
 /* Toggle Classes */
  .dict-filter-cont-hidden {
      display: none;
+     z-index: 200;
+ 
 }
  .dict-filter-cont-visible {
      display: block;
+     z-index: 201;
 }
 /* Popup Overlay and Popup */
  #dict-popup-overlay, #dict-popup-overlay-advse {
@@ -409,7 +412,7 @@
      width: 100%;
      height: 100%;
      background-color: rgba(0, 0, 0, 0.5);
-     z-index: 1000;
+     z-index: 999;
     /* Ensure it is below the popup but above other content */
      display: none;
     /* Initially hidden */
@@ -427,7 +430,7 @@
      border: 1px solid #ccc;
      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
      padding: 20px;
-     z-index: 1001;
+     z-index: 1002;
     /* Ensure it is above other content */
      display: none;
     /* Initially hidden */
@@ -495,7 +498,7 @@
      border: 1px solid #ccc;
      background-color: #f0f0f0;
     /* Light gray background */
-     z-index: 1000;
+     z-index: 750;
      max-height: 150px;
      overflow-y: auto;
      width: 100%;
