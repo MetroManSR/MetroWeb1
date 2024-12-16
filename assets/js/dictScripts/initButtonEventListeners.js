@@ -53,6 +53,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
             updateUniversalPendingChanges(pendingChanges);
         });
     }
+
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
 if (toggleFilterButton) {
     toggleFilterButton.addEventListener('click', () => {
@@ -74,7 +75,8 @@ if (toggleFilterButton) {
     });
 } else {
     console.error('toggleFilterButton not found');
-}
+} 
+    
     const advancedSearchButton = document.getElementById('dict-advanced-search-button');
     if (advancedSearchButton) {
         advancedSearchButton.addEventListener('click', () => {
