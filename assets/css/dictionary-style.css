@@ -222,18 +222,49 @@ header {
     transition: opacity 0.3s ease-in-out;
 }
 
-/* Floating Text */
-.floating-text {
+/*Floatin text*/
+.floating-text-button-container {
     position: fixed;
     bottom: 10px;
     right: 10px;
-    background: rgba(0, 120, 212, 0.8);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
+.floating-text-button {
+    background-color: rgba(0, 120, 212, 0.8);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s;
+}
+
+.floating-text-button:hover {
+    background-color: rgba(0, 120, 212, 1);
+}
+
+.floating-text {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: none;
+    max-width: 250px;
+}
+
+.floating-text.hidden {
+    display: none;
+}
+
+.floating-text.visible {
+    display: block;
+}
 /* Related Words Scrollable Box */
 .scrollable-box {
     max-height: 100px;
