@@ -2,7 +2,7 @@ import { processAllSettings, displayPage } from './processRows.js';
 import { universalPendingChanges, updatePendingChangesList, defaultPendingChanges, initializeFormEventListeners } from './initFormEventListeners.js';
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
 import { updatePagination } from './pagination.js';
-
+import { boxClickListener } from "./boxEvents.js";
 export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder) {
     console.log('Initializing Button Event Listeners');
     
@@ -28,6 +28,8 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
             updateUniversalPendingChanges(pendingChanges);
         });
     }
+
+    await boxClickListener(allRows, language, pendingChanges);
 
     const filterSelect = document.getElementById('dict-word-filter');
     if (filterSelect) {
