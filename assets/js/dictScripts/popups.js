@@ -15,9 +15,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
         advancedSearchPopup.classList.add('active');
 
         // Load previous selections if any
-        const pendingChanges = universalPendingChanges && Object.keys(universalPendingChanges).length > 0 
-            ? universalPendingChanges 
-            : { ...defaultPendingChanges };
+        const pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
             
         document.getElementById('dict-search-input').value = pendingChanges.searchTerm || '';
         document.getElementById('dict-search-in-word').checked = pendingChanges.searchIn.word;
