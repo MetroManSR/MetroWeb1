@@ -3,6 +3,8 @@ import { universalPendingChanges, updateUniversalPendingChanges, updatePendingCh
 import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
 import { updatePagination } from './pagination.js';
 import { boxClickListener } from "./boxEvents.js";
+import { filteredRows } from "../mainDict.js";
+
 export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder) {
     console.log('Initializing Button Event Listeners');
     
