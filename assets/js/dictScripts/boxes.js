@@ -214,13 +214,21 @@ export async function updateFloatingText(searchTerm, filters, advancedSearchPara
         floatingTextContent += ` ${await getTranslatedText('whenLookingFor', language)} "${searchTerm}"`;
     }
     if (filters.length > 0) {
-        floatingTextContent += ` ${await getTranslatedText('withFilters', language)}: ${filters.join(", ")}`;
+        const translatedFilters = await Promise.all(filters.map(async filter => {
+            const translatedFilter = await getTranslatedText(filter, language);
+            return translatedFilter;
+        }));
+        floatingTextContent += ` ${await getTranslatedText('withFilters', language)}: ${translatedFilters.join(", ")}`;
     }
     if (advancedSearchParams) {
-        floatingTextContent += ` ${await getTranslatedText('withAdvancedSearch', language)}: ${Object.keys(advancedSearchParams).join(", ")}`;
+        const translatedAdvancedParams = await Promise.all(Object.keys(advancedSearchParams).map(async param => {
+            const translatedParam = await getTranslatedText(param, language);
+            return translatedParam;
+        }));
+        floatingTextContent += ` ${await getTranslatedText('withAdvancedSearch', language)}: ${translatedAdvancedParams.join(", ")}`;
     }
 
-    const floatingText = document.getElementById('dictfloating-info');
+    const floatingText = document.getElementById('floating-info');
     if (floatingText) {
         floatingText.textContent = floatingTextContent;
     } else {
