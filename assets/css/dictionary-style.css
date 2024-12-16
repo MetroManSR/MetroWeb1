@@ -415,15 +415,6 @@ header {
     border-color: #388e3c;     /* Darker border on hover */
 }
 
-/* Toggle Classes */
-.dict-filter-cont-hidden {
-    display: none !important;
-}
-
-.dict-filter-cont-visible {
-    display: block !important;
-} 
-
 /* Popup Overlay and Popup */
 #dict-popup-overlay, #dict-popup-overlay-advse {
     position: fixed;
