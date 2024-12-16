@@ -401,7 +401,7 @@
  
 }
  .dict-filter-cont-visible {
-     display: block;
+     display: flex;
      z-index: 201;
 }
 /* Popup Overlay and Popup */
