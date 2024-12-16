@@ -195,6 +195,17 @@ export function createLoadingBox() {
     return loadingBox;
 }
 
+function initializeFloatingText() {
+    const floatingButton = document.querySelector('.floating-button');
+    const floatingText = document.querySelector('.floating-text');
+    const floatingInfo = document.getElementById('floating-info');
+
+    floatingButton.addEventListener('click', () => {
+        floatingText.classList.toggle('hidden');
+        floatingText.classList.toggle('visible');
+    });
+}
+
 // Function to update the floating text
 export async function updateFloatingText(searchTerm, filters, advancedSearchParams, language) {
     let floatingTextContent = `${filteredRows.length} ${await getTranslatedText('wordsFound', language)}`;
@@ -209,19 +220,17 @@ export async function updateFloatingText(searchTerm, filters, advancedSearchPara
         floatingTextContent += ` ${await getTranslatedText('withAdvancedSearch', language)}: ${Object.keys(advancedSearchParams).join(", ")}`;
     }
 
-    const floatingText = document.getElementById('floating-text');
+    const floatingText = document.getElementById('floating-info');
     if (floatingText) {
         floatingText.textContent = floatingTextContent;
     } else {
-        const newFloatingText = document.createElement('div');
-        newFloatingText.id = 'floating-text';
-        newFloatingText.className = 'floating-text';
-        newFloatingText.textContent = floatingTextContent;
-        document.body.appendChild(newFloatingText);
+        console.error('Floating text element not found');
     }
 }
 
 export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage = 1) {
+    initializeFloatingText();
+    
     console.log(`RenderBox called with currentPage: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
