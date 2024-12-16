@@ -223,7 +223,7 @@ header {
 }
 
 /*Floatin text*/
-.dictfloating-button-container {
+.dictbuttoncontainer {
     position: fixed;
     bottom: 10px;
     right: 10px;
@@ -232,7 +232,7 @@ header {
     align-items: flex-end;
 }
 
-.dictfloating-button {
+.dictbutton {
     background-color: rgba(0, 120, 212, 0.8);
     color: white;
     padding: 10px;
@@ -244,32 +244,34 @@ header {
     transition: background-color 0.3s;
 }
 
-.dictfloating-button:hover {
+.dictbutton:hover {
     background-color: rgba(0, 120, 212, 1);
 }
 
-.dictfloating-text {
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
+.dicttext {
+    background: rgba(173, 216, 230, 0.9); /* Light blue background */
+    color: black;
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
-    max-width: 250px;
+    max-width: 300px; /* Adjust based on your content */
     position: absolute;
-    bottom: 40px;
-    right: 10px;
+    bottom: 50px; /* Position it above the button */
+    right: 0; 
     display: none;
     z-index: 1000;
     opacity: 0;
-    transition: opacity 0.5s, max-height 0.5s;
+    transition: opacity 0.5s, max-height 0.5s, transform 0.5s;
     max-height: 0;
     overflow: hidden;
+    transform: translateY(10px); /* Start slightly below */
 }
 
-.dictfloating-text.visible {
+.dicttext.visible {
     display: block;
     opacity: 1;
-    max-height: 200px; /* Adjust the height based on your content */
+    max-height: 100px; /* Adjust based on your content */
+    transform: translateY(0); /* Move to original position */
 }
 
 
