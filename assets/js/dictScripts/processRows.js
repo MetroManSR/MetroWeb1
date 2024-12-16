@@ -155,7 +155,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     currentPage = Math.min(currentPage, totalPages);
     console.log(`Total rows: ${totalRows}, Total pages: ${totalPages}, Current page: ${currentPage}`);
 
-    const uniqueRows = [];
+    const uniqueRows = filteredRows;
     /*filteredRows.forEach(row => {
         if (isUniqueResult(row, uniqueRows)) {
             uniqueRows.push(row);
