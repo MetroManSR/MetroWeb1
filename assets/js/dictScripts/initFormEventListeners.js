@@ -1,18 +1,8 @@
-import {
-    getTranslatedText
-} from './loadTexts.js';
-import {
-    processAllSettings
-} from './processRows.js';
-import {
-    boxClickListener
-} from './boxEvents.js';
-import {
-    highlight 
-} from './utils.js';
-import {
-    initUrl
-} from './urlParameters.js';
+import { getTranslatedText } from './loadTexts.js';
+import { processAllSettings } from './processRows.js';
+import { boxClickListener } from './boxEvents.js';
+import { highlight } from './utils.js';
+import { initUrl } from './urlParameters.js';
 
 export const defaultPendingChanges = {
     searchTerm: '',
@@ -30,9 +20,8 @@ export const defaultPendingChanges = {
 
 export let universalPendingChanges;
 
-export async function updatePendingChangesList(language){
-
-    console.log('Initializing Button Event Listeners');
+export async function updatePendingChangesList(language) {
+    console.log('Updating Pending Changes List');
 
     language = document.querySelector('meta[name="language"]').content || 'en';
     let currentPage = 1;
@@ -40,16 +29,7 @@ export async function updatePendingChangesList(language){
     // Initialize pendingChanges with fallback to defaults
     let pendingChanges = (universalPendingChanges && Object.keys(universalPendingChanges).length > 0) ? universalPendingChanges : { ...defaultPendingChanges };
 
-    const {
-        searchTerm,
-        exactMatch,
-        searchIn,
-        filters,
-        ignoreDiacritics,
-        startsWith,
-        endsWith,
-        rowsPerPage
-    } = pendingChanges;
+    const { searchTerm, exactMatch, searchIn, filters, ignoreDiacritics, startsWith, endsWith, rowsPerPage } = pendingChanges;
     
     let changesList = [];
     if (searchTerm) {
@@ -98,10 +78,9 @@ export async function updatePendingChangesList(language){
     const pendingChangesElement = document.getElementById('dict-pending-changes');
     
     pendingChangesElement.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
-
 }
 
-export function initializeFormEventListeners(allRows, rowsPerPage, displayPage) {
+export function initializeFormEventListeners(allRows, rowsPerPage) {
     console.log('Initializing Form Event Listeners');
 
     initUrl(allRows, rowsPerPage, displayPage, 1, 'titleup');
@@ -204,7 +183,6 @@ export function initializeFormEventListeners(allRows, rowsPerPage, displayPage) 
             updatePendingChangesList(language);
             universalPendingChanges = pendingChanges;
             currentPage = 1;
-        
         });
     }
 
@@ -212,7 +190,5 @@ export function initializeFormEventListeners(allRows, rowsPerPage, displayPage) 
 }
 
 export function updateUniversalPendingChanges(i) {
-
    universalPendingChanges = i;
-    
-} 
+}
