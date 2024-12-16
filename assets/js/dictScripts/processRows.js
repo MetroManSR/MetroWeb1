@@ -143,7 +143,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     }
 
     if (filters.length > 0) {
-        filteredRows = filteredRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()));
+        updateFilteredRows(filteredRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()))) ;
         console.log('After filter criteria:', filteredRows.length);
     }
 
