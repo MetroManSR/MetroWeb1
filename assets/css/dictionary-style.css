@@ -248,7 +248,7 @@ header {
     background-color: rgba(0, 120, 212, 1);
 }
 
-.dicttext {
+.dictfloating-text {
     background: rgba(173, 216, 230, 0.9); /* Light blue background */
     color: black;
     padding: 10px;
