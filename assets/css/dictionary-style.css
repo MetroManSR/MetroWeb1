@@ -11,12 +11,6 @@ header {
     border-bottom: 1px solid #ddd;
 }
 
-/* Search Container */
-.dict-search-container {
-    text-align: center;
-    padding: 20px;
-}
-
 .dict-search-input,
 .dict-rows-input,
 .dict-filter-select {
