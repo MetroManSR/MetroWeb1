@@ -175,21 +175,21 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     if (infoButton && infoPopup && infoPopupOverlay && closeInfoButton && instructionsTitle && instructionsContent && legendTitle && legendContent) {
         infoButton.addEventListener('click', async () => {
             await setInfoContent(instructionsFilePath);
-               infoPopup.classList.toggle('hidden');
-               infoPopup.classList.toggle('active');
-               infoPopupOverlay.classList.toggle('hidden');
-               infoPopupOverlay.classList.toggle('active');
-               closeInfoButton.classList.toggle('hidden')
-               closeInfoButton.classList.toggle('active');
+               infoPopup.classList.remove('hidden');
+               infoPopup.classList.add('active');
+               infoPopupOverlay.classList.remove('hidden');
+               infoPopupOverlay.classList.add('active');
+               closeInfoButton.classList.remove('hidden')
+               closeInfoButton.classList.add('active');
         });
 
         closeInfoButton.addEventListener('click', () => {
-            infoPopup.classList.toggle('hidden');
-            infoPopup.classList.toggle('active');
-            infoPopupOverlay.classList.toggle('hidden');
-            infoPopupOverlay.classList.toggle('active');
-            closeInfoPopup.classList.toggle('hidden');
-            closeInfoButton.classList.toggle('active');
+            infoPopup.classList.add('hidden');
+            infoPopup.classList.remove('active');
+            infoPopupOverlay.classList.add('hidden');
+            infoPopupOverlay.classList.remove('active');
+            closeInfoPopup.classList.add('hidden');
+            closeInfoButton.classList.remove('active');
         });
     } else {
         console.error('Info popup elements not found');
