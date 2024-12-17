@@ -239,17 +239,29 @@ export async function updateFloatingText(searchTerm, filters, advancedSearchPara
 export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage = 1) {
     initializeFloatingText();
     
-    console.log(`RenderBox called with currentPage: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
+    console.log(`RenderBox called: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
     const language = document.querySelector('meta[name="language"]').content || 'en';
 
-    // Render loading boxes
-    for (let i = 0; i < rowsPerPage; i++) {
-        dictionaryContainer.appendChild(createLoadingBox());
-    }
+    // Render the right amount of loading boxes with unique IDs
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const rowsToDisplay = filteredRows.slice(start, end);
+
+    console.log(`Rows to display: ${rowsToDisplay.length}, Start: ${start}, End: ${end}`);
+
+    // Create a map to associate loading boxes with rows based on type and IDs
+    const loadingBoxesMap = new Map();
+    rowsToDisplay.forEach(row => {
+        const loadingBox = createLoadingBox();
+        const uniqueId = `${row.type}-${row.id}`;
+        loadingBox.id = `loading-box-${uniqueId}`;
+        dictionaryContainer.appendChild(loadingBox);
+        loadingBoxesMap.set(uniqueId, loadingBox);
+    });
 
     if (filteredRows.length === 0) {
         dictionaryContainer.innerHTML = ''; // Clear loading boxes
@@ -259,24 +271,13 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
         return;
     }
 
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const rowsToDisplay = filteredRows.slice(start, end);
-
-    console.log(`Rows to display: ${rowsToDisplay.length}, Start: ${start}, End: ${end}`);
-
-    // Create a Set to track added boxes
-    const addedBoxes = new Set();
-
-    // Replace loading boxes with actual content
-    dictionaryContainer.innerHTML = ''; // Clear loading boxes
+    // Replace loading boxes with actual content based on type and IDs
     for (const row of rowsToDisplay) {
-        if (!addedBoxes.has(row.id) && (row.title !== "" && row.meta !== "")) { // Assuming each row has a unique 'id' field
-            const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-            if (box) {
-                dictionaryContainer.appendChild(box);
-                addedBoxes.add(row.id); // Track the added box
-            }
+        const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
+        const uniqueId = `${row.type}-${row.id}`;
+        const loadingBox = loadingBoxesMap.get(uniqueId);
+        if (loadingBox && box) {
+            dictionaryContainer.replaceChild(box, loadingBox);
         }
     }
 
