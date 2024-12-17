@@ -3,6 +3,7 @@ import { processAllSettings } from './processRows.js';
 import { boxClickListener } from './boxEvents.js';
 import { highlight } from './utils.js';
 import { initUrl } from './urlParameters.js';
+import {initAdvancedSearchPopup} from './popups.js';
 
 export const defaultPendingChanges = {
     searchTerm: '',
@@ -183,6 +184,13 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
             universalPendingChanges = pendingChanges;
             updatePendingChangesList(language);
             currentPage = 1;
+        });
+    }
+
+    const advancedSearchButton = document.getElementById('advanced-search-btn');
+    if (advancedSearchButton) {
+        advancedSearchButton.addEventListener('click', async () => {
+            await initAdvancedSearchPopup(allRows, rowsPerPage, language);
         });
     }
 
