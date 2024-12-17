@@ -175,17 +175,17 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     if (infoButton && infoPopup && infoPopupOverlay && closeInfoButton && instructionsTitle && instructionsContent && legendTitle && legendContent) {
         infoButton.addEventListener('click', async () => {
             await setInfoContent(instructionsFilePath);
-            infoPopup.classList.toggle('dict-popup-hidden');
-            infoPopup.classList.toggle('dict-active');
-            infoPopupOverlay.classList.toggle('dict-popup-hidden');
-            infoPopupOverlay.classList.toggle('dict-active');
+            infoPopup.classList.toggle('hidden');
+            infoPopup.classList.toggle('active');
+            infoPopupOverlay.classList.toggle('hidden');
+            infoPopupOverlay.classList.toggle('active');
         });
 
         closeInfoButton.addEventListener('click', () => {
-            infoPopup.classList.toggle('dict-popup-hidden');
-            infoPopup.classList.toggle('dict-active');
-            infoPopupOverlay.classList.toggle('dict-popup-hidden');
-            infoPopupOverlay.classList.toggle('dict-active');
+            infoPopup.classList.toggle('hidden');
+            infoPopup.classList.toggle('active');
+            infoPopupOverlay.classList.toggle('hidden');
+            infoPopupOverlay.classList.toggle('active');
         });
     } else {
         console.error('Info popup elements not found');
