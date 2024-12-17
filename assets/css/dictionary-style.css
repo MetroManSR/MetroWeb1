@@ -249,7 +249,7 @@ header {
     bottom: 50px; /* Position it above the button */
     right: 0; 
     display: none;
-    z-index: 1000;
+    z-index: 750;
     opacity: 0;
     transition: opacity 0.5s, max-height 0.5s, transform 0.5s;
     max-height: 0;
