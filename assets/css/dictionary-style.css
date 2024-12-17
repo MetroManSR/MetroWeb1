@@ -457,7 +457,7 @@ header {
 }
 
 /* Popup Overlay and Popup */
-.dict-popup-overlay {
+.popup-overlay {
     
     background-color: black; /* Dark red background */
     position: fixed;
@@ -469,7 +469,7 @@ header {
     z-index: 975; /* Ensure it appears below the popup but above other content */
 }
 
-.dict-popup-overlay.dict-active {
+.popup-overlay.dict-active {
     display: block; /* Display when active */
 }
 
