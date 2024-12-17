@@ -93,6 +93,12 @@ header {
     align-items: center;
 }
 
+.pagination-page-display {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
 /* Toggle Classes */
 .dict-filter-cont-hidden {
     display: none;
@@ -105,12 +111,6 @@ header {
 .dict-filter-cont-visible {
     display: block;
 } 
-
-.pagination-page-display {
-    display: flex;
-    align-items: center;
-    margin: 0 10px;
-}
 
 /* Error Message */
 .dict-error-message {
@@ -275,6 +275,8 @@ header {
     border-radius: 5px;
 }
 
+/* Progress bar*/
+
 #dict-progress-container {
     width: 100%;
     background-color: #f3f3f3;
@@ -302,6 +304,8 @@ header {
     line-height: 25px;
     color: #000;
 }
+
+/*Box tooltips*/
 
 .dict-info-button {
     background-color: transparent;
@@ -342,8 +346,6 @@ header {
     opacity: 0.9;
 }
 
-
-
 /* Filter Buttons with Blue Background */
 .dict-filter-button {
     background-color: #2196f3; /* Blue background */
@@ -372,7 +374,7 @@ header {
     border-color: #d32f2f;     /* Darker border on hover */
 }
 
-/* Pagination and Sorting Containers */
+/* Filter and Sorting Containers */
 .dict-pagination-container,
 .dict-sorting-container,
 .dict-filter-dropdown-container,
@@ -511,6 +513,8 @@ header {
     background-color: #d32f2f; /* Darker red on hover */
     border-color: #d32f2f;     /* Darker border on hover */
 }
+
+/* Predictions*/
 
 .dict-search-predictions {
     position: absolute;
