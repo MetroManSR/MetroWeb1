@@ -14,8 +14,7 @@ import { universalPendingChanges, defaultPendingChanges } from './initFormEventL
 export function sortRows(sortingManner) {
     
     const rows = filteredRows;
-    
-    //console.log(`Sorting rows by: ${sortingManner}`);
+
     switch (sortingManner) {
         case 'titleup':
             return rows.sort((a, b) => a.title.localeCompare(b.title));
@@ -147,9 +146,18 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         console.log('After filter criteria:', filteredRows.length);
     }
 
+    // Remove duplicates
+    const uniqueRows = [];
+    filteredRows.forEach(row => {
+        if (isUniqueResult(row, uniqueRows)) {
+            uniqueRows.push(row);
+        }
+    });
+    updateFilteredRows(uniqueRows);
+    console.log('After removing duplicates:', filteredRows.length);
 
+    // Sort rows based on the sortingManner from pendingChanges
     let sortedRows = sortRows(sortingManner);
-    
     updateFilteredRows(sortedRows);
     console.log('After sorting:', filteredRows.length);
 
@@ -157,15 +165,6 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     const totalPages = Math.ceil(totalRows / rowsPerPage);
     currentPage = Math.min(currentPage, totalPages);
     console.log(`Total rows: ${totalRows}, Total pages: ${totalPages}, Current page: ${currentPage}`);
-
-    const uniqueRows = filteredRows;
-    /*filteredRows.forEach(row => {
-        if (isUniqueResult(row, uniqueRows)) {
-            uniqueRows.push(row);
-        }
-    });*/
-    updateFilteredRows(uniqueRows);
-    console.log('After removing duplicates:', filteredRows.length);
 
     const renderContainer = document.getElementById('dict-dictionary');
     if (renderContainer) {
