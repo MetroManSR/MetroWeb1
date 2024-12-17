@@ -75,8 +75,10 @@ export async function initStatisticsPopup(allRows) {
     const popupOverlay = document.getElementById('dict-statistics-popup-overlay');
 
     if (statisticsPopup.classList.contains('active')) {
-       await statisticsPopup.classList.remove('active');
-       await popupOverlay.classList.remove('active');
+       statisticsPopup.classList.remove('active');
+       statisticsPopup.classList.add('hidden');
+       popupOverlay.classList.remove('active');
+       popupOverlay.classList.add('hidden');
     } else {
         const totalWords = allRows.filter(row => row.type === 'word').length;
         const totalRoots = allRows.filter(row => row.type === 'root').length;
@@ -99,12 +101,16 @@ export async function initStatisticsPopup(allRows) {
             <button id="dict-close-statistics-button" class="btn">Close</button>
         `;
 
+        statisticsPopup.classList.remove('hidden');
         statisticsPopup.classList.add('active');
+        popupOverlay.classList.remove('hidden');
         popupOverlay.classList.add('active');
 
-        document.getElementById('dict-close-statistics-button').addEventListener('click', async () => {
-           await statisticsPopup.classList.remove('active');
-           await popupOverlay.classList.remove('active');
+        document.getElementById('dict-close-statistics-button').addEventListener('click', () => {
+           statisticsPopup.classList.remove('active');
+           statisticsPopup.classList.add('hidden');
+           popupOverlay.classList.remove('active');
+           popupOverlay.classList.add('hidden');
         });
     }
 }
