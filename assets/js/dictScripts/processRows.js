@@ -12,6 +12,9 @@ import { universalPendingChanges, defaultPendingChanges } from './initFormEventL
  * @returns {Array} - The sorted array of rows.
  */
 export function sortRows(rows, sortingManner) {
+
+    console.log(typeof rows) 
+    
     if (!Array.isArray(rows)) {
         throw new TypeError('Expected an array of rows');
     }
