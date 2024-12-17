@@ -104,8 +104,7 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
             universalPendingChanges = pendingChanges;
             updatePendingChangesList(language);
             currentPage = 1;
-            await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
-        });
+       });
     }
 
     const searchInput = document.getElementById('dict-search-input');
@@ -120,7 +119,6 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
             pendingChanges.searchTerm = ''; // Clear searchTerm in pending changes
             universalPendingChanges = pendingChanges;
             currentPage = 1;
-            await processAllSettings(pendingChanges, allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
             return;
         }
 
