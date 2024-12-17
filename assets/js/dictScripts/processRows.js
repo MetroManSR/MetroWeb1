@@ -14,27 +14,27 @@ import { universalPendingChanges, defaultPendingChanges } from './initFormEventL
 export function sortRows(rows, sortingManner) {
     switch (sortingManner) {
         case 'titleup':
-            return rows.sort((a, b) => a.title.localeCompare(b.title));
+            return rows.slice().sort((a, b) => a.title.localeCompare(b.title));
         case 'titledown':
-            return rows.sort((a, b) => b.title.localeCompare(a.title));
+            return rows.slice().sort((a, b) => b.title.localeCompare(a.title));
         case 'metaup':
-            return rows.sort((a, b) => (a.meta || '').localeCompare(b.meta || ''));
+            return rows.slice().sort((a, b) => (a.meta || '').localeCompare(b.meta || ''));
         case 'metadown':
-            return rows.sort((a, b) => (b.meta || '').localeCompare(a.meta || ''));
+            return rows.slice().sort((a, b) => (b.meta || '').localeCompare(a.meta || ''));
         case 'morphup':
-            return rows.sort((a, b) => {
+            return rows.slice().sort((a, b) => {
                 const morphA = Array.isArray(a.morph) ? a.morph.join(' ') : a.morph || '';
                 const morphB = Array.isArray(b.morph) ? b.morph.join(' ') : b.morph || '';
                 return morphA.localeCompare(morphB);
             });
         case 'morphdown':
-            return rows.sort((a, b) => {
+            return rows.slice().sort((a, b) => {
                 const morphA = Array.isArray(a.morph) ? a.morph.join(' ') : a.morph || '';
                 const morphB = Array.isArray(b.morph) ? b.morph.join(' ') : b.morph || '';
                 return morphB.localeCompare(morphA);
             });
         default:
-            return rows.sort((a, b) => a.title.localeCompare(b.title));
+            return rows.slice().sort((a, b) => a.title.localeCompare(b.title));
     }
 }
 
@@ -94,7 +94,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
             const etymologyMatch = searchIn.etymology && (
                 (exactMatch && normalizedMorph.includes(term)) ||
                 (startsWith && normalizedMorph.some(item => item.startsWith(term))) ||
-                (endsWith && normalizedMorph.some(item.endsWith(term))) ||
+                (endsWith && normalizedMorph.some(item => item.endsWith(term))) ||
                 (!exactMatch && !startsWith && !endsWith && normalizedMorph.some(item => item.includes(term)))
             );
 
@@ -161,7 +161,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     }, 1000);
 
     console.log('Process complete.');
-} 
+}
 
 /**
  * Displays the specified page of results.
