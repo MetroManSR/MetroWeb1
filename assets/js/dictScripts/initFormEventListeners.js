@@ -187,7 +187,7 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
         });
     }
 
-    const advancedSearchButton = document.getElementById('advanced-search-btn');
+    const advancedSearchButton = document.getElementById('dict-advanced-search-btn');
     if (advancedSearchButton) {
         advancedSearchButton.addEventListener('click', async () => {
             await initAdvancedSearchPopup(allRows, rowsPerPage, language);
