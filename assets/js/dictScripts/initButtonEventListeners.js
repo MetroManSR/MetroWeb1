@@ -155,7 +155,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     // Info Button Event Listener
     const infoButton = document.getElementById('dict-info-button');
     const infoPopup = document.getElementById('dict-info-popup');
-    const infoPopupOverlay = document.getElementById('dict-popup-overlay-info');
+    const infoPopupOverlay = document.getElementById('popup-overlay');
     const closeInfoButton = document.getElementById('dict-close-info-button');
     const instructionsTitle = document.getElementById('instructions-title');
     const instructionsContent = document.getElementById('instructions-content');
