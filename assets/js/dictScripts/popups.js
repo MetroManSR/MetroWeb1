@@ -3,7 +3,7 @@ import { universalPendingChanges, updateUniversalPendingChanges,  defaultPending
 import { filteredRows } from '../mainDict.js';
 
 
-export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
+export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
     const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
     const popupOverlay = document.getElementById('dict-popup-overlay-advse');
     // Load previous selections if any 
@@ -70,7 +70,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
     });
 }
 
-export function initStatisticsPopup(allRows) {
+export async function initStatisticsPopup(allRows) {
     const statisticsPopup = document.getElementById('dict-statistics-popup');
     const popupOverlay = document.getElementById('dict-statistics-popup-overlay');
 
