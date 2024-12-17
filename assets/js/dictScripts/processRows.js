@@ -57,6 +57,9 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     let params = universalPendingChanges ? universalPendingChanges : defaultPendingChanges;
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
+    const applySettingsButton = document.getElementById('apply-settings-button'); // Change to your button's actual ID
+    applySettingsButton.disabled = true; // Disable the button
+
     const {
         searchTerm,
         exactMatch,
@@ -66,9 +69,6 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         startsWith,
         endsWith
     } = params;
-
-    console.log('Initial allRows:', allRows.length);
-    console.log('Params: ', params);
 
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
 
@@ -115,7 +115,6 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
 
     if (filters.length > 0) {
         updatedRows = updatedRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()));
-        console.log('After filter criteria:', updatedRows.length);
     }
 
     // Remove duplicates
@@ -126,11 +125,10 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         }
     });
     updatedRows = uniqueRows;
-    console.log('After removing duplicates:', updatedRows.length);
-
+    
     // Sort rows based on the sortingManner from pendingChanges
     updatedRows = sortRows(updatedRows, sortingManner);
-    console.log('After sorting:', updatedRows.length);
+    //console.log('After sorting:', updatedRows.length);
 
     updateFilteredRows(updatedRows);
 
@@ -144,6 +142,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         renderContainer.innerHTML = '';
     } else {
         console.error("Error: 'dict-dictionary' element not found in the DOM.");
+        applySettingsButton.disabled = false; // Re-enable the button if there's an error
         return;
     }
 
@@ -168,6 +167,8 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     setTimeout(() => {
         settingsAppliedText.remove();
     }, 1000);
+
+    applySettingsButton.disabled = false; // Re-enable the button after the process is complete
 
     console.log('Process complete.');
 }
