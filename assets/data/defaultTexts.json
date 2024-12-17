@@ -9,7 +9,7 @@
 
         "advancedSearchButton": "Advanced Search",
         "applySearchButton": "Apply",
-        "closeSearchButton": "Close",
+        "close": "Close",
         "searchInWord": "Word",
         "searchInRoot": "Root",
         "searchInDefinition": "Definition",
@@ -96,7 +96,7 @@
 
         "advancedSearchButton": "Búsqueda Avanzada",
         "applySearchButton": "Aplicar",
-        "closeSearchButton": "Cerrar",
+        "close": "Cerrar",
         "searchInWord": "Palabra",
         "searchInRoot": "Raíz",
         "searchInDefinition": "Definición",
