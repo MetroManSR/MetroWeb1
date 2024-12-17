@@ -64,15 +64,15 @@ if (toggleFilterButton) {
     
     const advancedSearchButton = document.getElementById('dict-advanced-search-button');
     if (advancedSearchButton) {
-        advancedSearchButton.addEventListener('click', () => {
-            initAdvancedSearchPopup(allRows, rowsPerPage, language);
+        advancedSearchButton.addEventListener('click', async () => {
+            await initAdvancedSearchPopup(allRows, rowsPerPage, language);
         });
     }
 
     const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
     if (viewStatisticsButton) {
-        viewStatisticsButton.addEventListener('click', () => {
-            initStatisticsPopup(allRows);
+        viewStatisticsButton.addEventListener('click', async () => {
+           await  initStatisticsPopup(allRows);
         });
     }
 
