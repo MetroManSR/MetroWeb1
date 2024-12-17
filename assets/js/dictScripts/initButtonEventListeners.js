@@ -175,10 +175,12 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     if (infoButton && infoPopup && infoPopupOverlay && closeInfoButton && instructionsTitle && instructionsContent && legendTitle && legendContent) {
         infoButton.addEventListener('click', async () => {
             await setInfoContent(instructionsFilePath);
-            infoPopup.classList.toggle('hidden');
-            infoPopup.classList.toggle('active');
-            infoPopupOverlay.classList.toggle('hidden');
-            infoPopupOverlay.classList.toggle('active');
+               infoPopup.classList.toggle('hidden');
+               infoPopup.classList.toggle('active');
+               infoPopupOverlay.classList.toggle('hidden');
+               infoPopupOverlay.classList.toggle('active');
+               closeInfoButton.classList.toggle('hidden')
+               closeInfoButton.classList.toggle('active');
         });
 
         closeInfoButton.addEventListener('click', () => {
@@ -186,6 +188,8 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
             infoPopup.classList.toggle('active');
             infoPopupOverlay.classList.toggle('hidden');
             infoPopupOverlay.classList.toggle('active');
+            closeInfoPopup.classList.toggle('hidden');
+            closeInfoButton.classList.toggle('active');
         });
     } else {
         console.error('Info popup elements not found');
