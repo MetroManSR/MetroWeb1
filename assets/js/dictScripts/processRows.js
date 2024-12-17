@@ -12,41 +12,45 @@ import { universalPendingChanges, defaultPendingChanges } from './initFormEventL
  * @returns {Array} - The sorted array of rows.
  */
 export function sortRows(rows, sortingManner) {
+    if (!Array.isArray(rows)) {
+        throw new TypeError('Expected an array of rows');
+    }
+
     switch (sortingManner) {
         case 'titleup':
-            return rows.slice().sort((a, b) => a.title.localeCompare(b.title));
+            return [...rows].sort((a, b) => a.title.localeCompare(b.title));
         case 'titledown':
-            return rows.slice().sort((a, b) => b.title.localeCompare(a.title));
+            return [...rows].sort((a, b) => b.title.localeCompare(a.title));
         case 'metaup':
-            return rows.slice().sort((a, b) => (a.meta || '').localeCompare(b.meta || ''));
+            return [...rows].sort((a, b) => (a.meta || '').localeCompare(b.meta || ''));
         case 'metadown':
-            return rows.slice().sort((a, b) => (b.meta || '').localeCompare(a.meta || ''));
+            return [...rows].sort((a, b) => (b.meta || '').localeCompare(a.meta || ''));
         case 'morphup':
-            return rows.slice().sort((a, b) => {
+            return [...rows].sort((a, b) => {
                 const morphA = Array.isArray(a.morph) ? a.morph.join(' ') : a.morph || '';
                 const morphB = Array.isArray(b.morph) ? b.morph.join(' ') : b.morph || '';
                 return morphA.localeCompare(morphB);
             });
         case 'morphdown':
-            return rows.slice().sort((a, b) => {
+            return [...rows].sort((a, b) => {
                 const morphA = Array.isArray(a.morph) ? a.morph.join(' ') : a.morph || '';
                 const morphB = Array.isArray(b.morph) ? b.morph.join(' ') : b.morph || '';
                 return morphB.localeCompare(morphA);
             });
         default:
-            return rows.slice().sort((a, b) => a.title.localeCompare(b.title));
+            return [...rows].sort((a, b) => a.title.localeCompare(b.title));
     }
 }
 
 export async function processAllSettings(allRows = [], rowsPerPage = 20, currentPage = 1, sortingManner = 'titleup') {
-    let params = universalPendingChanges ? universalPendingChanges : defaultPendingChanges ;
+    let params = universalPendingChanges ? universalPendingChanges : defaultPendingChanges;
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
     const {
-        searchTerm, 
+        searchTerm,
         exactMatch,
-        searchIn, 
-        filters, 
+        searchIn,
+        filters,
         ignoreDiacritics,
         startsWith,
         endsWith
@@ -54,10 +58,6 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
 
     console.log('Initial allRows:', allRows.length);
     console.log('Params: ', params);
-    
-    updateFilteredRows([]);
-
-    console.log("Rows per page", rowsPerPage);
 
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
 
@@ -135,7 +135,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         console.error("Error: 'dict-dictionary' element not found in the DOM.");
         return;
     }
-    
+
     cleanUpDuplicates();
 
     if (updatedRows.length === 0) {
@@ -146,7 +146,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     await renderBox(updatedRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
 
     updatePagination(currentPage, rowsPerPage);
-    
+
     updateFloatingText(searchTerm, filters, searchIn);
 
     const settingsAppliedText = document.createElement('div');
@@ -161,7 +161,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     }, 1000);
 
     console.log('Process complete.');
-}
+        }
 
 /**
  * Displays the specified page of results.
