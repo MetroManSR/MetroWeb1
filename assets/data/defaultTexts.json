@@ -77,7 +77,14 @@
         "bugCopyPaste02": ": _your input_",
 
         "ideaCopyPaste01": "Hello I think I have an idea to improve word ",
-        "ideaCopyPaste02": "_your suggestion here_"
+        "ideaCopyPaste02": "_your suggestion here_",
+
+        "advancedSearchTitle": "Advanced Search",
+        "addSearch": "Add Search",
+        "statisticsTitle": "Statistics",
+        "totalWords": "Total Words",
+        "totalRoots": "Total Roots",
+        "partOfSpeechTitle": "Total Words per Part of Speech"
     },
     "es": {
         "searchPlaceholder": "Buscar...",
@@ -157,7 +164,14 @@
         "bugCopyPaste02": ": _escribe aquí_",
 
         "ideaCopyPaste01": "Hola tengo una idea para mejorar la palabra ",
-        "ideaCopyPaste02": ": _tu sugerencia_"
+        "ideaCopyPaste02": ": _tu sugerencia_",
+
+        "advancedSearchTitle": "Búsqueda Avanzada",
+        "addSearch": "Agregar Búsqueda",
+        "statisticsTitle": "Estadísticas",
+        "totalWords": "Palabras Totales",
+        "totalRoots": "Raíces Totales",
+        "partOfSpeechTitle": "Palabras Totales por Parte del Habla"
     },
     "eo": {},
     "blk": {}
