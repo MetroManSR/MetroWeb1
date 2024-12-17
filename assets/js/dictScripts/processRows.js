@@ -12,9 +12,6 @@ import { universalPendingChanges, defaultPendingChanges } from './initFormEventL
  * @returns {Array} - The sorted array of rows.
  */
 export function sortRows(rows, sortingManner) {
-
-    console.log(typeof rows) 
-    
     if (!Array.isArray(rows)) {
         throw new TypeError('Expected an array of rows');
     }
@@ -45,6 +42,17 @@ export function sortRows(rows, sortingManner) {
     }
 }
 
+/**
+ * Checks if a row is unique based on its ID.
+ *
+ * @param {Object} row - The row to check.
+ * @param {Array} existingRows - The array of existing rows.
+ * @returns {boolean} - True if the row is unique, false otherwise.
+ */
+function isUniqueResult(row, existingRows) {
+    return !existingRows.some(existingRow => existingRow.id === row.id);
+}
+
 export async function processAllSettings(allRows = [], rowsPerPage = 20, currentPage = 1, sortingManner = 'titleup') {
     let params = universalPendingChanges ? universalPendingChanges : defaultPendingChanges;
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
@@ -64,7 +72,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
 
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
 
-    let updatedRows = [...allRows];
+    let updatedRows = Array.isArray(allRows) ? [...allRows] : [];
 
     if (searchTerm) {
         updatedRows = updatedRows.filter(row => {
@@ -139,14 +147,12 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         return;
     }
 
-    cleanUpDuplicates();
-
     if (updatedRows.length === 0) {
         const noMatchBox = await createNoMatchBox(language, searchTerm, allRows);
         renderContainer.appendChild(noMatchBox);
+    } else {
+        await renderBox(updatedRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
     }
-
-    await renderBox(updatedRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
 
     updatePagination(currentPage, rowsPerPage);
 
@@ -164,7 +170,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     }, 1000);
 
     console.log('Process complete.');
-        }
+}
 
 /**
  * Displays the specified page of results.
