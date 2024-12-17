@@ -319,14 +319,6 @@ header {
     color: #000;
 }
 
-.dict-filter-cont-hidden {
-    display: none;
-}
-
-.dict-filter-cont-visible {
-    display: block;
-}
-
 .dict-info-button {
     background-color: transparent;
     border: none;
