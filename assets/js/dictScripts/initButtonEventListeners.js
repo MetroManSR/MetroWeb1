@@ -4,6 +4,7 @@ import { initAdvancedSearchPopup, initStatisticsPopup } from './popups.js';
 import { updatePagination } from './pagination.js';
 import { boxClickListener } from "./boxEvents.js";
 import { filteredRows } from "../mainDict.js";
+import { getTranslatedText } from './loadTexts.js';
 
 export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder) {
     console.log('Initializing Button Event Listeners');
@@ -39,28 +40,27 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
             updateUniversalPendingChanges(pendingChanges);
             updatePendingChangesList(language);
-            
         });
     }
 
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-if (toggleFilterButton) {
-    toggleFilterButton.addEventListener('click', async () => {
-        const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
-        if (filterSortingContainer) {
-            console.log('Current classes before toggle: ', filterSortingContainer.className);
+    if (toggleFilterButton) {
+        toggleFilterButton.addEventListener('click', async () => {
+            const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+            if (filterSortingContainer) {
+                console.log('Current classes before toggle: ', filterSortingContainer.className);
 
-            await filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
-            await filterSortingContainer.classList.toggle('dict-filter-cont-visible');
+                await filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
+                await filterSortingContainer.classList.toggle('dict-filter-cont-visible');
 
-            console.log('Current classes after toggle: ', filterSortingContainer.className);
-        } else {
-            console.error('filterSortingContainer not found');
-        }
-    });
-} else {
-    console.error('toggleFilterButton not found');
-}
+                console.log('Current classes after toggle: ', filterSortingContainer.className);
+            } else {
+                console.error('filterSortingContainer not found');
+            }
+        });
+    } else {
+        console.error('toggleFilterButton not found');
+    }
     
     const advancedSearchButton = document.getElementById('dict-advanced-search-button');
     if (advancedSearchButton) {
@@ -72,7 +72,7 @@ if (toggleFilterButton) {
     const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
     if (viewStatisticsButton) {
         viewStatisticsButton.addEventListener('click', async () => {
-           await  initStatisticsPopup(allRows);
+           await initStatisticsPopup(allRows);
         });
     }
 
@@ -158,6 +158,45 @@ if (toggleFilterButton) {
     // Initial page load
     if (filteredRows) {
         navigateToPage(1);
+    }
+
+    // Info Button Event Listener
+    const infoButton = document.getElementById('dict-info-button');
+    const infoPopup = document.getElementById('dict-info-popup');
+    const infoPopupOverlay = document.getElementById('dict-popup-overlay-info');
+    const closeInfoButton = document.getElementById('dict-close-info-button');
+    const instructionsTitle = document.getElementById('instructions-title');
+    const instructionsContent = document.getElementById('instructions-content');
+    const legendTitle = document.getElementById('legend-title');
+    const legendContent = document.getElementById('legend-content');
+
+    const instructionsFilePath = '../../data/instructions.json'; // Path to the JSON file
+
+    async function setInfoContent(filePath) {
+        instructionsTitle.textContent = await getTranslatedText('instTitle', language, filePath);
+        instructionsContent.textContent = await getTranslatedText('instContent', language, filePath);
+        legendTitle.textContent = await getTranslatedText('legTitle', language, filePath);
+        legendContent.textContent = await getTranslatedText('legContent', language, filePath);
+        closeInfoButton.textContent = await getTranslatedText('close', language, filePath);
+    }
+
+    if (infoButton && infoPopup && infoPopupOverlay && closeInfoButton && instructionsTitle && instructionsContent && legendTitle && legendContent) {
+        infoButton.addEventListener('click', async () => {
+            await setInfoContent(instructionsFilePath);
+            infoPopup.classList.toggle('dict-popup-hidden');
+            infoPopup.classList.toggle('dict-active');
+            infoPopupOverlay.classList.toggle('dict-popup-hidden');
+            infoPopupOverlay.classList.toggle('dict-active');
+        });
+
+        closeInfoButton.addEventListener('click', () => {
+            infoPopup.classList.toggle('dict-popup-hidden');
+            infoPopup.classList.toggle('dict-active');
+            infoPopupOverlay.classList.toggle('dict-popup-hidden');
+            infoPopupOverlay.classList.toggle('dict-active');
+        });
+    } else {
+        console.error('Info popup elements not found');
     }
 
     console.log('Button Event Listeners initialized');
