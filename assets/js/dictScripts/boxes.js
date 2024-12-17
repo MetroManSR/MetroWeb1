@@ -239,7 +239,7 @@ export async function updateFloatingText(searchTerm, filters, advancedSearchPara
 export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage = 1) {
     initializeFloatingText();
     
-    console.log(`RenderBox called: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
+    console.log(`RenderBox called with currentPage: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
@@ -278,8 +278,14 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
         const loadingBox = loadingBoxesMap.get(uniqueId);
         if (loadingBox && box) {
             dictionaryContainer.replaceChild(box, loadingBox);
+            loadingBoxesMap.delete(uniqueId); // Remove the entry from the map as it's been used
         }
     }
+
+    // Cleanup unused loading boxes
+    loadingBoxesMap.forEach(loadingBox => {
+        dictionaryContainer.removeChild(loadingBox);
+    });
 
     updatePagination(currentPage, rowsPerPage);
     await updateFloatingText(searchTerm, [], {}, language);
