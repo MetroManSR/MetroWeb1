@@ -1,0 +1,16 @@
+{
+    "en": {
+        "instTitle": "Usage Instructions",
+        "instContent": "Here are the dictionary usage instructions.",
+        "legTitle": "Dictionary Legend",
+        "legContent": "Here are the legends and explanations of the dictionary terms.",
+        "close": "Close"
+    },
+    "es": {
+        "instTitle": "Instrucciones de Uso",
+        "instContent": "Aquí están las instrucciones de uso del diccionario.",
+        "legTitle": "Leyenda del Diccionario",
+        "legContent": "Aquí están las leyendas y explicaciones de los términos del diccionario.",
+        "close": "Cerrar"
+    }
+}
