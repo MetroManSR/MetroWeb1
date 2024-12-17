@@ -33,7 +33,7 @@ export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLangu
 
     closeAdvancedSearch.addEventListener('click', async () => {
         await advancedSearchPopup.classList.remove('active');
-        await advancedSearchOverlay.classList.remove('active');
+        await advancedSearchOverlay.classList.add('hidden');
     });
 
     addSearchBtnPopup.addEventListener('click', async () => {
