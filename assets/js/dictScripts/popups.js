@@ -103,6 +103,8 @@ export async function initStatisticsPopup(allRows) {
         return;
     }
 
+    const currentLanguage = document.querySelector('meta[name="language"]').content || 'en';
+    
     const totalWords = allRows.filter(row => row.type === 'word').length;
     const totalRoots = allRows.filter(row => row.type === 'root').length;
 
@@ -145,7 +147,6 @@ statisticsPopup.innerHTML = `
     
     const popupOverlay = document.getElementById('popup-overlay');
     const infoClose = document.getElementById('dict-close-statistics-button');
-    const currentLanguage = document.querySelector('meta[name="language"]').content || 'en';
 
     await statisticsPopup.classList.add('active');
     await statisticsPopup.classList.remove('hidden');
