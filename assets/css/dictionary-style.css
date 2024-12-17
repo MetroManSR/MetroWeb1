@@ -450,7 +450,7 @@ header {
 }
 
 /* Popup Overlay and Popup */
-#dict-popup-overlay, #dict-popup-overlay-advse {
+.dict-popup-overlay, #dict-popup-overlay-advse {
     position: fixed;
     top: 0;
     left: 0;
