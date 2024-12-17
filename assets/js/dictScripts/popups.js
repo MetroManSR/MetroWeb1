@@ -75,14 +75,10 @@ export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLangu
 
 export async function initStatisticsPopup(allRows) {
     const statisticsPopup = document.getElementById('dict-statistics-popup');
-    const popupOverlay = document.getElementById('dict-statistics-popup-overlay');
-
-    if (statisticsPopup.classList.contains('active')) {
-       statisticsPopup.classList.remove('active');
-       statisticsPopup.classList.add('hidden');
-       popupOverlay.classList.remove('active');
-       popupOverlay.classList.add('hidden');
-    } else {
+    const popupOverlay = document.getElementById('popup-overlay');
+    const infoClose = document.getElementById('dict-close-statistics-button');
+    if (statisticsPopup.classList.contains('hidden')) {
+  
         const totalWords = allRows.filter(row => row.type === 'word').length;
         const totalRoots = allRows.filter(row => row.type === 'root').length;
 
@@ -104,16 +100,21 @@ export async function initStatisticsPopup(allRows) {
             <button id="dict-close-statistics-button" class="btn">Close</button>
         `;
 
-        statisticsPopup.classList.remove('hidden');
-        statisticsPopup.classList.add('active');
-        popupOverlay.classList.remove('hidden');
-        popupOverlay.classList.add('active');
-
-        document.getElementById('dict-close-statistics-button').addEventListener('click', () => {
-           statisticsPopup.classList.remove('active');
-           statisticsPopup.classList.add('hidden');
-           popupOverlay.classList.remove('active');
-           popupOverlay.classList.add('hidden');
+        await statisticsPopup.classList.add('active');
+        await statisticsPopup.classList.remove('hidden');
+        await popupOverlay.classList.add('active');
+        await popupOverlay.classList.remove('hidden');
+        await infoClose.classList.add('active');
+        await infoClose.classList.remove('hidden');
+ 
+        infoClose.addEventListener('click', () => {
+           await statisticsPopup.classList.remove('active');
+           await statisticsPopup.classList.add('hidden');
+           await popupOverlay.classList.remove('active');
+           await popupOverlay.classList.add('hidden');
+           await infoClose.classList.remove('active');
+           await infoClose.classList.add('hidden');
+ 
         });
     }
 }
