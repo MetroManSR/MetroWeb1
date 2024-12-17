@@ -162,7 +162,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     const legendTitle = document.getElementById('legend-title');
     const legendContent = document.getElementById('legend-content');
 
-    const instructionsFilePath = '../../data/instructions.json'; // Path to the JSON file
+    const instructionsFilePath = '/main/assets/data/instructions.json'; // Path to the JSON file
 
     async function setInfoContent(filePath) {
         instructionsTitle.textContent = await getTranslatedText('instTitle', language, filePath);
