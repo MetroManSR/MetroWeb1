@@ -17,14 +17,14 @@ export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLangu
 
     await advancedSearchPopup.classList.remove('hidden');
     await advancedSearchOverlay.classList.add('active');   
-    
+    await closeAdvancedSearch.classList.add('active');   
+   
         document.getElementById('dict-search-input').value = pendingChanges.searchTerm || '';
         document.getElementById('dict-search-in-word').checked = pendingChanges.searchIn.word;
         document.getElementById('dict-search-in-root').checked = pendingChanges.searchIn.root;
         document.getElementById('dict-search-in-definition').checked = pendingChanges.searchIn.definition;
         document.getElementById('dict-search-in-etymology').checked = pendingChanges.searchIn.etymology;
         document.getElementById('dict-exact-match').checked = pendingChanges.exactMatch;
-
         document.getElementById('dict-ignore-diacritics').checked = pendingChanges.ignoreDiacritics;
         document.getElementById('dict-starts-with').checked = pendingChanges.startsWith;
         document.getElementById('dict-ends-with').checked = pendingChanges.endsWith;
@@ -37,7 +37,9 @@ export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLangu
 
     closeAdvancedSearch.addEventListener('click', async () => {
         await advancedSearchPopup.classList.remove('active');
-        await advancedSearchOverlay.classList.add('hidden');
+        await advancedSearchOverlay.classList.remove('active');
+        await closeAdvancedSearch.classList.remove('active');
+
     });
 
     addSearchBtnPopup.addEventListener('click', async () => {
