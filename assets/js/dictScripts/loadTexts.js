@@ -1,9 +1,14 @@
-import { universalPendingChanges} from './initFormEventListeners.js' ;
+export async function fetchJson(filePath) {
+    const response = await fetch(filePath);
+    if (!response.ok) {
+        throw new Error(`Failed to fetch ${filePath}: ${response.statusText}`);
+    }
+    return response.json();
+}
 
 export async function setTexts(language) {
-    
     const pendingChanges = universalPendingChanges;
-    
+
     try {
         const response = await fetch('/assets/data/defaultTexts.json');
         const texts = await response.json();
@@ -78,9 +83,9 @@ export async function setTexts(language) {
     }
 }
 
-export async function getTranslatedText(key, language) {
+export async function getTranslatedText(key, language, filePath = '/assets/data/defaultTexts.json') {
     try {
-        const response = await fetch('/assets/data/defaultTexts.json');
+        const response = await fetch(filePath);
         const texts = await response.json();
         const defaultTexts = texts[language] || texts['en'];
         return defaultTexts[key];
