@@ -50,8 +50,8 @@ if (toggleFilterButton) {
         if (filterSortingContainer) {
             console.log('Current classes before toggle: ', filterSortingContainer.className);
 
-            filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
-            filterSortingContainer.classList.toggle('dict-filter-cont-visible');
+            await filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
+            await filterSortingContainer.classList.toggle('dict-filter-cont-visible');
 
             console.log('Current classes after toggle: ', filterSortingContainer.className);
         } else {
