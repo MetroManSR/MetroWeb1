@@ -50,9 +50,8 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
             if (filterSortingContainer) {
                 console.log('Current classes before toggle: ', filterSortingContainer.className);
 
-                await filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
-                await filterSortingContainer.classList.toggle('dict-filter-cont-visible');
-
+                await filterSortingContainer.classList.toggle('active');
+                await filterSortingContainer.classList.toggle('hidden');
                 console.log('Current classes after toggle: ', filterSortingContainer.className);
             } else {
                 console.error('filterSortingContainer not found');
