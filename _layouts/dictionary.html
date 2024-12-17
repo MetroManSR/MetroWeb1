@@ -24,9 +24,13 @@ layout: default
       <div class="dict-search-container">
         <label for="dict-search-input" id="dict-search-label">Search:</label>
         <input type="text" id="dict-search-input" placeholder="Search..." class="dict-search-input" autocomplete="off" />
+        
         <div id="dict-search-predictions" class="dict-search-predictions"></div>
+     
         <button id="dict-clear-search-button" class="dict-clear-search-button dict-filter-button btn-danger">Clear Search</button>
-        <button id="dict-advanced-search-button" class="dict-advanced-search-button dict-filter-button">Advanced Search</button>
+        
+        <button id="advanced-search-btn" class="dict-advanced-search-button dict-filter-button">Advanced Search</button>
+     
         <button id="dict-view-statistics-button" class="dict-view-statistics-button dict-filter-button">View Statistics</button>
       </div>
       <div id="dict-pending-changes" class="dict-pending-changes"></div>
@@ -75,50 +79,53 @@ layout: default
         <div id="dict-progress-bar"></div>
         <div id="dict-progress-text"></div>
       </div>
-      <div id="dict-popup-overlay-advse" class="dict-popup-overlay"></div>
-      <div id="dict-advanced-search-popup" class="dict-popup">
-        <form id="dict-advanced-search-form">
-          <h3>Advanced Search</h3>
-          <div class="dict-search-options">
-            <div class="dict-checkbox-group">
-              <input type="checkbox" id="dict-search-in-word" name="dict-search-in-word" value="Word">
-              <label class="container" id="dict-search-in-word-label" for="dict-search-in-word"> Word</label>
+      <!--Advanced Search Popup--> 
+      <div id="advanced-search-popup" class="dict-popup hidden">
+    <div id="advanced-search-overlay" class="dict-popup-overlay"></div>
+    <div class="dict-popup-content">
+        <h3>Advanced Search</h3>
+        <form id="advanced-search-form">
+            <div class="dict-search-options">
+                <div class="dict-checkbox-group">
+                    <input type="checkbox" id="search-in-word" name="search-in-word" value="Word">
+                    <label class="container" for="search-in-word">Word</label>
+                </div>
+                <div class="dict-checkbox-group">
+                    <input type="checkbox" id="search-in-root" name="search-in-root" value="Root">
+                    <label class="container" for="search-in-root">Root</label>
+                </div>
+                <div class="dict-checkbox-group">
+                    <input type="checkbox" id="search-in-definition" name="search-in-definition" value="Definition">
+                    <label class="container" for="search-in-definition">Definition</label>
+                </div>
+                <div class="dict-checkbox-group">
+                    <input type="checkbox" id="search-in-etymology" name="search-in-etymology" value="Etymology">
+                    <label class="container" for="search-in-etymology">Etymology</label>
+                </div>
             </div>
             <div class="dict-checkbox-group">
-              <input type="checkbox" id="dict-search-in-root" name="dict-search-in-root" value="Root">
-              <label class="container" id="dict-search-in-root-label" for="dict-search-in-root"> Root</label>
+                <input type="checkbox" id="exact-match" name="exact-match" value="Exact Match">
+                <label class="container" for="exact-match">Exact Match</label>
             </div>
             <div class="dict-checkbox-group">
-              <input type="checkbox" id="dict-search-in-definition" name="dict-search-in-definition" value="Definition">
-              <label class="container" id="dict-search-in-definition-label" for="dict-search-in-definition"> Definition</label>
+                <input type="checkbox" id="ignore-diacritics" name="ignore-diacritics" value="Ignore Diacritics">
+                <label class="container" for="ignore-diacritics">Ignore Diacritics</label>
             </div>
             <div class="dict-checkbox-group">
-              <input type="checkbox" id="dict-search-in-etymology" name="dict-search-in-etymology" value="Etymology">
-              <label class="container" id="dict-search-in-etymology-label" for="dict-search-in-etymology"> Etymology</label>
+                <input type="checkbox" id="starts-with" name="starts-with" value="Starts With">
+                <label class="container" for="starts-with">Starts With</label>
             </div>
-          </div>
-          <div class="dict-checkbox-group">
-            <input type="checkbox" id="dict-exact-match" name="dict-exact-match" value="Exact Match">
-            <label class="container" id="dict-exact-match-label" for="dict-exact-match"> Exact Match</label>
-          </div>
-          <div class="dict-checkbox-group">
-            <input type="checkbox" id="dict-ignore-diacritics" name="dict-ignore-diacritics" value="Ignore Diacritics">
-            <label class="container" id="dict-ignore-diacritics-label" for="dict-ignore-diacritics"> Ignore Diacritics</label>
-          </div>
-          <div class="dict-checkbox-group">
-            <input type="checkbox" id="dict-starts-with" name="dict-starts-with" value="Starts With">
-            <label class="container" id="dict-starts-with-label" for="dict-starts-with"> Starts With</label>
-          </div>
-          <div class="dict-checkbox-group">
-            <input type="checkbox" id="dict-ends-with" name="dict-ends-with" value="Ends With">
-            <label class="container" id="dict-ends-with-label" for="dict-ends-with"> Ends With</label>
-          </div>
-          <div class="dict-popup-buttons">
-            <button type="button" id="dict-add-search-button-popup" class="btn">Add Search</button>
-            <button type="button" id="dict-close-popup-button" class="dict-close-popup-button btn">Close</button>
-          </div>
+            <div class="dict-checkbox-group">
+                <input type="checkbox" id="ends-with" name="ends-with" value="Ends With">
+                <label class="container" for="ends-with">Ends With</label>
+            </div>
+            <div class="dict-popup-buttons">
+                <button type="button" id="add-search-btn-popup" class="btn">Add Search</button>
+                <button type="button" id="close-advanced-search" class="dict-close-popup-button hidden">Close</button>
+            </div>
         </form>
-      </div>
+    </div>
+</div>
       <div class="dict-popup-overlay" id="dict-statistics-popup-overlay" style="display: none;"></div>
       <div class="dict-popup" id="dict-statistics-popup" style="display: none;">
         <!-- Content will be added dynamically -->
