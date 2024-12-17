@@ -108,7 +108,7 @@ export async function initStatisticsPopup(allRows) {
         await infoClose.classList.add('active');
         await infoClose.classList.remove('hidden');
  
-        infoClose.addEventListener('click', () => {
+        infoClose.addEventListener('click', async () => {
            await statisticsPopup.classList.remove('active');
            await statisticsPopup.classList.add('hidden');
            await popupOverlay.classList.remove('active');
