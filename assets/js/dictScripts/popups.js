@@ -69,8 +69,7 @@ export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLangu
 
         updatePendingChangesList(pendingChanges);
         await updatePendingChangesList(currentLanguage);
-        await processAllSettings(allRows, rowsPerPage, 1, pendingChanges.sortOrder);
-    });
+     });
 }
 
 export async function initStatisticsPopup(allRows) {
