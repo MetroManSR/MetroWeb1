@@ -481,6 +481,14 @@ header {
     align-items: center;
 }
 
+#dict-filter-sorting-container.dict-filter-invisible {
+    display: none;
+}
+
+#dict-filter-sorting-container.dict-filter-visible {
+    display: block;
+}
+
 .dict-search-options label, .dict-exact-match label {
     margin-left: 10px; /* Add margin to create space between the checkbox and label */
 }
