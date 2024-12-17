@@ -2,22 +2,18 @@ import { processAllSettings } from './processRows.js';
 import { universalPendingChanges, updateUniversalPendingChanges,  defaultPendingChanges, updatePendingChangesList } from './initFormEventListeners.js';
 import { filteredRows } from '../mainDict.js';
 
+const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
+const advancedSearchOverlay = document.getElementById('dict-popup-overlay-advse');
+const closeAdvancedSearch = document.getElementById('dict-close-popup-button');
+const addSearchBtnPopup = document.getElementById('dict-add-search-button-popup');
 
 export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
-    const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-    const popupOverlay = document.getElementById('dict-popup-overlay-advse');
     // Load previous selections if any 
     const pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
-            
-    
-    if (advancedSearchPopup.classList.contains('active')) {
-        await advancedSearchPopup.classList.remove('active');
-        await popupOverlay.classList.remove('active');
-    } else {
-        await popupOverlay.classList.add('active');
-        await advancedSearchPopup.classList.add('active');
 
-        
+    await advancedSearchPopup.classList.remove('hidden');
+    await advancedSearchOverlay.classList.add('active');   
+    
         document.getElementById('dict-search-input').value = pendingChanges.searchTerm || '';
         document.getElementById('dict-search-in-word').checked = pendingChanges.searchIn.word;
         document.getElementById('dict-search-in-root').checked = pendingChanges.searchIn.root;
@@ -33,14 +29,14 @@ export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLangu
         Array.from(wordFilterSelect.options).forEach(option => {
             option.selected = pendingChanges.filters.includes(option.value);
         });
-    }
+    
 
-    document.getElementById('dict-close-popup-button').addEventListener('click', async () => {
+    closeAdvancedSearch.addEventListener('click', async () => {
         await advancedSearchPopup.classList.remove('active');
-        await popupOverlay.classList.remove('active');
+        await advancedSearchOverlay.classList.remove('active');
     });
 
-    document.getElementById('dict-add-search-button-popup').addEventListener('click', async () => {
+    addSearchBtnPopup.addEventListener('click', async () => {
         const searchTerm = document.getElementById('dict-search-input').value.trim();
         const searchIn = {
             word: document.getElementById('dict-search-in-word')?.checked || false,
