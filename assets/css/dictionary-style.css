@@ -457,7 +457,7 @@ header {
 }
 
 /* Popup Overlay and Popup */
-.dict-popup-overlay, #dict-popup-overlay-advse {
+.dict-popup-overlay {
     
     background-color: black; /* Dark red background */
     position: fixed;
@@ -466,7 +466,7 @@ header {
     width: 100%;
     height: 100%;
     opacity: 0.5; /* Adjust opacity as needed */
-    z-index: 999; /* Ensure it appears below the popup but above other content */
+    z-index: 975; /* Ensure it appears below the popup but above other content */
 }
 
 .dict-popup-overlay.dict-active {
