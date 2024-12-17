@@ -85,7 +85,7 @@ export async function setTexts(language) {
     }
 }
 
-export async function getTranslatedText(key, language, filePath = '/assets/data/defaultTexts.json') {
+export async function getTranslatedText(key, language, filePath = '/main/assets/data/defaultTexts.json') {
     try {
         const response = await fetch(filePath);
         const texts = await response.json();
