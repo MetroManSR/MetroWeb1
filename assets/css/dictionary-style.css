@@ -11,14 +11,6 @@ header {
     border-bottom: 1px solid #ddd;
 }
 
-.dict-search-input,
-.dict-rows-input,
-.dict-filter-select {
-    padding: 5px;
-    margin: 5px;
-    font-size: 16px;
-}
-
 /* Button Styles */
 .btn {
     padding: 10px 15px;
