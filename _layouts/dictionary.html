@@ -130,6 +130,20 @@ layout: default
           <p id="dictfloating-info">Waiting for input.</p>
         </div>
       </div>
+      
+      <!-- New Info Button and Popup -->
+      <button id="dict-info-button" class="dict-button">ℹ️</button>
+      <div id="dict-info-popup" class="dict-popup dict-popup-hidden">
+          <div id="dict-popup-overlay-info" class="dict-popup-overlay"></div>
+          <div id="dict-popup-content" class="dict-popup-content">
+              <h2 id="instructions-title"></h2>
+              <p id="instructions-content"></p>
+              <h2 id="legend-title"></h2>
+              <p id="legend-content"></p>
+              <button id="dict-close-info-button" class="dict-close-popup-button">Close</button>
+          </div>
+      </div>
+      
     </main>
   </body>
 </html>
