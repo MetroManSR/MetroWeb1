@@ -1,5 +1,5 @@
 import { processAllSettings } from './processRows.js';
-import { universalPendingChanges, defaultPendingChanges, updatePendingChangesList } from './initFormEventListeners.js';
+import { universalPendingChanges, updateUniversalPendingChanges,  defaultPendingChanges, updatePendingChangesList } from './initFormEventListeners.js';
 import { filteredRows } from '../mainDict.js';
 
 
@@ -64,6 +64,7 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
         pendingChanges.startsWith = startsWith;
         pendingChanges.endsWith = endsWith;
 
+        updatePendingChangesList(pendingChanges);
         await updatePendingChangesList(currentLanguage);
         await processAllSettings(allRows, rowsPerPage, 1, pendingChanges.sortOrder);
     });
