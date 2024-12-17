@@ -104,10 +104,6 @@ header {
     display: none;
 }
 
-.active {
-    display: block !important;
-}
-
 .dict-filter-cont-visible {
     display: block !important;
 } 
@@ -268,10 +264,6 @@ header {
     position: fixed;
     bottom: 10px;
     left: 10px;
-}
-
-.hidden {
-    display: none;
 }
 
 .dict-popup {
