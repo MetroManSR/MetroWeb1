@@ -76,8 +76,10 @@ export async function initStatisticsPopup(allRows) {
     const statisticsPopup = document.getElementById('dict-statistics-popup');
     const popupOverlay = document.getElementById('popup-overlay');
     const infoClose = document.getElementById('dict-close-statistics-button');
-    if (statisticsPopup.classList.contains('hidden')) {
-  
+    if (statisticsPopup.classList.contains('active')) {
+
+     return;
+    }
         const totalWords = allRows.filter(row => row.type === 'word').length;
         const totalRoots = allRows.filter(row => row.type === 'root').length;
 
@@ -115,5 +117,5 @@ export async function initStatisticsPopup(allRows) {
            await infoClose.classList.add('hidden');
  
         });
-    }
+    
 }
