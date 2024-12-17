@@ -4,7 +4,7 @@ import { filteredRows } from '../mainDict.js';
 
 const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
 const advancedSearchOverlay = document.getElementById('dict-advanced-search-overlay');
-const closeAdvancedSearch = document.getElementById('dict-close-popup-button');
+const closeAdvancedSearch = document.getElementById('dict-close-advanced-search');
 const addSearchBtnPopup = document.getElementById('dict-add-search-button-popup');
 
 export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
