@@ -11,11 +11,11 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
             
     
     if (advancedSearchPopup.classList.contains('active')) {
-        advancedSearchPopup.classList.remove('active');
-        popupOverlay.classList.remove('active');
+        await advancedSearchPopup.classList.remove('active');
+        await popupOverlay.classList.remove('active');
     } else {
-        popupOverlay.classList.add('active');
-        advancedSearchPopup.classList.add('active');
+        await popupOverlay.classList.add('active');
+        await advancedSearchPopup.classList.add('active');
 
         
         document.getElementById('dict-search-input').value = pendingChanges.searchTerm || '';
@@ -36,8 +36,8 @@ export function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
     }
 
     document.getElementById('dict-close-popup-button').addEventListener('click', () => {
-        advancedSearchPopup.classList.remove('active');
-        popupOverlay.classList.remove('active');
+        await advancedSearchPopup.classList.remove('active');
+        await popupOverlay.classList.remove('active');
     });
 
     document.getElementById('dict-add-search-button-popup').addEventListener('click', async () => {
@@ -75,8 +75,8 @@ export function initStatisticsPopup(allRows) {
     const popupOverlay = document.getElementById('dict-statistics-popup-overlay');
 
     if (statisticsPopup.classList.contains('active')) {
-        statisticsPopup.classList.remove('active');
-        popupOverlay.classList.remove('active');
+       await statisticsPopup.classList.remove('active');
+       await popupOverlay.classList.remove('active');
     } else {
         const totalWords = allRows.filter(row => row.type === 'word').length;
         const totalRoots = allRows.filter(row => row.type === 'root').length;
@@ -103,8 +103,8 @@ export function initStatisticsPopup(allRows) {
         popupOverlay.classList.add('active');
 
         document.getElementById('dict-close-statistics-button').addEventListener('click', () => {
-            statisticsPopup.classList.remove('active');
-            popupOverlay.classList.remove('active');
+           await statisticsPopup.classList.remove('active');
+           await popupOverlay.classList.remove('active');
         });
     }
 }
