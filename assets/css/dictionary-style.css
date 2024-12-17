@@ -278,7 +278,6 @@ header {
     padding: 20px;
     z-index: 1000; /* Ensure it appears above the overlay */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional box shadow for a raised effect */
-    display: none; /* Hidden by default */
 }
 
 /* Related Words Scrollable Box */
@@ -468,7 +467,6 @@ header {
     height: 100%;
     opacity: 0.5; /* Adjust opacity as needed */
     z-index: 999; /* Ensure it appears below the popup but above other content */
-    display: none; /* Hidden by default */
 }
 
 .dict-popup-overlay.dict-active {
