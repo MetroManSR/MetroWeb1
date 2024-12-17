@@ -3,15 +3,13 @@ import { universalPendingChanges, updateUniversalPendingChanges,  defaultPending
 import { filteredRows } from '../mainDict.js';
 
 const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-const advancedSearchOverlay = document.getElementById('dict-advanced-search-overlay');
+const advancedSearchOverlay = document.getElementById('popup-overlay');
 const closeAdvancedSearch = document.getElementById('dict-close-advanced-search');
 const addSearchBtnPopup = document.getElementById('dict-add-search-btn-popup');
 
 export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
     // Load previous selections if any 
 
-    console.log("Test01: ", universalPendingChanges);
-    console.log("Test02: ", defaultPendingChanges);
     
     const pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
 
