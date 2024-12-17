@@ -35,7 +35,7 @@ export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLangu
         });
     }
 
-    document.getElementById('dict-close-popup-button').addEventListener('click', () => {
+    document.getElementById('dict-close-popup-button').addEventListener('click', async () => {
         await advancedSearchPopup.classList.remove('active');
         await popupOverlay.classList.remove('active');
     });
@@ -102,7 +102,7 @@ export async function initStatisticsPopup(allRows) {
         statisticsPopup.classList.add('active');
         popupOverlay.classList.add('active');
 
-        document.getElementById('dict-close-statistics-button').addEventListener('click', () => {
+        document.getElementById('dict-close-statistics-button').addEventListener('click', async () => {
            await statisticsPopup.classList.remove('active');
            await popupOverlay.classList.remove('active');
         });
