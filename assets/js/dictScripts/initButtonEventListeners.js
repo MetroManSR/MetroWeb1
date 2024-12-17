@@ -44,21 +44,27 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     }
 
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    if (toggleFilterButton) {
-        toggleFilterButton.addEventListener('click', () => {
-            const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
-            if (filterSortingContainer) {
-                console.log('Button clicked. Toggling classes...');
-                filterSortingContainer.classList.toggle('active');
-                console.log('Current classes: ', filterSortingContainer.className);
-            } else {
-                console.error('filterSortingContainer not found');
-            }
-        });
-    } else {
-        console.error('toggleFilterButton not found');
-    }
-
+if (toggleFilterButton) {
+    toggleFilterButton.addEventListener('click', () => {
+        const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+        if (filterSortingContainer) {
+            console.log('Button clicked. Toggling classes...');
+            
+            filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
+            console.log('After toggle, hidden class: ', filterSortingContainer.classList.contains('dict-filter-cont-hidden'));
+            
+            filterSortingContainer.classList.toggle('dict-filter-cont-visible');
+            console.log('After toggle, visible class: ', filterSortingContainer.classList.contains('dict-filter-cont-visible'));
+            
+            // Print current classes
+            console.log('Current classes: ', filterSortingContainer.className);
+        } else {
+            console.error('filterSortingContainer not found');
+        }
+    });
+} else {
+    console.error('toggleFilterButton not found');
+} 
     const advancedSearchButton = document.getElementById('dict-advanced-search-button');
     if (advancedSearchButton) {
         advancedSearchButton.addEventListener('click', () => {
