@@ -3,7 +3,7 @@ import { universalPendingChanges, updateUniversalPendingChanges,  defaultPending
 import { filteredRows } from '../mainDict.js';
 
 const advancedSearchPopup = document.getElementById('dict-advanced-search-popup');
-const advancedSearchOverlay = document.getElementById('dict-popup-overlay-advse');
+const advancedSearchOverlay = document.getElementById('dict-advanced-search-overlay');
 const closeAdvancedSearch = document.getElementById('dict-close-popup-button');
 const addSearchBtnPopup = document.getElementById('dict-add-search-button-popup');
 
