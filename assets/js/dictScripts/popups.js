@@ -96,6 +96,8 @@ document.querySelector('label[for="dict-ends-with"]').textContent = endsWithText
 }
 
 export async function initStatisticsPopup(allRows) {
+
+    const statisticsPopup = document.getElementById('dict-statistics-popup');  
     
     if (statisticsPopup.classList.contains('active')) {
         return;
@@ -141,7 +143,6 @@ statisticsPopup.innerHTML = `
     <button id="dict-close-statistics-button" class="btn">${closeStatsText}</button>
 `;
     
-const statisticsPopup = document.getElementById('dict-statistics-popup');
     const popupOverlay = document.getElementById('popup-overlay');
     const infoClose = document.getElementById('dict-close-statistics-button');
     const currentLanguage = document.querySelector('meta[name="language"]').content || 'en';
