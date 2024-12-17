@@ -270,7 +270,12 @@ header {
     position: fixed;
     top: 50%;
     left: 50%;
+    border-radius: 15px;
     transform: translate(-50%, -50%);
+    background-color: white; /* Background color for the popup */
+    z-index: 1000; /* Ensure it appears above the overlay */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional box shadow for a raised effect */
+    display: none; /* Hidden by default */
 }
 
 /* Related Words Scrollable Box */
@@ -451,14 +456,17 @@ header {
 
 /* Popup Overlay and Popup */
 .dict-popup-overlay, #dict-popup-overlay-advse {
+    
+    background-color: darkred; /* Dark red background */
     position: fixed;
     top: 0;
     left: 0;
+    border-radius: 15px;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000; /* Ensure it is below the popup but above other content */
-    display: none; /* Initially hidden */
+    opacity: 0.8; /* Adjust opacity as needed */
+    z-index: 999; /* Ensure it appears below the popup but above other content */
+    display: none; /* Hidden by default */
 }
 
 #dict-statistics-popup, #dict-advanced-search-popup {
@@ -469,8 +477,8 @@ header {
     width: 80%;
     max-width: 600px;
     max-height: 80vh; /* Restrict maximum height */
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: darkred;
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 1001; /* Ensure it is above other content */
