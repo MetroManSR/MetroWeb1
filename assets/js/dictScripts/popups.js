@@ -15,6 +15,7 @@ export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLangu
 
     await advancedSearchPopup.classList.remove('hidden');
     await advancedSearchOverlay.classList.add('active');   
+    await closeAdvancedSearch.classList.remove('hidden');  
     await closeAdvancedSearch.classList.add('active');   
    
         document.getElementById('dict-search-input').value = pendingChanges.searchTerm || '';
@@ -34,9 +35,11 @@ export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLangu
     
 
     closeAdvancedSearch.addEventListener('click', async () => {
-        await advancedSearchPopup.classList.remove('active');
-        await advancedSearchOverlay.classList.remove('active');
-        await closeAdvancedSearch.classList.remove('active');
+        await advancedSearchPopup.classList.add('hidden');
+        await advancedSearchOverlay.classList.remove('active');   
+        await closeAdvancedSearch.classList.add('hidden');  
+        await closeAdvancedSearch.classList.remove('active');   
+   
 
     });
 
