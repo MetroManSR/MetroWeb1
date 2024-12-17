@@ -57,7 +57,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     let params = universalPendingChanges ? universalPendingChanges : defaultPendingChanges;
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
-    const applySettingsButton = document.getElementById('apply-settings-button'); // Change to your button's actual ID
+    const applySettingsButton = document.getElementById('dict-apply-settings-button'); // Change to your button's actual ID
     applySettingsButton.disabled = true; // Disable the button
 
     const {
