@@ -467,6 +467,8 @@ header {
     height: 100%;
     opacity: 0.5; /* Adjust opacity as needed */
     z-index: 975; /* Ensure it appears below the popup but above other content */
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 80vh; /* Max height is 80% of the viewport height */
 }
 
 .popup-overlay.dict-active {
