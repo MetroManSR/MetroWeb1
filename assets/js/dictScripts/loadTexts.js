@@ -23,7 +23,7 @@ export async function setTexts(language) {
         document.getElementById('dict-toggle-filter-button').textContent = currentTexts.toggleFiltersButton;
         document.getElementById('dict-apply-settings-button').textContent = currentTexts.applySettingsButton;
         document.getElementById('dict-clear-settings-button').textContent = currentTexts.clearSettingsButton;
-        document.getElementById('dict-advanced-search-button').textContent = currentTexts.advancedSearchButton;
+        document.getElementById('dict-advanced-search-btn').textContent = currentTexts.advancedSearchButton;
         document.getElementById('dict-view-statistics-button').textContent = currentTexts.viewStatisticsButton;
         document.getElementById('dict-close-popup-button').textContent = currentTexts.closeSearchButton;
         document.getElementById('dict-filter-by-label').textContent = currentTexts.filterByLabel;
