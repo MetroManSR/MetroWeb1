@@ -60,13 +60,6 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     } else {
         console.error('toggleFilterButton not found');
     }
-    
-    const advancedSearchButton = document.getElementById('dict-advanced-search-button');
-    if (advancedSearchButton) {
-        advancedSearchButton.addEventListener('click', async () => {
-            await initAdvancedSearchPopup(allRows, rowsPerPage, language);
-        });
-    }
 
     const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
     if (viewStatisticsButton) {
