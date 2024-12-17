@@ -1,3 +1,5 @@
+import { universalPendingChanges} from "./initFormEventListeners.js";
+
 export async function fetchJson(filePath) {
     const response = await fetch(filePath);
     if (!response.ok) {
