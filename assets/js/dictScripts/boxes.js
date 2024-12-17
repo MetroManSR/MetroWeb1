@@ -261,11 +261,12 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
         loadingBox.id = `loading-box-${uniqueId}`;
         dictionaryContainer.appendChild(loadingBox);
         loadingBoxesMap.set(uniqueId, loadingBox);
+        console.log(`Appended loading box with ID: ${loadingBox.id}`);
     });
 
     if (filteredRows.length === 0) {
         dictionaryContainer.innerHTML = ''; // Clear loading boxes
-        dictionaryContainer.appendChild(await createNoMatchBox(language, searchTerm, allRows));
+        dictionaryContainer.appendChild(await createNoMatchBox(language));
         updatePagination(currentPage, rowsPerPage);
         await updateFloatingText(searchTerm, [], {}, language);
         return;
@@ -277,14 +278,18 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
         const uniqueId = `${row.type}-${row.id}`;
         const loadingBox = loadingBoxesMap.get(uniqueId);
         if (loadingBox && box) {
+            console.log(`Replacing loading box with ID: ${uniqueId}`);
             dictionaryContainer.replaceChild(box, loadingBox);
             loadingBoxesMap.delete(uniqueId); // Remove the entry from the map as it's been used
+        } else {
+            console.warn(`Loading box with ID ${uniqueId} not found or box creation failed.`);
         }
     }
 
     // Cleanup unused loading boxes
     loadingBoxesMap.forEach(loadingBox => {
         dictionaryContainer.removeChild(loadingBox);
+        console.log(`Removed unused loading box with ID: ${loadingBox.id}`);
     });
 
     updatePagination(currentPage, rowsPerPage);
