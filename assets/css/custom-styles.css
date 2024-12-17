@@ -34,6 +34,14 @@ body {
   color: var(--body-color-light) !important;
 }
 
+.hidden {
+    display: none;
+}
+
+.active {
+    display: block !important;
+}
+
 .navbar-custom {
   background-color: var(--nav-color-light);
 }
