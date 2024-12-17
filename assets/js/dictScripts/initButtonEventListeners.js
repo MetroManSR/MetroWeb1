@@ -48,16 +48,8 @@ if (toggleFilterButton) {
     toggleFilterButton.addEventListener('click', () => {
         const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
         if (filterSortingContainer) {
-            console.log('Button clicked. Toggling classes...');
-            
             filterSortingContainer.classList.toggle('dict-filter-cont-hidden');
-            console.log('After toggle, hidden class: ', filterSortingContainer.classList.contains('dict-filter-cont-hidden'));
-            
             filterSortingContainer.classList.toggle('dict-filter-cont-visible');
-            console.log('After toggle, visible class: ', filterSortingContainer.classList.contains('dict-filter-cont-visible'));
-            
-            // Print current classes
-            console.log('Current classes: ', filterSortingContainer.className);
         } else {
             console.error('filterSortingContainer not found');
         }
