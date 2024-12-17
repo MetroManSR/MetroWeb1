@@ -105,11 +105,11 @@ header {
 }
 
 .active {
-    display: block;
+    display: block !important;
 }
 
 .dict-filter-cont-visible {
-    display: block;
+    display: block !important;
 } 
 
 /* Error Message */
