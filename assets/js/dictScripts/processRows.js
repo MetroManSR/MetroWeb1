@@ -11,10 +11,7 @@ import { universalPendingChanges, defaultPendingChanges } from './initFormEventL
  * @param {String} sortingManner - The manner of sorting (e.g., "titleup", "titledown", "metaup", "metadown", "morphup", "morphdown").
  * @returns {Array} - The sorted array of rows.
  */
-export function sortRows(sortingManner) {
-    
-    const rows = filteredRows;
-
+export function sortRows(rows, sortingManner) {
     switch (sortingManner) {
         case 'titleup':
             return rows.sort((a, b) => a.title.localeCompare(b.title));
@@ -41,43 +38,7 @@ export function sortRows(sortingManner) {
     }
 }
 
-/**
- * Checks if a row is unique based on its ID.
- *
- * @param {Object} row - The row to check.
- * @param {Array} existingRows - The array of existing rows.
- * @returns {boolean} - True if the row is unique, false otherwise.
- */
-function isUniqueResult(row, existingRows) {
-    return !existingRows.some(existingRow => existingRow.id === row.id);
-}
-
-/**
- * Removes duplicated dictionary boxes based on their unique IDs.
- */
-function cleanUpDuplicates() {
-    const renderContainer = document.getElementById('dict-dictionary');
-    if (!renderContainer) {
-        console.error("Error: 'dict-dictionary' element not found in the DOM.");
-        return;
-    }
-
-    const seenIds = new Set();
-    const children = Array.from(renderContainer.children);
-    
-    children.forEach(child => {
-        const childId = child.id;
-        if (seenIds.has(childId)) {
-            renderContainer.removeChild(child);
-        } else {
-            seenIds.add(childId);
-        }
-    });
-    //console.log("Duplicates cleaned up.");
-}
-
 export async function processAllSettings(allRows = [], rowsPerPage = 20, currentPage = 1, sortingManner = 'titleup') {
-    
     let params = universalPendingChanges ? universalPendingChanges : defaultPendingChanges ;
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
@@ -92,7 +53,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     } = params;
 
     console.log('Initial allRows:', allRows.length);
-    console.log('Params: ', params)
+    console.log('Params: ', params);
     
     updateFilteredRows([]);
 
@@ -100,8 +61,10 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
 
     const normalize = (text) => ignoreDiacritics ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
 
+    let updatedRows = [...allRows];
+
     if (searchTerm) {
-        updateFilteredRows(allRows.filter(row => {
+        updatedRows = updatedRows.filter(row => {
             const normalizedTitle = normalize(row.title.toLowerCase());
             const normalizedMeta = normalize(row.meta.toLowerCase());
             const normalizedMorph = row.morph.map(morphItem => normalize(morphItem.toLowerCase()));
@@ -136,32 +99,31 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
             );
 
             return titleMatch || rootMatch || definitionMatch || etymologyMatch;
-        }));
-    } else {
-        updateFilteredRows(allRows);
+        });
     }
 
     if (filters.length > 0) {
-        updateFilteredRows(filteredRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()))) ;
-        console.log('After filter criteria:', filteredRows.length);
+        updatedRows = updatedRows.filter(row => filters.includes(row.partofspeech?.toLowerCase()));
+        console.log('After filter criteria:', updatedRows.length);
     }
 
     // Remove duplicates
     const uniqueRows = [];
-    filteredRows.forEach(row => {
+    updatedRows.forEach(row => {
         if (isUniqueResult(row, uniqueRows)) {
             uniqueRows.push(row);
         }
     });
-    updateFilteredRows(uniqueRows);
-    console.log('After removing duplicates:', filteredRows.length);
+    updatedRows = uniqueRows;
+    console.log('After removing duplicates:', updatedRows.length);
 
     // Sort rows based on the sortingManner from pendingChanges
-    let sortedRows = sortRows(sortingManner);
-    updateFilteredRows(sortedRows);
-    console.log('After sorting:', filteredRows.length);
+    updatedRows = sortRows(updatedRows, sortingManner);
+    console.log('After sorting:', updatedRows.length);
 
-    const totalRows = filteredRows.length;
+    updateFilteredRows(updatedRows);
+
+    const totalRows = updatedRows.length;
     const totalPages = Math.ceil(totalRows / rowsPerPage);
     currentPage = Math.min(currentPage, totalPages);
     console.log(`Total rows: ${totalRows}, Total pages: ${totalPages}, Current page: ${currentPage}`);
@@ -176,12 +138,12 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     
     cleanUpDuplicates();
 
-    if (filteredRows.length === 0) {
+    if (updatedRows.length === 0) {
         const noMatchBox = await createNoMatchBox(language, searchTerm, allRows);
         renderContainer.appendChild(noMatchBox);
     }
 
-    await renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
+    await renderBox(updatedRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
 
     updatePagination(currentPage, rowsPerPage);
     
@@ -199,7 +161,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     }, 1000);
 
     console.log('Process complete.');
-}
+} 
 
 /**
  * Displays the specified page of results.
