@@ -9,6 +9,10 @@ const addSearchBtnPopup = document.getElementById('dict-add-search-button-popup'
 
 export async function initAdvancedSearchPopup(allRows, rowsPerPage, currentLanguage) {
     // Load previous selections if any 
+
+    console.log("Test01: ", universalPendingChanges);
+    console.log("Test02: ", defaultPendingChanges);
+    
     const pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
 
     await advancedSearchPopup.classList.remove('hidden');
