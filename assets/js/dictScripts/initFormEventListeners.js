@@ -2,7 +2,6 @@ import { getTranslatedText } from './loadTexts.js';
 import { processAllSettings } from './processRows.js';
 import { boxClickListener } from './boxEvents.js';
 import { highlight } from './utils.js';
-import { initUrl } from './urlParameters.js';
 import {initAdvancedSearchPopup} from './popups.js';
 
 export const defaultPendingChanges = {
@@ -87,8 +86,6 @@ export async function updatePendingChangesList(language) {
 export async function initializeFormEventListeners(allRows, rowsPerPage) {
     console.log('Initializing Form Event Listeners');
 
-    initUrl(allRows, rowsPerPage, 1, 'titleup');
-    
     let pendingChanges = (universalPendingChanges && Object.keys(universalPendingChanges).length > 0) ? universalPendingChanges : { ...defaultPendingChanges };
 
     console.log('Pending Changes I: ', pendingChanges);
