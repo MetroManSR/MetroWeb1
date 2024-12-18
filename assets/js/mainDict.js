@@ -6,7 +6,7 @@ import { updatePendingChangesList } from './dictScripts/initFormEventListeners.j
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processAllSettings, sortRows, displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/processRows.js';
 import { cleanData } from './dictScripts/csvUtils.js';
-import { getRelatedWordsByRoot } from './dictScripts/utils.js';
+import { getRelatedWordsByRoot, displayError } from './dictScripts/utils.js';
 import { boxClickListener } from './dictScripts/boxEvents.js';
 import { renderBox } from './dictScripts/boxes.js';
 import { initUrl } from './dictScripts/urlParameters.js';
@@ -152,7 +152,10 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('dict-loading-message').style.display = 'none';
     } catch (error) {
         console.error('Error loading data:', error);
-        displayError('Failed to load dictionary data. Please try again later.');
+        
+        const errorString = language === "en" ? : 'Failed to load dictionary data. Please try again later.' : 'Ha fallado la carga del diccionario, por favor intente de nuevo más tarde';
+        
+        displayError(errorString);
         // Hide the loading message in case of an error
         document.getElementById('dict-loading-message').style.display = 'none';
     }
