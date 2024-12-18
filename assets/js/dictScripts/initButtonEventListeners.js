@@ -46,22 +46,22 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     }
 
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    if (toggleFilterButton) {
-        toggleFilterButton.addEventListener('click', async () => {
-            const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
-            if (filterSortingContainer) {
-                console.log('Current classes before toggle: ', filterSortingContainer.className);
+if (toggleFilterButton) {
+    toggleFilterButton.addEventListener('click', async () => {
+        const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+        if (filterSortingContainer) {
+            console.log('Current classes before toggle: ', filterSortingContainer.className);
 
-                await filterSortingContainer.classList.toggle('active');
-                await filterSortingContainer.classList.toggle('hidden');
-                console.log('Current classes after toggle: ', filterSortingContainer.className);
-            } else {
-                console.error('filterSortingContainer not found');
-            }
-        });
-    } else {
-        console.error('toggleFilterButton not found');
-    }
+            filterSortingContainer.classList.toggle('active');
+            filterSortingContainer.classList.toggle('hidden');
+            console.log('Current classes after toggle: ', filterSortingContainer.className);
+        } else {
+            console.error('filterSortingContainer not found');
+        }
+    });
+} else {
+    console.error('toggleFilterButton not found');
+}
 
     const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
     if (viewStatisticsButton) {
