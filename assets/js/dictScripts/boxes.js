@@ -35,8 +35,6 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
     return posAbbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
 }
 
-import { createHyperlink } from './utils.js'; // Adjust the import path as needed
-
 // Function to create a dictionary box
 export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
     if (!row || !row.title) {
