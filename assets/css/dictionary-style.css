@@ -257,6 +257,17 @@ header {
     background-color: rgba(0, 120, 212, 1);
 }
 
+.dictfloating-text-container {
+    position: absolute;
+    bottom: 50px; /* Position it above the button */
+    right: 50%; /* Anchor to the center of the button */
+    transform: translateX(50%); /* Move the right edge to the center of the button */
+    display: none;
+    z-index: 750;
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+}
+
 .dictfloating-text {
     background: rgba(173, 216, 230, 0.9); /* Light blue background */
     color: black;
@@ -264,14 +275,6 @@ header {
     border-radius: 5px;
     font-size: 14px;
     max-width: 300px; /* Adjust based on your content */
-    position: absolute;
-    bottom: 50px; /* Position it above the button */
-    right: calc(50% + 5px); /* Anchor to the center of the button, adjusted by the button's padding */
-    transform: translateX(50%); /* Move the right edge to the center of the button */
-    display: none;
-    z-index: 750;
-    opacity: 0;
-    transition: opacity 0.5s, transform 0.5s;
     overflow: hidden;
     white-space: nowrap; /* Prevents the text from wrapping */
 }
@@ -503,14 +506,6 @@ header {
 .dict-checkbox-group {
     display: flex;
     align-items: center;
-}
-
-#dict-filter-sorting-container.dict-filter-invisible {
-    display: none;
-}
-
-#dict-filter-sorting-container.dict-filter-visible {
-    display: block;
 }
 
 .dict-search-options label, .dict-exact-match label {
