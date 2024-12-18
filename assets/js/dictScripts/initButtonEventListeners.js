@@ -9,8 +9,6 @@ import { initUrl } from './urlParameters.js';
 
 export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder) {
 
-    const isUrlHandled = await initUrl(allRows, rowsPerPage, 1, 'titleup');
-    
     console.log('Initializing Button Event Listeners');
     
     const language = document.querySelector('meta[name="language"]').content || 'en';
@@ -197,12 +195,6 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         });
     } else {
         console.error('Info popup elements not found');
-    }
-
-    if (isUrlHandled) {
-
-        return
-
     }
     
     console.log('Button Event Listeners initialized');
