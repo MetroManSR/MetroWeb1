@@ -169,17 +169,60 @@ export function levenshteinDistance(a, b) {
     return matrix[b.length][a.length];
 }
 
+
 /**
- * Function to calculate the similarity between two strings using Levenshtein distance
- * @param {string} a - First string
- * @param {string} b - Second string
- * @returns {number} - Similarity score between 0 and 1
+ * Function to calculate similarity between two strings.
+ *
+ * @param {string} a - The first string.
+ * @param {string} b - The second string.
+ * @returns {number} - A similarity score between 0 and 1.
  */
-export function getSimilarity(a, b) {
-    const distance = levenshteinDistance(a.toLowerCase(), b.toLowerCase());
-    return 1 - distance / Math.max(a.length, b.length);
+function getSimilarity(a, b) {
+    // Simple similarity calculation using string length
+    const longer = a.length > b.length ? a : b;
+    const shorter = a.length > b.length ? b : a;
+    const longerLength = longer.length;
+    if (longerLength === 0) {
+        return 1.0;
+    }
+    return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
 }
 
+/**
+ * Function to calculate the edit distance between two strings.
+ *
+ * @param {string} a - The first string.
+ * @param {string} b - The second string.
+ * @returns {number} - The edit distance between the two strings.
+ */
+function editDistance(a, b) {
+    const matrix = [];
+
+    // Increment along the first column of each row
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+
+    // Increment each column in the first row
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    // Fill in the rest of the matrix
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, // Substitution
+                    Math.min(matrix[i][j - 1] + 1, // Insertion
+                        matrix[i - 1][j] + 1)); // Deletion
+            }
+        }
+    }
+
+    return matrix[b.length][a.length];
+}
 // Function to display an error message
 export function displayError(message) {
     // Get the existing error container
