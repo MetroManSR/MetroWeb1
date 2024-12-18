@@ -86,7 +86,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
             document.getElementById('dict-search-in-etymology').checked = false;
             document.getElementById('dict-exact-match').checked = false;
             // Reset selected filters
-            const wordFilterSelect = document.getElementById('dict-wrd-flt');
+            const wordFilterSelect = document.getElementById('dct-wrd-flt');
             Array.from(wordFilterSelect.options).forEach(option => {
                 option.selected = false;
             });
