@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     } catch (error) {
         console.error('Error loading data:', error);
         
-        const errorString = language === "en" ? : 'Failed to load dictionary data. Please try again later.' : 'Ha fallado la carga del diccionario, por favor intente de nuevo más tarde';
+        const errorString = language === "en" ? 'Failed to load dictionary data. Please try again later.' : 'Ha fallado la carga del diccionario, por favor intente de nuevo más tarde';
         
         displayError(errorString);
         // Hide the loading message in case of an error
