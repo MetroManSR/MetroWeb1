@@ -1,4 +1,4 @@
-import { filteredRows } from '../mainDict.js';
+import { allRows, filteredRows } from '../mainDict.js';
 import { renderBox } from "./boxes.js";
 
 /**
@@ -17,8 +17,10 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     }
     paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
-    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    const totalPages = Math.ceil(allRows.length / rowsPerPage);
+    const filteredTotalPages = Math.ceil(filteredRows.length / rowsPerPage);
     console.log(`Total Pages: ${totalPages}`);
+    console.log(`Filtered Total Pages: ${filteredTotalPages}`);
 
     const createPageButton = (label, onClick, disabled) => {
         const button = document.createElement('button');
@@ -74,7 +76,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     });
 
     const totalPagesDisplay = document.createElement('span');
-    totalPagesDisplay.textContent = ` / ${totalPages}`;
+    totalPagesDisplay.textContent = ` / ${filteredTotalPages}`;
     totalPagesDisplay.classList.add('pagination-display');
 
     const pageContainer = document.createElement('div');
@@ -123,7 +125,8 @@ export function createPaginationControls(rowsPerPage, currentPage) {
 export function updatePagination(currentPage, rowsPerPage) {
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
-    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    const totalPages = Math.ceil(allRows.length / rowsPerPage);
+    const filteredTotalPages = Math.ceil(filteredRows.length / rowsPerPage);
     console.log(`Total Pages: ${totalPages}`);
     const paginationContainer = document.getElementById('dict-pagination'); // Correct reference
     const buttons = paginationContainer.querySelectorAll('.pagination-button');
@@ -144,7 +147,7 @@ export function updatePagination(currentPage, rowsPerPage) {
     }
 
     if (totalPagesDisplay) {
-        totalPagesDisplay.textContent = ` / ${totalPages}`;
+        totalPagesDisplay.textContent = ` / ${filteredTotalPages}`;
         console.log('TotalPagesDisplay Check');
     } else {
         console.error('totalPagesDisplay is undefined');
