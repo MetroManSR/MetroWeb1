@@ -17,16 +17,15 @@ export async function setTexts(language) {
 
         const currentTexts = texts[language] || texts['en'];
 
-        // Update IDs and classes related to filter sorting
-        document.getElementById('dct-flt-srt-ctr').placeholder = currentTexts.searchPlaceholder;
-        document.getElementById('dct-clr-src-btn').textContent = currentTexts.clearSearchButton;
+        document.getElementById('dict-search-input').placeholder = currentTexts.searchPlaceholder;
+        document.getElementById('dict-clear-search-button').textContent = currentTexts.clearSearchButton;
         document.getElementById('dct-rws-lbl').textContent = currentTexts.rowsPerPageLabel;
         document.getElementById('dct-tgl-flt-btn').textContent = currentTexts.toggleFiltersButton;
-        document.getElementById('dct-apl-stt-btn').textContent = currentTexts.applySettingsButton;
-        document.getElementById('dct-clr-stt-btn').textContent = currentTexts.clearSettingsButton;
-        document.getElementById('dct-adv-src-btn').textContent = currentTexts.advancedSearchButton;
-        document.getElementById('dct-vw-stt-btn').textContent = currentTexts.viewStatisticsButton;
-        document.getElementById('dct-cls-pup-btn').textContent = currentTexts.closeSearchButton;
+        document.getElementById('dict-apply-settings-button').textContent = currentTexts.applySettingsButton;
+        document.getElementById('dict-clear-settings-button').textContent = currentTexts.clearSettingsButton;
+        document.getElementById('dict-advanced-search-btn').textContent = currentTexts.advancedSearchButton;
+        document.getElementById('dict-view-statistics-button').textContent = currentTexts.viewStatisticsButton;
+        document.getElementById('dict-close-popup-button').textContent = currentTexts.closeSearchButton;
         document.getElementById('dct-flt-by-lbl').textContent = currentTexts.filterByLabel;
         document.getElementById('dct-ord-lbl').textContent = currentTexts.orderByLabel;
 
@@ -96,4 +95,4 @@ export async function getTranslatedText(key, language, filePath = '/assets/data/
         console.error('Error fetching translated text:', error);
         return key; // Return the key as fallback
     }
-} 
+}
