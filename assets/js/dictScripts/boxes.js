@@ -148,16 +148,15 @@ export async function createNoMatchBox(language, searchTerm, allRows) {
     noMatchText.textContent = await getTranslatedText('noMatch', language);
     noMatchBox.appendChild(noMatchText);
 
-    // Calculate similarities and get the top 75% matching titles
+    // Calculate similarities and get the top 20 matching titles
     const suggestions = allRows
         .map(row => ({
             title: row.title,
-            meta: row.meta,
             similarity: getSimilarity(row.title, searchTerm)
         }))
         .sort((a, b) => b.similarity - a.similarity)
-        .slice(0, Math.ceil(allRows.length * 0.75))
-        .map(row => `${row.title} (${row.meta})`);
+        .slice(0, 20)
+        .map(row => row.title);
 
     if (suggestions.length > 0) {
         const suggestionsContainer = document.createElement('div');
@@ -167,20 +166,18 @@ export async function createNoMatchBox(language, searchTerm, allRows) {
         suggestionsTitle.textContent = await getTranslatedText('maybeYouMeant', language);
         suggestionsContainer.appendChild(suggestionsTitle);
 
+        const suggestionsParagraph = document.createElement('p');
+
         suggestions.forEach(suggestion => {
-            const suggestionElement = document.createElement('div');
-            suggestionElement.className = 'suggestion';
-            suggestionElement.textContent = suggestion;
-            suggestionElement.addEventListener('click', () => {
-                const searchInput = document.getElementById('dict-search-input');
-                if (searchInput) {
-                    searchInput.value = suggestion.split(' (')[0]; // Set the title only
-                    searchInput.dispatchEvent(new Event('input')); // Trigger the input event to update predictions
-                }
-            });
-            suggestionsContainer.appendChild(suggestionElement);
+            const suggestionLink = document.createElement('span');
+            suggestionLink.innerHTML = createHyperlink(suggestion, searchTerm, allRows);
+            suggestionLink.className = 'suggestion-link';
+            suggestionLink.style.marginRight = '10px';
+
+            suggestionsParagraph.appendChild(suggestionLink);
         });
 
+        suggestionsContainer.appendChild(suggestionsParagraph);
         noMatchBox.appendChild(suggestionsContainer);
     }
 
