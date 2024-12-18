@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         // Define URLs based on language
         const esDictURL = 'https://docs.google.com/spreadsheets/d/1ZzYEerR-BTsk5QaOefiWhS3mhQe9YQnY/export?format=xlsx';
-        const enDictURL = 'https://docs.google.com/spreadsheets/d/1dBiaS1ea3B3ryv4PYwAoedVeQn7SOGiw/export?format=xlsxtrue';
+        const enDictURL = 'https://docs.google.com/spreadsheets/d/1FR5xg3xvfuOqnvSgm9ZfSA2w5l4Rg7Ho/export?format=xlsx';
         const esRootURL = 'https://docs.google.com/spreadsheets/d/13LHqyyBGxXGEd5XCi0HxwpdkWToXi_H0/export?format=xlsx';
         const enRootURL = 'https://docs.google.com/spreadsheets/d/1FR5xg3xvfuOqnvSgm9ZfSA2w5l4Rg7Ho/export?format=xlsx';
 
