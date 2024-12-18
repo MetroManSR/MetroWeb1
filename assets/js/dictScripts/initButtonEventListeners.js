@@ -45,15 +45,25 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         });
     }
 
-    document.getElementById('dict-toggle-filter-button').addEventListener('click', function(event) {
-    event.stopPropagation();
-    const filterContainer = document.getElementById('dict-filter-sorting-container');
-    if (filterContainer.classList.contains('hidden')) {
-        filterContainer.classList.remove('hidden');
-        filterContainer.classList.add('active');
+    document.addEventListener('DOMContentLoaded', function() {
+    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
+    const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+
+    if (toggleFilterButton && filterSortingContainer) {
+        toggleFilterButton.addEventListener('click', function() {
+            console.log('Toggle button clicked'); // Debug log
+            if (filterSortingContainer.classList.contains('hidden')) {
+                filterSortingContainer.classList.remove('hidden');
+                filterSortingContainer.classList.add('active');
+                console.log('Filter sorting container is now active'); // Debug log
+            } else {
+                filterSortingContainer.classList.remove('active');
+                filterSortingContainer.classList.add('hidden');
+                console.log('Filter sorting container is now hidden'); // Debug log
+            }
+        });
     } else {
-        filterContainer.classList.remove('active');
-        filterContainer.classList.add('hidden');
+        console.error('Toggle filter button or filter sorting container not found.');
     }
 });
 
