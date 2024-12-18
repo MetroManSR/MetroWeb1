@@ -45,23 +45,17 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         });
     }
 
-    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-if (toggleFilterButton) {
-    toggleFilterButton.addEventListener('click', async () => {
-        const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
-        if (filterSortingContainer) {
-            console.log('Current classes before toggle: ', filterSortingContainer.className);
-
-            filterSortingContainer.classList.toggle('active');
-            filterSortingContainer.classList.toggle('hidden');
-            console.log('Current classes after toggle: ', filterSortingContainer.className);
-        } else {
-            console.error('filterSortingContainer not found');
-        }
-    });
-} else {
-    console.error('toggleFilterButton not found');
-}
+    document.getElementById('dict-toggle-filter-button').addEventListener('click', function(event) {
+    event.stopPropagation();
+    const filterContainer = document.getElementById('dict-filter-sorting-container');
+    if (filterContainer.classList.contains('hidden')) {
+        filterContainer.classList.remove('hidden');
+        filterContainer.classList.add('active');
+    } else {
+        filterContainer.classList.remove('active');
+        filterContainer.classList.add('hidden');
+    }
+});
 
     const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
     if (viewStatisticsButton) {
