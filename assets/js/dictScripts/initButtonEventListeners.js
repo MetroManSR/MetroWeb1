@@ -46,25 +46,25 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     }
 
     
-    const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
-    const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
+    const toggleFilterButton = document.getElementById('dct-tgl-flt-btn');
+const filterSortingContainer = document.getElementById('dct-flt-srt-ctr');
 
-    if (toggleFilterButton && filterSortingContainer) {
-        toggleFilterButton.addEventListener('click', function() {
-            console.log('Toggle button clicked'); // Debug log
-            if (filterSortingContainer.classList.contains('hidden')) {
-                filterSortingContainer.classList.remove('hidden');
-                filterSortingContainer.classList.add('active');
-                console.log('Filter sorting container is now active'); // Debug log
-            } else {
-                filterSortingContainer.classList.remove('active');
-                filterSortingContainer.classList.add('hidden');
-                console.log('Filter sorting container is now hidden'); // Debug log
-            }
-        });
-    } else {
-        console.error('Toggle filter button or filter sorting container not found.');
-    }
+if (toggleFilterButton && filterSortingContainer) {
+    toggleFilterButton.addEventListener('click', function() {
+        console.log('Toggle button clicked'); // Debug log
+        if (filterSortingContainer.classList.contains('hidden')) {
+            filterSortingContainer.classList.remove('hidden');
+            filterSortingContainer.classList.add('active');
+            console.log('Filter sorting container is now active'); // Debug log
+        } else {
+            filterSortingContainer.classList.remove('active');
+            filterSortingContainer.classList.add('hidden');
+            console.log('Filter sorting container is now hidden'); // Debug log
+        }
+    });
+} else {
+    console.error('Toggle filter button or filter sorting container not found.');
+}
 
 
     const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
