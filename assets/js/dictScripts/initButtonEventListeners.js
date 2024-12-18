@@ -45,17 +45,6 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         });
     }
 
-    
-    const toggleFilterButton = document.getElementById('dct-tgl-flt-btn');
-const filterSortingContainer = document.getElementById('dct-flt-srt-ctr');
-
-toggleFilterButton.addEventListener('click', () => {
-    const isHidden = filterSortingContainer.classList.contains('hidden');
-    filterSortingContainer.classList.toggle('hidden', !isHidden);
-    filterSortingContainer.classList.toggle('active', isHidden);
-    console.log(`Filter sorting container is now ${isHidden ? 'active' : 'hidden'}`); // Debug log
-});
-
     const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
     if (viewStatisticsButton) {
         viewStatisticsButton.addEventListener('click', async () => {
