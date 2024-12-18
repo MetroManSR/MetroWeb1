@@ -60,6 +60,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     currentPageInput.min = 1;
     currentPageInput.max = totalPages;
     currentPageInput.classList.add('pagination-input');
+    currentPageInput.disabled = totalPages <= 1; // Disable input if only one page
 
     currentPageInput.addEventListener('change', () => {
         let pageNumber = parseInt(currentPageInput.value, 10);
@@ -136,6 +137,7 @@ export function updatePagination(currentPage, rowsPerPage) {
 
     if (currentPageInput) {
         currentPageInput.value = currentPage;
+        currentPageInput.disabled = totalPages <= 1; // Disable input if only one page
         console.log('CurrentPageInput Check');
     } else {
         console.error('currentPageInput is undefined');
