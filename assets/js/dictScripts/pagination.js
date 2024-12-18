@@ -1,4 +1,4 @@
-import { allRows, filteredRows } from '../mainDict.js';
+import { filteredRows } from '../mainDict.js';
 import { renderBox } from "./boxes.js";
 
 /**
@@ -17,10 +17,9 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     }
     paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
-    const totalPages = Math.ceil(allRows.length / rowsPerPage);
-    const filteredTotalPages = Math.ceil(filteredRows.length / rowsPerPage);
-    console.log(`Total Pages: ${totalPages}`);
-    console.log(`Filtered Total Pages: ${filteredTotalPages}`);
+    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    
+    console.log(`Filtered Total Pages: ${totalPages}`);
 
     const createPageButton = (label, onClick, disabled) => {
         const button = document.createElement('button');
@@ -76,7 +75,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     });
 
     const totalPagesDisplay = document.createElement('span');
-    totalPagesDisplay.textContent = ` / ${filteredTotalPages}`;
+    totalPagesDisplay.textContent = ` / ${totalPages}`;
     totalPagesDisplay.classList.add('pagination-display');
 
     const pageContainer = document.createElement('div');
