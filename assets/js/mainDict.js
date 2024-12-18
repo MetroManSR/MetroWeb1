@@ -110,9 +110,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         const isUrlHandled = await initUrl(allRows, rowsPerPage, 1, 'titleup');
         
-        if (isUrlHandled) {
+        console.log(isUrlHandled) 
+        
+        if (isUrlHandled !== false) {
 
-            renderBox(isUrlHandled, '', false, {}, rowsPerPage, 1);
+            await renderBox(isUrlHandled, '', false, {}, rowsPerPage, 1);
       
         } else {
         
