@@ -20,38 +20,37 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
     console.log(`Total Pages: ${totalPages}`);
 
-    const createPageButton = (label, onClick) => {
+    const createPageButton = (label, onClick, disabled) => {
         const button = document.createElement('button');
         button.innerHTML = label;
         button.classList.add('pagination-button');
+        button.disabled = disabled;
         button.addEventListener('click', () => {
             console.log(`Button clicked: ${label}`);
             onClick();
         });
-        console.log(`Button created: ${label}`);
+        console.log(`Button created: ${label}, Disabled: ${disabled}`);
         return button;
     };
 
     // Add go to beginning button
     const beginButton = createPageButton('⏮️', () => {
-        console.log("Current Page: ", currentPage)
         if (currentPage > 1) {
             currentPage = 1;
             renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
             console.log('Navigated to the beginning');
         }
-    });
+    }, currentPage === 1);
     paginationContainer.appendChild(beginButton);
 
     // Add previous button
     const prevButton = createPageButton('⬅️', () => {
-        console.log("Current Page: ", currentPage);
         if (currentPage > 1) {
             currentPage -= 1;
             renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
             console.log('Navigated 1 page backwards');
         }
-    });
+    }, currentPage === 1);
     paginationContainer.appendChild(prevButton);
 
     // Add current page input and total pages display
@@ -86,25 +85,32 @@ export function createPaginationControls(rowsPerPage, currentPage) {
 
     // Add next button
     const nextButton = createPageButton('➡️', () => {
-        console.log("Current Page: ", currentPage);
         if (currentPage < totalPages) {
             currentPage += 1;
             renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
             console.log('Navigated 1 page forward');
         }
-    });
+    }, currentPage === totalPages);
     paginationContainer.appendChild(nextButton);
 
     // Add go to last button
     const endButton = createPageButton('⏭️', () => {
-        console.log("Current Page: ", currentPage);
         if (currentPage < totalPages) {
             currentPage = totalPages;
             renderBox(filteredRows, '', false, {}, rowsPerPage, currentPage);
             console.log('Navigated to the end');
         }
-    });
+    }, currentPage === totalPages);
     paginationContainer.appendChild(endButton);
+
+    // Disable all buttons if there is only one page
+    if (totalPages <= 1) {
+        const allButtons = paginationContainer.querySelectorAll('button');
+        allButtons.forEach(button => {
+            button.disabled = true;
+            button.classList.add('disabled');
+        });
+    }
 }
 
 /**
@@ -125,6 +131,7 @@ export function updatePagination(currentPage, rowsPerPage) {
 
     buttons.forEach((button) => {
         button.classList.remove('active');
+        button.disabled = false; // Enable all buttons first
     });
 
     if (currentPageInput) {
@@ -146,4 +153,23 @@ export function updatePagination(currentPage, rowsPerPage) {
             button.classList.add('active');
         }
     });
+
+    // Deactivate navigation buttons based on the current page
+    if (currentPage === 1) {
+        paginationContainer.querySelector('.pagination-button:nth-child(1)').disabled = true; // Go to beginning
+        paginationContainer.querySelector('.pagination-button:nth-child(2)').disabled = true; // Go back
+    }
+    if (currentPage === totalPages) {
+        paginationContainer.querySelector('.pagination-button:nth-child(4)').disabled = true; // Go forward
+        paginationContainer.querySelector('.pagination-button:nth-child(5)').disabled = true; // Go to last
+    }
+
+    // Disable all buttons if there is only one page
+    if (totalPages <= 1) {
+        const allButtons = paginationContainer.querySelectorAll('button');
+        allButtons.forEach(button => {
+            button.disabled = true;
+            button.classList.add('disabled');
+        });
+    }
 }
