@@ -179,3 +179,26 @@ export function getSimilarity(a, b) {
     const distance = levenshteinDistance(a.toLowerCase(), b.toLowerCase());
     return 1 - distance / Math.max(a.length, b.length);
 }
+
+// Function to display an error message
+export function displayError(message) {
+    // Get the existing error container
+    const errorContainer = document.getElementById('error-container');
+
+    if (!errorContainer) {
+        console.error('Error container not found.');
+        return;
+    }
+
+    // Set the error message
+    errorContainer.textContent = message;
+    errorContainer.classList.remove('hidden');
+
+    // Remove the error container after a few seconds
+    setTimeout(() => {
+        errorContainer.classList.add('hidden');
+    }, 5000);
+}
+
+// Example usage
+// displayError('An error occurred while processing your request.');
