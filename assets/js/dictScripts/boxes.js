@@ -233,62 +233,47 @@ export async function updateFloatingText(searchTerm, filters, advancedSearchPara
     }
 }
 
-export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage = 1) {
-    initializeFloatingText();
-    
-    console.log(`RenderBox called with currentPage: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
+// Function to create a no match box with suggestions
+export async function createNoMatchBox(language, searchTerm, allRows) {
+    const noMatchBox = document.createElement('div');
+    noMatchBox.className = 'dict-no-match-box';
 
-    const dictionaryContainer = document.getElementById('dict-dictionary');
-    dictionaryContainer.innerHTML = ''; // Clear previous entries
+    const noMatchText = document.createElement('div');
+    noMatchText.textContent = await getTranslatedText('noMatch', language);
+    noMatchBox.appendChild(noMatchText);
 
-    const language = document.querySelector('meta[name="language"]').content || 'en';
+    // Calculate similarities and get the top 20 matching titles
+    const suggestions = allRows
+        .map(row => ({
+            title: row.title,
+            similarity: getSimilarity(row.title, searchTerm)
+        }))
+        .sort((a, b) => b.similarity - a.similarity)
+        .slice(0, 20)
+        .map(row => row.title);
 
-    // Render the right amount of loading boxes with unique IDs
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const rowsToDisplay = filteredRows.slice(start, end);
+    if (suggestions.length > 0) {
+        const suggestionsContainer = document.createElement('div');
+        suggestionsContainer.className = 'dict-suggestions-container';
 
-    console.log(`Rows to display: ${rowsToDisplay.length}, Start: ${start}, End: ${end}`);
+        const suggestionsTitle = document.createElement('div');
+        suggestionsTitle.textContent = await getTranslatedText('maybeYouMeant', language);
+        suggestionsContainer.appendChild(suggestionsTitle);
 
-    // Create a map to associate loading boxes with rows based on type and IDs
-    const loadingBoxesMap = new Map();
-    rowsToDisplay.forEach(row => {
-        const loadingBox = createLoadingBox();
-        const uniqueId = `${row.type}-${row.id}`;
-        loadingBox.id = `loading-box-${uniqueId}`;
-        dictionaryContainer.appendChild(loadingBox);
-        loadingBoxesMap.set(uniqueId, loadingBox);
-        console.log(`Appended loading box with ID: ${loadingBox.id}`);
-    });
+        const suggestionsParagraph = document.createElement('p');
 
-    if (filteredRows.length === 0) {
-        dictionaryContainer.innerHTML = ''; // Clear loading boxes
-        dictionaryContainer.appendChild(await createNoMatchBox(language));
-        updatePagination(currentPage, rowsPerPage);
-        await updateFloatingText(searchTerm, [], {}, language);
-        return;
+        suggestions.forEach(suggestion => {
+            const suggestionLink = document.createElement('span');
+            suggestionLink.innerHTML = createHyperlink(suggestion, searchTerm, allRows);
+            suggestionLink.className = 'dict-suggestion-link';
+            suggestionLink.style.marginRight = '10px';
+
+            suggestionsParagraph.appendChild(suggestionLink);
+        });
+
+        suggestionsContainer.appendChild(suggestionsParagraph);
+        noMatchBox.appendChild(suggestionsContainer);
     }
 
-    // Replace loading boxes with actual content based on type and IDs
-    for (const row of rowsToDisplay) {
-        const box = await createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn);
-        const uniqueId = `${row.type}-${row.id}`;
-        const loadingBox = loadingBoxesMap.get(uniqueId);
-        if (loadingBox && box) {
-            console.log(`Replacing loading box with ID: ${uniqueId}`);
-            dictionaryContainer.replaceChild(box, loadingBox);
-            loadingBoxesMap.delete(uniqueId); // Remove the entry from the map as it's been used
-        } else {
-            console.warn(`Loading box with ID ${uniqueId} not found or box creation failed.`);
-        }
-    }
-
-    // Cleanup unused loading boxes
-    loadingBoxesMap.forEach(loadingBox => {
-        dictionaryContainer.removeChild(loadingBox);
-        console.log(`Removed unused loading box with ID: ${loadingBox.id}`);
-    });
-
-    updatePagination(currentPage, rowsPerPage);
-    await updateFloatingText(searchTerm, [], {}, language);
+    return noMatchBox;
 }
