@@ -173,14 +173,31 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
     });
 
     const rowsPerPageSelect = document.getElementById('dct-rws-inp');
-    if (rowsPerPageSelect) {
-        rowsPerPageSelect.addEventListener('change', async () => {
-            pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
+
+if (rowsPerPageSelect) {
+    console.log('Element found:', rowsPerPageSelect);
+    rowsPerPageSelect.addEventListener('change', async () => {
+        try {
+            console.log('Change event triggered');
+            const rowsPerPageValue = parseInt(rowsPerPageSelect.value, 10);
+            console.log('Rows per page value:', rowsPerPageValue);
+
+            pendingChanges.rowsPerPage = rowsPerPageValue;
             universalPendingChanges = pendingChanges;
-            updatePendingChangesList(language);
+
+            console.log('Pending changes updated:', pendingChanges);
+            await updatePendingChangesList(language);
+            console.log('Pending changes list updated');
+
             currentPage = 1;
-        });
-    }
+            console.log('Current page reset to:', currentPage);
+        } catch (error) {
+            console.error('Error during change event handling:', error);
+        }
+    });
+} else {
+    console.error('Element not found for ID dct-rws-inp');
+}
 
     const advancedSearchButton = document.getElementById('dict-advanced-search-btn');
     if (advancedSearchButton) {
