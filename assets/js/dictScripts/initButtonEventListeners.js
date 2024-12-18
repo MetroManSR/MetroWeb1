@@ -25,7 +25,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
 
     await updatePendingChangesList(language);
 
-    const orderBySelect = document.getElementById('dict-order-by-select');
+    const orderBySelect = document.getElementById('dct-ordslt');
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
             pendingChanges.sortOrder = orderBySelect.value;
@@ -36,7 +36,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
 
     await boxClickListener(allRows, language, pendingChanges);
 
-    const filterSelect = document.getElementById('dict-word-filter');
+    const filterSelect = document.getElementById('dct-wrd-flt');
     if (filterSelect) {
         filterSelect.addEventListener('change', () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
