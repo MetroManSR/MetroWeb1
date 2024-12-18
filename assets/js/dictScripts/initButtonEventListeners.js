@@ -5,6 +5,7 @@ import { updatePagination } from './pagination.js';
 import { boxClickListener } from "./boxEvents.js";
 import { filteredRows } from "../mainDict.js";
 import { getTranslatedText } from './loadTexts.js';
+import { initUrl } from './urlParameters.js';
 
 export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder) {
     console.log('Initializing Button Event Listeners');
@@ -195,5 +196,13 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         console.error('Info popup elements not found');
     }
 
+    const isUrlHandled = await initUrl(allRows, rowsPerPage, 1, 'titleup');
+
+    if (isUrlHandled) {
+
+        return
+
+    }
+    
     console.log('Button Event Listeners initialized');
 }
