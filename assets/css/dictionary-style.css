@@ -238,7 +238,7 @@ header {
     right: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the text box relative to the button */
+    align-items: flex-end;
 }
 
 .dictfloating-button {
@@ -265,9 +265,9 @@ header {
     font-size: 14px;
     max-width: 300px; /* Adjust based on your content */
     position: absolute;
-    bottom: 60px; /* Position it above the button */
-    left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
+    bottom: 50px; /* Position it above the button */
+    right: 50%; /* Anchor the right side to the center of the button */
+    transform: translateX(50%); /* Adjust the text box position */
     display: none;
     z-index: 750;
     opacity: 0;
@@ -275,24 +275,6 @@ header {
     overflow: hidden;
     white-space: nowrap; /* Prevents the text from wrapping */
 }
-
-.dictfloating-text {
-    background: rgba(173, 216, 230, 0.9); /* Light blue background */
-    color: black;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    max-width: 80%; /* Adjust to be a percentage of the viewport width */
-    position: absolute;
-    bottom: 50px; /* Position it above the button */
-    left: 50%; 
-    transform: translateX(-50%) translateY(10px); /* Center horizontally and start slightly below */
-    display: none;
-    z-index: 750;
-    opacity: 0;
-    transition: opacity 0.5s, transform 0.5s;
-    overflow: hidden;
-} 
 
 .dictfloating-text.visible {
     display: block;
