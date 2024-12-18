@@ -97,7 +97,7 @@ export function sanitizeHTML(html) {
  * @param {Array} allRows - The array of all dictionary rows.
  * @returns {string} - The HTML string of the hyperlink if found, otherwise the original string.
  */
-export function createHyperlink(title, searchTerm = '', allRows = []) {
+export async function createHyperlink(title, searchTerm = '', allRows = []) {
     //console.log('Searching for title:', title);
     const relatedRow = allRows.find(r => {
         const isMatch = r.title.trim().toLowerCase() === title.trim().toLowerCase();
