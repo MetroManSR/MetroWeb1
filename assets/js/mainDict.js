@@ -19,15 +19,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
     let pendingChanges = document.getElementById('dict-pending-changes');
 
-    // Initially hide elements
-    if (filterSortingContainer) {
-        filterSortingContainer.classList.add('dict-filter-cont-hidden');
-    }
-
-    if (pendingChanges) {
-        pendingChanges.style.display = 'none';
-    }
-
     function showLoadingMessage() {
         const loadingMessage = document.getElementById('dict-loading-message');
         if (loadingMessage) {
