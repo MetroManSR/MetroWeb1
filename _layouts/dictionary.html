@@ -35,13 +35,13 @@ layout: default
       </div>
       <div id="dict-pending-changes" class="dict-pending-changes"></div>
 
-<!-- Filter Sorting Container -->
-<div id="dct-flt-srt-ctr" class="dct-flt-srt-ctr hidden">
-    <div class="dct-pag-ctr">
+      <!-- Compact Filter Sorting Container -->
+<div id="dct-flt-srt-ctr" class="dct-flt-srt-ctr">
+    <div class="dct-ctr">
         <label id="dct-rws-lbl" for="dct-rws-inp">Rows per page:</label>
         <input type="number" id="dct-rws-inp" value="20" min="5" max="500" class="dct-inp" />
     </div>
-    <div id="dct-flt-drp-ctr">
+    <div class="dct-ctr">
         <label id="dct-flt-by-lbl" for="dct-wrd-flt">Filter by:</label>
         <select id="dct-wrd-flt" multiple class="dct-slt">
             <option value="word">Word</option>
@@ -57,7 +57,7 @@ layout: default
             <option value="pronoun">Pronoun</option>
         </select>
     </div>
-    <div class="dct-srt-ctr">
+    <div class="dct-ctr">
         <label for="dct-ord-slt" id="dct-ord-lbl">Order By:</label>
         <select id="dct-ord-slt" class="dct-slt">
             <option value="titleup">Title (Ascending)</option>
@@ -70,9 +70,9 @@ layout: default
     </div>
 </div>
 
+      
       <div class="dict-buttons">
-        <!-- Toggle Button -->
-        <button id="dct-tgl-flt-btn" class="dct-tgl-flt-btn dct-flt-btn">Toggle Filters</button>
+        
         <button id="dict-apply-settings-button" class="dict-apply-settings-button dict-filter-button">Apply Settings</button>
         <button id="dict-clear-settings-button" class="dict-clear-settings-button dict-filter-button btn-danger">Clear Settings</button>
       </div>
