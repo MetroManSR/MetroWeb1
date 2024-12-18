@@ -383,24 +383,24 @@ header {
 /* Common Styles for Inputs and Selects */
 .dct-inp,
 .dct-slt {
-    flex: 1 1 120px; /* Reduced size for compactness */
+    flex: 1 1 80px; /* Further reduced size for compactness */
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 5px; /* Reduced padding */
-    font-size: 0.8em; /* Smaller font size */
+    font-size: 0.8em; /* Maintain readable font size */
     background-color: #f5f5f5;
 }
 
 .dct-ctr {
     display: flex;
     flex-direction: column;
-    flex: 1 1 120px; /* Reduced size for compactness */
+    flex: 1 1 80px; /* Further reduced size for compactness */
 }
 
 /* Compact Label Styling */
 .dct-ctr label {
     margin-bottom: 3px; /* Smaller margin */
-    font-size: 0.8em; /* Smaller font size */
+    font-size: 0.8em; /* Maintain readable font size */
     color: #fff;
 }
 
