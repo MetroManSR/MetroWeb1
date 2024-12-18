@@ -1,7 +1,7 @@
 import { getRelatedWordsByRoot, highlight, createHyperlink } from './utils.js';
 import { updatePagination } from './pagination.js';
 import { getTranslatedText } from './loadTexts.js';
-import { copyToClipboard, getSimilarity, levenshteinDistance } from './utils.js';
+import { copyToClipboard, getSimilarity, levenshteinDistance, editDistance } from './utils.js';
 import { loadInfoBox } from './boxEvents.js';
 import { filteredRows } from '../mainDict.js';
 
