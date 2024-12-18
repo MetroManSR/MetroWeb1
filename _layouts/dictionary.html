@@ -34,15 +34,18 @@ layout: default
         <button id="dict-view-statistics-button" class="dict-view-statistics-button dict-filter-button">View Statistics</button>
       </div>
       <div id="dict-pending-changes" class="dict-pending-changes"></div>
+
+      <!-- Filter Sorting Container -->
+      
       <div id="dict-filter-sorting-container" class="dict-filter-container hidden">
-        <div class="dict-pagination-container">
-          <label id="dict-rows-per-page-label" for="dict-rows-per-page-input">Rows per page:</label>
-          <input type="number" id="dict-rows-per-page-input" value="20" min="5" max="500" class="dict-rows-input" />
-          <button id="dict-rows-per-page-button" class="dict-rows-per-page-button dict-filter-button">Submit</button>
-        </div>
-        <div id="dict-filter-dropdown-container">
-          <label id="dict-filter-by-label" for="dict-word-filter">Filter by:</label>
-          <select id="dict-word-filter" multiple class="dict-filter-select">
+    <div class="dict-pagination-container">
+        <label id="dict-rows-per-page-label" for="dict-rows-per-page-input">Rows per page:</label>
+        <input type="number" id="dict-rows-per-page-input" value="20" min="5" max="500" class="dict-rows-input" />
+        <button id="dict-rows-per-page-button" class="dict-rows-per-page-button dict-filter-button">Submit</button>
+    </div>
+    <div id="dict-filter-dropdown-container">
+        <label id="dict-filter-by-label" for="dict-word-filter">Filter by:</label>
+        <select id="dict-word-filter" multiple class="dict-filter-select">
             <option value="word">Word</option>
             <option value="root">Root</option>
             <option value="noun">Noun</option>
@@ -54,19 +57,19 @@ layout: default
             <option value="preposition">Preposition</option>
             <option value="expression">Expression</option>
             <option value="pronoun">Pronoun</option>
-          </select>
-        </div>
-        <div class="dict-sorting-container">
-          <label for="dict-order-by-select" id="dict-order-by-label">Order By:</label>
-          <select id="dict-order-by-select" class="dict-order-select">
+        </select>
+    </div>
+    <div class="dict-sorting-container">
+        <label for="dict-order-by-select" id="dict-order-by-label">Order By:</label>
+        <select id="dict-order-by-select" class="dict-order-select">
             <option value="titleup">Title (Ascending)</option>
             <option value="titledown">Title (Descending)</option>
             <option value="metaup">Meta (Ascending)</option>
             <option value="metadown">Meta (Descending)</option>
             <option value="morphup">Morphology (Ascending)</option>
             <option value="morphdown">Morphology (Descending)</option>
-          </select>
-        </div>
+        </select>
+    </div>
       </div>
       <div class="dict-buttons">
         <button id="dict-toggle-filter-button" class="dict-toggle-filter-button dict-filter-button">Toggle Filters</button>
