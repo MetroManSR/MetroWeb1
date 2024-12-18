@@ -121,9 +121,9 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                 console.log('Derivatives:', row.related); // Debugging
 
                 // Ensure the displayed word is not shown as a related word
-                const relatedWordsHtml = row.related
+                const relatedWordsHtml = await Promise.all(row.related
                     .filter(dw => dw.toLowerCase() !== row.title.toLowerCase())
-                    .map(dw => {
+                    .map(async (dw) => {
                         // Find the related word in the allRows array
                         const relatedWord = typeof dw === 'string' ? allRows.find(r => r.title.trim().toLowerCase() === dw.trim().toLowerCase()) : dw;
 
@@ -131,10 +131,10 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         console.log('Derivative word:', dw, 'Related word:', relatedWord);
 
                         // Return a string with the title and ID, formatted with a hyperlink
-                        return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : dw;
-                    }).join(', ');
+                        return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : dw;
+                    }));
 
-                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${relatedWordsHtml}`;
+                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${relatedWordsHtml.join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
@@ -149,12 +149,11 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                     rootButton.innerText = root;
                     rootButton.addEventListener('click', async () => {
                         console.log('Clicked root button:', root); // Debugging
-                        const rootRelatedWords = allRows.filter(r => r.root === root && r.title.toLowerCase() !== row.title.toLowerCase())
-                            .map(r => `${r.title} [${r.id}]: ${createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`)
-                            .join(', ');
+                        const rootRelatedWords = await Promise.all(allRows.filter(r => r.root === root && r.title.toLowerCase() !== row.title.toLowerCase())
+                            .map(async (r) => `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`));
 
                         relatedWordsLabel = await getTranslatedText('relatedWords', language);
-                        relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${rootRelatedWords}`;
+                        relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${rootRelatedWords.join(', ')}`;
                     });
                     rootButtonsElement.appendChild(rootButton);
                 }
@@ -166,15 +165,15 @@ export async function boxClickListener(allRows, language, pendingChanges) {
 
             if (relatedWords.length > 0) {
                 console.log('Related Words:', relatedWords); // Debugging
-                const relatedWordsHtml = relatedWords
+                const relatedWordsHtml = await Promise.all(relatedWords
                     .filter(rw => rw.toLowerCase() !== row.title.toLowerCase())
-                    .map(rw => {
+                    .map(async (rw) => {
                         const relatedWord = typeof rw === 'string' ? allRows.find(r => r.title.trim().toLowerCase() === rw.trim().toLowerCase()) : rw;
                         console.log('Related word:', rw, 'Related word:', relatedWord);
-                        return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : rw;
-                    }).join(', ');
+                        return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : rw;
+                    }));
 
-                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWordsHtml}`;
+                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWordsHtml.join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
