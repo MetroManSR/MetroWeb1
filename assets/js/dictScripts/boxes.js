@@ -245,6 +245,8 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
 
     const language = document.querySelector('meta[name="language"]').content || 'en';
 
+    console.log(rowsPerPage) 
+    
     // Render the right amount of loading boxes with unique IDs
     const start = (currentPage - 1) * rowsPerPage;
     const end = start + rowsPerPage;
