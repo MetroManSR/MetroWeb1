@@ -172,7 +172,7 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
         }
     });
 
-    const rowsPerPageSelect = document.getElementById('dict-rows-per-page-input');
+    const rowsPerPageSelect = document.getElementById('dct-rws-inp');
     if (rowsPerPageSelect) {
         rowsPerPageSelect.addEventListener('change', async () => {
             pendingChanges.rowsPerPage = parseInt(rowsPerPageSelect.value, 10);
