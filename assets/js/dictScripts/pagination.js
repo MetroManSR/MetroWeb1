@@ -124,8 +124,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
 export function updatePagination(currentPage, rowsPerPage) {
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
-    const totalPages = Math.ceil(allRows.length / rowsPerPage);
-    const filteredTotalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
     console.log(`Total Pages: ${totalPages}`);
     const paginationContainer = document.getElementById('dict-pagination'); // Correct reference
     const buttons = paginationContainer.querySelectorAll('.pagination-button');
@@ -146,7 +145,7 @@ export function updatePagination(currentPage, rowsPerPage) {
     }
 
     if (totalPagesDisplay) {
-        totalPagesDisplay.textContent = ` / ${filteredTotalPages}`;
+        totalPagesDisplay.textContent = ` / ${totalPages}`;
         console.log('TotalPagesDisplay Check');
     } else {
         console.error('totalPagesDisplay is undefined');
