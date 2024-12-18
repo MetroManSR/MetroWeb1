@@ -136,7 +136,14 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     return box;
 }
 
-// Function to create a no match box with suggestions
+/**
+ * Function to create a no match box with suggestions.
+ *
+ * @param {string} language - The language code for translations.
+ * @param {string} searchTerm - The search term entered by the user.
+ * @param {Array} allRows - The array of all dictionary rows.
+ * @returns {Promise<Element>} - A promise that resolves to the no match box element.
+ */
 export async function createNoMatchBox(language, searchTerm, allRows) {
     const noMatchBox = document.createElement('div');
     noMatchBox.className = 'dict-no-match-box';
@@ -155,8 +162,6 @@ export async function createNoMatchBox(language, searchTerm, allRows) {
         .slice(0, 20)
         .map(row => row.title);
 
-    console.log('Suggestions:', suggestions); // Log suggestions for debugging
-
     if (suggestions.length > 0) {
         const suggestionsContainer = document.createElement('div');
         suggestionsContainer.className = 'dict-suggestions-container';
@@ -168,7 +173,6 @@ export async function createNoMatchBox(language, searchTerm, allRows) {
         const suggestionsParagraph = document.createElement('p');
 
         for (const suggestion of suggestions) {
-            console.log('Processing suggestion:', suggestion); // Log each suggestion for debugging
             const suggestionLink = document.createElement('span');
             suggestionLink.innerHTML = await createHyperlink(suggestion, searchTerm, allRows); // Await the hyperlink creation
             suggestionLink.className = 'dict-suggestion-link';
@@ -180,8 +184,6 @@ export async function createNoMatchBox(language, searchTerm, allRows) {
         suggestionsContainer.appendChild(suggestionsParagraph);
         noMatchBox.appendChild(suggestionsContainer);
     }
-
-    console.log('No Match Box:', noMatchBox); // Log no match box for debugging
 
     return noMatchBox;
 }
