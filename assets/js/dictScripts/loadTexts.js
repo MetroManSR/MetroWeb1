@@ -17,20 +17,20 @@ export async function setTexts(language) {
 
         const currentTexts = texts[language] || texts['en'];
 
-        document.getElementById('dict-search-input').placeholder = currentTexts.searchPlaceholder;
-        document.getElementById('dict-clear-search-button').textContent = currentTexts.clearSearchButton;
-        document.getElementById('dct-rws-lbl').textContent = currentTexts.rowsPerPageLabel;
-        document.getElementById('dct-tgl-flt-btn').textContent = currentTexts.toggleFiltersButton;
-        document.getElementById('dict-apply-settings-button').textContent = currentTexts.applySettingsButton;
-        document.getElementById('dict-clear-settings-button').textContent = currentTexts.clearSettingsButton;
-        document.getElementById('dict-advanced-search-btn').textContent = currentTexts.advancedSearchButton;
-        document.getElementById('dict-view-statistics-button').textContent = currentTexts.viewStatisticsButton;
-        document.getElementById('dict-close-popup-button').textContent = currentTexts.closeSearchButton;
-        document.getElementById('dct-flt-by-lbl').textContent = currentTexts.filterByLabel;
-        document.getElementById('dct-ord-lbl').textContent = currentTexts.orderByLabel;
+        document.querySelector('.dict-search-input').placeholder = currentTexts.searchPlaceholder;
+        document.querySelector('.dict-clear-search-button').textContent = currentTexts.clearSearchButton;
+        document.querySelector('.dct-rws-lbl').textContent = currentTexts.rowsPerPageLabel;
+        document.querySelector('.dct-tgl-flt-btn').textContent = currentTexts.toggleFiltersButton;
+        document.querySelector('.dict-apply-settings-button').textContent = currentTexts.applySettingsButton;
+        document.querySelector('.dict-clear-settings-button').textContent = currentTexts.clearSettingsButton;
+        document.querySelector('.dict-advanced-search-button').textContent = currentTexts.advancedSearchButton;
+        document.querySelector('.dict-view-statistics-button').textContent = currentTexts.viewStatisticsButton;
+        document.querySelector('.dict-close-popup-button').textContent = currentTexts.closeSearchButton;
+        document.querySelector('.dct-flt-by-lbl').textContent = currentTexts.filterByLabel;
+        document.querySelector('.dct-ord-lbl').textContent = currentTexts.orderByLabel;
 
         // Update the order by options text
-        const orderBySelect = document.getElementById('dct-ord-slt');
+        const orderBySelect = document.querySelector('.dct-ord-slt');
         if (orderBySelect) {
             orderBySelect.options[0].textContent = currentTexts.titleAsc;
             orderBySelect.options[1].textContent = currentTexts.titleDesc;
@@ -41,7 +41,7 @@ export async function setTexts(language) {
         }
 
         // Update the filter dropdown options text
-        const filterSelect = document.getElementById('dct-wrd-flt');
+        const filterSelect = document.querySelector('.dct-wrd-flt');
         if (filterSelect) {
             filterSelect.options[0].textContent = currentTexts.searchInWord;
             filterSelect.options[1].textContent = currentTexts.searchInRoot;
@@ -57,16 +57,16 @@ export async function setTexts(language) {
         }
 
         // Update texts for new filters
-        document.getElementById('dct-igr-dct-lbl').textContent = currentTexts.ignoreDiacritics;
-        document.getElementById('dct-str-wth-lbl').textContent = currentTexts.startsWith;
-        document.getElementById('dct-end-wth-lbl').textContent = currentTexts.endsWith;
+        document.querySelector('.dct-igr-dct-lbl').textContent = currentTexts.ignoreDiacritics;
+        document.querySelector('.dct-str-wth-lbl').textContent = currentTexts.startsWith;
+        document.querySelector('.dct-end-wth-lbl').textContent = currentTexts.endsWith;
 
         // Apply other labels as required
-        document.getElementById('dict-loading-message-text').textContent = currentTexts.loadingMessage;
-        document.getElementById('dict-error-message').textContent = currentTexts.errorLoadingData;
+        document.querySelector('.dict-loading-message-text').textContent = currentTexts.loadingMessage;
+        document.querySelector('.dict-error-message').textContent = currentTexts.errorLoadingData;
 
         // Pending Changes Section
-        document.getElementById('dict-pending-changes').innerHTML = `
+        document.querySelector('.dict-pending-changes').innerHTML = `
             <p>${currentTexts.pendingChanges}</p>
             <p>${currentTexts.noPendingChanges}</p>
             <ul>
