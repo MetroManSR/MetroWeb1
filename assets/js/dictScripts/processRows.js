@@ -146,12 +146,8 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
         return;
     }
 
-    if (updatedRows.length === 0) {
-        const noMatchBox = await createNoMatchBox(language, searchTerm, allRows);
-        renderContainer.appendChild(noMatchBox);
-    } else {
-        await renderBox(updatedRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
-    }
+    await renderBox(updatedRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
+
 
     updatePagination(currentPage, rowsPerPage);
 
