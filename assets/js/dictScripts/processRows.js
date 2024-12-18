@@ -155,7 +155,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
 
     updatePagination(currentPage, rowsPerPage);
 
-    updateFloatingText(searchTerm, filters, searchIn);
+    await updateFloatingText(searchTerm, filters, searchIn);
 
     const settingsAppliedText = document.createElement('div');
     settingsAppliedText.id = 'settings-applied-text';
