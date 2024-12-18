@@ -177,7 +177,7 @@ export function levenshteinDistance(a, b) {
  * @param {string} b - The second string.
  * @returns {number} - A similarity score between 0 and 1.
  */
-function getSimilarity(a, b) {
+export function getSimilarity(a, b) {
     // Simple similarity calculation using string length
     const longer = a.length > b.length ? a : b;
     const shorter = a.length > b.length ? b : a;
@@ -195,7 +195,7 @@ function getSimilarity(a, b) {
  * @param {string} b - The second string.
  * @returns {number} - The edit distance between the two strings.
  */
-function editDistance(a, b) {
+export function editDistance(a, b) {
     const matrix = [];
 
     // Increment along the first column of each row
