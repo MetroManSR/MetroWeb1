@@ -8,6 +8,8 @@ import { processAllSettings, sortRows, displayPage, wordSpecific, rootSpecific, 
 import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { boxClickListener } from './dictScripts/boxEvents.js';
+import { initUrl } from './dictScripts/urlParameters.js';
+
 export let filteredRows;
 
 document.addEventListener('DOMContentLoaded', async function() {
@@ -56,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     };
 
     try {
-        console.log('DOMContentLoaded event triggered');
+        //console.log('DOMContentLoaded event triggered');
 
         hideLoadingMessage();
 
@@ -84,14 +86,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         }
 
-        console.log('Fetching data...');
+        //console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([
             fetchWithFallback(dictionaryFile, 'word'), 
             fetchWithFallback(rootsFile, 'root')
         ]);
 
-        console.log('Dictionary Data:', dictionaryData);
-        console.log('Roots Data:', rootsData);
+        //console.log('Dictionary Data:', dictionaryData);
+        //console.log('Roots Data:', rootsData);
 
         // Clean data and wait for completion before proceeding
         const cleanedDictionaryData = (await cleanData(dictionaryData, 'word')).sort((a, b) => a.title.localeCompare(b.title));
@@ -100,21 +102,32 @@ document.addEventListener('DOMContentLoaded', async function() {
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
-        console.log('Cleaned Dictionary Data:', cleanedDictionaryData);
-        console.log('Cleaned Roots Data:', cleanedRootsData);
+        //console.log('Cleaned Dictionary Data:', cleanedDictionaryData);
+        //console.log('Cleaned Roots Data:', cleanedRootsData);
 
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
         
         filteredRows = allRows;
         filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)); // Sorting rows initially
 
-        console.log('All Rows:', allRows);
-        console.log('Filtered Rows:', filteredRows);
+        //console.log('All Rows:', allRows);
+        //console.log('Filtered Rows:', filteredRows);
 
-        console.log('Creating pagination controls...');
+        //console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, currentPage);
-        displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, allRows);
 
+        const isUrlHandled = await initUrl(allRows, rowsPerPage, 1, 'titleup');
+        
+        if (isUrlHandled) {
+
+            renderBox(isUrlHandled, '', false, {}, rowsPerPage, 1);
+      
+        else {
+        
+          displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, allRows);
+
+        }
+            
         // Initialize advanced search form
         const advancedSearchForm = document.getElementById('advanced-search-form');
         if (advancedSearchForm) {
