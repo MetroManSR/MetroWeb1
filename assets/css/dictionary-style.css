@@ -100,15 +100,6 @@ header {
     margin: 0 10px;
 }
 
-/* Toggle Classes */
-.dict-filter-cont-hidden {
-    display: none;
-}
-
-.dict-filter-cont-visible {
-    display: block !important;
-} 
-
 .dict-error-container {
     position: fixed;
     bottom: 20px;
@@ -247,7 +238,7 @@ header {
     right: 10px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center; /* Center the text box relative to the button */
 }
 
 .dictfloating-button {
@@ -264,6 +255,25 @@ header {
 
 .dictfloating-button:hover {
     background-color: rgba(0, 120, 212, 1);
+}
+
+.dictfloating-text {
+    background: rgba(173, 216, 230, 0.9); /* Light blue background */
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    max-width: 300px; /* Adjust based on your content */
+    position: absolute;
+    bottom: 60px; /* Position it above the button */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    display: none;
+    z-index: 750;
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+    overflow: hidden;
+    white-space: nowrap; /* Prevents the text from wrapping */
 }
 
 .dictfloating-text {
