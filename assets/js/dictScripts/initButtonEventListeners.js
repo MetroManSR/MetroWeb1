@@ -73,7 +73,10 @@ if (toggleFilterButton) {
     const applySettingsButton = document.getElementById('dict-apply-settings-button');
     if (applySettingsButton) {
         applySettingsButton.addEventListener('click', async () => {
-            await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
+                const url = new URL(window.location);
+                url.search = ''; // Remove all query parameters
+                window.history.pushState({}, '', url.toString());
+                await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
         });
     }
 
