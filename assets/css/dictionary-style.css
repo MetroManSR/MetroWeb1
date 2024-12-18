@@ -266,8 +266,8 @@ header {
     max-width: 300px; /* Adjust based on your content */
     position: absolute;
     bottom: 50px; /* Position it above the button */
-    right: 0; /* Anchor to the right edge of the button */
-    transform: translateX(-50%); /* Move the right edge to the center of the button */
+    right: calc(50% + 5px); /* Anchor to the center of the button, adjusted by the button's padding */
+    transform: translateX(50%); /* Move the right edge to the center of the button */
     display: none;
     z-index: 750;
     opacity: 0;
