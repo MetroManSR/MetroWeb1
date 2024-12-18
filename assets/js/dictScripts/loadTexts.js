@@ -1,4 +1,4 @@
-import { universalPendingChanges} from "./initFormEventListeners.js";
+import { universalPendingChanges } from "./initFormEventListeners.js";
 
 export async function fetchJson(filePath) {
     const response = await fetch(filePath);
@@ -17,20 +17,21 @@ export async function setTexts(language) {
 
         const currentTexts = texts[language] || texts['en'];
 
-        document.getElementById('dict-search-input').placeholder = currentTexts.searchPlaceholder;
-        document.getElementById('dict-clear-search-button').textContent = currentTexts.clearSearchButton;
-        document.getElementById('dict-rows-per-page-label').textContent = currentTexts.rowsPerPageLabel;
-        document.getElementById('dict-toggle-filter-button').textContent = currentTexts.toggleFiltersButton;
-        document.getElementById('dict-apply-settings-button').textContent = currentTexts.applySettingsButton;
-        document.getElementById('dict-clear-settings-button').textContent = currentTexts.clearSettingsButton;
-        document.getElementById('dict-advanced-search-btn').textContent = currentTexts.advancedSearchButton;
-        document.getElementById('dict-view-statistics-button').textContent = currentTexts.viewStatisticsButton;
-        document.getElementById('dict-close-popup-button').textContent = currentTexts.closeSearchButton;
-        document.getElementById('dict-filter-by-label').textContent = currentTexts.filterByLabel;
-        document.getElementById('dict-order-by-label').textContent = currentTexts.orderByLabel;
+        // Update IDs and classes related to filter sorting
+        document.getElementById('dct-flt-srt-ctr').placeholder = currentTexts.searchPlaceholder;
+        document.getElementById('dct-clr-src-btn').textContent = currentTexts.clearSearchButton;
+        document.getElementById('dct-rws-lbl').textContent = currentTexts.rowsPerPageLabel;
+        document.getElementById('dct-tgl-flt-btn').textContent = currentTexts.toggleFiltersButton;
+        document.getElementById('dct-apl-stt-btn').textContent = currentTexts.applySettingsButton;
+        document.getElementById('dct-clr-stt-btn').textContent = currentTexts.clearSettingsButton;
+        document.getElementById('dct-adv-src-btn').textContent = currentTexts.advancedSearchButton;
+        document.getElementById('dct-vw-stt-btn').textContent = currentTexts.viewStatisticsButton;
+        document.getElementById('dct-cls-pup-btn').textContent = currentTexts.closeSearchButton;
+        document.getElementById('dct-flt-by-lbl').textContent = currentTexts.filterByLabel;
+        document.getElementById('dct-ord-lbl').textContent = currentTexts.orderByLabel;
 
         // Update the order by options text
-        const orderBySelect = document.getElementById('dict-order-by-select');
+        const orderBySelect = document.getElementById('dct-ord-slt');
         if (orderBySelect) {
             orderBySelect.options[0].textContent = currentTexts.titleAsc;
             orderBySelect.options[1].textContent = currentTexts.titleDesc;
@@ -41,7 +42,7 @@ export async function setTexts(language) {
         }
 
         // Update the filter dropdown options text
-        const filterSelect = document.getElementById('dict-word-filter');
+        const filterSelect = document.getElementById('dct-wrd-flt');
         if (filterSelect) {
             filterSelect.options[0].textContent = currentTexts.searchInWord;
             filterSelect.options[1].textContent = currentTexts.searchInRoot;
@@ -57,9 +58,9 @@ export async function setTexts(language) {
         }
 
         // Update texts for new filters
-        document.getElementById('dict-ignore-diacritics-label').textContent = currentTexts.ignoreDiacritics;
-        document.getElementById('dict-starts-with-label').textContent = currentTexts.startsWith;
-        document.getElementById('dict-ends-with-label').textContent = currentTexts.endsWith;
+        document.getElementById('dct-igr-dct-lbl').textContent = currentTexts.ignoreDiacritics;
+        document.getElementById('dct-str-wth-lbl').textContent = currentTexts.startsWith;
+        document.getElementById('dct-end-wth-lbl').textContent = currentTexts.endsWith;
 
         // Apply other labels as required
         document.getElementById('dict-loading-message-text').textContent = currentTexts.loadingMessage;
@@ -95,4 +96,4 @@ export async function getTranslatedText(key, language, filePath = '/assets/data/
         console.error('Error fetching translated text:', error);
         return key; // Return the key as fallback
     }
-}
+} 
