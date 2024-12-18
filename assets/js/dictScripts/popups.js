@@ -54,7 +54,7 @@ document.querySelector('label[for="dict-ends-with"]').textContent = endsWithText
     document.getElementById('dict-starts-with').checked = pendingChanges.startsWith;
     document.getElementById('dict-ends-with').checked = pendingChanges.endsWith;
 
-    const wordFilterSelect = document.getElementById('dict-word-filter');
+    const wordFilterSelect = document.getElementById('dct-wrd-flt');
     Array.from(wordFilterSelect.options).forEach(option => {
         option.selected = pendingChanges.filters.includes(option.value);
     });
@@ -80,7 +80,7 @@ document.querySelector('label[for="dict-ends-with"]').textContent = endsWithText
         const startsWith = document.getElementById('dict-starts-with')?.checked || false;
         const endsWith = document.getElementById('dict-ends-with')?.checked || false;
 
-        const selectedFilters = Array.from(document.getElementById('dict-word-filter').selectedOptions).map(option => option.value);
+        const selectedFilters = Array.from(document.getElementById('dct-wrd-flt').selectedOptions).map(option => option.value);
 
         pendingChanges.searchTerm = searchTerm;
         pendingChanges.exactMatch = exactMatch;
