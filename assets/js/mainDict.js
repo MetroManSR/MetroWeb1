@@ -168,9 +168,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     const temp = {};
     
-    //click pending changes 
-    boxClickListener(allRows, language, temp);
-
 });
 
 export function updateFilteredRows(i){
