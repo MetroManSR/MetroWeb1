@@ -114,7 +114,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         if (isUrlHandled !== false) {
 
-            await renderBox(isUrlHandled, '', false, {}, rowsPerPage, 1);
+            filteredRows = isUrlHandled;
+
+            await renderBox(allRows, '', false, {}, rowsPerPage, 1);
       
         } else {
         
