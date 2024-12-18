@@ -109,11 +109,42 @@ header {
     display: block !important;
 } 
 
-/* Error Message */
-.dict-error-message {
-    text-align: center;
-    padding: 20px;
-    color: #d9534f;
+.dict-error-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    z-index: 1000;
+    opacity: 0;
+    animation: dict-fadeIn 0.5s forwards, dict-fadeOut 0.5s 4.5s forwards;
+}
+
+@keyframes dict-fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes dict-fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
 }
 
 /* Dictionary Box Styles */
