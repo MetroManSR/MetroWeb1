@@ -168,14 +168,14 @@ export async function createNoMatchBox(language, searchTerm, allRows) {
 
         const suggestionsParagraph = document.createElement('p');
 
-        suggestions.forEach(suggestion => {
+        for (const suggestion of suggestions) {
             const suggestionLink = document.createElement('span');
-            suggestionLink.innerHTML = createHyperlink(suggestion, searchTerm, allRows);
+            suggestionLink.innerHTML = await createHyperlink(suggestion, searchTerm, allRows); // Await the hyperlink creation
             suggestionLink.className = 'dict-suggestion-link';
             suggestionLink.style.marginRight = '10px';
 
             suggestionsParagraph.appendChild(suggestionLink);
-        });
+        }
 
         suggestionsContainer.appendChild(suggestionsParagraph);
         noMatchBox.appendChild(suggestionsContainer);
