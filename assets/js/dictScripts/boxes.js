@@ -155,6 +155,8 @@ export async function createNoMatchBox(language, searchTerm, allRows) {
         .slice(0, 20)
         .map(row => row.title);
 
+    console.log('Suggestions:', suggestions); // Log suggestions for debugging
+
     if (suggestions.length > 0) {
         const suggestionsContainer = document.createElement('div');
         suggestionsContainer.className = 'dict-suggestions-container';
@@ -178,8 +180,25 @@ export async function createNoMatchBox(language, searchTerm, allRows) {
         noMatchBox.appendChild(suggestionsContainer);
     }
 
+    console.log('No Match Box:', noMatchBox); // Log no match box for debugging
+
     return noMatchBox;
 }
+
+// Function to handle the no match case
+async function handleNoMatch(searchTerm, language, allRows) {
+    const noMatchBox = await createNoMatchBox(language, searchTerm, allRows);
+    const container = document.getElementById('search-results');
+    if (container) {
+        container.appendChild(noMatchBox); // Ensure the container exists and append the no match box
+        console.log('Appended No Match Box to the container:', container); // Log for debugging
+    } else {
+        console.error('Container for no match results not found.');
+    }
+}
+
+// Example usage when no match is found
+await handleNoMatch('example search term', 'en', allRows);
 
 // Function to create a loading box
 export function createLoadingBox() {
