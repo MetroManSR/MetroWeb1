@@ -185,21 +185,6 @@ export async function createNoMatchBox(language, searchTerm, allRows) {
     return noMatchBox;
 }
 
-// Function to handle the no match case
-async function handleNoMatch(searchTerm, language, allRows) {
-    const noMatchBox = await createNoMatchBox(language, searchTerm, allRows);
-    const container = document.getElementById('search-results');
-    if (container) {
-        container.appendChild(noMatchBox); // Ensure the container exists and append the no match box
-        console.log('Appended No Match Box to the container:', container); // Log for debugging
-    } else {
-        console.error('Container for no match results not found.');
-    }
-}
-
-// Example usage when no match is found
-await handleNoMatch('example search term', 'en', allRows);
-
 // Function to create a loading box
 export function createLoadingBox() {
     const loadingBox = document.createElement('div');
