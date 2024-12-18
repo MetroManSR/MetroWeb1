@@ -45,7 +45,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    
     const toggleFilterButton = document.getElementById('dict-toggle-filter-button');
     const filterSortingContainer = document.getElementById('dict-filter-sorting-container');
 
@@ -65,7 +65,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     } else {
         console.error('Toggle filter button or filter sorting container not found.');
     }
-});
+
 
     const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
     if (viewStatisticsButton) {
