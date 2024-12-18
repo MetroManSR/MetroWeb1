@@ -1,16 +1,38 @@
 {
     "en": {
         "instTitle": "Usage Instructions",
-        "instContent": "Here are the dictionary usage instructions.",
+        "instContent": "The dictionary has available tons of filters and advanced search togglable options. You can click on a box to get related words with a hyperlink for more information. You can use the tooltip for each box to paste to your clipboard any report you have, whether it is a suggestion or a bug. Use the pagination buttons to go forward or backward in the page set, and you can also input your own page number. To apply the search term you are looking for, just use the apply settings button. While you type a search, the dictionary will give you predictions for what you want to write. Don't worry if you make a typo; the no match box will give you a suggestion list to see what you meant to type.",
         "legTitle": "Dictionary Legend",
-        "legContent": "Here are the legends and explanations of the dictionary terms.",
+        "legContent": "Here are the legends and explanations of the dictionary terms:",
+        "partsOfSpeech": {
+            "Noun (n.)": "A word that identifies a person, place, thing, or idea.",
+            "Verb (v.)": "A word that describes an action, state, or occurrence.",
+            "Adjective (adj.)": "A word that modifies a noun or pronoun.",
+            "Adverb (adv.)": "A word that modifies a verb, adjective, or other adverb.",
+            "Conjunction (conj.)": "A word that connects clauses, sentences, or words.",
+            "Interjection (int.)": "A word that expresses a spontaneous feeling or reaction.",
+            "Preposition (prep.)": "A word that shows the relationship between a noun or pronoun and other words in a sentence.",
+            "Expression (expr.)": "A phrase or sentence that conveys an idea or emotion.",
+            "Pronoun (pron.)": "A word that takes the place of a noun."
+        },
         "close": "Close"
     },
     "es": {
         "instTitle": "Instrucciones de Uso",
-        "instContent": "Aquí están las instrucciones de uso del diccionario.",
+        "instContent": "El diccionario tiene disponibles un montón de filtros y opciones de búsqueda avanzada. Puede hacer clic en una caja para obtener palabras relacionadas con un hipervínculo para más información. Puede usar la herramienta de tooltip en cada caja para copiar en su portapapeles cualquier informe que tenga, ya sea una sugerencia o un error. Use los botones de paginación para avanzar o retroceder en el conjunto de páginas, y también puede ingresar su propio número de página. Para aplicar el término de búsqueda que está buscando, simplemente use el botón de aplicar configuración. Mientras escribe una búsqueda, el diccionario le dará predicciones sobre lo que desea escribir. No se preocupe si comete un error tipográfico; la caja de no coincidencia le dará una lista de sugerencias para ver lo que quiso escribir.",
         "legTitle": "Leyenda del Diccionario",
-        "legContent": "Aquí están las leyendas y explicaciones de los términos del diccionario.",
+        "legContent": "Aquí están las leyendas y explicaciones de los términos del diccionario:",
+        "partsOfSpeech": {
+            "Sustantivo (s.)": "Una palabra que identifica una persona, lugar, cosa o idea.",
+            "Verbo (v.)": "Una palabra que describe una acción, estado o ocurrencia.",
+            "Adjetivo (adj.)": "Una palabra que modifica un sustantivo o pronombre.",
+            "Adverbio (adv.)": "Una palabra que modifica un verbo, adjetivo u otro adverbio.",
+            "Conjunción (conj.)": "Una palabra que conecta cláusulas, oraciones o palabras.",
+            "Interjección (int.)": "Una palabra que expresa un sentimiento o reacción espontánea.",
+            "Preposición (prep.)": "Una palabra que muestra la relación entre un sustantivo o pronombre y otras palabras en una oración.",
+            "Expresión (expr.)": "Una frase u oración que transmite una idea o emoción.",
+            "Pronombre (pron.)": "Una palabra que toma el lugar de un sustantivo."
+        },
         "close": "Cerrar"
     }
 }
