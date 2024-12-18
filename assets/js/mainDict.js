@@ -8,6 +8,7 @@ import { processAllSettings, sortRows, displayPage, wordSpecific, rootSpecific, 
 import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot } from './dictScripts/utils.js';
 import { boxClickListener } from './dictScripts/boxEvents.js';
+import { renderBox } from './dictScripts/boxes.js';
 import { initUrl } from './dictScripts/urlParameters.js';
 
 export let filteredRows;
