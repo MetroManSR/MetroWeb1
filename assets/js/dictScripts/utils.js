@@ -101,7 +101,7 @@ export function createHyperlink(title, searchTerm = '', allRows = []) {
     //console.log('Searching for title:', title);
     const relatedRow = allRows.find(r => {
         const isMatch = r.title.trim().toLowerCase() === title.trim().toLowerCase();
-        console.log('Comparing with row title:', r.title, 'Match:', isMatch);
+        //console.log('Comparing with row title:', r.title, 'Match:', isMatch);
         return isMatch;
     });
     //console.log('Title:', title);
