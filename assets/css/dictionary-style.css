@@ -272,19 +272,17 @@ header {
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
-    max-width: 300px; /* Adjust based on your content */
+    max-width: 80%; /* Adjust to be a percentage of the viewport width */
     position: absolute;
     bottom: 50px; /* Position it above the button */
-    right: 0; 
+    left: 50%; 
+    transform: translateX(-50%) translateY(10px); /* Center horizontally and start slightly below */
     display: none;
     z-index: 750;
     opacity: 0;
-    transition: opacity 0.5s, max-height 0.5s, transform 0.5s;
-    max-height: 0;
+    transition: opacity 0.5s, transform 0.5s;
     overflow: hidden;
-    transform: translateY(10px); /* Start slightly below */
-}
-
+} 
 
 .dictfloating-text.visible {
     display: block;
@@ -310,6 +308,8 @@ header {
     padding: 20px;
     z-index: 1000; /* Ensure it appears above the overlay */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional box shadow for a raised effect */
+    overflow-y: auto;
+    max-height: 75%;
 }
 
 /* Related Words Scrollable Box */
