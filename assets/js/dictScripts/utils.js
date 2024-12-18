@@ -191,13 +191,15 @@ export function displayError(message) {
     }
 
     // Set the error message
-    errorContainer.textContent = message;
+    errorContainer.textContent += message;
+
+    // Show the error container
     errorContainer.classList.remove('hidden');
 
-    // Remove the error container after a few seconds
+    // Hide the error container after a few seconds
     setTimeout(() => {
         errorContainer.classList.add('hidden');
-    }, 5000);
+    }, 3000);
 }
 
 // Example usage
