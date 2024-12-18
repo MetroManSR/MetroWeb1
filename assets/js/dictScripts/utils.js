@@ -190,8 +190,11 @@ export function displayError(message) {
         return;
     }
 
+    // Summarize the error message
+    const summary = summarizeError(message);
+
     // Set the error message
-    errorContainer.textContent += message;
+    errorContainer.textContent = summary;
 
     // Show the error container
     errorContainer.classList.remove('hidden');
@@ -202,5 +205,13 @@ export function displayError(message) {
     }, 3000);
 }
 
+// Function to summarize the error message
+function summarizeError(message) {
+    if (message.length > 100) {
+        return message.substring(0, 97) + '...';
+    }
+    return message;
+}
+
 // Example usage
-// displayError('An error occurred while processing your request.');
+// displayError('An error occurred while processing your request. Please try again later.');
