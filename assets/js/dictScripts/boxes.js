@@ -136,8 +136,6 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     return box;
 }
 
-import { createHyperlink } from './utils.js'; // Adjust the import path as needed
-
 // Function to create a no match box with suggestions
 export async function createNoMatchBox(language, searchTerm, allRows) {
     const noMatchBox = document.createElement('div');
