@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             renderBox(isUrlHandled, '', false, {}, rowsPerPage, 1);
       
-        else {
+        } else {
         
           displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, allRows);
 
