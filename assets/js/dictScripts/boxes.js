@@ -35,6 +35,8 @@ function getPartOfSpeechAbbreviation(partOfSpeech, language) {
     return posAbbreviations[language][partOfSpeech.toLowerCase()] || partOfSpeech;
 }
 
+import { createHyperlink } from './utils.js'; // Adjust the import path as needed
+
 // Function to create a dictionary box
 export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, searchIn) {
     if (!row || !row.title) {
@@ -55,49 +57,46 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
 
     const wordElement = document.createElement('div');
     wordElement.classList.add('dictionary-box-title');
-    wordElement.innerHTML = highlight(row.title + (row.type !== 'root' ? ` (${partOfSpeechAbbr})` : ''), searchTerm, searchIn, row);
+    wordElement.innerHTML = await highlight(row.title + (row.type !== 'root' ? ` (${partOfSpeechAbbr})` : ''), searchTerm, searchIn, row);
 
     const hrElement = document.createElement('hr');
 
     const metaElement = document.createElement('div');
     metaElement.classList.add('dictionary-box-meta');
-    metaElement.innerHTML = highlight(row.meta, searchTerm, searchIn, row);
+    metaElement.innerHTML = await highlight(row.meta, searchTerm, searchIn, row);
 
     const contentBox = document.createElement('div');
     contentBox.classList.add('dictionary-box-content');
 
     const notesElement = document.createElement('div');
     notesElement.classList.add('dictionary-box-notes');
-    
+
     const morphElement = document.createElement('div');
     morphElement.classList.add('dictionary-box-morph');
-    
+
     // Display morphology for words and etymology for roots
     if (row.type === 'root') {
-        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn, row)}`;
-        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn, row)}`;
-        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${highlight(row.morph.join(', ') || '', searchTerm, searchIn, row)}`;        
+        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${await highlight(row.meta, searchTerm, searchIn, row)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${await highlight(row.notes || '', searchTerm, searchIn, row)}`;
+        morphElement.innerHTML = `<strong>${await getTranslatedText('etymology', language)}:</strong> ${await highlight(row.morph.join(', ') || '', searchTerm, searchIn, row)}`;
         contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
         contentBox.appendChild(morphElement);
- 
     } else {
-        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${highlight(row.meta, searchTerm, searchIn, row)}`;
-        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${highlight(row.notes || '', searchTerm, searchIn, row)}`;
+        metaElement.innerHTML = `<strong>${await getTranslatedText('translation', language)}:</strong> ${await highlight(row.meta, searchTerm, searchIn, row)}`;
+        notesElement.innerHTML = `<strong>${await getTranslatedText('notes', language)}:</strong> ${await highlight(row.notes || '', searchTerm, searchIn, row)}`;
         contentBox.appendChild(metaElement);
         contentBox.appendChild(notesElement);
 
         if (Array.isArray(row.morph) && row.morph.length > 0) {
             morphElement.innerHTML = `<strong>${await getTranslatedText('morphology', language)}:</strong> `;
-            row.morph.forEach((morphTitle, index) => {
+            const morphLinks = await Promise.all(row.morph.map(async (morphTitle, index) => {
                 const matchingRoot = allRows.find(r => r.meta.toLowerCase() === morphTitle.toLowerCase() && r.type === 'root');
-                morphElement.innerHTML += matchingRoot 
-                    ? createHyperlink(morphTitle, searchTerm, allRows, searchIn) 
-                    : highlight(morphTitle, searchTerm, searchIn, row);
-                if (index < row.morph.length - 1) {
-                    morphElement.innerHTML += ', ';
-                }
-            });
+                return matchingRoot 
+                    ? await createHyperlink(morphTitle, searchTerm, allRows, searchIn) 
+                    : await highlight(morphTitle, searchTerm, searchIn, row);
+            }));
+            morphElement.innerHTML += morphLinks.join(', ');
             contentBox.appendChild(morphElement);
         }
     }
@@ -130,7 +129,7 @@ export async function createDictionaryBox(row, allRows, searchTerm, exactMatch, 
     morphElement.style.paddingBottom = '30px'; // Adjust padding to avoid ID box
 
     await loadInfoBox(box, row);
-    
+
     // Add fade-in effect
     setTimeout(() => {
         box.classList.add('fade-in');
