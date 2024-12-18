@@ -36,45 +36,43 @@ layout: default
       <div id="dict-pending-changes" class="dict-pending-changes"></div>
 
 <!-- Filter Sorting Container -->
-<div id="dct-flt-srt" class="dct-flt-ctr hidden">
+<div id="dct-flt-srt-ctr" class="dct-flt-srt-ctr hidden">
     <div class="dct-pag-ctr">
         <label id="dct-rws-lbl" for="dct-rws-inp">Rows per page:</label>
-        <input type="number" id="dct-rws-inp" value="20" min="5" max="500" class="dct-rws-inp" />
-        <button id="dct-rws-btn" class="dct-rws-btn dct-flt-btn">Submit</button>
+        <input type="number" id="dct-rws-inp" value="20" min="5" max="500" class="dct-inp" />
     </div>
-    <div id="dct-flt-drp">
-        <label id="dct-flt-lbl" for="dct-wrd-flt">Filter by:</label>
-        <select id="dct-wrd-flt" multiple class="dct-flt-sel">
+    <div id="dct-flt-drp-ctr">
+        <label id="dct-flt-by-lbl" for="dct-wrd-flt">Filter by:</label>
+        <select id="dct-wrd-flt" multiple class="dct-slt">
             <option value="word">Word</option>
             <option value="root">Root</option>
             <option value="noun">Noun</option>
             <option value="verb">Verb</option>
-            <option value="adj">Adjective</option>
-            <option value="adv">Adverb</option>
-            <option value="conj">Conjunction</option>
-            <option value="int">Interjection</option>
-            <option value="prep">Preposition</option>
-            <option value="exp">Expression</option>
-            <option value="pro">Pronoun</option>
+            <option value="adjective">Adjective</option>
+            <option value="adverb">Adverb</option>
+            <option value="conjunction">Conjunction</option>
+            <option value="interjection">Interjection</option>
+            <option value="preposition">Preposition</option>
+            <option value="expression">Expression</option>
+            <option value="pronoun">Pronoun</option>
         </select>
     </div>
     <div class="dct-srt-ctr">
-        <label for="dct-ord-sel" id="dct-ord-lbl">Order By:</label>
-        <select id="dct-ord-sel" class="dct-ord-sel">
-            <option value="ttlup">Title (Ascending)</option>
-            <option value="ttldn">Title (Descending)</option>
-            <option value="metup">Meta (Ascending)</option>
-            <option value="metdn">Meta (Descending)</option>
-            <option value="morup">Morphology (Ascending)</option>
-            <option value="mordn">Morphology (Descending)</option>
+        <label for="dct-ord-slt" id="dct-ord-lbl">Order By:</label>
+        <select id="dct-ord-slt" class="dct-slt">
+            <option value="titleup">Title (Ascending)</option>
+            <option value="titledown">Title (Descending)</option>
+            <option value="metaup">Meta (Ascending)</option>
+            <option value="metadown">Meta (Descending)</option>
+            <option value="morphup">Morphology (Ascending)</option>
+            <option value="morphdown">Morphology (Descending)</option>
         </select>
     </div>
 </div>
 
-<!-- Toggle Button -->
-<button id="dct-tgl-flt-btn" class="dct-tgl-flt-btn dct-flt-btn">Toggle Filters</button>
       <div class="dict-buttons">
-        <button id="dict-toggle-filter-button" class="dict-toggle-filter-button dict-filter-button">Toggle Filters</button>
+        <!-- Toggle Button -->
+        <button id="dct-tgl-flt-btn" class="dct-tgl-flt-btn dct-flt-btn">Toggle Filters</button>
         <button id="dict-apply-settings-button" class="dict-apply-settings-button dict-filter-button">Apply Settings</button>
         <button id="dict-clear-settings-button" class="dict-clear-settings-button dict-filter-button btn-danger">Clear Settings</button>
       </div>
