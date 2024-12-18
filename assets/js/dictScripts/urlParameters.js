@@ -28,7 +28,7 @@ export async function initUrl(allRows, rowsPerPage, displayPage, currentPage, cu
             const wordEntry = allRows.find(row => row.id === parseInt(wordID) && row.type === 'word');
             if (wordEntry) {
                 console.log('Displaying word entry:', wordEntry);
-                await renderBox([wordEntry], '', false, {}, rowsPerPage, 1); // Render single box
+                //await renderBox([wordEntry], '', false, {}, rowsPerPage, 1); // Render single box
                 return [wordEntry]; // Return the word entry as an array
             } else {
                 console.warn(`Word entry not found for ID: ${wordID}`);
@@ -38,7 +38,7 @@ export async function initUrl(allRows, rowsPerPage, displayPage, currentPage, cu
             const rootEntry = allRows.find(row => row.id === parseInt(rootID) && row.type === 'root');
             if (rootEntry) {
                 console.log('Displaying root entry:', rootEntry);
-                await renderBox([rootEntry], '', false, {}, rowsPerPage, 1); // Render single box
+                //await renderBox([rootEntry], '', false, {}, rowsPerPage, 1); // Render single box
                 return [rootEntry]; // Return the root entry as an array
             } else {
                 console.warn(`Root entry not found for ID: ${rootID}`);
