@@ -55,10 +55,17 @@ export async function loadInfoBox(box, row) {
     box.appendChild(iconContainer);
 }
 
+/**
+ * Event listener for clicks on dictionary boxes.
+ *
+ * @param {Array} allRows - Array containing all dictionary rows.
+ * @param {string} language - Language for translation.
+ * @param {Object} pendingChanges - Object containing pending changes.
+ */
 export async function boxClickListener(allRows, language, pendingChanges) {
     // Ensure pendingChanges is initialized
-    if (!pendingChanges || pendingChanges.length === 0) {
-        pendingChanges = universalPendingChanges ?? defaultPendingChanges;
+    if (!pendingChanges || Object.keys(pendingChanges).length === 0) {
+        pendingChanges = universalPendingChanges || defaultPendingChanges;
     }
 
     // Set searchTerm if not present
@@ -138,27 +145,6 @@ export async function boxClickListener(allRows, language, pendingChanges) {
             } else {
                 relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
-
-            if (row.morph && row.morph.length > 1) {
-                console.log('Morph length is greater than 1:', row.morph); // Debugging
-                const rootButtonsElement = document.createElement('div');
-                rootButtonsElement.className = 'root-buttons';
-                for (const root of row.morph) {
-                    console.log('Creating button for root:', root); // Debugging
-                    const rootButton = document.createElement('button');
-                    rootButton.innerText = root;
-                    rootButton.addEventListener('click', async () => {
-                        console.log('Clicked root button:', root); // Debugging
-                        const rootRelatedWords = await Promise.all(allRows.filter(r => r.root === root && r.title.toLowerCase() !== row.title.toLowerCase())
-                            .map(async (r) => `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`));
-
-                        relatedWordsLabel = await getTranslatedText('relatedWords', language);
-                        relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${rootRelatedWords.join(', ')}`;
-                    });
-                    rootButtonsElement.appendChild(rootButton);
-                }
-                relatedWordsElement.appendChild(rootButtonsElement);
-            }
         } else {
             relatedWordsLabel = await getTranslatedText('relatedWords', language);
             const relatedWords = row.related || [];
@@ -174,6 +160,29 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                     }));
 
                 relatedWordsElement.innerHTML = `<strong>${relatedWordsHtml.length} ${relatedWordsLabel}:</strong> ${relatedWordsHtml.join(', ')}`;
+
+                // Add buttons for each morph if more than one
+                if (row.morph && row.morph.length > 1) {
+                    console.log('Morph length is greater than 1:', row.morph); // Debugging
+                    const morphButtonsElement = document.createElement('div');
+                    morphButtonsElement.className = 'morph-buttons';
+                    for (const morph of row.morph) {
+                        console.log('Creating button for morph:', morph); // Debugging
+                        const morphButton = document.createElement('button');
+                        morphButton.innerText = morph;
+                        morphButton.addEventListener('click', async () => {
+                            console.log('Clicked morph button:', morph); // Debugging
+                            const morphRelatedWords = await Promise.all(allRows.filter(r => r.root === morph && r.title.toLowerCase() !== row.title.toLowerCase())
+                                .map(async (r) => `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`));
+
+                            relatedWordsLabel = await getTranslatedText('relatedWords', language);
+                            relatedWordsElement.innerHTML = `<strong>${morphRelatedWords.length} ${relatedWordsLabel}:</strong> ${morphRelatedWords.join(', ')}`;
+                        });
+                        morphButtonsElement.appendChild(morphButton);
+                    }
+                    relatedWordsElement.appendChild(morphButtonsElement);
+                }
+
             } else {
                 relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
