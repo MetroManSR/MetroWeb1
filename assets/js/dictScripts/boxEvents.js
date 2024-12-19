@@ -71,7 +71,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
     // Set searchTerm if not present
     pendingChanges.searchTerm = pendingChanges.searchTerm || '';
 
-    console.log('Initializing Box Click Event Listener');
+    //console.log('Initializing Box Click Event Listener');
 
     async function handleClickEvent(e) {
         const now = Date.now();
@@ -139,7 +139,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         const relatedWord = typeof dw === 'string' ? allRows.find(r => r.title.trim().toLowerCase() === dw.trim().toLowerCase()) : dw;
 
                         // Log for debugging
-                        console.log('Derivative word:', dw, 'Related word:', relatedWord);
+                        //console.log('Derivative word:', dw, 'Related word:', relatedWord);
 
                         // Return just the hyperlinked text
                         return relatedWord ? await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows) : dw;
@@ -154,7 +154,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
             const relatedWords = row.related || [];
 
             if (relatedWords.length > 0) {
-                console.log('Related Words:', relatedWords); // Debugging
+                //console.log('Related Words:', relatedWords); // Debugging
 
                 // Create arrays for each morph
                 const morphArrays = row.morph.reduce((acc, morph) => {
@@ -202,14 +202,14 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                     morphButtonsElement.className = 'morph-buttons dict-buttons'; // Add the dict-buttons class
 
                     for (const morph of row.morph) {
-                        console.log('Creating button for morph:', morph); // Debugging
+                        //console.log('Creating button for morph:', morph); // Debugging
                         const morphButton = document.createElement('button');
                         morphButton.innerText = morph;
                         morphButton.classList.add('dict-buttons'); // Add the dict-buttons class
                         morphButton.style.display = 'inline-block'; // Ensure buttons are displayed inline
                         morphButton.addEventListener('click', async (event) => {
                             event.stopPropagation();
-                            console.log('Clicked morph button:', morph); // Debugging
+                           // console.log('Clicked morph button:', morph); // Debugging
                             const morphRelatedWords = await Promise.all(morphArrays[morph].map(async (r) => {
                                 return await createHyperlink(r.title, pendingChanges.searchTerm, allRows);
                             }));
