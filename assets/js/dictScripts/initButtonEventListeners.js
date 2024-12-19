@@ -23,9 +23,11 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
 
     await initializeFormEventListeners(allRows, rowsPerPage);
 
+    pendingChanges = universalPendingChanges;
+    
     await updatePendingChangesList(language);
 
-    const orderBySelect = document.getElementById('dct-ordslt');
+    const orderBySelect = document.getElementById('dct-ord-slt');
     if (orderBySelect) {
         orderBySelect.addEventListener('change', () => {
             pendingChanges.sortOrder = orderBySelect.value;
@@ -58,7 +60,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
                 const url = new URL(window.location);
                 url.search = ''; // Remove all query parameters
                 window.history.pushState({}, '', url.toString());
-                await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
+                await processAllSettings(allRows, universalPendingChanges.rowsPerPage, currentPage, universalPendingChanges.sortOrder);
         });
     }
 
