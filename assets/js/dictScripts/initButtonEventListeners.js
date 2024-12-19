@@ -9,7 +9,7 @@ import { initUrl } from './urlParameters.js';
 
 export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder) {
 
-    console.log('Initializing Button Event Listeners');
+    //console.log('Initializing Button Event Listeners');
     
     const language = document.querySelector('meta[name="language"]').content || 'en';
     let currentPage = 1;
@@ -29,10 +29,10 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
 
     const orderBySelect = document.getElementById('dct-ord-slt');
     if (orderBySelect) {
-        orderBySelect.addEventListener('change', () => {
+        orderBySelect.addEventListener('change', async () => {
             pendingChanges.sortOrder = orderBySelect.value;
             updateUniversalPendingChanges(pendingChanges);
-            updatePendingChangesList(language);
+            await updatePendingChangesList(language);
         });
     }
 
@@ -40,10 +40,10 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
 
     const filterSelect = document.getElementById('dct-wrd-flt');
     if (filterSelect) {
-        filterSelect.addEventListener('change', () => {
+        filterSelect.addEventListener('change', async () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
             updateUniversalPendingChanges(pendingChanges);
-            updatePendingChangesList(language);
+            await updatePendingChangesList(language);
         });
     }
 
@@ -92,8 +92,11 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
             Array.from(wordFilterSelect.options).forEach(option => {
                 option.selected = false;
             });
+            // Reset sort order
+            document.getElementById('dct-ord-slt').selectedIndex = 0; // Set default sort order
+            
             updateUniversalPendingChanges(pendingChanges);
-            updatePendingChangesList(language);
+            await updatePendingChangesList(language);
             await processAllSettings(allRows, pendingChanges.rowsPerPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
@@ -106,7 +109,7 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
             pendingChanges.searchTerm = '';
             document.getElementById('dict-search-input').value = '';
             updateUniversalPendingChanges(pendingChanges);
-            updatePendingChangesList(language);
+            await updatePendingChangesList(language);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
@@ -141,69 +144,67 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
     }
 
     // Info Button Event Listener
-const infoButton = document.getElementById('dict-info-button');
-const infoPopup = document.getElementById('dict-info-popup');
-const infoPopupOverlay = document.getElementById('popup-overlay');
-const closeInfoButton = document.getElementById('dict-close-info-button');
-const instructionsTitle = document.getElementById('instructions-title');
-const instructionsContent = document.getElementById('instructions-content');
-const legendTitle = document.getElementById('legend-title');
-const legendContent = document.getElementById('legend-content');
+    const infoButton = document.getElementById('dict-info-button');
+    const infoPopup = document.getElementById('dict-info-popup');
+    const infoPopupOverlay = document.getElementById('popup-overlay');
+    const closeInfoButton = document.getElementById('dict-close-info-button');
+    const instructionsTitle = document.getElementById('instructions-title');
+    const instructionsContent = document.getElementById('instructions-content');
+    const legendTitle = document.getElementById('legend-title');
+    const legendContent = document.getElementById('legend-content');
 
-const instructionsFilePath = '/assets/data/instructions.json'; // Path to the JSON file
+    const instructionsFilePath = '/assets/data/instructions.json'; // Path to the JSON file
 
-async function fetchInstructions(filePath) {
-    const response = await fetch(filePath);
-    const data = await response.json();
-    return data;
-}
-
-async function setInfoContent(language, filePath) {
-    const data = await fetchInstructions(filePath);
-
-    const instructions = data[language];
-    if (instructions) {
-        instructionsTitle.textContent = instructions.instTitle;
-        instructionsContent.innerHTML = instructions.instContent;
-
-        legendTitle.textContent = instructions.legTitle;
-        legendContent.innerHTML = instructions.legContent + '<br><ul>';
-
-        for (const part in instructions.partsOfSpeech) {
-            legendContent.innerHTML += `<li><strong>${part}:</strong> ${instructions.partsOfSpeech[part]}</li>`;
-        }
-        legendContent.innerHTML += '</ul>';
-
-        closeInfoButton.textContent = instructions.close;
-    } else {
-        console.error('Language not supported in the instructions file');
+    async function fetchInstructions(filePath) {
+        const response = await fetch(filePath);
+        const data = await response.json();
+        return data;
     }
-}
 
-if (infoButton && infoPopup && infoPopupOverlay && closeInfoButton && instructionsTitle && instructionsContent && legendTitle && legendContent) {
-    infoButton.addEventListener('click', async () => {
-        await setInfoContent(document.documentElement.lang || 'en', instructionsFilePath); // Use the document language or default to 'en'
-        infoPopup.classList.remove('hidden');
-        infoPopup.classList.add('active');
-        infoPopupOverlay.classList.remove('hidden');
-        infoPopupOverlay.classList.add('active');
-        closeInfoButton.classList.remove('hidden');
-        closeInfoButton.classList.add('active');
-    });
+    async function setInfoContent(language, filePath) {
+        const data = await fetchInstructions(filePath);
 
-    closeInfoButton.addEventListener('click', () => {
-        infoPopup.classList.add('hidden');
-        infoPopup.classList.remove('active');
-        infoPopupOverlay.classList.add('hidden');
-        infoPopupOverlay.classList.remove('active');
-        closeInfoButton.classList.add('hidden');
-        closeInfoButton.classList.remove('active');
-    });
-} else {
-    console.error('Info popup elements not found');
-}
+        const instructions = data[language];
+        if (instructions) {
+            instructionsTitle.textContent = instructions.instTitle;
+            instructionsContent.innerHTML = instructions.instContent;
 
-console.log('Button Event Listeners initialized'); 
-    
-    console.log('Button Event Listeners initialized');
+            legendTitle.textContent = instructions.legTitle;
+            legendContent.innerHTML = instructions.legContent + '<br><ul>';
+
+            for (const part in instructions.partsOfSpeech) {
+                legendContent.innerHTML += `<li><strong>${part}:</strong> ${instructions.partsOfSpeech[part]}</li>`;
+            }
+            legendContent.innerHTML += '</ul>';
+
+            closeInfoButton.textContent = instructions.close;
+        } else {
+            console.error('Language not supported in the instructions file');
+        }
+    }
+
+    if (infoButton && infoPopup && infoPopupOverlay && closeInfoButton && instructionsTitle && instructionsContent && legendTitle && legendContent) {
+        infoButton.addEventListener('click', async () => {
+            await setInfoContent(document.documentElement.lang || 'en', instructionsFilePath); // Use the document language or default to 'en'
+            infoPopup.classList.remove('hidden');
+            infoPopup.classList.add('active');
+            infoPopupOverlay.classList.remove('hidden');
+            infoPopupOverlay.classList.add('active');
+            closeInfoButton.classList.remove('hidden');
+            closeInfoButton.classList.add('active');
+        });
+
+        closeInfoButton.addEventListener('click', () => {
+            infoPopup.classList.add('hidden');
+            infoPopup.classList.remove('active');
+            infoPopupOverlay.classList.add('hidden');
+            infoPopupOverlay.classList.remove('active');
+            closeInfoButton.classList.add('hidden');
+            closeInfoButton.classList.remove('active');
+        });
+    } else {
+        console.error('Info popup elements not found');
+    }
+
+   // console.log('Button Event Listeners initialized'); 
 }
