@@ -92,7 +92,7 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
     console.log('Universal PendingChanges I: ', universalPendingChanges);
 
     const language = document.querySelector('meta[name="language"]').content || 'en';
-    const filterSelect = document.getElementById('dict-word-filter');
+    const filterSelect = document.getElementById('dct-wrd-flter');
     let currentPage = 1;
 
     if (filterSelect) {
@@ -100,9 +100,14 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
             universalPendingChanges = pendingChanges;
             updatePendingChangesList(language);
+            predictionBox.classList.remove("active");
+            predictionBox.classList.add("hidden");
             currentPage = 1;
        });
     }
+
+    predictionBox.classList.remove("hidden");
+            predictionBox.classList.add("active");
 
     const searchInput = document.getElementById('dict-search-input');
     const predictionBox = document.getElementById('dict-search-predictions');
