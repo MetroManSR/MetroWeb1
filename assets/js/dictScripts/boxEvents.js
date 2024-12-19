@@ -158,19 +158,32 @@ export async function boxClickListener(allRows, language, pendingChanges) {
 
                 // Create arrays for each morph
                 const morphArrays = row.morph.reduce((acc, morph) => {
-                    acc[morph] = relatedWords.filter(rw => {
-                        const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === rw.trim().toLowerCase());
-                        return relatedWord && relatedWord.root === morph;
-                    });
+                    acc[morph] = [];
                     return acc;
                 }, {});
 
-                // Join arrays for the general overview
-                const generalOverviewArray = Object.values(morphArrays).flat();
+                // Classify related words into respective morphs
+                for (const relatedWord of relatedWords) {
+                    const word = allRows.find(r => r.title.trim().toLowerCase() === relatedWord.trim().toLowerCase());
+                    if (word) {
+                        for (const morph of word.morph) {
+                            if (morphArrays[morph]) {
+                                morphArrays[morph].push(word);
+                            }
+                        }
+                    }
+                }
 
-                const generalOverviewHtml = await Promise.all(generalOverviewArray.map(async (title) => {
-                    const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === title.trim().toLowerCase());
-                    return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : title;
+                // Join arrays for the general overview and remove duplicates
+                const generalOverviewArray = Object.values(morphArrays).flat().reduce((acc, word) => {
+                    if (!acc.find(w => w.id === word.id)) {
+                        acc.push(word);
+                    }
+                    return acc;
+                }, []);
+
+                const generalOverviewHtml = await Promise.all(generalOverviewArray.map(async (r) => {
+                    return `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`;
                 }));
 
                 const generalOverviewContainer = document.createElement('div');
@@ -195,9 +208,8 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         morphButton.addEventListener('click', async (event) => {
                             event.stopPropagation();
                             console.log('Clicked morph button:', morph); // Debugging
-                            const morphRelatedWords = await Promise.all(morphArrays[morph].map(async (title) => {
-                                const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === title.trim().toLowerCase());
-                                return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : title;
+                            const morphRelatedWords = await Promise.all(morphArrays[morph].map(async (r) => {
+                                return `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`;
                             }));
 
                             const morphRelatedWordsElement = document.createElement('div');
