@@ -29,14 +29,14 @@ export async function loadInfoBox(box, row) {
     suggestionIcon.title = 'Suggestion';
 
     // Add event listeners
-    warningIcon.addEventListener('click', async () => {
-        const message = `${await getTranslatedText('bugCopyPaste01')}${row.title} [${row.id}]${await getTranslatedText('bugCopyPaste02')}`;
+    warningIcon.addEventListener('click', () => {
+        const message = `${getTranslatedText('bugCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('bugCopyPaste02')}`;
         copyToClipboard(message);
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
     });
 
-    suggestionIcon.addEventListener('click', async () => {
-        const message = `${await getTranslatedText('ideaCopyPaste01')}${row.title} [${row.id}]${await getTranslatedText('ideaCopyPaste02')}`;
+    suggestionIcon.addEventListener('click', () => {
+        const message = `${getTranslatedText('ideaCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('ideaCopyPaste02')}`;
         copyToClipboard(message);
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
     });
@@ -90,17 +90,16 @@ export async function boxClickListener(allRows, language, pendingChanges) {
         const box = target.closest('.dictionary-box');
         if (!box) return;
 
-        // Extract the type and row ID from the box's ID attribute
-        const [type, id] = box.id.split('-');
-        const rowId = parseInt(id, 10);
-        const row = allRows.find(r => r.id === rowId && r.type === type);
-
-        if (!row) {
-            console.error(`Row with id ${rowId} and type ${type} not found.`);
+        // Ensure the previous related words section is removed
+        if (previouslySelectedBox && previouslySelectedBox === box) {
+            previouslySelectedBox.classList.remove('selected-word', 'selected-root');
+            const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
+            if (previousRelatedWords) {
+                previouslySelectedBox.removeChild(previousRelatedWords);
+            }
+            previouslySelectedBox = null;
             return;
-        }
-
-        if (previouslySelectedBox) {
+        } else if (previouslySelectedBox) {
             previouslySelectedBox.classList.remove('selected-word', 'selected-root');
             const previousRelatedWords = previouslySelectedBox.querySelector('.related-words');
             if (previousRelatedWords) {
@@ -108,8 +107,13 @@ export async function boxClickListener(allRows, language, pendingChanges) {
             }
         }
 
-        if (box === previouslySelectedBox) {
-            previouslySelectedBox = null;
+        // Extract the type and row ID from the box's ID attribute
+        const [type, id] = box.id.split('-');
+        const rowId = parseInt(id, 10);
+        const row = allRows.find(r => r.id === rowId && r.type === type);
+
+        if (!row) {
+            console.error(`Row with id ${rowId} and type ${type} not found.`);
             return;
         }
 
@@ -151,14 +155,28 @@ export async function boxClickListener(allRows, language, pendingChanges) {
 
             if (relatedWords.length > 0) {
                 console.log('Related Words:', relatedWords); // Debugging
-                const relatedWordsHtml = await Promise.all(relatedWords
-                    .filter(rw => rw.toLowerCase() !== row.title.toLowerCase())
-                    .map(async (rw) => {
-                        const relatedWord = typeof rw === 'string' ? allRows.find(r => r.title.trim().toLowerCase() === rw.trim().toLowerCase()) : rw;
-                        return relatedWord ? `${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : rw;
-                    }));
 
-                relatedWordsElement.innerHTML = `<strong>${relatedWordsHtml.length} ${relatedWordsLabel}:</strong> ${relatedWordsHtml.join(', ')}`;
+                // Create arrays for each morph
+                const morphArrays = row.morph.reduce((acc, morph) => {
+                    acc[morph] = allRows.filter(r => r.root === morph && r.title.toLowerCase() !== row.title.toLowerCase());
+                    return acc;
+                }, {});
+
+                // Join arrays for the general overview
+                const generalOverviewArray = Object.values(morphArrays).flat();
+
+                const generalOverviewHtml = await Promise.all(generalOverviewArray.map(async (r) => {
+                    return `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`;
+                }));
+
+                const generalOverviewContainer = document.createElement('div');
+                generalOverviewContainer.innerHTML = `<strong>${generalOverviewHtml.length} ${relatedWordsLabel}:</strong> ${generalOverviewHtml.join(', ')}`;
+
+                if (generalOverviewContainer.scrollHeight > 3 * parseFloat(getComputedStyle(generalOverviewContainer).lineHeight)) {
+                    generalOverviewContainer.classList.add('scrollable-box');
+                }
+
+                relatedWordsElement.appendChild(generalOverviewContainer);
 
                 // Add buttons for each morph if more than one
                 if (row.morph && row.morph.length > 1) {
@@ -173,18 +191,18 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         morphButton.addEventListener('click', async (event) => {
                             event.stopPropagation();
                             console.log('Clicked morph button:', morph); // Debugging
-                            const morphRelatedWords = await Promise.all(allRows.filter(r => r.root === morph && r.title.toLowerCase() !== row.title.toLowerCase())
-                                .map(async (r) => `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`));
+                            const morphRelatedWords = await Promise.all(morphArrays[morph].map(async (r) => {
+                                return `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`;
+                            }));
 
-                            relatedWordsLabel = await getTranslatedText('relatedWords', language);
                             const morphRelatedWordsElement = document.createElement('div');
                             morphRelatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${morphRelatedWords.join(', ')}`;
-                            morphRelatedWordsElement.classList.add('scrollable-box'); // Apply scrollable box style if needed
 
                             if (morphRelatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(morphRelatedWordsElement).lineHeight)) {
                                 morphRelatedWordsElement.classList.add('scrollable-box');
                             }
 
+                            // Ensure buttons are not removed when specific morph related words are displayed
                             relatedWordsElement.innerHTML = '';
                             relatedWordsElement.appendChild(morphButtonsElement); // Re-add buttons to keep them visible
                             relatedWordsElement.appendChild(morphRelatedWordsElement);
@@ -197,10 +215,6 @@ export async function boxClickListener(allRows, language, pendingChanges) {
             } else {
                 relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
-        }
-
-        if (relatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(relatedWordsElement).lineHeight)) {
-            relatedWordsElement.classList.add('scrollable-box');
         }
 
         box.appendChild(relatedWordsElement);
