@@ -190,7 +190,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                 }));
 
                 const generalOverviewContainer = document.createElement('div');
-                generalOverviewContainer.innerHTML = `<strong>${generalOverviewHtml.length} ${relatedWordsLabel} (${generalOverviewHtml.length}):</strong> ${generalOverviewHtml.join(', ')}`;
+                generalOverviewContainer.innerHTML = `<strong>${relatedWordsLabel} (${generalOverviewHtml.length}):</strong> ${generalOverviewHtml.join(', ')}`;
 
                 if (generalOverviewContainer.childElementCount > 15) {
                     generalOverviewContainer.classList.add('scrollable-box');
@@ -208,7 +208,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         //console.log('Creating button for morph:', morph); // Debugging
                         const morphButton = document.createElement('button');
                         morphButton.innerText = morph;
-                        morphButton.classList.add('dict-buttons'); // Add the dict-buttons class
+                        morphButton.classList.add('btn'); // Add the dict-buttons class
                         morphButton.style.display = 'inline-block'; // Ensure buttons are displayed inline
                         morphButton.addEventListener('click', async (event) => {
                             event.stopPropagation();
