@@ -238,6 +238,13 @@ export async function updateFloatingText(searchTerm, filters, advancedSearchPara
 }
 
 export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage = 1) {
+
+    if (universalPendingChanges) {
+
+        rowsPerPage = universalPendingChanges.rowsPerPage;
+
+   } 
+    
     initializeFloatingText();
     
     console.log(`RenderBox called with currentPage: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
