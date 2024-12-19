@@ -247,21 +247,21 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
     
     initializeFloatingText();
     
-    console.log(`RenderBox called with currentPage: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
+    //onsole.log(`RenderBox called with currentPage: ${currentPage}, rowsPerPage: ${rowsPerPage}`);
 
     const dictionaryContainer = document.getElementById('dict-dictionary');
     dictionaryContainer.innerHTML = ''; // Clear previous entries
 
     const language = document.querySelector('meta[name="language"]').content || 'en';
 
-    console.log(rowsPerPage) 
+    //console.log(rowsPerPage) 
     
     // Render the right amount of loading boxes with unique IDs
     const start = (currentPage - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     const rowsToDisplay = filteredRows.slice(start, end);
 
-    console.log(`Rows to display: ${rowsToDisplay.length}, Start: ${start}, End: ${end}`);
+    //console.log(`Rows to display: ${rowsToDisplay.length}, Start: ${start}, End: ${end}`);
 
     // Create a map to associate loading boxes with rows based on type and IDs
     const loadingBoxesMap = new Map();
@@ -271,7 +271,7 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
         loadingBox.id = `loading-box-${uniqueId}`;
         dictionaryContainer.appendChild(loadingBox);
         loadingBoxesMap.set(uniqueId, loadingBox);
-        console.log(`Appended loading box with ID: ${loadingBox.id}`);
+        //console.log(`Appended loading box with ID: ${loadingBox.id}`);
     });
 
     if (filteredRows.length === 0) {
@@ -288,7 +288,7 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
         const uniqueId = `${row.type}-${row.id}`;
         const loadingBox = loadingBoxesMap.get(uniqueId);
         if (loadingBox && box) {
-            console.log(`Replacing loading box with ID: ${uniqueId}`);
+            //console.log(`Replacing loading box with ID: ${uniqueId}`);
             dictionaryContainer.replaceChild(box, loadingBox);
             loadingBoxesMap.delete(uniqueId); // Remove the entry from the map as it's been used
         } else {
@@ -299,7 +299,7 @@ export async function renderBox(allRows, searchTerm, exactMatch, searchIn, rowsP
     // Cleanup unused loading boxes
     loadingBoxesMap.forEach(loadingBox => {
         dictionaryContainer.removeChild(loadingBox);
-        console.log(`Removed unused loading box with ID: ${loadingBox.id}`);
+        //console.log(`Removed unused loading box with ID: ${loadingBox.id}`);
     });
 
     updatePagination(currentPage, rowsPerPage);
