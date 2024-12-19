@@ -57,7 +57,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     let params = universalPendingChanges ? universalPendingChanges : defaultPendingChanges;
     const language = document.querySelector('meta[name="language"]').content || 'en'; // Default to 'en' if not specified
 
-    const applySettingsButton = document.getElementById('dict-apply-settings-button'); // Change to your button's actual ID
+    const applySettingsButton = document.getElementById('dict-apply-settings-button');
     applySettingsButton.disabled = true; // Disable the button
 
     const {
@@ -128,7 +128,6 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     
     // Sort rows based on the sortingManner from pendingChanges
     updatedRows = sortRows(updatedRows, sortingManner);
-    //console.log('After sorting:', updatedRows.length);
 
     updateFilteredRows(updatedRows);
 
@@ -147,10 +146,7 @@ export async function processAllSettings(allRows = [], rowsPerPage = 20, current
     }
 
     await renderBox(updatedRows, searchTerm, exactMatch, searchIn, rowsPerPage, currentPage);
-
-
     updatePagination(currentPage, rowsPerPage);
-
     await updateFloatingText(searchTerm, filters, searchIn);
 
     const settingsAppliedText = document.createElement('div');
