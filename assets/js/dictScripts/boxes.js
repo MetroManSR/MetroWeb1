@@ -4,7 +4,7 @@ import { getTranslatedText } from './loadTexts.js';
 import { copyToClipboard, getSimilarity, levenshteinDistance, editDistance } from './utils.js';
 import { loadInfoBox } from './boxEvents.js';
 import { filteredRows } from '../mainDict.js';
-
+import { universalPendingChanges } from './initFormEventListeners.js';
 let previouslySelectedBox = null;
 
 // Function to get part of speech abbreviation based on language
