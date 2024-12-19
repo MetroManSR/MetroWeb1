@@ -1,228 +1,208 @@
-import { getTranslatedText } from './loadTexts.js';
-import { processAllSettings } from './processRows.js';
-import { boxClickListener } from './boxEvents.js';
-import { highlight } from './utils.js';
-import {initAdvancedSearchPopup} from './popups.js';
+import { processAllSettings, displayPage } from './processRows.js';
+import { universalPendingChanges, updateUniversalPendingChanges, updatePendingChangesList, defaultPendingChanges, initializeFormEventListeners } from './initFormEventListeners.js';
+import { initStatisticsPopup } from './popups.js';
+import { updatePagination } from './pagination.js';
+import { boxClickListener } from "./boxEvents.js";
+import { filteredRows } from "../mainDict.js";
 
-export const defaultPendingChanges = {
-    searchTerm: '',
-    exactMatch: false,
-    searchIn: {
-        word: true,
-        root: true,
-        definition: true,
-        etymology: false
-    },
-    filters: [],
-    rowsPerPage: 20,
-    sortOrder: 'titleup' // Default sort order
-};
+export async function initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder) {
 
-export let universalPendingChanges;
-
-export async function updatePendingChangesList(language) {
-    console.log('Updating Pending Changes List');
-
-    language = document.querySelector('meta[name="language"]').content || 'en';
-    let currentPage = 1;
-
-    // Initialize pendingChanges with fallback to defaults
-    let pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
-
-    const { searchTerm, exactMatch, searchIn, filters, ignoreDiacritics, startsWith, endsWith, rowsPerPage, sortOrder } = pendingChanges;
-
-    let changesList = [];
-    if (searchTerm) {
-        const translatedSearchTerm = await getTranslatedText('searchTerm', language);
-        changesList.push(`<strong>${translatedSearchTerm}</strong>: "${searchTerm}"`);
-    }
-    if (exactMatch) {
-        const translatedExactMatch = await getTranslatedText('exactMatch', language);
-        changesList.push(`<strong>${translatedExactMatch}</strong>: ${translatedExactMatch}`);
-    }
-    if (searchIn.word || searchIn.root || searchIn.definition || searchIn.etymology) {
-        let searchInFields = [];
-        if (searchIn.word) searchInFields.push(await getTranslatedText('searchInWord', language));
-        if (searchIn.root) searchInFields.push(await getTranslatedText('searchInRoot', language));
-        if (searchIn.definition) searchInFields.push(await getTranslatedText('searchInDefinition', language));
-        if (searchIn.etymology) searchInFields.push(await getTranslatedText('searchInEtymology', language));
-        const translatedSearchIn = await getTranslatedText('searchIn', language);
-        changesList.push(`<strong>${translatedSearchIn}</strong>: ${searchInFields.join(', ')}`);
-    }
-    if (ignoreDiacritics) {
-        const translatedIgnoreDiacritics = await getTranslatedText('ignoreDiacritics', language);
-        changesList.push(`<strong>${translatedIgnoreDiacritics}</strong>`);
-    }
-    if (startsWith) {
-        const translatedStartsWith = await getTranslatedText('startsWith', language);
-        changesList.push(`<strong>${translatedStartsWith}</strong>`);
-    }
-    if (endsWith) {
-        const translatedEndsWith = await getTranslatedText('endsWith', language);
-        changesList.push(`<strong>${translatedEndsWith}</strong>`);
-    }
-    if (filters.length > 0) {
-        const translatedFilters = await getTranslatedText('filters', language);
-        const translatedFilterValues = await Promise.all(filters.map(async filter => await getTranslatedText(filter, language)));
-        changesList.push(`<strong>${translatedFilters}</strong>: ${translatedFilterValues.join(', ')}`);
-    }
-    if (rowsPerPage !== 20) {
-        const translatedRowsPerPage = await getTranslatedText('rowsPerPage', language);
-        changesList.push(`<strong>${translatedRowsPerPage}</strong>: ${rowsPerPage}`);
-    }
-    if (sortOrder) {
-        const translatedSortOrder = await getTranslatedText('sortOrder', language);
-        const sortOrderTranslation = await getTranslatedText(sortOrder, language); // Get the translated value for sortOrder
-        changesList.push(`<strong>${translatedSortOrder}</strong>: ${sortOrderTranslation}`);
-    }
-    const translatedPendingChanges = await getTranslatedText('pendingChanges', language);
-    const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', language);
-
-    universalPendingChanges = pendingChanges;
-
-    const pendingChangesElement = document.getElementById('dict-pending-changes');
-
-    pendingChangesElement.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
-}
-
-export async function initializeFormEventListeners(allRows, rowsPerPage) {
-    console.log('Initializing Form Event Listeners');
-
-    let pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
+    // Initialize button event listeners
     
-    if (!universalPendingChanges){
-     
-        universalPendingChanges = pendingChanges;
-    
-    }
-    
-    console.log('Pending Changes I: ', pendingChanges);
-    console.log('Universal PendingChanges I: ', universalPendingChanges);
-
     const language = document.querySelector('meta[name="language"]').content || 'en';
-    const filterSelect = document.getElementById('dct-wrd-flter');
     let currentPage = 1;
+    let pendingChanges = universalPendingChanges ? universalPendingChanges : defaultPendingChanges;
+    
+    // Ensure pending changes are visible on page load
+    const pendingChangesElement = document.getElementById('dict-pending-changes');
+    if (pendingChangesElement) {
+        pendingChangesElement.style.display = 'block';
+    }
 
+    await initializeFormEventListeners(allRows, rowsPerPage);
+
+    pendingChanges = universalPendingChanges;
+    
+    await updatePendingChangesList(language);
+
+    const orderBySelect = document.getElementById('dct-ord-slt');
+    if (orderBySelect) {
+        orderBySelect.addEventListener('change', async () => {
+            pendingChanges.sortOrder = orderBySelect.value;
+            updateUniversalPendingChanges(pendingChanges);
+            await updatePendingChangesList(language);
+        });
+    }
+
+    await boxClickListener(allRows, language, pendingChanges);
+
+    const filterSelect = document.getElementById('dct-wrd-flt');
     if (filterSelect) {
         filterSelect.addEventListener('change', async () => {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
-            universalPendingChanges = pendingChanges;
-            updatePendingChangesList(language);
+            updateUniversalPendingChanges(pendingChanges);
+            await updatePendingChangesList(language);
+        });
+    }
+
+    const viewStatisticsButton = document.getElementById('dict-view-statistics-button');
+    if (viewStatisticsButton) {
+        viewStatisticsButton.addEventListener('click', async () => {
+           await initStatisticsPopup(allRows);
+        });
+    }
+
+    const applySettingsButton = document.getElementById('dict-apply-settings-button');
+    if (applySettingsButton) {
+        applySettingsButton.addEventListener('click', async () => {
+                const url = new URL(window.location);
+                url.search = ''; // Remove all query parameters
+                window.history.pushState({}, '', url.toString());
+                await processAllSettings(allRows, universalPendingChanges.rowsPerPage, currentPage, universalPendingChanges.sortOrder);
+        });
+    }
+
+    const clearSettingsButton = document.getElementById('dict-clear-settings-button');
+    if (clearSettingsButton) {
+        clearSettingsButton.addEventListener('click', async () => {
+            pendingChanges = {
+                searchTerm: '',
+                exactMatch: false,
+                searchIn: {
+                    word: true,
+                    root: true,
+                    definition: true,
+                    etymology: false
+                },
+                filters: [],
+                rowsPerPage: 20,
+                sortOrder: 'titleup'
+            };
+            // Reset form fields in the advanced search popup
+            document.getElementById('dict-search-input').value = '';
+            document.getElementById('dict-search-in-word').checked = true;
+            document.getElementById('dict-search-in-root').checked = true;
+            document.getElementById('dict-search-in-definition').checked = true;
+            document.getElementById('dict-search-in-etymology').checked = false;
+            document.getElementById('dict-exact-match').checked = false;
+            // Reset selected filters
+            const wordFilterSelect = document.getElementById('dct-wrd-flt');
+            Array.from(wordFilterSelect.options).forEach(option => {
+                option.selected = false;
+            });
+            // Reset sort order
+            document.getElementById('dct-ord-slt').selectedIndex = 0; // Set default sort order
             
-            currentPage = 1;
-       });
+            updateUniversalPendingChanges(pendingChanges);
+            await updatePendingChangesList(language);
+            await processAllSettings(allRows, pendingChanges.rowsPerPage, currentPage, pendingChanges.sortOrder);
+            // Remove URL parameters without reloading the page
+            history.pushState({}, document.title, window.location.pathname);
+        });
+    }
+
+    const clearSearchButton = document.getElementById('dict-clear-search-button');
+    if (clearSearchButton) {
+        clearSearchButton.addEventListener('click', async () => {
+            pendingChanges.searchTerm = '';
+            document.getElementById('dict-search-input').value = '';
+            updateUniversalPendingChanges(pendingChanges);
+            await updatePendingChangesList(language);
+            // Remove URL parameters without reloading the page
+            history.pushState({}, document.title, window.location.pathname);
+        });
     }
 
     const searchInput = document.getElementById('dict-search-input');
     const predictionBox = document.getElementById('dict-search-predictions');
 
-    searchInput.addEventListener('input', async function() {
-        const searchTerm = this.value.trim().toLowerCase();
-        predictionBox.style.width = `${searchInput.offsetWidth}px`;
+    document.querySelectorAll('.pagination-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const targetPage = parseInt(e.target.dataset.page, 10);
+            if (!isNaN(targetPage)) {
+                navigateToPage(targetPage);
+            }
+        });
+    });
 
-        if (searchTerm.length === 0) {
-            predictionBox.innerHTML = '';
-            pendingChanges.searchTerm = ''; // Clear searchTerm in pending changes
-            universalPendingChanges = pendingChanges;
+    function navigateToPage(pageNumber) {
+        if (!isNaN(pageNumber) && pageNumber >= 1) {
+            currentPage = pageNumber;
+        } else {
             currentPage = 1;
-            predictionBox.classList.remove("active");
-            predictionBox.classList.add("hidden");
-            return;
         }
-
-        predictionBox.classList.remove("hidden");
-        predictionBox.classList.add("active");
-
-        const searchIn = pendingChanges.searchIn;
-        const predictions = allRows
-            .filter(row => {
-                const titleMatch = searchIn.word && row.type === 'word' && row.title.toLowerCase().includes(searchTerm);
-                const rootMatch = searchIn.root && row.type === 'root' && row.title.toLowerCase().includes(searchTerm);
-                const definitionMatch = searchIn.definition && row.meta.toLowerCase().includes(searchTerm);
-                const etymologyMatch = searchIn.etymology && row.morph.some(morphItem => morphItem.toLowerCase().includes(searchTerm));
-                return titleMatch || rootMatch || definitionMatch || etymologyMatch;
-            })
-            .slice(0, 10) // Limit to the first 10 matches
-            .map(row => ({ title: row.title, meta: row.meta }));
-
-        if (predictions.length === 0) {
-            predictionBox.innerHTML = '';
-            pendingChanges.searchTerm = searchTerm; // Update searchTerm in pending changes
-            updateUniversalPendingChanges(pendingChanges);
-            currentPage = 1;
-            return;
-        }
-
-        predictionBox.innerHTML = predictions.map(({ title, meta }) => 
-            `<div>${highlight(title, searchTerm, pendingChanges.searchIn, { title })} (${meta})</div>`
-        ).join('');
-
-        Array.from(predictionBox.children).forEach((prediction, index) => {
-            prediction.addEventListener('click', async () => {
-                searchInput.value = predictions[index].title;
-                predictionBox.innerHTML = '';
-                pendingChanges.searchTerm = predictions[index].title; // Update searchTerm in pending changes
-                universalPendingChanges = pendingChanges;
-                currentPage = 1;
+        const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+        updatePagination(currentPage, totalPages);
+        displayPage(currentPage, rowsPerPage, pendingChanges.searchTerm, pendingChanges.searchIn, pendingChanges.exactMatch, allRows);
+    }
     
-            });
-        });
-
-        pendingChanges.searchTerm = searchTerm;
-        currentPage = 1;
-        universalPendingChanges = pendingChanges;
-        updatePendingChangesList(language);
-    });
-
-    document.addEventListener('focusin', (e) => {
-        if (!searchInput.contains(e.target) && !predictionBox.contains(e.target)) {
-            predictionBox.innerHTML = '';
-        }
-    });
-
-    searchInput.addEventListener('focus', async () => {
-        if (searchInput.value.trim().length > 0) {
-            searchInput.dispatchEvent(new Event('input'));
-        }
-    });
-
-    const rowsPerPageSelect = document.getElementById('dct-rws-inp');
-
-if (rowsPerPageSelect) {
-    console.log('Element found:', rowsPerPageSelect);
-    rowsPerPageSelect.addEventListener('change', async () => {
-        try {
-            console.log('Change event triggered');
-            const rowsPerPageValue = parseInt(rowsPerPageSelect.value, 10);
-            console.log('Rows per page value:', rowsPerPageValue);
-
-            pendingChanges.rowsPerPage = rowsPerPageValue;
-            universalPendingChanges = pendingChanges;
-
-            console.log('Pending changes updated:', pendingChanges);
-            await updatePendingChangesList(language);
-            console.log('Pending changes list updated');
-
-            currentPage = 1;
-            console.log('Current page reset to:', currentPage);
-        } catch (error) {
-            console.error('Error during change event handling:', error);
-        }
-    });
-} else {
-    console.error('Element not found for ID dct-rws-inp');
-}
-
-    const advancedSearchButton = document.getElementById('dict-advanced-search-btn');
-    if (advancedSearchButton) {
-        advancedSearchButton.addEventListener('click', async () => {
-            await initAdvancedSearchPopup(allRows, rowsPerPage, language);
-        });
+    // Initial page load
+    if (filteredRows) {
+        navigateToPage(1);
     }
 
-    console.log('Form Event Listeners initialized');
-}
+    // Info Button Event Listener
+    const infoButton = document.getElementById('dict-info-button');
+    const infoPopup = document.getElementById('dict-info-popup');
+    const infoPopupOverlay = document.getElementById('popup-overlay');
+    const closeInfoButton = document.getElementById('dict-close-info-button');
+    const instructionsTitle = document.getElementById('instructions-title');
+    const instructionsContent = document.getElementById('instructions-content');
+    const legendTitle = document.getElementById('legend-title');
+    const legendContent = document.getElementById('legend-content');
 
-export function updateUniversalPendingChanges(i) {
-   universalPendingChanges = i;
+    const instructionsFilePath = '/assets/data/instructions.json'; // Path to the JSON file
+
+    async function fetchInstructions(filePath) {
+        const response = await fetch(filePath);
+        const data = await response.json();
+        return data;
+    }
+
+    async function setInfoContent(language, filePath) {
+        const data = await fetchInstructions(filePath);
+
+        const instructions = data[language];
+        if (instructions) {
+            instructionsTitle.textContent = instructions.instTitle;
+            instructionsContent.innerHTML = instructions.instContent;
+
+            legendTitle.textContent = instructions.legTitle;
+            legendContent.innerHTML = instructions.legContent + '<br><ul>';
+
+            for (const part in instructions.partsOfSpeech) {
+                legendContent.innerHTML += `<li><strong>${part}:</strong> ${instructions.partsOfSpeech[part]}</li>`;
+            }
+            legendContent.innerHTML += '</ul>';
+
+            closeInfoButton.textContent = instructions.close;
+        } else {
+            console.error('Language not supported in the instructions file');
+        }
+    }
+
+    if (infoButton && infoPopup && infoPopupOverlay && closeInfoButton && instructionsTitle && instructionsContent && legendTitle && legendContent) {
+        infoButton.addEventListener('click', async () => {
+            await setInfoContent(document.documentElement.lang || 'en', instructionsFilePath); // Use the document language or default to 'en'
+            infoPopup.classList.remove('hidden');
+            infoPopup.classList.add('active');
+            infoPopupOverlay.classList.remove('hidden');
+            infoPopupOverlay.classList.add('active');
+            closeInfoButton.classList.remove('hidden');
+            closeInfoButton.classList.add('active');
+        });
+
+        closeInfoButton.addEventListener('click', () => {
+            infoPopup.classList.add('hidden');
+            infoPopup.classList.remove('active');
+            infoPopupOverlay.classList.add('hidden');
+            infoPopupOverlay.classList.remove('active');
+            closeInfoButton.classList.add('hidden');
+            closeInfoButton.classList.remove('active');
+        });
+    } else {
+        console.error('Info popup elements not found');
+    }
+
+    // console.log('Button Event Listeners initialized'); 
 }
