@@ -1,13 +1,12 @@
 import { fetchData } from './dictScripts/fetchData.js';
 import { setTexts } from './dictScripts/loadTexts.js';
-import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popups.js';
+import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popup.js';
 import { initializeButtonEventListeners } from './dictScripts/initButtonEventListeners.js';
 import { updatePendingChangesList } from './dictScripts/initFormEventListeners.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
 import { processAllSettings, sortRows, displayPage } from './dictScripts/processRows.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot, displayError } from './dictScripts/utils.js';
-import { boxClickListener } from './dictScripts/boxEvents.js';
 import { renderBox } from './dictScripts/boxes.js';
 import { initUrl } from './dictScripts/urlParameters.js';
 
@@ -50,8 +49,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     };
 
     try {
-        //console.log('DOMContentLoaded event triggered');
-
         hideLoadingMessage();
 
         function displayError(message) {
@@ -78,53 +75,33 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         }
 
-        //console.log('Fetching data...');
         const [dictionaryData, rootsData] = await Promise.all([
             fetchWithFallback(dictionaryFile, 'word'), 
             fetchWithFallback(rootsFile, 'root')
         ]);
 
-        //console.log('Dictionary Data:', dictionaryData);
-        //console.log('Roots Data:', rootsData);
-
-        // Clean data and wait for completion before proceeding
         const cleanedDictionaryData = (await cleanData(dictionaryData, 'word')).sort((a, b) => a.title.localeCompare(b.title));
         const cleanedRootsData = (await cleanData(rootsData, 'root')).sort((a, b) => a.title.localeCompare(b.title));
 
         cleanedDictionaryData.forEach((item, index) => { item.id = index + 1; });
         cleanedRootsData.forEach((item, index) => { item.id = index + 1; });
 
-        //console.log('Cleaned Dictionary Data:', cleanedDictionaryData);
-        //console.log('Cleaned Roots Data:', cleanedRootsData);
-
         allRows = [...cleanedDictionaryData, ...cleanedRootsData];
         
         filteredRows = allRows;
         filteredRows = getRelatedWordsByRoot(sortRows(allRows, currentSortOrder)); // Sorting rows initially
 
-        //console.log('All Rows:', allRows);
-        //console.log('Filtered Rows:', filteredRows);
-
-        //console.log('Creating pagination controls...');
         createPaginationControls(rowsPerPage, currentPage);
 
         const isUrlHandled = await initUrl(allRows, rowsPerPage, 1, 'titleup');
         
-        console.log(isUrlHandled) 
-        
         if (isUrlHandled !== false) {
-
             filteredRows = isUrlHandled;
-
             await renderBox(allRows, '', false, {}, rowsPerPage, 1);
-      
         } else {
-        
-          displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, allRows);
-
+            displayPage(currentPage, rowsPerPage, '', { word: true, root: true, definition: false, etymology: false }, false, allRows);
         }
-            
-        // Initialize advanced search form
+
         const advancedSearchForm = document.getElementById('advanced-search-form');
         if (advancedSearchForm) {
             advancedSearchForm.addEventListener('submit', async (e) => {
@@ -142,17 +119,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         }
 
-        // Sorting functionality
         const orderBySelect = document.getElementById('dict-order-by-select');
         if (orderBySelect) {
             orderBySelect.addEventListener('change', () => {
                 pendingChanges.sortOrder = orderBySelect.value;
-                console.log('Selected order:', pendingChanges.sortOrder);
                 updatePendingChangesList(pendingChanges, language);
             });
         }
 
-        // Hide the loading message after JS is ready
         document.getElementById('dict-loading-message').style.display = 'none';
     } catch (error) {
         console.error('Error loading data:', error);
@@ -160,20 +134,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         const errorString = language === "en" ? 'Failed to load dictionary data. Please try again later.' : 'Ha fallado la carga del diccionario, por favor intente de nuevo más tarde';
         
         displayError(errorString);
-        // Hide the loading message in case of an error
         document.getElementById('dict-loading-message').style.display = 'none';
     }
 
-    // Initialize event listeners with apply settings handling
     await initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder);
     initializeButtonEventListeners(allRows, rowsPerPage, currentSortOrder);
-    
-    const temp = {};
-    
 });
 
-export function updateFilteredRows(i){
-
+export function updateFilteredRows(i) {
     filteredRows = i;
-
 }
