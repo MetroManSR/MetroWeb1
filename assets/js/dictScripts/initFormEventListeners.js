@@ -72,7 +72,8 @@ export async function updatePendingChangesList(language) {
     }
     if (sortOrder) {
         const translatedSortOrder = await getTranslatedText('sortOrder', language);
-        changesList.push(`<strong>${translatedSortOrder}</strong>: ${sortOrder}`);
+        const sortOrderTranslation = await getTranslatedText(sortOrder, language); // Get the translated value for sortOrder
+        changesList.push(`<strong>${translatedSortOrder}</strong>: ${sortOrderTranslation}`);
     }
     const translatedPendingChanges = await getTranslatedText('pendingChanges', language);
     const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', language);
