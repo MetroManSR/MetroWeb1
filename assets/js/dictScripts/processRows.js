@@ -182,50 +182,19 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
 }
 
 /**
- * Displays a specific word or root entry by ID.
+ * Displays the specified page of results.
  *
- * @param {Object} row - The dictionary row to display.
- * @param {Array} allRows - The array of all dictionary rows.
+ * @param {number} page - The page number to display.
+ * @param {number} rowsPerPage - The number of rows to display per page.
+ * @param {string} searchTerm - The search term used to filter results.
+ * @param {Object} searchIn - An object specifying which fields to search in.
+ * @param {boolean} exactMatch - Whether to search for exact matches.
+ * @param {Array} filteredRows - The filtered array of dictionary entries.
+ * @param {Array} allRows - The array of all dictionary entries.
  */
-export function displaySpecificEntry(language, row, allRows) {
-    const dictionaryContainer = document.getElementById('dict-dictionary');
-    dictionaryContainer.innerHTML = ''; // Clear previous entries
-
-    if (!row) {
-        const noMatchBox = createNoMatchBox(language, row.title, allRows);
-        dictionaryContainer.appendChild(noMatchBox);
-        return;
-    }
-
-    const box = createDictionaryBox(row, allRows, '', false, {});
-    if (box) {
-        dictionaryContainer.appendChild(box);
-    }
-
-    // Attach icons to the dictionary box
-    attachIcons(box, row);
-}
-
-/**
- * Performs an exact and unique word search.
- *
- * @param {string} term - The search term.
- * @param {Array} allRows - The array of all dictionary rows.
- */
-export function wordSpecific(term, allRows) {
-    const specificWord = allRows.find(row => row.type === 'word' && row.title.toLowerCase() === term.toLowerCase());
-    displaySpecificEntry(specificWord, allRows);
-}
-
-/**
- * Performs an exact and unique root search.
- *
- * @param {string} term - The search term.
- * @param {Array} allRows - The array of all dictionary rows.
- */
-export function rootSpecific(term, allRows) {
-    const specificRoot = allRows.find(row => row.type === 'root' && row.title.toLowerCase() === term.toLowerCase());
-    displaySpecificEntry(specificRoot, allRows);
+export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, allRows = []) {
+    //console.log('Displaying page:', page);
+    renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
 }
 
 /**
