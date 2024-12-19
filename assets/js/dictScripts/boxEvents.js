@@ -29,14 +29,14 @@ export async function loadInfoBox(box, row) {
     suggestionIcon.title = 'Suggestion';
 
     // Add event listeners
-    warningIcon.addEventListener('click', () => {
-        const message = `${getTranslatedText('bugCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('bugCopyPaste02')}`;
+    warningIcon.addEventListener('click', async () => {
+        const message = `${await getTranslatedText('bugCopyPaste01')}${row.title} [${row.id}]${await getTranslatedText('bugCopyPaste02')}`;
         copyToClipboard(message);
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
     });
 
     suggestionIcon.addEventListener('click', () => {
-        const message = `${getTranslatedText('ideaCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('ideaCopyPaste02')}`;
+        const message = `${await getTranslatedText('ideaCopyPaste01')}${row.title} [${row.id}]${await getTranslatedText('ideaCopyPaste02')}`;
         copyToClipboard(message);
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
     });
@@ -155,7 +155,6 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                     .filter(rw => rw.toLowerCase() !== row.title.toLowerCase())
                     .map(async (rw) => {
                         const relatedWord = typeof rw === 'string' ? allRows.find(r => r.title.trim().toLowerCase() === rw.trim().toLowerCase()) : rw;
-                        //console.log('Related word:', rw, 'Related word:', relatedWord);
                         return relatedWord ? `${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : rw;
                     }));
 
@@ -171,13 +170,24 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         console.log('Creating button for morph:', morph); // Debugging
                         const morphButton = document.createElement('button');
                         morphButton.innerText = morph;
-                        morphButton.addEventListener('click', async () => {
+                        morphButton.addEventListener('click', async (event) => {
+                            event.stopPropagation();
                             console.log('Clicked morph button:', morph); // Debugging
                             const morphRelatedWords = await Promise.all(allRows.filter(r => r.root === morph && r.title.toLowerCase() !== row.title.toLowerCase())
-                                .map(async (r) => `${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`));
+                                .map(async (r) => `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`));
 
                             relatedWordsLabel = await getTranslatedText('relatedWords', language);
-                            relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${morphRelatedWords.join(', ')}`;
+                            const morphRelatedWordsElement = document.createElement('div');
+                            morphRelatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${morphRelatedWords.join(', ')}`;
+                            morphRelatedWordsElement.classList.add('scrollable-box'); // Apply scrollable box style if needed
+
+                            if (morphRelatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(morphRelatedWordsElement).lineHeight)) {
+                                morphRelatedWordsElement.classList.add('scrollable-box');
+                            }
+
+                            relatedWordsElement.innerHTML = '';
+                            relatedWordsElement.appendChild(morphButtonsElement); // Re-add buttons to keep them visible
+                            relatedWordsElement.appendChild(morphRelatedWordsElement);
                         });
                         morphButtonsElement.appendChild(morphButton);
                     }
@@ -190,8 +200,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
         }
 
         if (relatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(relatedWordsElement).lineHeight)) {
-            relatedWordsElement.style.maxHeight = '3em';
-            relatedWordsElement.style.overflowY = 'auto';
+            relatedWordsElement.classList.add('scrollable-box');
         }
 
         box.appendChild(relatedWordsElement);
