@@ -28,9 +28,9 @@ export async function updatePendingChangesList(language) {
 
     // Initialize pendingChanges with fallback to defaults
     let pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
-   
-    const { searchTerm, exactMatch, searchIn, filters, ignoreDiacritics, startsWith, endsWith, rowsPerPage } = pendingChanges;
-    
+
+    const { searchTerm, exactMatch, searchIn, filters, ignoreDiacritics, startsWith, endsWith, rowsPerPage, sortOrder } = pendingChanges;
+
     let changesList = [];
     if (searchTerm) {
         const translatedSearchTerm = await getTranslatedText('searchTerm', language);
@@ -70,13 +70,17 @@ export async function updatePendingChangesList(language) {
         const translatedRowsPerPage = await getTranslatedText('rowsPerPage', language);
         changesList.push(`<strong>${translatedRowsPerPage}</strong>: ${rowsPerPage}`);
     }
+    if (sortOrder) {
+        const translatedSortOrder = await getTranslatedText('sortOrder', language);
+        changesList.push(`<strong>${translatedSortOrder}</strong>: ${sortOrder}`);
+    }
     const translatedPendingChanges = await getTranslatedText('pendingChanges', language);
     const translatedNoPendingChanges = await getTranslatedText('noPendingChanges', language);
-    
-    universalPendingChanges = pendingChanges; 
-    
+
+    universalPendingChanges = pendingChanges;
+
     const pendingChangesElement = document.getElementById('dict-pending-changes');
-    
+
     pendingChangesElement.innerHTML = changesList.length > 0 ? `<ul>${changesList.map(item => `<li>${item}</li>`).join('')}</ul>` : `<p>${translatedNoPendingChanges}</p>`;
 }
 
