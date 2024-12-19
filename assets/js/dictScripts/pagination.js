@@ -1,6 +1,6 @@
 import { filteredRows } from '../mainDict.js';
 import { renderBox } from "./boxes.js";
-
+import { universalPendingChanges} from "./initFormEventListeners.js" ;
 /**
  * Creates pagination controls and updates the display of dictionary entries.
  *
@@ -8,6 +8,12 @@ import { renderBox } from "./boxes.js";
  * @param {number} currentPage - The current page number.
  */
 export function createPaginationControls(rowsPerPage, currentPage) {
+
+    if (universalPendingChanges) {
+
+       rowsPerPage = universalPendingChanges.rowsPerPage; 
+   } 
+    
     console.log(`Creating Pagination Controls: Rows per page = ${rowsPerPage}, Current page = ${currentPage}`);
     
     const paginationContainer = document.getElementById('dict-pagination');
@@ -122,6 +128,12 @@ export function createPaginationControls(rowsPerPage, currentPage) {
  * @param {number} rowsPerPage - The number of rows to display per page.
  */
 export function updatePagination(currentPage, rowsPerPage) {
+    
+    if (universalPendingChanges) {
+
+       rowsPerPage = universalPendingChanges.rowsPerPage; 
+    } 
+    
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
     const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
