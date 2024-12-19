@@ -1,4 +1,3 @@
-
 ---
 layout: dictionary
 language: en
@@ -12,5 +11,6 @@ Explore the complete collection of Balkeon language words. Here you will be able
 ### Warning
 
 > All word translations might not be 100% accurate, I had to take a shortcut and use a mass translator, report any abnormality in the oficial Discord Server.
+
 
 <div id="dictionary"></div>
