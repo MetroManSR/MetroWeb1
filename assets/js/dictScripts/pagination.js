@@ -1,6 +1,9 @@
 import { filteredRows } from '../mainDict.js';
 import { renderBox } from "./boxes.js";
 import { universalPendingChanges} from "./initFormEventListeners.js" ;
+
+let totalPages = 0;
+
 /**
  * Creates pagination controls and updates the display of dictionary entries.
  *
@@ -23,7 +26,7 @@ export function createPaginationControls(rowsPerPage, currentPage) {
     }
     paginationContainer.innerHTML = ''; // Clear existing pagination controls
 
-    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    totalPages = Math.ceil(filteredRows.length / rowsPerPage);
     
     console.log(`Filtered Total Pages: ${totalPages}`);
 
@@ -136,7 +139,7 @@ export function updatePagination(currentPage, rowsPerPage) {
     
     console.log(`Rows per page: ${rowsPerPage}`);
     console.log(`Filtered Rows: ${filteredRows.length}`);
-    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+    totalPages = Math.ceil(filteredRows.length / rowsPerPage);
     console.log(`Total Pages: ${totalPages}`);
     const paginationContainer = document.getElementById('dict-pagination'); // Correct reference
     const buttons = paginationContainer.querySelectorAll('.pagination-button');
