@@ -182,22 +182,6 @@ export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { wor
 }
 
 /**
- * Displays the specified page of results.
- *
- * @param {number} page - The page number to display.
- * @param {number} rowsPerPage - The number of rows to display per page.
- * @param {string} searchTerm - The search term used to filter results.
- * @param {Object} searchIn - An object specifying which fields to search in.
- * @param {boolean} exactMatch - Whether to search for exact matches.
- * @param {Array} filteredRows - The filtered array of dictionary entries.
- * @param {Array} allRows - The array of all dictionary entries.
- */
-export function displayPage(page, rowsPerPage, searchTerm = '', searchIn = { word: true, root: true, definition: false, etymology: false }, exactMatch = false, allRows = []) {
-    //console.log('Displaying page:', page);
-    renderBox(allRows, searchTerm, exactMatch, searchIn, rowsPerPage, page);
-}
-
-/**
  * Handles the rows per page customization.
  *
  * @param {Event} e - The event object.
