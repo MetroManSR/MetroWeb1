@@ -23,15 +23,51 @@ header {
     cursor: pointer;
 }
 
+/* Danger Button Style */
+.btn-danger {
+    background-color: #dc3545; /* Red background color */
+    color: #fff; /* White text color */
+    border: 1px solid #dc3545; /* Red border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for size */
+    font-size: 16px; /* Font size for readability */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+/* Danger Button Hover Effect */
+.btn-danger:hover {
+    background-color: #c82333; /* Darker red on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+/* Danger Button Active Effect */
+.btn-danger:active {
+    background-color: #bd2130; /* Even darker red on active */
+    transform: scale(0.95); /* Slightly smaller on active */
+}
 
 /* Pagination Container */
 .dict-pagination-container {
     display: flex;
     justify-content: center;
-    align-items: center; /* Add this line */
+    align-items: center;
     margin: 20px 0;
+    width: 100%; /* Ensure the container takes full width */
+    position: relative;
+    z-index: 1; /* Make sure it stays on top */
 }
 
+/* Center-align and ensure it stays centered */
+.dict-pagination {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+}
+
+/* Pagination Button */
 .pagination-button {
     padding: 10px 15px;
     margin: 0 5px;
@@ -43,14 +79,17 @@ header {
     cursor: pointer;
 }
 
+/* Hover Effect for Pagination Button */
 .pagination-button:hover {
     background-color: #005a9e;
 }
 
+/* Active Pagination Button */
 .pagination-button.active {
     background-color: #005a9e;
 }
 
+/* Pagination Input */
 .pagination-input {
     width: 50px;
     padding: 5px;
