@@ -145,7 +145,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         return relatedWord ? await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows) : dw;
                     }));
 
-                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${relatedWordsHtml.join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel} (${relatedWordsHtml.length}):</strong> ${relatedWordsHtml.join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
@@ -187,7 +187,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                 }));
 
                 const generalOverviewContainer = document.createElement('div');
-                generalOverviewContainer.innerHTML = `<strong>${generalOverviewHtml.length} ${relatedWordsLabel}:</strong> ${generalOverviewHtml.join(', ')}`;
+                generalOverviewContainer.innerHTML = `<strong>${generalOverviewHtml.length} ${relatedWordsLabel} (${generalOverviewHtml.length}):</strong> ${generalOverviewHtml.join(', ')}`;
 
                 if (generalOverviewContainer.childElementCount > 15) {
                     generalOverviewContainer.classList.add('scrollable-box');
@@ -206,6 +206,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         const morphButton = document.createElement('button');
                         morphButton.innerText = morph;
                         morphButton.classList.add('dict-buttons'); // Add the dict-buttons class
+                        morphButton.style.display = 'inline-block'; // Ensure buttons are displayed inline
                         morphButton.addEventListener('click', async (event) => {
                             event.stopPropagation();
                             console.log('Clicked morph button:', morph); // Debugging
@@ -214,7 +215,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                             }));
 
                             const morphRelatedWordsElement = document.createElement('div');
-                            morphRelatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${morphRelatedWords.join(', ')}`;
+                            morphRelatedWordsElement.innerHTML = `<strong>${relatedWordsLabel} (${morphRelatedWords.length}):</strong> ${morphRelatedWords.join(', ')}`;
 
                             if (morphRelatedWordsElement.childElementCount > 15) {
                                 morphRelatedWordsElement.classList.add('scrollable-box');
