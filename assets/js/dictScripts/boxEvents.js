@@ -35,7 +35,7 @@ export async function loadInfoBox(box, row) {
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
     });
 
-    suggestionIcon.addEventListener('click', () => {
+    suggestionIcon.addEventListener('click', async () => {
         const message = `${await getTranslatedText('ideaCopyPaste01')}${row.title} [${row.id}]${await getTranslatedText('ideaCopyPaste02')}`;
         copyToClipboard(message);
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
