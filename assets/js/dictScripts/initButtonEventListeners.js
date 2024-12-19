@@ -105,7 +105,6 @@ export async function initializeButtonEventListeners(allRows, rowsPerPage, curre
             document.getElementById('dict-search-input').value = '';
             updateUniversalPendingChanges(pendingChanges);
             updatePendingChangesList(language);
-            await processAllSettings(allRows, rowsPerPage, currentPage, pendingChanges.sortOrder);
             // Remove URL parameters without reloading the page
             history.pushState({}, document.title, window.location.pathname);
         });
