@@ -169,11 +169,11 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                     .filter(rw => rw.toLowerCase() !== row.title.toLowerCase())
                     .map(async (rw) => {
                         const relatedWord = typeof rw === 'string' ? allRows.find(r => r.title.trim().toLowerCase() === rw.trim().toLowerCase()) : rw;
-                        console.log('Related word:', rw, 'Related word:', relatedWord);
-                        return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : rw;
+                        //console.log('Related word:', rw, 'Related word:', relatedWord);
+                        return relatedWord ? `${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : rw;
                     }));
 
-                relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${relatedWordsHtml.join(', ')}`;
+                relatedWordsElement.innerHTML = `<strong>${relatedWordsHtml.length} ${relatedWordsLabel}:</strong> ${relatedWordsHtml.join(', ')}`;
             } else {
                 relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
