@@ -25,7 +25,7 @@ export async function setTexts(language) {
         document.querySelector('.dict-clear-settings-button').textContent = currentTexts.clearSettingsButton;
         document.querySelector('.dict-advanced-search-button').textContent = currentTexts.advancedSearchButton;
         document.querySelector('.dict-view-statistics-button').textContent = currentTexts.viewStatisticsButton;
-        document.querySelector('.dict-close-popup-button').textContent = currentTexts.closeSearchButton;
+        document.querySelector('.dict-close-popup-button').textContent = currentTexts.close;
         document.querySelector('.dct-flt-by-lbl').textContent = currentTexts.filterByLabel;
         document.querySelector('.dct-ord-lbl').textContent = currentTexts.orderByLabel;
 
