@@ -158,15 +158,19 @@ export async function boxClickListener(allRows, language, pendingChanges) {
 
                 // Create arrays for each morph
                 const morphArrays = row.morph.reduce((acc, morph) => {
-                    acc[morph] = allRows.filter(r => r.root === morph && r.title.toLowerCase() !== row.title.toLowerCase());
+                    acc[morph] = relatedWords.filter(rw => {
+                        const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === rw.trim().toLowerCase());
+                        return relatedWord && relatedWord.root === morph;
+                    });
                     return acc;
                 }, {});
 
                 // Join arrays for the general overview
                 const generalOverviewArray = Object.values(morphArrays).flat();
 
-                const generalOverviewHtml = await Promise.all(generalOverviewArray.map(async (r) => {
-                    return `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`;
+                const generalOverviewHtml = await Promise.all(generalOverviewArray.map(async (title) => {
+                    const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === title.trim().toLowerCase());
+                    return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : title;
                 }));
 
                 const generalOverviewContainer = document.createElement('div');
@@ -191,8 +195,9 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         morphButton.addEventListener('click', async (event) => {
                             event.stopPropagation();
                             console.log('Clicked morph button:', morph); // Debugging
-                            const morphRelatedWords = await Promise.all(morphArrays[morph].map(async (r) => {
-                                return `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`;
+                            const morphRelatedWords = await Promise.all(morphArrays[morph].map(async (title) => {
+                                const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === title.trim().toLowerCase());
+                                return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : title;
                             }));
 
                             const morphRelatedWordsElement = document.createElement('div');
