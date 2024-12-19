@@ -105,9 +105,6 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
        });
     }
 
-    predictionBox.classList.remove("hidden");
-            predictionBox.classList.add("active");
-
     const searchInput = document.getElementById('dict-search-input');
     const predictionBox = document.getElementById('dict-search-predictions');
 
