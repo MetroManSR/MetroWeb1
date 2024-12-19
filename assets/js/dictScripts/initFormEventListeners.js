@@ -100,8 +100,7 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
             pendingChanges.filters = Array.from(filterSelect.selectedOptions).map(option => option.value);
             universalPendingChanges = pendingChanges;
             updatePendingChangesList(language);
-            predictionBox.classList.remove("active");
-            predictionBox.classList.add("hidden");
+            
             currentPage = 1;
        });
     }
@@ -121,8 +120,13 @@ export async function initializeFormEventListeners(allRows, rowsPerPage) {
             pendingChanges.searchTerm = ''; // Clear searchTerm in pending changes
             universalPendingChanges = pendingChanges;
             currentPage = 1;
+            predictionBox.classList.remove("active");
+            predictionBox.classList.add("hidden");
             return;
         }
+
+        predictionBox.classList.remove("hidden");
+        predictionBox.classList.add("active");
 
         const searchIn = pendingChanges.searchIn;
         const predictions = allRows
