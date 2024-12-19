@@ -29,14 +29,14 @@ export async function loadInfoBox(box, row) {
     suggestionIcon.title = 'Suggestion';
 
     // Add event listeners
-    warningIcon.addEventListener('click', () => {
-        const message = `${getTranslatedText('bugCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('bugCopyPaste02')}`;
+    warningIcon.addEventListener('click', async () => {
+        const message = `${await getTranslatedText('bugCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('bugCopyPaste02')}`;
         copyToClipboard(message);
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
     });
 
-    suggestionIcon.addEventListener('click', () => {
-        const message = `${getTranslatedText('ideaCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('ideaCopyPaste02')}`;
+    suggestionIcon.addEventListener('click', async () =>  {
+        const message = `${await getTranslatedText('ideaCopyPaste01')}${row.title} [${row.id}]${getTranslatedText('ideaCopyPaste02')}`;
         copyToClipboard(message);
         showTooltip('Copied to clipboard! Paste this in the help channel of the discord server of Balkeon.');
     });
