@@ -55,12 +55,6 @@ export async function loadInfoBox(box, row) {
     box.appendChild(iconContainer);
 }
 
-import { getTranslatedText, createHyperlink } from './utils.js';
-import { universalPendingChanges, defaultPendingChanges } from './initFormEventListeners.js';
-
-let previouslySelectedBox = null;
-let lastClickTime = 0;
-
 /**
  * Event listener for clicks on dictionary boxes.
  *
