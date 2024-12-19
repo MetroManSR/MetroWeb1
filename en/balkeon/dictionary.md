@@ -4,7 +4,8 @@ language: en
 title: Balkeon Dictionary (English)
 ---
 
-## Bienvenido al Diccionario de Balkeon
-Esta página contiene el diccionario completo para el idioma Balkeon en español. A continuación, se muestran todas las palabras del diccionario. Usa la paginación para navegar a través de las palabras.
+## Welcome to the Balkeon Dictionary
+
+Explore the complete collection of Balkeon language words. Here you will be able to find, investigate, and learn. Use the pagination below to browse through all the words. Need support or found a bug? Use the tooltips in the boxes to give the Creator your feedback in the [Discord Server](https://discord.gg/8NPsyq7rp7).
 
 <div id="dictionary"></div>
