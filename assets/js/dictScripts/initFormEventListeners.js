@@ -29,9 +29,6 @@ export async function updatePendingChangesList(language) {
     // Initialize pendingChanges with fallback to defaults
     let pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
    
-    if (!universalPendingChanges){
-       universalPendingChanges = pendingChanges;
-    }
     const { searchTerm, exactMatch, searchIn, filters, ignoreDiacritics, startsWith, endsWith, rowsPerPage } = pendingChanges;
     
     let changesList = [];
@@ -86,8 +83,14 @@ export async function updatePendingChangesList(language) {
 export async function initializeFormEventListeners(allRows, rowsPerPage) {
     console.log('Initializing Form Event Listeners');
 
-    let pendingChanges = (universalPendingChanges && Object.keys(universalPendingChanges).length > 0) ? universalPendingChanges : { ...defaultPendingChanges };
-
+    let pendingChanges = universalPendingChanges ? universalPendingChanges : { ...defaultPendingChanges };
+    
+    if (!universalPendingChanges){
+     
+        universalPendingChanges = pendingChanges;
+    
+    }
+    
     console.log('Pending Changes I: ', pendingChanges);
     console.log('Universal PendingChanges I: ', universalPendingChanges);
 
