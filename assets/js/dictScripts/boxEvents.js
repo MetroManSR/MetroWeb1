@@ -55,6 +55,12 @@ export async function loadInfoBox(box, row) {
     box.appendChild(iconContainer);
 }
 
+import { getTranslatedText, createHyperlink } from './utils.js';
+import { universalPendingChanges, defaultPendingChanges } from './initFormEventListeners.js';
+
+let previouslySelectedBox = null;
+let lastClickTime = 0;
+
 /**
  * Event listener for clicks on dictionary boxes.
  *
@@ -141,8 +147,8 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                         // Log for debugging
                         console.log('Derivative word:', dw, 'Related word:', relatedWord);
 
-                        // Return a string with the title and ID, formatted with a hyperlink
-                        return relatedWord ? `${relatedWord.title} [${relatedWord.id}]: ${await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows)}` : dw;
+                        // Return just the hyperlinked text
+                        return relatedWord ? await createHyperlink(relatedWord.title, pendingChanges.searchTerm, allRows) : dw;
                     }));
 
                 relatedWordsElement.innerHTML = `<strong>${derivativeWordsLabel}:</strong> ${relatedWordsHtml.join(', ')}`;
@@ -164,7 +170,7 @@ export async function boxClickListener(allRows, language, pendingChanges) {
 
                 // Classify related words into respective morphs
                 for (const relatedWord of relatedWords) {
-                    const word = allRows.find(r => r.title.trim().toLowerCase() === relatedWord.trim().toLowerCase());
+                    const word = allRows.find(r => r.title.trim().toLowerCase() === relatedWord.trim().toLowerCase() && r.title.trim().toLowerCase() !== row.title.trim().toLowerCase());
                     if (word) {
                         for (const morph of word.morph) {
                             if (morphArrays[morph]) {
@@ -183,13 +189,13 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                 }, []);
 
                 const generalOverviewHtml = await Promise.all(generalOverviewArray.map(async (r) => {
-                    return `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`;
+                    return await createHyperlink(r.title, pendingChanges.searchTerm, allRows);
                 }));
 
                 const generalOverviewContainer = document.createElement('div');
                 generalOverviewContainer.innerHTML = `<strong>${generalOverviewHtml.length} ${relatedWordsLabel}:</strong> ${generalOverviewHtml.join(', ')}`;
 
-                if (generalOverviewContainer.scrollHeight > 3 * parseFloat(getComputedStyle(generalOverviewContainer).lineHeight)) {
+                if (generalOverviewContainer.childElementCount > 15) {
                     generalOverviewContainer.classList.add('scrollable-box');
                 }
 
@@ -209,13 +215,13 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                             event.stopPropagation();
                             console.log('Clicked morph button:', morph); // Debugging
                             const morphRelatedWords = await Promise.all(morphArrays[morph].map(async (r) => {
-                                return `${r.title} [${r.id}]: ${await createHyperlink(r.title, pendingChanges.searchTerm, allRows)}`;
+                                return await createHyperlink(r.title, pendingChanges.searchTerm, allRows);
                             }));
 
                             const morphRelatedWordsElement = document.createElement('div');
                             morphRelatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${morphRelatedWords.join(', ')}`;
 
-                            if (morphRelatedWordsElement.scrollHeight > 3 * parseFloat(getComputedStyle(morphRelatedWordsElement).lineHeight)) {
+                            if (morphRelatedWordsElement.childElementCount > 15) {
                                 morphRelatedWordsElement.classList.add('scrollable-box');
                             }
 
@@ -233,6 +239,15 @@ export async function boxClickListener(allRows, language, pendingChanges) {
                 relatedWordsElement.innerHTML = `<strong>${relatedWordsLabel}:</strong> ${await getTranslatedText('noneFound', language)}`;
             }
         }
+
+        // Add tooltip for meta information on hover
+        relatedWordsElement.querySelectorAll('a').forEach(link => {
+            const relatedWordTitle = link.textContent.trim().toLowerCase();
+            const relatedWord = allRows.find(r => r.title.trim().toLowerCase() === relatedWordTitle);
+            if (relatedWord) {
+                link.title = relatedWord.meta || '';
+            }
+        });
 
         box.appendChild(relatedWordsElement);
 
