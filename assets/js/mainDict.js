@@ -4,7 +4,7 @@ import { initAdvancedSearchPopup, initStatisticsPopup } from './dictScripts/popu
 import { initializeButtonEventListeners } from './dictScripts/initButtonEventListeners.js';
 import { updatePendingChangesList } from './dictScripts/initFormEventListeners.js';
 import { createPaginationControls } from './dictScripts/pagination.js';
-import { processAllSettings, sortRows, displayPage, wordSpecific, rootSpecific, displaySpecificEntry } from './dictScripts/processRows.js';
+import { processAllSettings, sortRows, displayPage } from './dictScripts/processRows.js';
 import { cleanData } from './dictScripts/csvUtils.js';
 import { getRelatedWordsByRoot, displayError } from './dictScripts/utils.js';
 import { boxClickListener } from './dictScripts/boxEvents.js';
